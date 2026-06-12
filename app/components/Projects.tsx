@@ -52,7 +52,7 @@ const PROJECTS: Project[] = [
     category: 'ai',
     status: 'completed',
     technologies: ['Express.js', 'Claude API', 'Node.js', 'JavaScript'],
-    link: 'http://localhost:3004/',
+    link: '/moi',
   },
   {
     id: 'python-ubungen',
