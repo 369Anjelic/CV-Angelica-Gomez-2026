@@ -42,7 +42,7 @@ const PROJECTS: Project[] = [
     category: 'game',
     status: 'completed',
     technologies: ['Node.js', 'Express', 'Canvas', 'JavaScript'],
-    link: 'http://localhost:3003/',
+    link: '/glitch',
   },
   {
     id: 'moi-bot',

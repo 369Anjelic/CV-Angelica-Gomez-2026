@@ -59,6 +59,11 @@ timeout /t 2
 echo [5/5] Starte Flight Trainer auf PORT 3002...
 start "Flight Trainer - localhost:3002" cmd /k "cd "%ORIGINAL_DIR%\projekte\2 projekt fly" && npm start"
 
+timeout /t 2
+
+echo [6/6] Starte Glitch verbessert auf PORT 3003...
+start "Glitch - localhost:3003" cmd /k "cd "%ORIGINAL_DIR%\projekte\3 projekt Glitch" && npm start"
+
 timeout /t 3
 
 cls
@@ -72,6 +77,7 @@ echo.
 echo Projekte:
 echo   Kaspar Quest:   http://localhost:3000/kaspar (Port 3001)
 echo   Flight Trainer: http://localhost:3000/fly (Port 3002)
+echo   Glitch:         http://localhost:3000/glitch (Port 3003)
 echo.
 echo Fenster NICHT schliessen - Server laufen im Hintergrund!
 echo Zum Beenden: Schliesse alle CMD-Fenster
