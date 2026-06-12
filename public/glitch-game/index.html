@@ -1807,7 +1807,15 @@
                 learningProgress: {},
                 learnedTopics: {}, // Track welche Topics gelernt wurden
 
-                API_URL: 'http://localhost:3003',
+                get API_URL() {
+                    const hostname = window.location.hostname;
+                    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+                        return 'http://localhost:3003';
+                    } else if (hostname.includes('vercel') || hostname.includes('cv-angelica')) {
+                        return '/api/glitch';
+                    }
+                    return 'http://localhost:3003';
+                },
 
                 // Definiere alle Topics pro Lernfeld
                 topicMap: {
@@ -2908,7 +2916,11 @@ print("Hallo Python!")
             outputDiv.textContent = '⏳ Code wird ausgeführt...';
 
             try {
-                const response = await fetch('/execute-python', {
+                const hostname = window.location.hostname;
+                const baseUrl = (hostname === 'localhost' || hostname === '127.0.0.1')
+                    ? 'http://localhost:3003'
+                    : '/api/glitch';
+                const response = await fetch(`${baseUrl}/execute-python`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -2974,7 +2986,11 @@ print("Hallo Python!")
             chatDiv.scrollTop = chatDiv.scrollHeight;
 
             try {
-                const response = await fetch('/chat', {
+                const hostname = window.location.hostname;
+                const baseUrl = (hostname === 'localhost' || hostname === '127.0.0.1')
+                    ? 'http://localhost:3003'
+                    : '/api/glitch';
+                const response = await fetch(`${baseUrl}/chat`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
