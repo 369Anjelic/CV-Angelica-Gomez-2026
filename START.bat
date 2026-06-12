@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 > nul
 title CV Homepage & Kaspar Hauser Quest - Lokale Server
 color 0A
 cls
@@ -17,6 +18,9 @@ if errorlevel 1 (
     exit /b 1
 )
 
+REM Speichere aktuelles Verzeichnis
+set ORIGINAL_DIR=%cd%
+
 REM Installiere Dependencies im Main Project
 echo [1/4] Installiere Dependencies im CV-Projekt...
 call npm install
@@ -28,9 +32,9 @@ if errorlevel 1 (
 
 REM Installiere Dependencies im Kaspar Projekt
 echo [2/4] Installiere Dependencies im Kaspar Hauser Projekt...
-cd projekte\1\ kaspar-hauser-quest
+cd "projekte\1 kaspar-hauser-quest"
 call npm install
-cd ..\..\..\
+cd "%ORIGINAL_DIR%"
 if errorlevel 1 (
     echo ERROR: Kaspar npm install fehlgeschlagen!
     pause
@@ -45,21 +49,24 @@ echo.
 echo [3/4] Starte CV Homepage auf PORT 3000...
 start "CV Homepage - localhost:3000" npm run dev
 
+timeout /t 2
+
 echo [4/4] Starte Kaspar Hauser API auf PORT 3001...
-start "Kaspar Hauser - localhost:3001" cmd /k "cd projekte\1\ kaspar-hauser-quest && npm start"
+start "Kaspar Hauser - localhost:3001" cmd /k "cd "%ORIGINAL_DIR%\projekte\1 kaspar-hauser-quest" && npm start"
 
 timeout /t 3
 
+cls
 echo.
 echo ============================================
-echo  ALLE SERVER GESTARTET!
+echo  ✓ ALLE SERVER GESTARTET!
 echo ============================================
 echo.
 echo Homepage:       http://localhost:3000
 echo Kaspar Quest:   http://localhost:3000/kaspar
 echo Kaspar API:     http://localhost:3001
 echo.
-echo Windows werden in 30 Sekunden geschlossen...
-echo Um Server am Laufen zu halten, Fenster NICHT schliessen!
+echo Fenster NICHT schliessen - Server laufen im Hintergrund!
+echo Zum Beenden: Schliesse beide CMD-Fenster
 echo.
-timeout /t 30
+pause

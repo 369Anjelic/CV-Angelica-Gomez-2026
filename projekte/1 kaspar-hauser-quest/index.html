@@ -1525,10 +1525,11 @@ async function generateJoinQR() {
   if (!teamCode) {
     try {
       let apiUrl = '/api/team/create';
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      const hostname = window.location.hostname;
+      if (hostname === 'localhost' || hostname === '127.0.0.1') {
         apiUrl = 'http://localhost:3001/api/team/create';
-      } else if (window.location.pathname.includes('/kaspar')) {
-        apiUrl = '/api/kaspar/team/create';
+      } else if (hostname.includes('vercel') || hostname.includes('cv-angelica')) {
+        apiUrl = '/api/kaspar';
       }
     const r = await fetch(apiUrl, {
         method:'POST', headers:{'Content-Type':'application/json'},
@@ -1570,10 +1571,11 @@ function startTeamPolling(code) {
   teamPollInterval = setInterval(async () => {
     try {
       let apiUrl = `/api/team/${code}`;
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      const hostname = window.location.hostname;
+      if (hostname === 'localhost' || hostname === '127.0.0.1') {
         apiUrl = `http://localhost:3001/api/team/${code}`;
-      } else if (window.location.pathname.includes('/kaspar')) {
-        apiUrl = `/api/kaspar/team/${code}`;
+      } else if (hostname.includes('vercel') || hostname.includes('cv-angelica')) {
+        apiUrl = '/api/kaspar';
       }
     const r = await fetch(apiUrl);
       if (!r.ok) return;
@@ -1825,9 +1827,11 @@ async function sendMessage() {
   try {
     const token = localStorage.getItem('kq_token');
     let apiUrl = '/api/bot';
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    const hostname = window.location.hostname;
+
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
       apiUrl = 'http://localhost:3001/api/bot';
-    } else if (window.location.pathname.includes('/kaspar')) {
+    } else if (hostname.includes('vercel') || hostname.includes('cv-angelica')) {
       apiUrl = '/api/kaspar';
     }
     const r = await fetch(apiUrl, {
@@ -2771,10 +2775,11 @@ async function logEvent(eventName, data = {}) {
   if (userProfile && userProfile.code) {
     try {
       let apiUrl = `/api/profiles/${encodeURIComponent(userProfile.code)}/log`;
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      const hostname = window.location.hostname;
+      if (hostname === 'localhost' || hostname === '127.0.0.1') {
         apiUrl = `http://localhost:3001/api/profiles/${encodeURIComponent(userProfile.code)}/log`;
-      } else if (window.location.pathname.includes('/kaspar')) {
-        apiUrl = `/api/kaspar/profile/${encodeURIComponent(userProfile.code)}`;
+      } else if (hostname.includes('vercel') || hostname.includes('cv-angelica')) {
+        apiUrl = '/api/kaspar';
       }
     await fetch(apiUrl, {
         method: 'POST',
