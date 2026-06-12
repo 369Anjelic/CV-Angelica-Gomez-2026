@@ -1524,7 +1524,8 @@ async function generateJoinQR() {
   let teamCode = questState.teamCode;
   if (!teamCode) {
     try {
-      const r = await fetch('/api/team/create', {
+      const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001/api/team/create' : '/api/team/create';
+    const r = await fetch(apiUrl, {
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({ spotIndex:questState.currentIndex, spotName:q.name, playerPoints:questState.totalPoints })
       });
@@ -1563,7 +1564,8 @@ function startTeamPolling(code) {
   if (teamPollInterval) clearInterval(teamPollInterval);
   teamPollInterval = setInterval(async () => {
     try {
-      const r = await fetch('/api/team/' + code);
+      const apiUrl = window.location.hostname === 'localhost' ? `http://localhost:3001/api/team/${code}` : `/api/team/${code}`;
+    const r = await fetch(apiUrl);
       if (!r.ok) return;
       const d = await r.json();
       if (d.joined && !questState.teamReady) {
@@ -1812,7 +1814,8 @@ async function sendMessage() {
   btn.disabled = true;
   try {
     const token = localStorage.getItem('kq_token');
-    const r = await fetch('/api/bot', {
+    const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001/api/bot' : '/api/bot';
+    const r = await fetch(apiUrl, {
       method:'POST',
       headers:{'Content-Type':'application/json', ...(token?{'Authorization':'Bearer '+token}:{})},
       body:JSON.stringify({ message:msg, history:chatHistory })
@@ -2752,7 +2755,8 @@ async function logEvent(eventName, data = {}) {
   // Sende auch zum Backend wenn Profil existiert
   if (userProfile && userProfile.code) {
     try {
-      await fetch(`/api/profiles/${encodeURIComponent(userProfile.code)}/log`, {
+      const apiUrl = window.location.hostname === 'localhost' ? `http://localhost:3001/api/profiles/${encodeURIComponent(userProfile.code)}/log` : `/api/profiles/${encodeURIComponent(userProfile.code)}/log`;
+    await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ event: eventName, data })

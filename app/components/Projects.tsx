@@ -22,7 +22,7 @@ const PROJECTS: Project[] = [
     category: 'game',
     status: 'completed',
     technologies: ['Express.js', 'React', 'Claude API', 'JavaScript'],
-    link: 'http://localhost:3000/',
+    link: '/kaspar',
   },
   {
     id: 'fly-game',
