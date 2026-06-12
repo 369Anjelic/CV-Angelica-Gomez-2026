@@ -1,7 +1,15 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 export default function KasparPage() {
-  const iframeUrl = typeof window !== 'undefined' && window.location.hostname === 'localhost'
-    ? 'http://localhost:3001'
-    : '/kaspar-game/index.html';
+  const [iframeUrl, setIframeUrl] = useState('/kaspar-game/index.html');
+
+  useEffect(() => {
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      setIframeUrl('http://localhost:3001');
+    }
+  }, []);
 
   return (
     <iframe
