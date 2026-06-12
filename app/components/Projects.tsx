@@ -72,7 +72,7 @@ const PROJECTS: Project[] = [
     category: 'web',
     status: 'completed',
     technologies: ['HTML5', 'JavaScript', 'CSS'],
-    link: 'http://localhost:3006/',
+    link: '/umfrage',
   },
 ];
 
