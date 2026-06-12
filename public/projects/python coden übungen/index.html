@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python Coding Übungen - IDE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      background: #252526;
+      border-bottom: 1px solid #3e3e42;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header h1 {
+      font-size: 16px;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .header-badge {
+      background: #007acc;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+
+    /* Main Content */
+    .main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: #1e1e1e;
+      border-right: 1px solid #3e3e42;
+      overflow-y: auto;
+      padding: 10px 0;
+    }
+
+    .exercise-item {
+      padding: 8px 15px;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+      user-select: none;
+      font-size: 13px;
+    }
+
+    .exercise-item:hover {
+      background: #2d2d30;
+    }
+
+    .exercise-item.active {
+      background: #007acc;
+      border-left-color: #007acc;
+      color: #fff;
+    }
+
+    .exercise-label {
+      font-weight: 500;
+      color: #b4b4b4;
+    }
+
+    .exercise-item.active .exercise-label {
+      color: #fff;
+    }
+
+    /* Editor Area */
+    .editor-area {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Code Panel */
+    .code-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #3e3e42;
+    }
+
+    .panel-header {
+      background: #252526;
+      border-bottom: 1px solid #3e3e42;
+      padding: 10px 15px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #d4d4d4;
+    }
+
+    .code-editor {
+      flex: 1;
+      overflow-y: auto;
+      position: relative;
+      background: #1e1e1e;
+    }
+
+    .code-content {
+      padding: 15px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    pre {
+      margin: 0;
+      background: #1e1e1e !important;
+    }
+
+    code {
+      background: #1e1e1e !important;
+      color: #d4d4d4 !important;
+    }
+
+    .hljs {
+      background: #1e1e1e !important;
+      color: #d4d4d4 !important;
+    }
+
+    /* Terminal Panel */
+    .terminal-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #1e1e1e;
+    }
+
+    .terminal {
+      flex: 1;
+      overflow-y: auto;
+      background: #000;
+      padding: 15px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #0dff00;
+    }
+
+    .terminal-line {
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .terminal-input {
+      color: #ffaa00;
+      margin: 5px 0;
+    }
+
+    .terminal-output {
+      color: #0dff00;
+      margin: 3px 0;
+    }
+
+    .terminal-error {
+      color: #ff0000;
+      margin: 3px 0;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1e1e1e;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #464647;
+      border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #5a5a5a;
+    }
+
+    /* Info Text */
+    .exercise-description {
+      padding: 15px;
+      background: #252526;
+      border-top: 1px solid #3e3e42;
+      font-size: 12px;
+      color: #a0a0a0;
+      max-height: 100px;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 1200px) {
+      .sidebar {
+        width: 240px;
+      }
+      .exercise-item {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .editor-area {
+        flex-direction: column;
+      }
+
+      .code-panel {
+        flex: 0.5;
+        border-right: none;
+        border-bottom: 1px solid #3e3e42;
+      }
+
+      .terminal-panel {
+        flex: 0.5;
+      }
+
+      .sidebar {
+        width: 100%;
+        max-height: 150px;
+        border-right: none;
+        border-bottom: 1px solid #3e3e42;
+        display: flex;
+        overflow-x: auto;
+      }
+
+      .exercise-item {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🐍 Python Coding Übungen</h1>
+      <span class="header-badge">VS IDE</span>
+    </div>
+
+    <div class="main">
+      <div class="sidebar" id="sidebar"></div>
+
+      <div class="editor-area">
+        <div class="code-panel">
+          <div class="panel-header">📄 Code (main.py)</div>
+          <div class="code-editor">
+            <div class="code-content">
+              <pre><code class="language-python" id="code-display"></code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="terminal-panel">
+          <div class="panel-header">🖥️ Terminal / Output</div>
+          <div class="terminal" id="terminal">
+            <div class="terminal-line">$ python main.py</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Exercise Data
+    const exercises = [
+      {
+        id: '01_calculator',
+        name: '01 - Calculator',
+        description: 'Einfacher Taschenrechner mit Grundoperationen',
+        code: `# Einfacher Taschenrechner
+print("=== Einfacher Taschenrechner ===")
+
+num1 = float(input("Erste Zahl eingeben: "))
+num2 = float(input("Zweite Zahl eingeben: "))
+
+print("\\nWähle Operation:")
+print("1. Addition (+)")
+print("2. Subtraktion (-)")
+print("3. Multiplikation (*)")
+print("4. Division (/)")
+
+operation = input("\\nWähle (1/2/3/4): ")
+
+if operation == "1":
+    print(f"Ergebnis: {num1} + {num2} = {num1 + num2}")
+elif operation == "2":
+    print(f"Ergebnis: {num1} - {num2} = {num1 - num2}")
+elif operation == "3":
+    print(f"Ergebnis: {num1} * {num2} = {num1 * num2}")
+elif operation == "4":
+    if num2 != 0:
+        print(f"Ergebnis: {num1} / {num2} = {num1 / num2}")
+    else:
+        print("Fehler: Division durch Null!")`,
+        output: `=== Einfacher Taschenrechner ===
+Erste Zahl eingeben: 10
+Zweite Zahl eingeben: 5
+
+Wähle Operation:
+1. Addition (+)
+2. Subtraktion (-)
+3. Multiplikation (*)
+4. Division (/)
+
+Wähle (1/2/3/4): 1
+Ergebnis: 10.0 + 5.0 = 15.0`
+      },
+      {
+        id: '02_madlibs',
+        name: '02 - Mad Libs',
+        description: 'Story-Generator mit benutzerdefinierten Wörtern',
+        code: `# Mad Libs Generator
+print("=== Mad Libs Story Generator ===\\n")
+
+adjective = input("Adjektiv: ")
+noun = input("Nomen: ")
+verb = input("Verb: ")
+adverb = input("Adverb: ")
+
+story = f"""
+Es war einmal ein {adjective} {noun}.
+Der {noun} begann zu {verb} {adverb}.
+"Das ist fantastisch!" rief jemand.
+"""
+
+print(story)`,
+        output: `=== Mad Libs Story Generator ===
+
+Adjektiv: magisch
+Nomen: Drache
+Verb: fliegen
+Adverb: schnell
+
+Es war einmal ein magisch Drache.
+Der Drache begann zu fliegen schnell.
+"Das ist fantastisch!" rief jemand.`
+      },
+      {
+        id: '03_number_guessing',
+        name: '03 - Number Guessing',
+        description: 'Zahlenratespiel mit Hinweisen',
+        code: `# Zahlenratespiel
+import random
+
+print("=== Zahlenratespiel ===")
+secret = random.randint(1, 100)
+attempts = 0
+
+while True:
+    guess = int(input("Raten Sie eine Zahl (1-100): "))
+    attempts += 1
+
+    if guess < secret:
+        print("➜ Zu klein!")
+    elif guess > secret:
+        print("➜ Zu groß!")
+    else:
+        print(f"🎉 Richtig! Sie haben {attempts} Versuche benötigt!")
+        break`,
+        output: `=== Zahlenratespiel ===
+Raten Sie eine Zahl (1-100): 50
+➜ Zu klein!
+Raten Sie eine Zahl (1-100): 75
+➜ Zu groß!
+Raten Sie eine Zahl (1-100): 60
+➜ Zu klein!
+Raten Sie eine Zahl (1-100): 65
+🎉 Richtig! Sie haben 4 Versuche benötigt!`
+      },
+      {
+        id: '04_coin_flip',
+        name: '04 - Coin Flip',
+        description: 'Münzwurf-Simulator mit Statistik',
+        code: `# Münzwurf-Simulator
+import random
+
+print("=== Münzwurf-Simulator ===\\n")
+
+flips = int(input("Wie viele Würfe? "))
+heads = 0
+tails = 0
+
+for _ in range(flips):
+    result = random.choice(["Kopf", "Zahl"])
+    if result == "Kopf":
+        heads += 1
+    else:
+        tails += 1
+
+print(f"\\nErgebnisse:")
+print(f"Kopf:  {heads} ({heads/flips*100:.1f}%)")
+print(f"Zahl:  {tails} ({tails/flips*100:.1f}%)")`,
+        output: `=== Münzwurf-Simulator ===
+
+Wie viele Würfe? 100
+
+Ergebnisse:
+Kopf:  52 (52.0%)
+Zahl:  48 (48.0%)`
+      },
+      {
+        id: '05_rock_paper_scissors',
+        name: '05 - Rock Paper Scissors',
+        description: 'Stein-Papier-Schere gegen den Computer',
+        code: `# Stein-Papier-Schere Spiel
+import random
+
+print("=== Stein-Papier-Schere ===")
+choices = ["Stein", "Papier", "Schere"]
+
+while True:
+    player = input("\\nWähle (Stein/Papier/Schere) oder 'quit': ").capitalize()
+    if player == "Quit":
+        break
+
+    if player not in choices:
+        print("Ungültige Wahl!")
+        continue
+
+    computer = random.choice(choices)
+    print(f"Computer wählte: {computer}")
+
+    if player == computer:
+        print("Unentschieden!")
+    elif (player == "Stein" and computer == "Schere") or \\
+         (player == "Papier" and computer == "Stein") or \\
+         (player == "Schere" and computer == "Papier"):
+        print("✓ Du gewinnst!")
+    else:
+        print("✗ Computer gewinnt!")`,
+        output: `=== Stein-Papier-Schere ===
+
+Wähle (Stein/Papier/Schere) oder 'quit': Stein
+Computer wählte: Schere
+✓ Du gewinnst!`
+      },
+      {
+        id: '06_temperature_converter',
+        name: '06 - Temperature Converter',
+        description: 'Temperatur-Umwandler Celsius/Fahrenheit',
+        code: `# Temperatur-Umwandler
+print("=== Temperatur-Umwandler ===\\n")
+
+while True:
+    print("1. Celsius → Fahrenheit")
+    print("2. Fahrenheit → Celsius")
+    print("3. Beenden")
+
+    choice = input("\\nWähle (1/2/3): ")
+
+    if choice == "1":
+        celsius = float(input("Celsius: "))
+        fahrenheit = (celsius * 9/5) + 32
+        print(f"= {fahrenheit:.1f}°F\\n")
+    elif choice == "2":
+        fahrenheit = float(input("Fahrenheit: "))
+        celsius = (fahrenheit - 32) * 5/9
+        print(f"= {celsius:.1f}°C\\n")
+    elif choice == "3":
+        break`,
+        output: `=== Temperatur-Umwandler ===
+
+1. Celsius → Fahrenheit
+2. Fahrenheit → Celsius
+3. Beenden
+
+Wähle (1/2/3): 1
+Celsius: 25
+= 77.0°F`
+      },
+      {
+        id: '07_todo_list',
+        name: '07 - Todo List',
+        description: 'Aufgabenmanager mit Hinzufügen/Löschen',
+        code: `# TODO Liste
+todos = []
+
+while True:
+    print("\\n=== TODO Liste ===")
+    for i, task in enumerate(todos, 1):
+        print(f"{i}. {task}")
+
+    print("\\n1. Task hinzufügen")
+    print("2. Task löschen")
+    print("3. Beenden")
+
+    choice = input("Wähle: ")
+
+    if choice == "1":
+        task = input("Task: ")
+        todos.append(task)
+        print("✓ Hinzugefügt!")
+    elif choice == "2":
+        num = int(input("Nummer: ")) - 1
+        if 0 <= num < len(todos):
+            todos.pop(num)
+            print("✓ Gelöscht!")
+    elif choice == "3":
+        break`,
+        output: `
+=== TODO Liste ===
+
+1. Task hinzufügen
+2. Task löschen
+3. Beenden
+
+Wähle: 1
+Task: Python lernen
+✓ Hinzugefügt!`
+      },
+      {
+        id: '08_simple_quiz',
+        name: '08 - Simple Quiz',
+        description: 'Quiz-Spiel mit Punktesystem',
+        code: `# Quiz-Spiel
+questions = [
+    ("Hauptstadt von Deutschland?", "Berlin"),
+    ("2 + 2 = ?", "4"),
+    ("Größter Planet?", "Jupiter")
+]
+
+score = 0
+
+for question, answer in questions:
+    response = input(f"\\n{question} ")
+    if response.lower() == answer.lower():
+        score += 1
+        print("✓ Richtig!")
+    else:
+        print(f"✗ Falsch! Antwort: {answer}")
+
+print(f"\\nPunktzahl: {score}/{len(questions)}")`,
+        output: `Hauptstadt von Deutschland? Berlin
+✓ Richtig!
+
+2 + 2 = ? 4
+✓ Richtig!
+
+Größter Planet? Jupiter
+✓ Richtig!
+
+Punktzahl: 3/3`
+      },
+      {
+        id: '09_password_generator',
+        name: '09 - Password Generator',
+        description: 'Sichere Passwort-Generierung',
+        code: `# Passwort-Generator
+import random
+import string
+
+print("=== Passwort-Generator ===\\n")
+
+length = int(input("Länge: "))
+include_upper = input("Großbuchstaben? (j/n): ").lower() == 'j'
+include_digits = input("Ziffern? (j/n): ").lower() == 'j'
+include_special = input("Sonderzeichen? (j/n): ").lower() == 'j'
+
+chars = string.ascii_lowercase
+if include_upper:
+    chars += string.ascii_uppercase
+if include_digits:
+    chars += string.digits
+if include_special:
+    chars += string.punctuation
+
+password = ''.join(random.choice(chars) for _ in range(length))
+print(f"\\nPasswort: {password}")`,
+        output: `=== Passwort-Generator ===
+
+Länge: 12
+Großbuchstaben? (j/n): j
+Ziffern? (j/n): j
+Sonderzeichen? (j/n): n
+
+Passwort: aB3cDeFg9hIj`
+      },
+      {
+        id: '10_bmi_calculator',
+        name: '10 - BMI Calculator',
+        description: 'BMI-Kalkulator mit Kategorisierung',
+        code: `# BMI-Kalkulator
+print("=== BMI-Kalkulator ===\\n")
+
+weight = float(input("Gewicht (kg): "))
+height = float(input("Größe (m): "))
+
+bmi = weight / (height ** 2)
+
+print(f"\\nBMI: {bmi:.1f}")
+
+if bmi < 18.5:
+    print("Kategorie: Untergewicht")
+elif bmi < 25:
+    print("Kategorie: Normalgewicht")
+elif bmi < 30:
+    print("Kategorie: Übergewicht")
+else:
+    print("Kategorie: Adipositas")`,
+        output: `=== BMI-Kalkulator ===
+
+Gewicht (kg): 75
+Größe (m): 1.8
+
+BMI: 23.1
+Kategorie: Normalgewicht`
+      },
+      {
+        id: '11_dice_roller',
+        name: '11 - Dice Roller',
+        description: 'Würfel-Simulator (z.B. 3d6, 2d20)',
+        code: `# Würfel-Roller
+import random
+
+print("=== Würfel-Roller ===\\n")
+
+notation = input("Notation (z.B. 3d6): ")
+parts = notation.lower().split('d')
+
+num_dice = int(parts[0])
+dice_size = int(parts[1])
+
+rolls = [random.randint(1, dice_size) for _ in range(num_dice)]
+
+print(f"\\nWürfe: {rolls}")
+print(f"Summe: {sum(rolls)}")`,
+        output: `=== Würfel-Roller ===
+
+Notation (z.B. 3d6): 3d6
+
+Würfe: [4, 2, 5]
+Summe: 11`
+      },
+      {
+        id: '12_random_quote',
+        name: '12 - Random Quote',
+        description: 'Zufälliges Zitat anzeigen',
+        code: `# Zitat-Generator
+import random
+
+quotes = [
+    "Das Einzige, das sich niemals ändert, ist der Wandel. - Heraklit",
+    "Die beste Zeit einen Baum zu pflanzen war vor 20 Jahren. Die zweite beste Zeit ist jetzt. - Chinesisches Sprichwort",
+    "Es ist unmöglich, bis man es getan hat. - Nelson Mandela",
+    "Der Weg zum Erfolg ist Handlung. - Pablo Picasso"
+]
+
+print("=== Zitat des Tages ===\\n")
+print(random.choice(quotes))`,
+        output: `=== Zitat des Tages ===
+
+Das Einzige, das sich niemals ändert, ist der Wandel. - Heraklit`
+      },
+      {
+        id: '13_text_analyzer',
+        name: '13 - Text Analyzer',
+        description: 'Text-Analyse (Wörter, Buchstaben, etc)',
+        code: `# Text-Analyse
+text = input("Text eingeben: ")
+
+words = text.split()
+chars = len(text)
+letters = sum(1 for c in text if c.isalpha())
+digits = sum(1 for c in text if c.isdigit())
+spaces = text.count(' ')
+
+print(f"\\nStatistik:")
+print(f"Zeichen:      {chars}")
+print(f"Buchstaben:   {letters}")
+print(f"Ziffern:      {digits}")
+print(f"Leerzeichen:  {spaces}")
+print(f"Wörter:       {len(words)}")
+print(f"Ø Wortlänge:  {chars/len(words):.1f}")`,
+        output: `Text eingeben: Hallo Welt
+
+Statistik:
+Zeichen:      11
+Buchstaben:   9
+Ziffern:      0
+Leerzeichen:  1
+Wörter:       2
+Ø Wortlänge:  5.5`
+      },
+      {
+        id: '14_word_counter',
+        name: '14 - Word Counter',
+        description: 'Wort-Frequenz-Analyse',
+        code: `# Wort-Zähler
+from collections import Counter
+
+text = input("Text eingeben: ").lower()
+words = text.replace('.', '').replace(',', '').split()
+
+counter = Counter(words)
+
+print("\\nWort-Häufigkeit:")
+for word, count in counter.most_common(5):
+    print(f"{word}: {count}")`,
+        output: `Text eingeben: Das ist ein Test. Das ist ein Beispiel.
+
+Wort-Häufigkeit:
+das: 2
+ist: 2
+ein: 2
+test: 1
+beispiel: 1`
+      },
+      {
+        id: '15_age_calculator',
+        name: '15 - Age Calculator',
+        description: 'Alter berechnen aus Geburtsdatum',
+        code: `# Alter-Kalkulator
+from datetime import datetime
+
+print("=== Alter-Kalkulator ===\\n")
+
+year = int(input("Geburtsjahr: "))
+month = int(input("Geburtsmonat (1-12): "))
+day = int(input("Geburtstag: "))
+
+birthdate = datetime(year, month, day)
+today = datetime.now()
+age = (today - birthdate).days // 365
+
+print(f"\\nAltere: {age} Jahre")`,
+        output: `=== Alter-Kalkulator ===
+
+Geburtsjahr: 1990
+Geburtsmonat (1-12): 5
+Geburtstag: 15
+
+Altere: 33 Jahre`
+      },
+      {
+        id: '16_fibonacci',
+        name: '16 - Fibonacci',
+        description: 'Fibonacci-Sequenz Generator',
+        code: `# Fibonacci-Sequenz
+def fibonacci(n):
+    sequence = [0, 1]
+    while len(sequence) < n:
+        sequence.append(sequence[-1] + sequence[-2])
+    return sequence
+
+print("=== Fibonacci-Sequenz ===\\n")
+
+count = int(input("Wie viele Zahlen? "))
+fib = fibonacci(count)
+
+print(f"\\nSequenz: {fib}")
+print(f"Summe: {sum(fib)}")`,
+        output: `=== Fibonacci-Sequenz ===
+
+Wie viele Zahlen? 10
+
+Sequenz: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+Summe: 88`
+      },
+      {
+        id: '17_palindrome_checker',
+        name: '17 - Palindrome Checker',
+        description: 'Palindrom-Prüfer',
+        code: `# Palindrom-Prüfer
+text = input("Text eingeben: ").lower().replace(" ", "")
+
+if text == text[::-1]:
+    print(f"'{text}' ist ein Palindrom! ✓")
+else:
+    print(f"'{text}' ist kein Palindrom. ✗")`,
+        output: `Text eingeben: racecar
+
+'racecar' ist ein Palindrom! ✓`
+      },
+      {
+        id: '18_hangman',
+        name: '18 - Hangman',
+        description: 'Galgenmännchen-Spiel',
+        code: `# Galgenmännchen
+import random
+
+words = ["python", "programm", "developer", "computer"]
+word = random.choice(words)
+guessed = set()
+wrong = 0
+
+while wrong < 6:
+    display = ''.join([c if c in guessed else '_' for c in word])
+    print(f"\\nWort: {display}")
+    print(f"Falsch: {wrong}/6")
+
+    guess = input("Buchstabe: ").lower()
+
+    if guess in word:
+        guessed.add(guess)
+        if all(c in guessed for c in word):
+            print(f"Gewonnen! Wort: {word}")
+            break
+    else:
+        wrong += 1`,
+        output: `Wort: _ _ _ _ _ _
+Falsch: 0/6
+Buchstabe: e
+
+Wort: _ _ _ _ _ _
+Falsch: 0/6
+Buchstabe: a
+
+Wort: _ _ _ _ a _
+Falsch: 0/6`
+      },
+      {
+        id: '19_pyramid_patterns',
+        name: '19 - Pyramid Patterns',
+        description: 'Pyramiden-Muster generieren',
+        code: `# Pyramiden-Muster
+print("=== Pyramiden-Muster ===\\n")
+
+size = int(input("Größe: "))
+
+# Pyramide mit Sternen
+print("Pyramide mit Sternen:")
+for i in range(1, size + 1):
+    print(" " * (size - i) + "*" * (2 * i - 1))
+
+# Diamant
+print("\\nDiamanlt:")
+for i in range(1, size + 1):
+    print(" " * (size - i) + "*" * (2 * i - 1))
+for i in range(size - 1, 0, -1):
+    print(" " * (size - i) + "*" * (2 * i - 1))`,
+        output: `=== Pyramiden-Muster ===
+
+Größe: 5
+Pyramide mit Sternen:
+    *
+   ***
+  *****
+ *******
+*********
+
+Diamant:
+    *
+   ***
+  *****
+ *******
+*********
+ *******
+  *****
+   ***
+    *`
+      },
+      {
+        id: '20_simple_stopwatch',
+        name: '20 - Simple Stopwatch',
+        description: 'Einfache Stoppuhr',
+        code: `# Einfache Stoppuhr
+import time
+
+print("=== Stoppuhr ===\\n")
+
+input("Starten? (Enter)")
+start_time = time.time()
+
+try:
+    while True:
+        elapsed = time.time() - start_time
+        minutes, seconds = divmod(int(elapsed), 60)
+        print(f"\\rZeit: {minutes:02d}:{seconds:02d}", end="")
+        time.sleep(0.1)
+except KeyboardInterrupt:
+    elapsed = time.time() - start_time
+    minutes, seconds = divmod(int(elapsed), 60)
+    print(f"\\n\\nGestoppt: {minutes:02d}:{seconds:02d}")`,
+        output: `=== Stoppuhr ===
+
+Starten? (Enter)
+
+Zeit: 00:05
+Zeit: 00:10
+Zeit: 00:15
+
+Gestoppt: 00:15`
+      }
+    ];
+
+    // Render Sidebar
+    function renderSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.innerHTML = exercises.map(ex => `
+        <div class="exercise-item" data-id="${ex.id}">
+          <div class="exercise-label">${ex.name}</div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.exercise-item').forEach((item, idx) => {
+        item.addEventListener('click', () => loadExercise(idx));
+        if (idx === 0) item.classList.add('active');
+      });
+    }
+
+    // Load Exercise
+    function loadExercise(idx) {
+      const exercise = exercises[idx];
+
+      // Update Active
+      document.querySelectorAll('.exercise-item').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('.exercise-item')[idx].classList.add('active');
+
+      // Update Code
+      const codeDisplay = document.getElementById('code-display');
+      codeDisplay.textContent = exercise.code;
+      hljs.highlightElement(codeDisplay);
+
+      // Update Terminal
+      const terminal = document.getElementById('terminal');
+      terminal.innerHTML = `
+        <div class="terminal-line">$ python main.py</div>
+        ${exercise.output.split('\n').map(line =>
+          `<div class="terminal-line ${line.includes('>>>') || line.includes('>>>') ? 'terminal-input' : 'terminal-output'}">${line}</div>`
+        ).join('')}
+      `;
+
+      // Scroll to top
+      document.querySelector('.code-editor').scrollTop = 0;
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    // Initialize
+    renderSidebar();
+    loadExercise(0);
+  </script>
+</body>
+</html>
