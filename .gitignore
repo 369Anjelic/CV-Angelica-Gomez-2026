@@ -6,8 +6,7 @@ node_modules/
 # Testing
 coverage/
 
-# Next.js / Production
-.next/
+# Production (aber NICHT .next und .vercel - die gehören rein!)
 out/
 build/
 dist/
@@ -69,8 +68,3 @@ Music/
 OneDrive/
 Obsidian Vault/
 NTUSER.DAT*
-
-# Vercel
-.vercel
-
-.vercel
