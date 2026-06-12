@@ -62,7 +62,7 @@ const PROJECTS: Project[] = [
     category: 'education',
     status: 'completed',
     technologies: ['Python', 'HTML5', 'JavaScript'],
-    link: 'http://localhost:3005/',
+    link: '/python',
   },
   {
     id: 'umfrage',
