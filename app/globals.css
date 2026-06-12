@@ -352,35 +352,216 @@ footer a:hover {
 }
 
 /* RESPONSIVE */
+@media (max-width: 1024px) {
+  main {
+    padding: 30px;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+}
+
 @media (max-width: 768px) {
   header {
-    padding: 0 20px;
+    padding: 0 16px;
+    height: 60px;
   }
 
   .logo-text {
     display: none;
   }
 
+  .logo {
+    font-size: 24px;
+  }
+
   main {
-    padding: 20px;
-    margin-top: 70px;
+    padding: 16px;
+    margin-top: 60px;
   }
 
   .hero {
-    padding: 40px 20px;
+    padding: 30px 16px;
+    margin-bottom: 30px;
   }
 
   .hero h1 {
-    font-size: 32px;
+    font-size: 28px;
+  }
+
+  .hero > p:first-of-type {
+    font-size: 16px;
+  }
+
+  .hero .description {
+    font-size: 14px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .stat {
+    padding: 16px;
+  }
+
+  .stat-number {
+    font-size: 24px;
+  }
+
+  .stat-label {
+    font-size: 12px;
   }
 
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .project-card {
+    padding: 16px;
+  }
+
+  .project-icon {
+    font-size: 28px;
+  }
+
+  .project-title {
+    font-size: 16px;
+  }
+
+  .project-description {
+    font-size: 13px;
+  }
+
+  .project-link {
+    padding: 10px 16px;
+    font-size: 12px;
   }
 
   .filter-tabs {
     justify-content: flex-start;
     overflow-x: auto;
     padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .projects-header h2 {
+    font-size: 28px;
+  }
+
+  .projects-header p {
+    font-size: 14px;
+  }
+
+  footer {
+    padding: 30px 16px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 0 12px;
+    height: 56px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  main {
+    padding: 12px;
+    margin-top: 56px;
+  }
+
+  .hero {
+    padding: 20px 12px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: 22px;
+  }
+
+  .hero > p:first-of-type {
+    font-size: 14px;
+  }
+
+  .hero .description {
+    font-size: 13px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .stat {
+    padding: 12px;
+  }
+
+  .stat-number {
+    font-size: 20px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+
+  .project-card {
+    padding: 12px;
+  }
+
+  .project-icon {
+    font-size: 24px;
+  }
+
+  .project-title {
+    font-size: 15px;
+  }
+
+  .project-description {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .tech-tag {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .project-link {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .projects-header h2 {
+    font-size: 22px;
+  }
+
+  .projects-header p {
+    font-size: 13px;
+  }
+
+  footer {
+    padding: 20px 12px;
   }
 }
