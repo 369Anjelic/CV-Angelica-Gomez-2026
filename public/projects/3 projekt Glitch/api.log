@@ -1,0 +1,8 @@
+◇ injected env (1) from .env // tip: ⌘ suppress logs { quiet: true }
+
+╔════════════════════════════════════════╗
+║   Glitch Local API Server mit Claude   ║
+║   http://localhost:3003               ║
+║   Powered by Anthropic Claude          ║
+╚════════════════════════════════════════╝
+    

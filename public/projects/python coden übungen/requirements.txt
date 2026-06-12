@@ -1,7 +1,0 @@
-# Keine externen Dependencies erforderlich
-# Diese Projekte verwenden nur die Python Standard Library
-
-# Wenn du später Projekte ausbauen möchtest, kannst du hier Dependencies hinzufügen
-# Beispiel:
-# requests==2.28.0
-# numpy==1.23.0

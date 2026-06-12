@@ -1,0 +1,27 @@
+::1 - - [04/Jun/2026 07:18:17] "GET / HTTP/1.1" 304 -
+::1 - - [04/Jun/2026 07:18:18] code 404, message File not found
+::1 - - [04/Jun/2026 07:18:18] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [04/Jun/2026 07:20:51] "GET / HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('::1', 63566, 0, 0)
+Traceback (most recent call last):
+  File "C:\Users\Anjel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Anjel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 1311, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\Anjel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Anjel\AppData\Local\Programs\Python\Python312\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Anjel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Anjel\AppData\Local\Programs\Python\Python312\Lib\http\server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Anjel\AppData\Local\Programs\Python\Python312\Lib\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Eine vorhandene Verbindung wurde vom Remotehost geschlossen
+----------------------------------------
+::1 - - [04/Jun/2026 07:22:24] code 404, message File not found
+::1 - - [04/Jun/2026 07:22:24] "GET /favicon.ico HTTP/1.1" 404 -
