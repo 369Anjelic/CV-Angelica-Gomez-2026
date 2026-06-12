@@ -1524,7 +1524,12 @@ async function generateJoinQR() {
   let teamCode = questState.teamCode;
   if (!teamCode) {
     try {
-      const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001/api/team/create' : '/api/team/create';
+      let apiUrl = '/api/team/create';
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        apiUrl = 'http://localhost:3001/api/team/create';
+      } else if (window.location.pathname.includes('/kaspar')) {
+        apiUrl = '/api/kaspar/team/create';
+      }
     const r = await fetch(apiUrl, {
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({ spotIndex:questState.currentIndex, spotName:q.name, playerPoints:questState.totalPoints })
@@ -1564,7 +1569,12 @@ function startTeamPolling(code) {
   if (teamPollInterval) clearInterval(teamPollInterval);
   teamPollInterval = setInterval(async () => {
     try {
-      const apiUrl = window.location.hostname === 'localhost' ? `http://localhost:3001/api/team/${code}` : `/api/team/${code}`;
+      let apiUrl = `/api/team/${code}`;
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        apiUrl = `http://localhost:3001/api/team/${code}`;
+      } else if (window.location.pathname.includes('/kaspar')) {
+        apiUrl = `/api/kaspar/team/${code}`;
+      }
     const r = await fetch(apiUrl);
       if (!r.ok) return;
       const d = await r.json();
@@ -1814,7 +1824,12 @@ async function sendMessage() {
   btn.disabled = true;
   try {
     const token = localStorage.getItem('kq_token');
-    const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001/api/bot' : '/api/bot';
+    let apiUrl = '/api/bot';
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      apiUrl = 'http://localhost:3001/api/bot';
+    } else if (window.location.pathname.includes('/kaspar')) {
+      apiUrl = '/api/kaspar';
+    }
     const r = await fetch(apiUrl, {
       method:'POST',
       headers:{'Content-Type':'application/json', ...(token?{'Authorization':'Bearer '+token}:{})},
@@ -2755,7 +2770,12 @@ async function logEvent(eventName, data = {}) {
   // Sende auch zum Backend wenn Profil existiert
   if (userProfile && userProfile.code) {
     try {
-      const apiUrl = window.location.hostname === 'localhost' ? `http://localhost:3001/api/profiles/${encodeURIComponent(userProfile.code)}/log` : `/api/profiles/${encodeURIComponent(userProfile.code)}/log`;
+      let apiUrl = `/api/profiles/${encodeURIComponent(userProfile.code)}/log`;
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        apiUrl = `http://localhost:3001/api/profiles/${encodeURIComponent(userProfile.code)}/log`;
+      } else if (window.location.pathname.includes('/kaspar')) {
+        apiUrl = `/api/kaspar/profile/${encodeURIComponent(userProfile.code)}`;
+      }
     await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
