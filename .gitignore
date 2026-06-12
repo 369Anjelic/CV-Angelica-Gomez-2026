@@ -16,7 +16,6 @@ dist/
 *.pem
 .env.local
 .env.*.local
-.env.example
 .env
 
 # Debug
@@ -68,5 +67,3 @@ Music/
 OneDrive/
 Obsidian Vault/
 NTUSER.DAT*
-
-.vercel
