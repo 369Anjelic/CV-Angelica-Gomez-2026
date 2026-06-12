@@ -32,7 +32,7 @@ const PROJECTS: Project[] = [
     category: 'game',
     status: 'completed',
     technologies: ['HTML5', 'Canvas', 'JavaScript', 'WebGL'],
-    link: 'http://localhost:3001/',
+    link: '/fly',
   },
   {
     id: 'glitch-game',

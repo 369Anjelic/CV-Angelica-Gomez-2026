@@ -54,6 +54,11 @@ timeout /t 2
 echo [4/4] Starte Kaspar Hauser API auf PORT 3001...
 start "Kaspar Hauser - localhost:3001" cmd /k "cd "%ORIGINAL_DIR%\projekte\1 kaspar-hauser-quest" && npm start"
 
+timeout /t 2
+
+echo [5/5] Starte Flight Trainer auf PORT 3002...
+start "Flight Trainer - localhost:3002" cmd /k "cd "%ORIGINAL_DIR%\projekte\2 projekt fly" && npm start"
+
 timeout /t 3
 
 cls
@@ -62,11 +67,13 @@ echo ============================================
 echo  ✓ ALLE SERVER GESTARTET!
 echo ============================================
 echo.
-echo Homepage:       http://localhost:3000
-echo Kaspar Quest:   http://localhost:3000/kaspar
-echo Kaspar API:     http://localhost:3001
+echo Homepage:         http://localhost:3000
+echo.
+echo Projekte:
+echo   Kaspar Quest:   http://localhost:3000/kaspar (Port 3001)
+echo   Flight Trainer: http://localhost:3000/fly (Port 3002)
 echo.
 echo Fenster NICHT schliessen - Server laufen im Hintergrund!
-echo Zum Beenden: Schliesse beide CMD-Fenster
+echo Zum Beenden: Schliesse alle CMD-Fenster
 echo.
 pause
