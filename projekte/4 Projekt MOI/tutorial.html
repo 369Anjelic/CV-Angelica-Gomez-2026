@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bot bauen von Anfang an | MOI Anfänger-Anleitung</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #3987b8;
+      --primary-light: #5ba3d0;
+      --primary-dark: #2a5f8a;
+      --dark: #3e4447;
+      --light-gray: #f4f5f5;
+      --text-primary: #3e4447;
+      --text-secondary: #7a8a8f;
+      --border-color: #e0e0e0;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f9fafa;
+      --success: #22c55e;
+      --warning: #f59e0b;
+    }
+
+    body {
+      font-family: "Plus Jakarta Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.8;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-bottom: 4px solid var(--primary-light);
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .progress-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .progress-step {
+      flex: 1;
+      min-width: 100px;
+      height: 8px;
+      background: var(--border-color);
+      border-radius: 4px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .progress-step:hover {
+      height: 10px;
+    }
+
+    .progress-step.active {
+      background: var(--primary);
+      box-shadow: 0 0 10px rgba(57, 135, 184, 0.3);
+    }
+
+    .progress-step.completed {
+      background: var(--success);
+    }
+
+    .step {
+      margin-bottom: 4rem;
+      scroll-margin-top: 100px;
+    }
+
+    .step h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .step-number {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .step.completed .step-number {
+      background: var(--success);
+    }
+
+    .step-content {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+      margin-bottom: 2rem;
+    }
+
+    .step-content h3 {
+      font-size: 1.3rem;
+      margin: 1.5rem 0 1rem 0;
+      color: var(--text-primary);
+    }
+
+    .step-content p {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .step-content ul {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .step-content li {
+      margin-bottom: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .code-block {
+      background: var(--dark);
+      color: #e0e0e0;
+      padding: 1.5rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-family: "Monaco", "Courier New", monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .code-copy {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .code-copy:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .code-copy.copied {
+      background: var(--success);
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      border-radius: 6px;
+      margin: 1.5rem 0;
+    }
+
+    .info-box strong {
+      color: var(--primary);
+    }
+
+    .warning-box {
+      background: #fff3cd;
+      border-left: 4px solid var(--warning);
+      padding: 1.5rem;
+      border-radius: 6px;
+      margin: 1.5rem 0;
+    }
+
+    .success-box {
+      background: #d4edda;
+      border-left: 4px solid var(--success);
+      padding: 1.5rem;
+      border-radius: 6px;
+      margin: 1.5rem 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      margin-top: 1rem;
+      margin-right: 1rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(57, 135, 184, 0.25);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .checklist {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      margin: 1.5rem 0;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .checklist-item:last-child {
+      border-bottom: none;
+    }
+
+    .checklist-checkbox {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .checklist-text {
+      flex: 1;
+      color: var(--text-secondary);
+    }
+
+    .checklist-item.checked .checklist-text {
+      color: var(--text-primary);
+      text-decoration: line-through;
+    }
+
+    .navigation {
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .nav-btn {
+      padding: 0.9rem 1.5rem;
+      border: 2px solid var(--primary);
+      background: white;
+      color: var(--primary);
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .screenshot {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      margin: 1.5rem 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .completion-badge {
+      text-align: center;
+      padding: 2rem;
+      margin: 3rem 0;
+      background: linear-gradient(135deg, #d4edda 0%, #e8f5e9 100%);
+      border-radius: 8px;
+      border: 2px solid var(--success);
+    }
+
+    .completion-badge h3 {
+      font-size: 1.8rem;
+      color: var(--success);
+      margin-bottom: 1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8rem;
+      }
+
+      .step h2 {
+        font-size: 1.5rem;
+      }
+
+      .code-block {
+        font-size: 0.85rem;
+      }
+
+      .navigation {
+        flex-direction: column;
+      }
+
+      .nav-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🤖 Bot selber bauen - Anfänger-Anleitung</h1>
+    <p>Schritt für Schritt: Von Null zum funktionierenden Bot in unter 30 Minuten!</p>
+  </div>
+
+  <div class="container">
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- SCHRITT 1 -->
+    <div class="step" id="step1">
+      <h2><span class="step-number">1</span> Was du brauchst (5 min)</h2>
+
+      <div class="step-content">
+        <h3>✅ Voraussetzungen</h3>
+        <p>Du brauchst nur 3 Dinge:</p>
+
+        <div class="checklist">
+          <div class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox" onchange="toggleChecklist(this)">
+            <span class="checklist-text"><strong>Claude Abo</strong> - Kostenlos mit grundlegem Plan von Claude.ai oder Bezahlplan</span>
+          </div>
+          <div class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox" onchange="toggleChecklist(this)">
+            <span class="checklist-text"><strong>Einen Code-Editor</strong> - VS Code (kostenlos, empfohlen)</span>
+          </div>
+          <div class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox" onchange="toggleChecklist(this)">
+            <span class="checklist-text"><strong>Node.js</strong> - Damit dein Bot laufen kann</span>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Installation - Schritt für Schritt</h3>
+
+        <h4>Schritt 1a: Claude Abo</h4>
+        <ol>
+          <li>Gehe zu <strong>claude.ai</strong></li>
+          <li>Klick auf "Sign Up" (kostenlos)</li>
+          <li>Gib deine Email ein</li>
+          <li>Bestätige die Email</li>
+          <li>Fertig! ✓ Du hast jetzt Zugriff auf Claude KI</li>
+        </ol>
+
+        <div class="info-box">
+          <strong>💡 Tipp:</strong> Der kostenlose Plan ist für Anfänger perfekt. Du kannst später upgraden wenn du mehr brauchst.
+        </div>
+
+        <h4>Schritt 1b: VS Code herunterladen</h4>
+        <ol>
+          <li>Gehe zu <strong>code.visualstudio.com</strong></li>
+          <li>Klick auf den großen grünen Download-Button</li>
+          <li>Installiere VS Code (wie jedes andere Programm)</li>
+          <li>Starten und fertig! ✓</li>
+        </ol>
+
+        <h4>Schritt 1c: Node.js installieren</h4>
+        <ol>
+          <li>Gehe zu <strong>nodejs.org</strong></li>
+          <li>Klick auf "LTS" (langfristig unterstützt, sicherer)</li>
+          <li>Installiere es (Standard-Einstellungen sind okay)</li>
+          <li>Öffne Terminal/PowerShell und gib ein:</li>
+        </ol>
+
+        <div class="code-block">
+          <button class="code-copy" onclick="copyCode(this)">Kopieren</button>
+          <pre>node --version</pre>
+        </div>
+
+        <p>Wenn eine Versionsnummer erscheint (z.B. v20.0.0), ist alles OK! ✓</p>
+
+        <div class="success-box">
+          <strong>✅ Fertig mit Schritt 1!</strong> Du hast alles, was du brauchst. Weiter zu Schritt 2!
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHRITT 2 -->
+    <div class="step" id="step2">
+      <h2><span class="step-number">2</span> Das MOI Bot-Projekt (5 min)</h2>
+
+      <div class="step-content">
+        <h3>📁 Projekt herunterladen oder klonen</h3>
+
+        <p>Es gibt zwei Möglichkeiten:</p>
+
+        <h4>Option A: Einfach (empfohlen für Anfänger)</h4>
+        <ol>
+          <li>Gehe zu diesem MOI Bot Projekt</li>
+          <li>Klick auf <strong>Code → Download ZIP</strong></li>
+          <li>Entpack die ZIP-Datei in einen Ordner deiner Wahl</li>
+          <li>Öffne den Ordner in VS Code</li>
+        </ol>
+
+        <h4>Option B: Mit Git (fortgeschrittener)</h4>
+        <div class="code-block">
+          <button class="code-copy" onclick="copyCode(this)">Kopieren</button>
+          <pre>git clone https://github.com/unwritten-studio/moi-bot.git
+cd moi-bot
+code .</pre>
+        </div>
+
+        <div class="info-box">
+          <strong>💡 Tipp:</strong> Wenn du Git nicht kennst, nimm Option A. Das ist völlig ausreichend!
+        </div>
+
+        <h3>📦 Abhängigkeiten installieren</h3>
+        <p>Der Bot braucht ein paar Programmteile ("Dependencies"). Die installierst du so:</p>
+
+        <ol>
+          <li>Öffne das Terminal in VS Code: <strong>Ctrl + Backtick</strong> (unten)</li>
+          <li>Tippe ein:</li>
+        </ol>
+
+        <div class="code-block">
+          <button class="code-copy" onclick="copyCode(this)">Kopieren</button>
+          <pre>npm install</pre>
+        </div>
+
+        <p>Das kann 1-2 Minuten dauern. Das Terminal wird sagen wenn es fertig ist.</p>
+
+        <div class="success-box">
+          <strong>✅ Fertig mit Schritt 2!</strong> Der Bot ist jetzt bereit zum Starten.
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHRITT 3 -->
+    <div class="step" id="step3">
+      <h2><span class="step-number">3</span> API Key einrichten (3 min)</h2>
+
+      <div class="step-content">
+        <h3>🔑 Claude API Key besorgen</h3>
+        <p>Der Bot muss wissen, dass ER dein Bot ist. Dafür brauchst du einen "API Key":</p>
+
+        <ol>
+          <li>Gehe zu <strong>console.anthropic.com</strong></li>
+          <li>Meld dich an (mit deinem Claude-Account)</li>
+          <li>Klick auf <strong>"API Keys"</strong> oder <strong>"Keys"</strong></li>
+          <li>Klick auf <strong>"Create Key"</strong></li>
+          <li>Gib ihm einen Namen (z.B. "MOI Bot")</li>
+          <li>Klick <strong>"Create"</strong></li>
+          <li>Kopiere den Key (beginnt mit <strong>sk-ant-</strong>)</li>
+          <li><strong>WICHTIG: Zeige diesen Key NIEMANDEM!</strong> Speichere ihn sicher!</li>
+        </ol>
+
+        <div class="warning-box">
+          <strong>⚠️ SICHERHEIT WICHTIG:</strong> Dieser Key ist wie ein Passwort. Wenn jemand ihn hat, kann er deinen BOT missbrauchen. Niemals öffentlich teilen oder in GitHub pushen!
+        </div>
+
+        <h3>.env Datei einrichten</h3>
+        <p>Der Key kommt in eine ".env" Datei:</p>
+
+        <ol>
+          <li>Öffne VS Code und gehe in den MOI-Ordner</li>
+          <li>Klick auf <strong>.env.example</strong> Datei</li>
+          <li>Kopiere den Inhalt (Ctrl+A, Ctrl+C)</li>
+          <li>Neue Datei: <strong>Ctrl+N</strong></li>
+          <li>Einfügen: <strong>Ctrl+V</strong></li>
+          <li>Speichern als ".env" (nicht .env.example!)</li>
+          <li>Suche nach <strong>ANTHROPIC_API_KEY=</strong></li>
+          <li>Ersetze "xxx" mit deinem API Key (den du gerade kopiert hast)</li>
+          <li>Speichern: <strong>Ctrl+S</strong></li>
+        </ol>
+
+        <div class="code-block">
+          <button class="code-copy" onclick="copyCode(this)">Kopieren</button>
+          <pre>ANTHROPIC_API_KEY=sk-ant-dein-key-hier-einfuegen</pre>
+        </div>
+
+        <div class="success-box">
+          <strong>✅ Fertig mit Schritt 3!</strong> Dein Bot weiß jetzt, wer er ist.
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHRITT 4 -->
+    <div class="step" id="step4">
+      <h2><span class="step-number">4</span> Erstes Starten (2 min)</h2>
+
+      <div class="step-content">
+        <h3>🚀 Server starten</h3>
+        <p>Jetzt lässt du deinen Bot laufen:</p>
+
+        <ol>
+          <li>Terminal in VS Code (Ctrl + Backtick)</li>
+          <li>Tippe ein:</li>
+        </ol>
+
+        <div class="code-block">
+          <button class="code-copy" onclick="copyCode(this)">Kopieren</button>
+          <pre>npm run server</pre>
+        </div>
+
+        <p>Du solltest sehen:</p>
+        <div class="code-block">
+          <pre>🤖 ========================================
+   MOI Bot Server v10.5.2026
+🤖 ========================================
+
+✅ Server läuft auf http://localhost:3000</pre>
+        </div>
+
+        <h3>💻 Bot im Browser öffnen</h3>
+        <ol>
+          <li>Öffne deinen Browser (Chrome, Firefox, Edge)</li>
+          <li>Gehe zu: <strong>http://localhost:3000</strong></li>
+          <li>Du siehst jetzt die MOI Bot Homepage!</li>
+        </ol>
+
+        <div class="info-box">
+          <strong>💡 Tipp:</strong> "localhost:3000" bedeutet "dieser Computer, Port 3000". Nur du kannst das sehen. Das ist wie ein lokales Testgebiet.
+        </div>
+
+        <h3>Teste deinen Bot!</h3>
+        <ol>
+          <li>Schreib eine Frage: z.B. "Wie baue ich einen Bot?"</li>
+          <li>Klick <strong>Send</strong> oder drück Enter</li>
+          <li>MOI antwortet dir mit KI-Kraft! 🎉</li>
+        </ol>
+
+        <div class="success-box">
+          <strong>✅ GLÜCKWUNSCH!</strong> Dein Bot läuft! Das war's schon!
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHRITT 5 -->
+    <div class="step" id="step5">
+      <h2><span class="step-number">5</span> Deinen Bot anpassen (10 min)</h2>
+
+      <div class="step-content">
+        <h3>🎨 Erste Anpassungen</h3>
+        <p>Jetzt machst du deinen eigenen Bot! Hier sind einfache Änderungen:</p>
+
+        <h4>Änderung 1: Bot-Name</h4>
+        <ol>
+          <li>Öffne die <strong>.env</strong> Datei</li>
+          <li>Suche: <strong>BOT_NAME=MOI</strong></li>
+          <li>Ändere zu deinem Namen, z.B.: <strong>BOT_NAME=Mein-Super-Bot</strong></li>
+          <li>Speichern</li>
+          <li>Server neustarten: Terminal, Ctrl+C zum Stoppen, dann "npm run server" wieder</li>
+        </ol>
+
+        <h4>Änderung 2: Homepage-Text</h4>
+        <ol>
+          <li>Öffne <strong>index.html</strong></li>
+          <li>Suche nach "MOI - Dein AI-Bot-Experte"</li>
+          <li>Ändere den Text zu deinem Titel</li>
+          <li>Speichern, Browser aktualisieren (F5)</li>
+        </ol>
+
+        <h4>Änderung 3: Bot-Anweisungen</h4>
+        <p>Der Bot wird durch sein "System Prompt" gesteuert:</p>
+
+        <ol>
+          <li>Öffne <strong>bot.js</strong></li>
+          <li>Suche: <strong>const SYSTEM_PROMPT =</strong></li>
+          <li>Ändere die Anweisungen, z.B.:</li>
+        </ol>
+
+        <div class="code-block">
+          <button class="code-copy" onclick="copyCode(this)">Kopieren</button>
+          <pre>const SYSTEM_PROMPT = `Du bist mein persönlicher AI-Assistent.
+- Du hilfst mir bei Programmier-Fragen
+- Du erklärst alles verständlich
+- Du gibst Tipps zum Programmieren
+- Du bist freundlich und hilfreich`;
+</pre>
+        </div>
+
+        <p>Speichern, Server neustarten, fertig!</p>
+
+        <div class="info-box">
+          <strong>💡 Tipp:</strong> Der System Prompt ist der Charakter deines Bots. Hier kannst du ihm sagen, wie er sich verhalten soll!
+        </div>
+
+        <h4>Änderung 4: Farben ändern</h4>
+        <p>Die MOI Farben sind: #3987b8 (Blau) und #3e4447 (Dunkelgrau)</p>
+        <ol>
+          <li>In der <strong>index.html</strong> oder <strong>bot.js</strong></li>
+          <li>Suche: <strong>#3987b8</strong></li>
+          <li>Ersetze mit deiner Lieblingsfarbe (z.B. #FF5733 für Orange)</li>
+          <li>Browser aktualisieren (F5)</li>
+        </ol>
+
+        <div class="success-box">
+          <strong>✅ Fertig mit Schritt 5!</strong> Dein Bot ist jetzt personalisiert!
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHRITT 6 -->
+    <div class="step" id="step6">
+      <h2><span class="step-number">6</span> Online stellen (Deployment) (5 min)</h2>
+
+      <div class="step-content">
+        <h3>🌍 Bot ins Internet bringen</h3>
+        <p>Dein Bot läuft jetzt nur lokal. Um ihn mit der Welt zu teilen, musst du ihn "deployen":</p>
+
+        <h4>Einfachste Methode: Vercel (EMPFOHLEN)</h4>
+        <ol>
+          <li>Gehe zu <strong>vercel.com</strong></li>
+          <li>Klick "Sign Up" (mit GitHub/Google/Email)</li>
+          <li>Klick "Import Project"</li>
+          <li>Paste den Link zu deinem Bot-Projekt (GitHub)</li>
+          <li>Vercel fragt nach Environment Variables</li>
+          <li>Trage ein: <strong>ANTHROPIC_API_KEY</strong> = dein API Key</li>
+          <li>Klick "Deploy"</li>
+          <li>Nach 1-2 Minuten: Dein Bot hat eine eigene URL!</li>
+        </ol>
+
+        <div class="info-box">
+          <strong>💡 Voraussetzung:</strong> Dein Projekt muss auf GitHub sein. Das ist wie OneDrive aber für Code. Kostenlos!
+        </div>
+
+        <h4>Alternative: Railway</h4>
+        <ol>
+          <li>Gehe zu <strong>railway.app</strong></li>
+          <li>Meld dich an</li>
+          <li>Klick "New Project"</li>
+          <li>Verbinde dein GitHub-Repo</li>
+          <li>Fertig! Railway macht den Rest automatisch</li>
+        </ol>
+
+        <div class="warning-box">
+          <strong>⚠️ WICHTIG:</strong> Vergiss nicht, deine Umgebungsvariablen (API Key) auf dem Hosting-Service einzubauen! Sonst funktioniert dein Bot nicht.
+        </div>
+
+        <div class="success-box">
+          <strong>✅ Fertig mit Schritt 6!</strong> Dein Bot ist jetzt online! 🎉
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHRITT 7 -->
+    <div class="step" id="step7">
+      <h2><span class="step-number">7</span> Nächste Schritte & Lernen (Zusatz)</h2>
+
+      <div class="step-content">
+        <h3>📚 Was du jetzt machen kannst</h3>
+
+        <h4>Idee 1: Speichern erweitern</h4>
+        <p>Der Bot vergisst alles nach Server-Restart. Mit einer Datenbank speichert er Gespräche:</p>
+        <ul>
+          <li>MongoDB (kostenlos, cloud-basiert)</li>
+          <li>SQLite (simpel, lokal)</li>
+          <li>PostgreSQL (professionell)</li>
+        </ul>
+
+        <h4>Idee 2: Mehr Funktionen</h4>
+        <ul>
+          <li>Bilder-Upload</li>
+          <li>Datei-Verarbeitung</li>
+          <li>Integration mit anderen APIs</li>
+          <li>Mehrsprachiger Bot</li>
+        </ul>
+
+        <h4>Idee 3: Andere Plattformen</h4>
+        <ul>
+          <li><strong>Discord Bot</strong> - Dein Bot auf Discord-Servern</li>
+          <li><strong>Telegram Bot</strong> - Nutzbar über Telegram</li>
+          <li><strong>Slack Bot</strong> - Für Arbeits-Teams</li>
+          <li><strong>WhatsApp Bot</strong> - Über WhatsApp erreichbar</li>
+        </ul>
+
+        <h3>🎓 Empfohlene Lernpfade</h3>
+        <ol>
+          <li><strong>JavaScript vertiefen</strong> - Codecademy, freeCodeCamp</li>
+          <li><strong>Node.js & Express</strong> - Backend-Grundlagen</li>
+          <li><strong>Datenbanken</strong> - Speichern für Anfänger</li>
+          <li><strong>APIs verstehen</strong> - Wie Systeme kommunizieren</li>
+        </ol>
+
+        <h3>🚀 Dein nächstes Ziel</h3>
+        <p>Schreib deine erste eigene Funktion! z.B.:</p>
+        <div class="code-block">
+          <button class="code-copy" onclick="copyCode(this)">Kopieren</button>
+          <pre>// Zählt wie oft der Bot aufgerufen wurde
+let messageCount = 0;
+
+app.post('/api/chat', (req, res) => {
+  messageCount++;
+  console.log(`Bot wurde ${messageCount} mal aufgerufen!`);
+  // ... rest des codes
+});</pre>
+        </div>
+
+        <div class="success-box">
+          <strong>🎉 DU BIST EIN BOT-DEVELOPER!</strong> Herzlichen Glückwunsch! Du hast einen funktionierenden KI-Bot gebaut und verstehst wie er funktioniert. Das ist der Anfang! 🚀
+        </div>
+      </div>
+    </div>
+
+    <!-- Abschluss -->
+    <div class="completion-badge">
+      <h3>✨ Du hast es geschafft!</h3>
+      <p>Du hast jetzt deinen eigenen Bot gebaut und ins Internet gebracht. Das ist großartig!</p>
+      <p style="margin-top: 1rem;">Das ist erst der Anfang. Jetzt kannst du:</p>
+      <ul style="margin-left: 2rem; margin-top: 1rem;">
+        <li>Den Bot immer weiter verbessern</li>
+        <li>Neue Funktionen hinzufügen</li>
+        <li>Auf anderen Plattformen deployen</li>
+        <li>Mit anderen teilen</li>
+        <li>Geld damit verdienen (später)</li>
+      </ul>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+      <button class="nav-btn" id="prevBtn" onclick="changeStep(-1)">← Zurück</button>
+      <button class="nav-btn" id="nextBtn" onclick="changeStep(1)">Weiter →</button>
+    </div>
+
+    <p style="text-align: center; color: var(--text-secondary); margin-top: 2rem;">
+      Made with ❤️ by MOI for Unwritten Studio
+    </p>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 7;
+
+    function initProgressBar() {
+      const progressBar = document.getElementById('progressBar');
+      for (let i = 1; i <= totalSteps; i++) {
+        const step = document.createElement('div');
+        step.className = 'progress-step';
+        if (i === currentStep) step.classList.add('active');
+        step.onclick = () => goToStep(i);
+        progressBar.appendChild(step);
+      }
+    }
+
+    function updateProgressBar() {
+      const steps = document.querySelectorAll('.progress-step');
+      steps.forEach((step, index) => {
+        step.classList.remove('active', 'completed');
+        if (index + 1 < currentStep) {
+          step.classList.add('completed');
+        } else if (index + 1 === currentStep) {
+          step.classList.add('active');
+        }
+      });
+    }
+
+    function showStep(stepNumber) {
+      for (let i = 1; i <= totalSteps; i++) {
+        const step = document.getElementById(`step${i}`);
+        step.classList.add('hidden');
+      }
+      document.getElementById(`step${stepNumber}`).classList.remove('hidden');
+      updateProgressBar();
+      updateNavigationButtons();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goToStep(stepNumber) {
+      currentStep = stepNumber;
+      showStep(currentStep);
+    }
+
+    function changeStep(direction) {
+      const newStep = currentStep + direction;
+      if (newStep >= 1 && newStep <= totalSteps) {
+        goToStep(newStep);
+      }
+    }
+
+    function updateNavigationButtons() {
+      document.getElementById('prevBtn').disabled = currentStep === 1;
+      document.getElementById('nextBtn').disabled = currentStep === totalSteps;
+    }
+
+    function copyCode(button) {
+      const code = button.nextElementSibling.textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        button.textContent = '✓ Kopiert!';
+        button.classList.add('copied');
+        setTimeout(() => {
+          button.textContent = 'Kopieren';
+          button.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    function toggleChecklist(checkbox) {
+      checkbox.parentElement.classList.toggle('checked');
+    }
+
+    // Initialisierung
+    initProgressBar();
+    showStep(1);
+  </script>
+</body>
+</html>

@@ -1,0 +1,707 @@
+{
+  "version": "1.0",
+  "language": "de",
+  "lastUpdated": "2026-05-06",
+  "targetAudience": "IHK Fachinformatiker - Anwendungsentwicklung",
+  "totalLernfelder": 18,
+  "lernfelder": [
+    {
+      "id": "LF1",
+      "name": "IT-Systeme",
+      "beschreibung": "Basis-Hardware und Software verstehen",
+      "dauer": "8 Wochen",
+      "schwierigkeit": "Anfänger",
+      "topics": [
+        {
+          "name": "Prozessoren und Speicher",
+          "keywords": ["CPU", "RAM", "Cache", "Speicherhierarchie"]
+        },
+        {
+          "name": "Betriebssysteme",
+          "keywords": ["Windows", "Linux", "macOS", "Kernel", "Prozesse"]
+        },
+        {
+          "name": "Netzwerk-Grundlagen",
+          "keywords": ["OSI-Modell", "TCP/IP", "IP-Adressen", "DNS", "Router"]
+        },
+        {
+          "name": "Peripherie und Schnittstellen",
+          "keywords": ["USB", "HDMI", "Ethernet", "BIOS", "UEFI"]
+        }
+      ],
+      "beispielFragen": [
+        "Was ist der Unterschied zwischen RAM und Festplatte?",
+        "Erkläre die 7 Schichten des OSI-Modells",
+        "Wie funktioniert DNS?",
+        "Was ist eine IP-Adresse und Subnetzmaske?"
+      ]
+    },
+    {
+      "id": "LF2",
+      "name": "Programmiergrundlagen",
+      "beschreibung": "Erste Schritte in einer Programmiersprache",
+      "dauer": "12 Wochen",
+      "schwierigkeit": "Anfänger",
+      "topics": [
+        {
+          "name": "Variablen und Datentypen",
+          "keywords": ["int", "string", "boolean", "float", "double", "char"]
+        },
+        {
+          "name": "Kontrollstrukturen",
+          "keywords": ["if/else", "switch/case", "Bedingungen"]
+        },
+        {
+          "name": "Schleifen",
+          "keywords": ["for", "while", "do-while", "forEach", "Iteration"]
+        },
+        {
+          "name": "Funktionen und Methoden",
+          "keywords": ["Parameter", "Return", "Scope", "Überladung"]
+        },
+        {
+          "name": "Arrays und Kollektionen",
+          "keywords": ["Array", "List", "HashMap", "Set", "Index"]
+        },
+        {
+          "name": "Objekt-orientierte Programmierung",
+          "keywords": ["Klasse", "Objekt", "Vererbung", "Polymorphismus", "Encapsulation"]
+        },
+        {
+          "name": "Fehlerbehandlung",
+          "keywords": ["try-catch", "Exception", "finally", "Throw"]
+        }
+      ],
+      "beispielFragen": [
+        "Was ist der Unterschied zwischen == und equals() in Java?",
+        "Wie funktioniert Vererbung?",
+        "Was macht diese Schleife?",
+        "Schreib eine Funktion die Palindrome prüft"
+      ]
+    },
+    {
+      "id": "LF3",
+      "name": "Datenbanken",
+      "beschreibung": "Daten strukturieren und abrufen",
+      "dauer": "10 Wochen",
+      "schwierigkeit": "Mittler",
+      "topics": [
+        {
+          "name": "Relationskonzepte",
+          "keywords": ["Tabelle", "Record", "Feld", "Spalte", "Zeile"]
+        },
+        {
+          "name": "Normalisierung",
+          "keywords": ["1NF", "2NF", "3NF", "BCNF", "Redundanzfreiheit"]
+        },
+        {
+          "name": "SQL SELECT",
+          "keywords": ["WHERE", "ORDER BY", "LIMIT", "DISTINCT"]
+        },
+        {
+          "name": "SQL Joins",
+          "keywords": ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL OUTER JOIN"]
+        },
+        {
+          "name": "Aggregationen",
+          "keywords": ["COUNT", "SUM", "AVG", "MIN", "MAX", "GROUP BY"]
+        },
+        {
+          "name": "Modifikationen",
+          "keywords": ["INSERT", "UPDATE", "DELETE", "TRUNCATE"]
+        },
+        {
+          "name": "Schlüssel und Indizes",
+          "keywords": ["Primary Key", "Foreign Key", "Unique", "Index", "Performance"]
+        },
+        {
+          "name": "Transaktionen",
+          "keywords": ["ACID", "Commit", "Rollback", "Isolation Levels"]
+        }
+      ],
+      "beispielFragen": [
+        "Schreib eine SQL-Query die...?",
+        "Was ist eine Third Normal Form?",
+        "Erkläre den Unterschied zwischen INNER und LEFT JOIN",
+        "Warum ist Normalisierung wichtig?"
+      ]
+    },
+    {
+      "id": "LF4",
+      "name": "Frontend - HTML/CSS/UI",
+      "beschreibung": "Benutzeroberflächen gestalten",
+      "dauer": "12 Wochen",
+      "schwierigkeit": "Mittler",
+      "topics": [
+        {
+          "name": "HTML5 Struktur",
+          "keywords": ["Semantisches HTML", "div", "section", "article", "header", "footer", "nav"]
+        },
+        {
+          "name": "Formulare",
+          "keywords": ["input", "textarea", "select", "button", "validation"]
+        },
+        {
+          "name": "CSS Selektoren",
+          "keywords": ["class", "id", "element", "pseudo-class", "Spezifität"]
+        },
+        {
+          "name": "CSS Box-Model",
+          "keywords": ["margin", "padding", "border", "content", "width", "height"]
+        },
+        {
+          "name": "Layouts",
+          "keywords": ["Flexbox", "Grid", "Float", "Positioning"]
+        },
+        {
+          "name": "Responsive Design",
+          "keywords": ["Media Queries", "Mobile-First", "Breakpoints", "Viewport"]
+        },
+        {
+          "name": "Styling",
+          "keywords": ["Farben", "Typographie", "Schatten", "Übergänge", "Animationen"]
+        },
+        {
+          "name": "Barrierefreiheit",
+          "keywords": ["ARIA", "alt-Text", "Kontrast", "Keyboard Navigation"]
+        }
+      ],
+      "beispielFragen": [
+        "Erstelle ein responsives Layout mit Flexbox",
+        "Was ist der Unterschied zwischen margin und padding?",
+        "Wie machst du eine Website barrierefrei?",
+        "Erkläre CSS-Spezifität"
+      ]
+    },
+    {
+      "id": "LF5",
+      "name": "Backend - Server & APIs",
+      "beschreibung": "Geschäftslogik auf dem Server",
+      "dauer": "12 Wochen",
+      "schwierigkeit": "Mittler",
+      "topics": [
+        {
+          "name": "HTTP Grundlagen",
+          "keywords": ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"]
+        },
+        {
+          "name": "HTTP Statuscodes",
+          "keywords": ["200", "201", "400", "401", "403", "404", "500"]
+        },
+        {
+          "name": "REST API Design",
+          "keywords": ["Endpoints", "Resources", "RESTful", "Conventions"]
+        },
+        {
+          "name": "Authentication",
+          "keywords": ["Username/Password", "JWT", "OAuth", "Sessions"]
+        },
+        {
+          "name": "Authorization",
+          "keywords": ["Roles", "Permissions", "Access Control"]
+        },
+        {
+          "name": "Cookies und Sessions",
+          "keywords": ["Session Storage", "Cookies", "HttpOnly", "Secure"]
+        },
+        {
+          "name": "API Dokumentation",
+          "keywords": ["Swagger", "OpenAPI", "API Docs", "Examples"]
+        }
+      ],
+      "beispielFragen": [
+        "Entwirf eine REST API für ein Blog-System",
+        "Was ist der Unterschied zwischen Authentication und Authorization?",
+        "Wie funktioniert JWT?",
+        "Welcher HTTP-Status für fehlende Authentifizierung?"
+      ]
+    },
+    {
+      "id": "LF6",
+      "name": "Web-Sicherheit",
+      "beschreibung": "Schutz vor Angriffen",
+      "dauer": "8 Wochen",
+      "schwierigkeit": "Fortgeschritten",
+      "topics": [
+        {
+          "name": "OWASP Top 10",
+          "keywords": ["Injection", "Broken Auth", "XSS", "CSRF", "Weak Crypto"]
+        },
+        {
+          "name": "SQL Injection",
+          "keywords": ["Parameterized Queries", "Prepared Statements", "Escaping"]
+        },
+        {
+          "name": "Cross-Site Scripting (XSS)",
+          "keywords": ["Reflected XSS", "Stored XSS", "DOM XSS", "Sanitization"]
+        },
+        {
+          "name": "Cross-Site Request Forgery (CSRF)",
+          "keywords": ["CSRF Tokens", "SameSite Cookies", "Origin Check"]
+        },
+        {
+          "name": "Verschlüsselung",
+          "keywords": ["SSL/TLS", "HTTPS", "Certificates", "Symmetric", "Asymmetric"]
+        },
+        {
+          "name": "Password Sicherheit",
+          "keywords": ["Hashing", "bcrypt", "Argon2", "Salt", "Pepper"]
+        },
+        {
+          "name": "Input Validierung",
+          "keywords": ["Whitelist", "Blacklist", "Type Checking", "Length Limits"]
+        },
+        {
+          "name": "Datenschutz (DSGVO)",
+          "keywords": ["Datenschutz", "Privacy", "Cookies Consent", "Datenminimierung"]
+        }
+      ],
+      "beispielFragen": [
+        "Wie schützt du dich vor SQL Injection?",
+        "Was ist XSS und wie verhindert man es?",
+        "Erkläre SSL/TLS Handshake",
+        "Wie speichert man Passwörter sicher?"
+      ]
+    },
+    {
+      "id": "LF7",
+      "name": "Mobile iOS",
+      "beschreibung": "Apps für iPhones entwickeln",
+      "dauer": "10 Wochen",
+      "schwierigkeit": "Fortgeschritten",
+      "topics": [
+        {
+          "name": "Swift Grundlagen",
+          "keywords": ["Syntax", "Variablen", "Funktionen", "Optionals"]
+        },
+        {
+          "name": "UIKit oder SwiftUI",
+          "keywords": ["View Controller", "Storyboards", "Constraints", "Auto Layout"]
+        },
+        {
+          "name": "Gestures und Events",
+          "keywords": ["Tap", "Swipe", "Long Press", "Pinch", "Responder Chain"]
+        },
+        {
+          "name": "Data Persistence",
+          "keywords": ["UserDefaults", "Core Data", "File System"]
+        },
+        {
+          "name": "Netzwerk",
+          "keywords": ["URLSession", "API Calls", "JSON Parsing"]
+        }
+      ],
+      "beispielFragen": [
+        "Was ist der Unterschied zwischen UIKit und SwiftUI?",
+        "Wie speichert man Daten persistent in iOS?",
+        "Erkläre den View Controller Lifecycle",
+        "Wie machst du API-Calls in Swift?"
+      ]
+    },
+    {
+      "id": "LF8",
+      "name": "Mobile Android",
+      "beschreibung": "Apps für Android entwickeln",
+      "dauer": "10 Wochen",
+      "schwierigkeit": "Fortgeschritten",
+      "topics": [
+        {
+          "name": "Kotlin oder Java",
+          "keywords": ["Syntax", "Variablen", "Funktionen", "Klassen"]
+        },
+        {
+          "name": "Activities und Fragments",
+          "keywords": ["Activity Lifecycle", "Fragment Lifecycle", "Intents"]
+        },
+        {
+          "name": "Layouts",
+          "keywords": ["LinearLayout", "ConstraintLayout", "XML Layout", "RecyclerView"]
+        },
+        {
+          "name": "Data Persistence",
+          "keywords": ["SharedPreferences", "SQLite", "Room", "File System"]
+        },
+        {
+          "name": "Netzwerk und APIs",
+          "keywords": ["OkHttp", "Retrofit", "JSON Parsing", "Gson"]
+        }
+      ],
+      "beispielFragen": [
+        "Erkläre den Activity Lifecycle in Android",
+        "Was ist der Unterschied zwischen Activity und Fragment?",
+        "Wie speichert man Daten in Android?",
+        "Wie machst du Network Requests mit Retrofit?"
+      ]
+    },
+    {
+      "id": "LF9",
+      "name": "Cross-Platform Mobile",
+      "beschreibung": "Apps auf mehreren Plattformen",
+      "dauer": "10 Wochen",
+      "schwierigkeit": "Fortgeschritten",
+      "topics": [
+        {
+          "name": "React Native",
+          "keywords": ["Components", "Styling", "Navigation", "State Management"]
+        },
+        {
+          "name": "Flutter",
+          "keywords": ["Widgets", "Dart", "Material Design", "Cupertino"]
+        },
+        {
+          "name": "Code Sharing",
+          "keywords": ["Platform Detection", "Shared Code", "Native Modules"]
+        },
+        {
+          "name": "Performance",
+          "keywords": ["Optimization", "Memory Leaks", "Rendering", "Bundle Size"]
+        }
+      ],
+      "beispielFragen": [
+        "Was sind die Vorteile von Cross-Platform gegenüber Native?",
+        "Wie funktioniert React Native?",
+        "Was sind die Nachteile von Cross-Platform?",
+        "Flutter vs React Native - Unterschiede?"
+      ]
+    },
+    {
+      "id": "LF10",
+      "name": "Design Patterns",
+      "beschreibung": "Bewährte Lösungsvorlagen",
+      "dauer": "8 Wochen",
+      "schwierigkeit": "Mittler",
+      "topics": [
+        {
+          "name": "Creational Patterns",
+          "keywords": ["Singleton", "Factory", "Builder", "Prototype"]
+        },
+        {
+          "name": "Structural Patterns",
+          "keywords": ["Adapter", "Decorator", "Facade", "Proxy", "Bridge"]
+        },
+        {
+          "name": "Behavioral Patterns",
+          "keywords": ["Observer", "Strategy", "Command", "State", "Template Method"]
+        },
+        {
+          "name": "Architectural Patterns",
+          "keywords": ["MVC", "MVVM", "MVP", "Clean Architecture"]
+        },
+        {
+          "name": "SOLID Prinzipien",
+          "keywords": ["Single Responsibility", "Open/Closed", "Liskov", "Interface Segregation", "Dependency Inversion"]
+        }
+      ],
+      "beispielFragen": [
+        "Was ist das Singleton Pattern und wann nutzt man es?",
+        "Erkläre das Observer Pattern",
+        "Was ist MVC und wie unterscheidet es sich von MVVM?",
+        "Wende SOLID auf ein Code-Beispiel an"
+      ]
+    },
+    {
+      "id": "LF11",
+      "name": "Testing & QA",
+      "beschreibung": "Qualitätssicherung durch Tests",
+      "dauer": "8 Wochen",
+      "schwierigkeit": "Mittler",
+      "topics": [
+        {
+          "name": "Unit Tests",
+          "keywords": ["JUnit", "Jest", "XCTest", "Assertions", "Test Cases"]
+        },
+        {
+          "name": "Integration Tests",
+          "keywords": ["Komponenten-Tests", "End-to-End Tests", "API Tests"]
+        },
+        {
+          "name": "Mocking",
+          "keywords": ["Mocks", "Stubs", "Spies", "Mockito", "Jest Mocks"]
+        },
+        {
+          "name": "Test-Driven Development (TDD)",
+          "keywords": ["Red-Green-Refactor", "Test First", "Failing Tests"]
+        },
+        {
+          "name": "Code Coverage",
+          "keywords": ["Coverage Prozent", "Branch Coverage", "Line Coverage"]
+        },
+        {
+          "name": "Continuous Integration",
+          "keywords": ["CI Pipelines", "Automated Tests", "Build Failures"]
+        }
+      ],
+      "beispielFragen": [
+        "Schreib einen Unit Test für diese Funktion",
+        "Was ist der Unterschied zwischen Mock und Stub?",
+        "Erkläre Test-Driven Development",
+        "Wie hoch sollte Code Coverage sein?"
+      ]
+    },
+    {
+      "id": "LF12",
+      "name": "Team-Entwicklung",
+      "beschreibung": "Mit anderen Entwicklern arbeiten",
+      "dauer": "8 Wochen",
+      "schwierigkeit": "Mittler",
+      "topics": [
+        {
+          "name": "Git Versionskontrolle",
+          "keywords": ["Commits", "Branches", "Merges", "Conflicts", "Rebase"]
+        },
+        {
+          "name": "Branching Strategien",
+          "keywords": ["Git Flow", "GitHub Flow", "Trunk Based Development"]
+        },
+        {
+          "name": "Pull Requests",
+          "keywords": ["Code Review", "Discussions", "Approvals", "CI Checks"]
+        },
+        {
+          "name": "Agile Methodiken",
+          "keywords": ["Scrum", "Kanban", "Sprints", "User Stories"]
+        },
+        {
+          "name": "Kommunikation",
+          "keywords": ["Meetings", "Dokumentation", "Status Updates"]
+        }
+      ],
+      "beispielFragen": [
+        "Erkläre Git Flow Strategie",
+        "Was sollte in einem guten Pull Request stehen?",
+        "Was ist Scrum und wie funktioniert es?",
+        "Wie löst man Git Merge Konflikte?"
+      ]
+    },
+    {
+      "id": "LF13",
+      "name": "Enterprise-Systeme",
+      "beschreibung": "Große Unternehmens-Systeme",
+      "dauer": "8 Wochen",
+      "schwierigkeit": "Fortgeschritten",
+      "topics": [
+        {
+          "name": "Monolithen vs Microservices",
+          "keywords": ["Architektur", "Skalierbarkeit", "Deployment"]
+        },
+        {
+          "name": "Microservices",
+          "keywords": ["Service Boundaries", "Communication", "Data Management"]
+        },
+        {
+          "name": "Message Queues",
+          "keywords": ["RabbitMQ", "Kafka", "Async Processing"]
+        },
+        {
+          "name": "Service-Oriented Architecture",
+          "keywords": ["SOA", "Enterprise Integration", "ESB"]
+        },
+        {
+          "name": "Skalierbarkeit",
+          "keywords": ["Horizontal Scaling", "Load Balancing", "Database Sharding"]
+        }
+      ],
+      "beispielFragen": [
+        "Wann sollte man zu Microservices migrieren?",
+        "Wie kommunizieren Microservices miteinander?",
+        "Was ist eine Message Queue und wofür?",
+        "Wie skaliert man ein großes System?"
+      ]
+    },
+    {
+      "id": "LF14",
+      "name": "Cloud-Native",
+      "beschreibung": "Anwendungen für die Cloud",
+      "dauer": "10 Wochen",
+      "schwierigkeit": "Fortgeschritten",
+      "topics": [
+        {
+          "name": "Cloud-Anbieter",
+          "keywords": ["AWS", "Azure", "Google Cloud", "Unterschiede"]
+        },
+        {
+          "name": "Containerisierung",
+          "keywords": ["Docker", "Container Images", "Dockerfile", "Registry"]
+        },
+        {
+          "name": "Orchestrierung",
+          "keywords": ["Kubernetes", "Services", "Deployments", "StatefulSets"]
+        },
+        {
+          "name": "Serverless",
+          "keywords": ["AWS Lambda", "Google Cloud Functions", "Azure Functions"]
+        },
+        {
+          "name": "Infrastructure as Code",
+          "keywords": ["Terraform", "CloudFormation", "IaC Best Practices"]
+        },
+        {
+          "name": "Cloud Sicherheit",
+          "keywords": ["Identity Management", "Encryption", "Network Security"]
+        }
+      ],
+      "beispielFragen": [
+        "Was ist Docker und wie funktioniert es?",
+        "Erkläre Kubernetes Konzepte (Pods, Services, Deployments)",
+        "Wann nutzt man Serverless?",
+        "Wie definiert man Infrastructure as Code?"
+      ]
+    },
+    {
+      "id": "LF15",
+      "name": "DevOps",
+      "beschreibung": "Entwicklung und Betrieb zusammenbringen",
+      "dauer": "10 Wochen",
+      "schwierigkeit": "Fortgeschritten",
+      "topics": [
+        {
+          "name": "Continuous Integration",
+          "keywords": ["CI Pipelines", "Jenkins", "GitLab CI", "GitHub Actions"]
+        },
+        {
+          "name": "Continuous Deployment",
+          "keywords": ["CD Pipelines", "Blue-Green Deployments", "Canary Deployments"]
+        },
+        {
+          "name": "Monitoring & Logging",
+          "keywords": ["Prometheus", "ELK Stack", "Grafana", "DataDog"]
+        },
+        {
+          "name": "Alerting",
+          "keywords": ["Alert Rules", "Thresholds", "Escalation Policies"]
+        },
+        {
+          "name": "Infrastructure Management",
+          "keywords": ["Configuration Management", "Ansible", "Puppet"]
+        },
+        {
+          "name": "Incident Management",
+          "keywords": ["On-Call", "Postmortems", "Root Cause Analysis"]
+        }
+      ],
+      "beispielFragen": [
+        "Erkläre eine CI/CD Pipeline",
+        "Was ist Blue-Green Deployment?",
+        "Wie setzt man Monitoring auf?",
+        "Wie antwortet man auf Incidents?"
+      ]
+    },
+    {
+      "id": "LF16",
+      "name": "KI & Machine Learning",
+      "beschreibung": "Intelligente Systeme bauen",
+      "dauer": "10 Wochen",
+      "schwierigkeit": "Fortgeschritten",
+      "topics": [
+        {
+          "name": "ML Grundlagen",
+          "keywords": ["Supervised Learning", "Unsupervised Learning", "Training", "Testing"]
+        },
+        {
+          "name": "Neural Networks",
+          "keywords": ["Layers", "Neurons", "Activation Functions", "Backpropagation"]
+        },
+        {
+          "name": "Popular Libraries",
+          "keywords": ["TensorFlow", "PyTorch", "Keras", "Scikit-learn"]
+        },
+        {
+          "name": "Data Preprocessing",
+          "keywords": ["Feature Engineering", "Normalization", "Handling Missing Data"]
+        },
+        {
+          "name": "Model Evaluation",
+          "keywords": ["Accuracy", "Precision", "Recall", "F1-Score", "Overfitting"]
+        },
+        {
+          "name": "Ethik in AI",
+          "keywords": ["Bias", "Fairness", "Transparency", "Accountability"]
+        }
+      ],
+      "beispielFragen": [
+        "Was ist Overfitting und wie verhindert man es?",
+        "Erkläre Neural Networks",
+        "Wie trainiert man ein ML-Modell?",
+        "Was sind Biases in AI und warum sind sie problematisch?"
+      ]
+    },
+    {
+      "id": "LF17",
+      "name": "Big Data & Analytics",
+      "beschreibung": "Große Datenmengen analysieren",
+      "dauer": "10 Wochen",
+      "schwierigkeit": "Fortgeschritten",
+      "topics": [
+        {
+          "name": "Datenquellen und Pipelines",
+          "keywords": ["ETL", "Data Ingestion", "Real-time vs Batch"]
+        },
+        {
+          "name": "Data Warehouse vs Data Lake",
+          "keywords": ["Structured vs Unstructured", "Schema-on-Read", "Schema-on-Write"]
+        },
+        {
+          "name": "Big Data Technologien",
+          "keywords": ["Hadoop", "Spark", "Hive", "Presto"]
+        },
+        {
+          "name": "Real-time Streaming",
+          "keywords": ["Kafka", "Spark Streaming", "Flink"]
+        },
+        {
+          "name": "Datenvisualisierung",
+          "keywords": ["Tableau", "Power BI", "Grafana", "D3.js"]
+        },
+        {
+          "name": "Business Intelligence",
+          "keywords": ["OLAP", "Dashboards", "Reports", "Analytics"]
+        }
+      ],
+      "beispielFragen": [
+        "Was ist der Unterschied zwischen Data Warehouse und Data Lake?",
+        "Wie funktioniert Hadoop und Spark?",
+        "Erkläre ETL Pipelines",
+        "Wie visualisiert man große Datenmengen?"
+      ]
+    },
+    {
+      "id": "LF18",
+      "name": "Embedded & IoT",
+      "beschreibung": "Programmierung von Geräten und Sensoren",
+      "dauer": "10 Wochen",
+      "schwierigkeit": "Fortgeschritten",
+      "topics": [
+        {
+          "name": "Embedded Systems",
+          "keywords": ["Microcontroller", "Arduino", "Raspberry Pi", "Real-time"]
+        },
+        {
+          "name": "Hardware-Software Interaktion",
+          "keywords": ["GPIO", "PWM", "ADC", "Interrupts"]
+        },
+        {
+          "name": "IoT Kommunikation",
+          "keywords": ["MQTT", "CoAP", "Bluetooth", "WiFi", "LoRaWAN"]
+        },
+        {
+          "name": "Firmware Development",
+          "keywords": ["C/C++", "Assembly", "Memory Management", "Performance"]
+        },
+        {
+          "name": "IoT Security",
+          "keywords": ["Encryption", "Authentication", "Firmware Updates"]
+        },
+        {
+          "name": "Sensor Datenverarbeitung",
+          "keywords": ["Filtering", "Calibration", "Data Aggregation"]
+        }
+      ],
+      "beispielFragen": [
+        "Erkläre IoT Architektur",
+        "Was ist MQTT und wie funktioniert es?",
+        "Wie sichere ich ein IoT-Gerät?",
+        "Was ist PWM und wofür wird es verwendet?"
+      ]
+    }
+  ]
+}

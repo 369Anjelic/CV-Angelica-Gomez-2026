@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Unwritten Studio - Feedback Umfrage">
+    <meta name="theme-color" content="#3987b8">
+    <title>Unwritten - Feedback Umfrage</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✏️</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #3987b8 0%, #2c5aa0 100%);
+            color: #3e4447;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #3987b8 0%, #2c5aa0 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.95;
+            font-weight: 200;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f4f5f5;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #3e4447;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: #3987b8;
+            background: white;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #3987b8;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px 30px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question {
+            margin-bottom: 30px;
+        }
+
+        .question label {
+            display: block;
+            font-weight: 600;
+            color: #3e4447;
+            margin-bottom: 12px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 400;
+            color: #3e4447;
+            margin-bottom: 12px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #f4f5f5;
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            color: #3e4447;
+            transition: all 0.3s ease;
+            resize: vertical;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #3987b8;
+            box-shadow: 0 0 0 3px rgba(57, 135, 184, 0.1);
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-item,
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            accent-color: #3987b8;
+            margin-right: 10px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .radio-item label,
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: none;
+            font-weight: 400;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .progress {
+            height: 4px;
+            background: #f4f5f5;
+            margin-bottom: 30px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3987b8, #2c5aa0);
+            transition: width 0.3s ease;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+            justify-content: space-between;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3987b8, #2c5aa0);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(57, 135, 184, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f4f5f5;
+            color: #3e4447;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .success-message h2 {
+            color: #3987b8;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .success-message p {
+            color: #3e4447;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .info-section {
+            background: #f4f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-section h3 {
+            color: #3987b8;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-section p {
+            font-size: 13px;
+            color: #3e4447;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 30px 20px;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .tab-content {
+                padding: 25px 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">✏️</div>
+            <h1>unwritten</h1>
+            <p>Dein Feedback ist wertvoll</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('feedback')">📝 Feedback</button>
+            <button class="tab-btn" onclick="switchTab('kontakt')">📧 Kontakt</button>
+            <button class="tab-btn" onclick="switchTab('info')">ℹ️ Info</button>
+        </div>
+
+        <!-- TAB 1: FEEDBACK -->
+        <div id="feedback" class="tab-content active">
+            <div class="progress">
+                <div class="progress-bar" style="width: 0%"></div>
+            </div>
+
+            <form id="surveyForm">
+                <!-- Frage 1 -->
+                <div class="question">
+                    <label>FRAGE 1 von 12</label>
+                    <p class="question-text">Wie zufrieden bist du mit deiner Erfahrung mit unwritten?</p>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="q1a" name="q1" value="Sehr zufrieden" required>
+                            <label for="q1a">Sehr zufrieden</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q1b" name="q1" value="Zufrieden">
+                            <label for="q1b">Zufrieden</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q1c" name="q1" value="Neutral">
+                            <label for="q1c">Neutral</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q1d" name="q1" value="Unzufrieden">
+                            <label for="q1d">Unzufrieden</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frage 2 -->
+                <div class="question">
+                    <label>FRAGE 2 von 12</label>
+                    <p class="question-text">Was hat dir am besten gefallen?</p>
+                    <textarea id="q2" name="q2" placeholder="Deine Antwort..." rows="4"></textarea>
+                </div>
+
+                <!-- Frage 3 -->
+                <div class="question">
+                    <label>FRAGE 3 von 12</label>
+                    <p class="question-text">Wie würdest du unwritten einem Freund empfehlen?</p>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="q3a" name="q3" value="Sehr wahrscheinlich" required>
+                            <label for="q3a">Sehr wahrscheinlich</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q3b" name="q3" value="Wahrscheinlich">
+                            <label for="q3b">Wahrscheinlich</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q3c" name="q3" value="Vielleicht">
+                            <label for="q3c">Vielleicht</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q3d" name="q3" value="Nicht wahrscheinlich">
+                            <label for="q3d">Nicht wahrscheinlich</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frage 4 -->
+                <div class="question">
+                    <label>FRAGE 4 von 12</label>
+                    <p class="question-text">Was könnte verbessert werden?</p>
+                    <textarea id="q4" name="q4" placeholder="Deine Vorschläge..." rows="4"></textarea>
+                </div>
+
+                <!-- Frage 5 -->
+                <div class="question">
+                    <label>FRAGE 5 von 12</label>
+                    <p class="question-text">Welche Features nutzt du am häufigsten?</p>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="q5a" name="q5" value="AI-Assistenz">
+                            <label for="q5a">AI-Assistenz</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="q5b" name="q5" value="Templates">
+                            <label for="q5b">Templates</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="q5c" name="q5" value="Analytics">
+                            <label for="q5c">Analytics</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="q5d" name="q5" value="Zusammenarbeit">
+                            <label for="q5d">Zusammenarbeit</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frage 6 -->
+                <div class="question">
+                    <label>FRAGE 6 von 12</label>
+                    <p class="question-text">Wie oft nutzt du unwritten?</p>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="q6a" name="q6" value="Täglich" required>
+                            <label for="q6a">Täglich</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q6b" name="q6" value="Mehrmals pro Woche">
+                            <label for="q6b">Mehrmals pro Woche</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q6c" name="q6" value="Wöchentlich">
+                            <label for="q6c">Wöchentlich</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q6d" name="q6" value="Monatlich">
+                            <label for="q6d">Monatlich</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frage 7 -->
+                <div class="question">
+                    <label>FRAGE 7 von 12</label>
+                    <p class="question-text">Welche Plattform nutzt du hauptsächlich?</p>
+                    <select id="q7" name="q7" required>
+                        <option value="">-- Bitte auswählen --</option>
+                        <option value="Web">Web</option>
+                        <option value="Mobil">Mobil</option>
+                        <option value="Desktop App">Desktop App</option>
+                        <option value="API/Integration">API/Integration</option>
+                    </select>
+                </div>
+
+                <!-- Frage 8 -->
+                <div class="question">
+                    <label>FRAGE 8 von 12</label>
+                    <p class="question-text">Wie bewährtest du den Kundenservice?</p>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="q8a" name="q8" value="Ausgezeichnet" required>
+                            <label for="q8a">Ausgezeichnet</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q8b" name="q8" value="Gut">
+                            <label for="q8b">Gut</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q8c" name="q8" value="Befriedigend">
+                            <label for="q8c">Befriedigend</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q8d" name="q8" value="Schlecht">
+                            <label for="q8d">Schlecht</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frage 9 -->
+                <div class="question">
+                    <label>FRAGE 9 von 12</label>
+                    <p class="question-text">Was wünschst du dir für die Zukunft?</p>
+                    <textarea id="q9" name="q9" placeholder="Deine Wünsche..." rows="4"></textarea>
+                </div>
+
+                <!-- Frage 10 -->
+                <div class="question">
+                    <label>FRAGE 10 von 12</label>
+                    <p class="question-text">Würdest du Premium erwägen?</p>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="q10a" name="q10" value="Ja, sicher" required>
+                            <label for="q10a">Ja, sicher</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q10b" name="q10" value="Möglicherweise">
+                            <label for="q10b">Möglicherweise</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="q10c" name="q10" value="Wahrscheinlich nicht">
+                            <label for="q10c">Wahrscheinlich nicht</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frage 11 -->
+                <div class="question">
+                    <label>FRAGE 11 von 12</label>
+                    <p class="question-text">Wie hast du von unwritten erfahren?</p>
+                    <select id="q11" name="q11" required>
+                        <option value="">-- Bitte auswählen --</option>
+                        <option value="Freund/Familie">Freund/Familie</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="Suchmaschine">Suchmaschine</option>
+                        <option value="Werbung">Werbung</option>
+                        <option value="Blog/Review">Blog/Review</option>
+                        <option value="Sonstiges">Sonstiges</option>
+                    </select>
+                </div>
+
+                <!-- Frage 12 -->
+                <div class="question">
+                    <label>FRAGE 12 von 12</label>
+                    <p class="question-text">Zusätzliche Kommentare?</p>
+                    <textarea id="q12" name="q12" placeholder="Alles was du noch sagen möchtest..." rows="4"></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="reset" class="btn-secondary">Zurücksetzen</button>
+                    <button type="submit" class="btn-primary">Absenden</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- TAB 2: KONTAKT -->
+        <div id="kontakt" class="tab-content">
+            <div class="info-section">
+                <h3>📧 Kontaktinformation</h3>
+                <p>Wir freuen uns auf dein Feedback! Hinterlasse optional deine Kontaktdaten.</p>
+            </div>
+
+            <form id="contactForm">
+                <div class="question">
+                    <label>Vollständiger Name</label>
+                    <input type="text" id="name" name="name" placeholder="Dein Name">
+                </div>
+
+                <div class="question">
+                    <label>Email Adresse</label>
+                    <input type="email" id="email" name="email" placeholder="deine@email.com">
+                </div>
+
+                <div class="question">
+                    <label>Unternehmen (optional)</label>
+                    <input type="text" id="company" name="company" placeholder="Dein Unternehmen">
+                </div>
+
+                <div class="question">
+                    <label>Telefon (optional)</label>
+                    <input type="text" id="phone" name="phone" placeholder="+49 123 456789">
+                </div>
+
+                <div class="question">
+                    <label>Benachrichtigungen</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="newsletter" name="newsletter" value="ja">
+                            <label for="newsletter">Ich möchte Updates von unwritten erhalten</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="reset" class="btn-secondary">Löschen</button>
+                    <button type="submit" class="btn-primary">Speichern</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- TAB 3: INFO -->
+        <div id="info" class="tab-content">
+            <div class="info-section">
+                <h3>🏢 Unwritten GmbH</h3>
+                <p>Adlerweg 6<br>90530 Wendelstein<br>post@unwritten.studio</p>
+            </div>
+
+            <div class="info-section">
+                <h3>📋 Über diese Umfrage</h3>
+                <p>Diese Umfrage hilft uns, deine Bedürfnisse besser zu verstehen und unwritten kontinuierlich zu verbessern. Deine Antworten sind wertvoll und werden vollständig vertraulich behandelt.</p>
+            </div>
+
+            <div class="info-section">
+                <h3>🔒 Datenschutz</h3>
+                <p>Wir respektieren deine Privatsphäre. Alle eingegebenen Daten werden sicher gespeichert und nicht an Dritte weitergegeben. Weitere Informationen findest du in unserer Datenschutzerklärung.</p>
+            </div>
+
+            <div class="info-section">
+                <h3>⏱️ Dauer</h3>
+                <p>Diese Umfrage dauert etwa 5-10 Minuten. Du kannst sie jederzeit speichern und später fortsetzen.</p>
+            </div>
+
+            <button class="btn-primary" onclick="scrollToTop()" style="width: 100%; margin-top: 20px;">Zum Feedback</button>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        document.getElementById('surveyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = new FormData(document.getElementById('surveyForm'));
+            const surveyData = Object.fromEntries(formData);
+
+            // Get contact data if available
+            const contactData = {
+                name: document.getElementById('name')?.value || '',
+                email: document.getElementById('email')?.value || '',
+                company: document.getElementById('company')?.value || '',
+                phone: document.getElementById('phone')?.value || ''
+            };
+
+            const completeData = {
+                ...surveyData,
+                ...contactData,
+                timestamp: new Date().toISOString()
+            };
+
+            // Save to localStorage
+            const submissions = JSON.parse(localStorage.getItem('surveys') || '[]');
+            submissions.push(completeData);
+            localStorage.setItem('surveys', JSON.stringify(submissions));
+
+            // Try to send via Formspree (if configured)
+            try {
+                await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                    method: 'POST',
+                    body: JSON.stringify(completeData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } catch (error) {
+                console.log('Email service not configured, data saved locally');
+            }
+
+            // Show success message
+            showSuccess();
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const contactData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                phone: document.getElementById('phone').value,
+                newsletter: document.getElementById('newsletter').checked
+            };
+
+            localStorage.setItem('contact', JSON.stringify(contactData));
+            alert('Kontaktinformation gespeichert!');
+        });
+
+        function showSuccess() {
+            const form = document.getElementById('surveyForm');
+            form.innerHTML = `
+                <div class="success-message">
+                    <div class="success-icon">✓</div>
+                    <h2>Danke für dein Feedback!</h2>
+                    <p>Deine Antworten wurden erfolgreich gespeichert. Wir schätzen deine Zeit und werden dein Feedback nutzen, um unwritten noch besser zu machen.</p>
+                    <div class="button-group" style="margin-top: 30px;">
+                        <button type="button" class="btn-primary" onclick="location.reload()" style="width: 100%;">Neue Umfrage starten</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function scrollToTop() {
+            document.querySelector('.tab-content.active').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Track progress
+        document.getElementById('surveyForm')?.addEventListener('change', (e) => {
+            const total = document.querySelectorAll('.question').length;
+            const answered = document.querySelectorAll('input[type="radio"]:checked, textarea:not(:empty), input[type="text"]:not(:empty), input[type="email"]:not(:empty), select').length;
+            const percentage = (answered / total) * 100;
+            document.querySelector('.progress-bar').style.width = percentage + '%';
+        });
+
+        // PWA Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:application/javascript,self.addEventListener("install",e=>self.skipWaiting());self.addEventListener("activate",e=>e.waitUntil(clients.claim()));').catch(() => {});
+        }
+    </script>
+</body>
+</html>

@@ -1,47 +1,74 @@
 # Dependencies
 node_modules/
-/.pnp
+.pnp
 .pnp.js
 
 # Testing
-/coverage
+coverage/
 
-# Next.js
-/.next/
-/out/
-
-# Production
-/build
+# Next.js / Production
+.next/
+out/
+build/
+dist/
 
 # Misc
 .DS_Store
 *.pem
+.env.local
+.env.*.local
+.env.example
+.env
 
 # Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Local env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Vercel
-.vercel
-
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
+.code-index/
 
 # OS
 Thumbs.db
-.DS_Store
 
-# Large directories
-projekte/
-Documents/
+# System files
+.android/
+.bash_profile
+.bashrc
+.cache/
+.cagent/
+.chocolatey/
+.claude.json
+.claude.json.backup
+.claude/
+.config/
+.docker/
+.emulator_console_auth_token
+.expo/
+.gitconfig
+.gradle/
+.idlerc/
+.jdks/
+.local/
+.m2/
+.n8n-mcp/
+.n8n/
+.ssh/
+.thumbnails/
+.vscode-shared/
+AngelicaGomezCV/
+AppData/
+Downloads/
+IntelGraphicsProfiles/
+Music/
+OneDrive/
+Obsidian Vault/
+NTUSER.DAT*
+
+# Vercel
+.vercel

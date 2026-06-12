@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Cessna 172 - World Flight Trainer v13 (Eject Hero + World Landmarks)</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Courier New',monospace}
+#c{display:block;width:100%;height:100%;position:absolute;top:0;left:0}
+
+.p{position:absolute;background:rgba(2,8,20,0.84);border:1px solid rgba(0,160,220,0.28);
+   border-radius:6px;padding:9px 12px;color:#b8dff5;font-size:11.5px;z-index:10;
+   backdrop-filter:blur(4px)}
+.t{font-size:9px;letter-spacing:2.5px;color:#00aadd;border-bottom:1px solid rgba(0,140,200,0.2);
+   padding-bottom:4px;margin-bottom:7px;text-align:center;text-transform:uppercase}
+.r{display:flex;justify-content:space-between;padding:2px 0;gap:8px}
+.l{color:#3a7aaa;font-size:10px}
+.v{font-weight:bold;color:#d8f0ff}
+.vg{color:#00e888!important}.vy{color:#ffcc00!important}.vr{color:#ff3344!important}
+.s{border-top:1px solid rgba(0,140,200,0.15);margin:5px 0}
+
+#pl{top:12px;left:12px;width:200px}
+#pr{top:12px;right:12px;width:208px}
+#pn{bottom:46px;left:50%;transform:translateX(-50%);min-width:360px;text-align:center;font-size:11px}
+#pk{bottom:10px;left:50%;transform:translateX(-50%);font-size:10px;color:#3a7a9a;white-space:nowrap}
+
+#mm{position:absolute;bottom:90px;right:12px;z-index:10;border-radius:6px;
+    border:1px solid rgba(0,160,220,0.35);overflow:hidden;box-shadow:0 0 18px rgba(0,120,200,0.2)}
+#mmc{display:block;width:200px;height:200px}
+#mmov{position:absolute;top:0;left:0;width:200px;height:200px;pointer-events:none}
+
+#kp{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:10}
+#kpc{display:block}
+
+#vm{position:absolute;top:12px;left:50%;transform:translateX(-50%);margin-top:58px;
+    font-size:9px;letter-spacing:3px;color:rgba(0,160,220,0.5);z-index:10}
+
+#sw{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-size:52px;font-weight:bold;color:#ff2233;text-shadow:0 0 40px #ff0000;
+    display:none;z-index:20;animation:fl 0.45s infinite}
+@keyframes fl{0%,100%{opacity:1}50%{opacity:0.1}}
+
+#alttape{position:absolute;top:50%;right:220px;transform:translateY(-50%);z-index:10;
+         width:52px;height:200px;overflow:hidden;
+         background:rgba(2,8,20,0.75);border:1px solid rgba(0,140,200,0.25);border-radius:4px}
+#alttapec{display:block;width:52px;height:200px}
+
+#spdtape{position:absolute;top:50%;left:208px;transform:translateY(-50%);z-index:10;
+         width:52px;height:200px;overflow:hidden;
+         background:rgba(2,8,20,0.75);border:1px solid rgba(0,140,200,0.25);border-radius:4px}
+#spdtapec{display:block;width:52px;height:200px}
+
+#ld{position:fixed;inset:0;background:#010c1a;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;color:#00cfff;z-index:999;transition:opacity 0.8s}
+#ld h1{font-size:30px;letter-spacing:9px;margin-bottom:6px;text-shadow:0 0 35px #00cfff}
+#ld p{font-size:12px;color:#3a7a9a;margin-bottom:22px}
+#lb{width:300px;height:3px;background:rgba(0,200,255,0.1);border-radius:2px}
+#lf{height:100%;width:0%;background:linear-gradient(90deg,#0055ff,#00ffcc);border-radius:2px;transition:width 0.18s}
+#lt{font-size:10px;color:#2a5a70;margin-top:9px}
+#cr{position:absolute;bottom:3px;right:6px;font-size:8.5px;color:rgba(255,255,255,0.18);z-index:10}
+
+#groundStatus{position:absolute;bottom:12px;right:12px;z-index:10;background:rgba(2,8,20,0.9);
+              border:1px solid rgba(0,160,220,0.4);border-radius:6px;padding:8px 12px;font-size:10px;
+              color:#00ffaa;display:none}
+
+#searchBox{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:50;
+           background:rgba(2,8,20,0.95);border:1px solid rgba(0,200,255,0.5);
+           border-radius:8px;padding:8px 10px;display:flex;gap:6px;align-items:center;
+           box-shadow:0 0 25px rgba(0,150,220,0.3);width:380px}
+#searchInput{flex:1;background:rgba(0,30,50,0.6);border:1px solid rgba(0,160,220,0.3);
+             color:#d8f0ff;font-family:'Courier New',monospace;font-size:12px;
+             padding:6px 10px;border-radius:4px;outline:none}
+#searchInput::placeholder{color:#3a6a80}
+#searchBtn{background:#00aadd;border:none;color:#000;font-family:'Courier New',monospace;
+          font-weight:bold;font-size:11px;padding:6px 12px;border-radius:4px;
+          cursor:pointer;letter-spacing:1px;transition:all 0.2s}
+#searchBtn:hover{background:#33ccff;box-shadow:0 0 15px rgba(0,200,255,0.6)}
+#searchStatus{position:absolute;top:62px;left:50%;transform:translateX(-50%);z-index:50;
+              background:rgba(2,8,20,0.95);border:1px solid rgba(0,200,255,0.5);
+              border-radius:6px;padding:6px 14px;color:#00ffaa;font-size:11px;
+              display:none;box-shadow:0 0 15px rgba(0,200,150,0.3)}
+#landmarkList{position:absolute;top:62px;left:50%;transform:translateX(-50%);z-index:50;
+              background:rgba(2,8,20,0.95);border:1px solid rgba(0,200,255,0.5);
+              border-radius:6px;padding:8px;width:380px;display:none;
+              box-shadow:0 0 25px rgba(0,150,220,0.3);max-height:280px;overflow-y:auto}
+.landmarkItem{padding:6px 10px;cursor:pointer;border-radius:4px;color:#b8dff5;font-size:11px;
+              display:flex;justify-content:space-between;transition:all 0.15s}
+.landmarkItem:hover{background:rgba(0,160,220,0.15);color:#00ffcc}
+.landmarkItem .ln{font-weight:bold}
+.landmarkItem .lc{color:#3a7aaa;font-size:10px}
+
+#landmarkLabel{position:absolute;z-index:15;background:rgba(2,8,20,0.92);
+               border:2px solid #ffcc00;border-radius:6px;padding:6px 12px;color:#ffcc00;
+               font-size:13px;font-weight:bold;text-shadow:0 0 10px rgba(255,204,0,0.5);
+               box-shadow:0 0 20px rgba(255,204,0,0.4);display:none;pointer-events:none;
+               white-space:nowrap;letter-spacing:1px}
+</style>
+</head>
+<body>
+
+<div id="ld" style="display:flex">
+  <h1>CESSNA 172</h1>
+  <p>Nurnberg &bull; EDDN &bull; Ground View Edition v11</p>
+  <div id="lb"><div id="lf"></div></div>
+  <div id="lt">Lade Szene...</div>
+</div>
+
+<canvas id="c"></canvas>
+
+<div id="pl" class="p">
+  <div class="t">Cessna 172 S</div>
+  <canvas id="ahi" width="78" height="78"
+    style="display:block;margin:0 auto 8px;border-radius:50%;border:1.5px solid #007aaa"></canvas>
+  <div class="r"><div class="l">SPEED</div>   <div class="v vg" id="dspd">0</div>    <div class="l">kts</div></div>
+  <div class="r"><div class="l">ALTITUDE</div><div class="v" id="dalt">0</div>        <div class="l">ft</div></div>
+  <div class="r"><div class="l">V/SPEED</div> <div class="v" id="dvs">+0</div>        <div class="l">fpm</div></div>
+  <div class="r"><div class="l">HEADING</div> <div class="v" id="dhdg">360</div>      <div class="l">deg</div></div>
+  <div class="r"><div class="l">THROTTLE</div><div class="v" id="dthr">0</div>        <div class="l">%</div></div>
+  <div class="s"></div>
+  <div class="r"><div class="l">ENGINE</div>  <div class="v vr" id="deng">AUS</div></div>
+  <div class="r"><div class="l">FUEL</div>    <div class="v vg" id="dfuel">100</div>  <div class="l">%</div></div>
+  <div class="r"><div class="l">G-FORCE</div> <div class="v" id="dgf">1.0</div>       <div class="l">G</div></div>
+  <div class="r"><div class="l">WIND</div>    <div class="v" id="dwind">--</div>       <div class="l"></div></div>
+</div>
+
+<div id="pr" class="p">
+  <div class="t">Co-Pilot</div>
+  <div id="cph" style="text-align:center;color:#00e888;margin-bottom:7px;font-size:13px">PRE-FLIGHT</div>
+  <div style="font-size:11px;line-height:1.95">
+    <div id="c1">o  -</div><div id="c2">o  -</div><div id="c3">o  -</div>
+    <div id="c4">o  -</div><div id="c5">o  -</div>
+  </div>
+  <div class="s" style="text-align:center" id="cpg">0 / 5</div>
+  <div class="s"></div>
+  <div class="r"><div class="l">FAHRWERK</div><div class="v vg" id="dgear">AUS</div></div>
+  <div class="r"><div class="l">KLAPPEN</div> <div class="v" id="dflp">0</div></div>
+  <div class="r"><div class="l">STATUS</div>  <div class="v vg" id="dsta">READY</div></div>
+  <div class="r"><div class="l">OAT</div>     <div class="v" id="doat">+15</div>      <div class="l">C</div></div>
+</div>
+
+<div id="pn" class="p">
+  <div class="t">Navigation</div>
+  <div id="dnav">Bereit zum Start</div>
+</div>
+
+<div id="pk" class="p">
+  <b style="color:#00aadd">[E]</b> Motor &ensp;
+  <b style="color:#00aadd">[W/S]</b> Schub &ensp;
+  <b style="color:#00aadd">[I/O]</b> Pitch &ensp;
+  <b style="color:#00aadd">[Pfeile]</b> Roll &ensp;
+  <b style="color:#00aadd">[F/R]</b> Klappen &ensp;
+  <b style="color:#00aadd">[G]</b> Fahrwerk &ensp;
+  <b style="color:#00aadd">[V]</b> Kamera &ensp;
+  <b style="color:#ff4444">[K]</b> KATAPULT &ensp;
+  <b style="color:#ff4444">[J]</b> JUMP
+</div>
+
+<div id="kp"><canvas id="kpc" width="130" height="130"></canvas></div>
+<div id="vm">EXTERIOR</div>
+
+<div id="sw">STALL</div>
+
+<div id="spdtape"><canvas id="spdtapec"></canvas></div>
+<div id="alttape"><canvas id="alttapec"></canvas></div>
+
+<div id="mm">
+  <canvas id="mmc"></canvas>
+  <canvas id="mmov"></canvas>
+</div>
+
+<div id="groundStatus">🌱 AM BODEN · Drücke [V] für Ansicht</div>
+
+<div id="searchBox">
+  <input id="searchInput" type="text" placeholder="🌍 Stadt suchen... (z.B. Paris, Berlin, Rom)" autocomplete="off">
+  <button id="searchBtn">FLIEG</button>
+</div>
+<div id="searchStatus"></div>
+<div id="landmarkList"></div>
+<div id="landmarkLabel"></div>
+
+<div id="cr">v12 - World Landmarks Edition · Satellite: Esri</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const LAT0   = 49.4987;
+const LON0   = 11.0669;
+const ZOOM3D = 13;
+const ZOOMM  = 12;
+const N3     = 1 << ZOOM3D;
+const NM     = 1 << ZOOMM;
+
+const M_PER_DEG_LAT = 111320;
+const M_PER_DEG_LON = 111320 * Math.cos(LAT0 * Math.PI / 180);
+const TILE_M = 40075016.686 * Math.cos(LAT0 * Math.PI / 180) / N3;
+
+function lonToTX(lon, N) { return Math.floor((lon + 180) / 360 * N); }
+function latToTY(lat, N) {
+    const r = lat * Math.PI / 180;
+    return Math.floor((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * N);
+}
+function tileCenter3D(tx, ty) {
+    const lon = (tx + 0.5) / N3 * 360 - 180;
+    const lat = Math.atan(Math.sinh(Math.PI * (1 - 2 * (ty + 0.5) / N3))) * 180 / Math.PI;
+    return { wx: (lon - LON0) * M_PER_DEG_LON, wz: -(lat - LAT0) * M_PER_DEG_LAT };
+}
+function worldToTile3D(wx, wz) {
+    const lat = LAT0 - wz / M_PER_DEG_LAT;
+    const lon = LON0 + wx / M_PER_DEG_LON;
+    return { tx: lonToTX(lon, N3), ty: latToTY(lat, N3) };
+}
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(65, innerWidth / innerHeight, 1, 280000);
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+let timeOfDay = 0.55;
+
+function skyColor(t) {
+    if (t < 0.25) {
+        const f = t / 0.25;
+        return { sky: lerpc(0x05060a, 0xff7033, f), fog: lerpc(0x05060a, 0xffaa55, f) };
+    } else if (t < 0.5) {
+        const f = (t - 0.25) / 0.25;
+        return { sky: lerpc(0xff7033, 0x6ad0f5, f), fog: lerpc(0xffaa55, 0x9ae0ff, f) };
+    } else if (t < 0.75) {
+        const f = (t - 0.5) / 0.25;
+        return { sky: lerpc(0x6ad0f5, 0xff6622, f), fog: lerpc(0x9ae0ff, 0xffaa44, f) };
+    } else {
+        const f = (t - 0.75) / 0.25;
+        return { sky: lerpc(0xff6622, 0x05060a, f), fog: lerpc(0xffaa44, 0x05060a, f) };
+    }
+}
+function lerpc(a, b, t) {
+    const ar = (a >> 16) & 0xff, ag = (a >> 8) & 0xff, ab = a & 0xff;
+    const br = (b >> 16) & 0xff, bg = (b >> 8) & 0xff, bb = b & 0xff;
+    const r = Math.round(ar + (br - ar) * t);
+    const g = Math.round(ag + (bg - ag) * t);
+    const bv = Math.round(ab + (bb - ab) * t);
+    return (r << 16) | (g << 8) | bv;
+}
+
+function updateSky() {
+    const c = skyColor(timeOfDay);
+    scene.background = new THREE.Color(c.sky);
+    scene.fog = new THREE.FogExp2(c.fog, 0.000009);
+    const angle = (timeOfDay * 2 - 0.5) * Math.PI;
+    sun.position.set(Math.cos(angle) * 80000, Math.sin(angle) * 80000, 30000);
+    sun.intensity = Math.max(0, Math.sin(angle) * 1.6);
+    const ni = 1 - Math.max(0, Math.sin(angle));
+    scene.children[0].intensity = 0.12 + ni * 0.08 + Math.max(0, Math.sin(angle)) * 0.5;
+}
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+const sun = new THREE.DirectionalLight(0xfff0d0, 1.5);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+const sc = sun.shadow.camera;
+Object.assign(sc, { near: 100, far: 120000, left: -25000, right: 25000, top: 25000, bottom: -25000 });
+scene.add(sun);
+updateSky();
+
+const cloudGeo = new THREE.SphereGeometry(1, 7, 5);
+const cloudMat = new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity: 0.88 });
+const clouds = [];
+for (let i = 0; i < 60; i++) {
+    const g = new THREE.Group();
+    const nc = 4 + Math.floor(Math.random() * 5);
+    for (let j = 0; j < nc; j++) {
+        const m = new THREE.Mesh(cloudGeo, cloudMat);
+        const sz = 280 + Math.random() * 500;
+        m.scale.set(sz, sz * 0.52, sz * 0.75);
+        m.position.set((Math.random() - 0.5) * sz * 1.4, (Math.random() - 0.5) * sz * 0.3, (Math.random() - 0.5) * sz * 0.8);
+        g.add(m);
+    }
+    const h = 900 + Math.random() * 2200;
+    g.position.set((Math.random() - 0.5) * 28000, h, (Math.random() - 0.5) * 28000);
+    g._spd = (Math.random() - 0.5) * 0.4;
+    scene.add(g);
+    clouds.push(g);
+}
+
+const tileMap  = new Map();
+const tileLoad = new Set();
+const txLoader = new THREE.TextureLoader();
+let loadedCount = 0, totalExpected = 0;
+const TILE_GEO = new THREE.PlaneGeometry(TILE_M, TILE_M);
+TILE_GEO.rotateX(-Math.PI / 2);
+
+function tileKey(tx, ty) { return tx + '_' + ty; }
+
+function loadTile(tx, ty) {
+    const key = tileKey(tx, ty);
+    if (tileMap.has(key) || tileLoad.has(key)) return;
+    tileLoad.add(key);
+    const { wx, wz } = tileCenter3D(tx, ty);
+    const url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + ZOOM3D + '/' + ty + '/' + tx;
+    txLoader.load(
+        url,
+        tex => {
+            tex.minFilter = THREE.LinearMipmapLinearFilter;
+            tex.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
+            const mesh = new THREE.Mesh(TILE_GEO, new THREE.MeshLambertMaterial({ map: tex }));
+            mesh.position.set(wx, 0, wz);
+            mesh.receiveShadow = true;
+            scene.add(mesh);
+            tileMap.set(key, mesh);
+            tileLoad.delete(key);
+            loadedCount++; updateLoader();
+        },
+        undefined,
+        () => {
+            const mesh = new THREE.Mesh(TILE_GEO, new THREE.MeshLambertMaterial({ color: 0x3a7030 }));
+            mesh.position.set(wx, 0, wz);
+            scene.add(mesh);
+            tileMap.set(key, mesh);
+            tileLoad.delete(key);
+            loadedCount++; updateLoader();
+        }
+    );
+}
+
+function removeTile(key) {
+    const m = tileMap.get(key);
+    if (m) { scene.remove(m); if (m.material.map) m.material.map.dispose(); m.material.dispose(); tileMap.delete(key); }
+}
+
+const RAD = 3;
+
+function syncTiles(wx, wz) {
+    const { tx: ax, ty: ay } = worldToTile3D(wx, wz);
+    const needed = new Set();
+    for (let dy = -RAD; dy <= RAD; dy++)
+        for (let dx = -RAD; dx <= RAD; dx++) {
+            const k = tileKey(ax + dx, ay + dy);
+            needed.add(k);
+            loadTile(ax + dx, ay + dy);
+        }
+    for (const k of [...tileMap.keys()])
+        if (!needed.has(k)) removeTile(k);
+}
+
+let loaderDone = false;
+function updateLoader() {
+    const pct = Math.min(100, (loadedCount / totalExpected) * 100).toFixed(0);
+    document.getElementById('lf').style.width = pct + '%';
+    document.getElementById('lt').textContent = 'Lade Kachel ' + loadedCount + ' / ' + totalExpected + '...';
+    if (!loaderDone && loadedCount >= totalExpected) {
+        loaderDone = true;
+        setTimeout(() => {
+            const el = document.getElementById('ld');
+            if (el) { el.style.opacity = '0'; setTimeout(() => el.remove(), 800); }
+        }, 200);
+    }
+}
+
+totalExpected = (RAD * 2 + 1) * (RAD * 2 + 1);
+syncTiles(0, 0);
+
+function stripe(x, z, w, h, col, y) {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.9 }));
+    m.rotation.x = -Math.PI / 2;
+    m.position.set(x, y || 2, z);
+    scene.add(m);
+}
+for (let i = -9; i <= 9; i++) stripe(0, i * 140, 5.5, 50, 0xffffff, 2.5);
+stripe(0, -1300, 46, 20, 0xffffff, 2.5);
+stripe(0,  1300, 46, 20, 0xffffff, 2.5);
+
+// ================================================================
+// ERWEITERTE 3D BÄUME MIT VARIATIONEN
+// ================================================================
+function createTree(scale = 1) {
+    const group = new THREE.Group();
+    const trunkMat = new THREE.MeshPhongMaterial({ color: 0x6b4423 });
+    const foliageMat = new THREE.MeshPhongMaterial({ color: 0x2a6b1a });
+
+    const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.3 * scale, 0.4 * scale, 8 * scale, 8), trunkMat);
+    trunk.castShadow = true;
+    trunk.position.y = 4 * scale;
+    group.add(trunk);
+
+    const foliage1 = new THREE.Mesh(new THREE.ConeGeometry(3 * scale, 6 * scale, 8), foliageMat);
+    foliage1.castShadow = true;
+    foliage1.position.y = 10 * scale;
+    group.add(foliage1);
+
+    const foliage2 = new THREE.Mesh(new THREE.ConeGeometry(2.2 * scale, 5 * scale, 8), foliageMat);
+    foliage2.castShadow = true;
+    foliage2.position.y = 14 * scale;
+    group.add(foliage2);
+
+    return group;
+}
+
+function createGrassClump(x, z) {
+    const group = new THREE.Group();
+    const grassMat = new THREE.MeshLambertMaterial({ color: 0x4a7a2a });
+    for (let i = 0; i < 5; i++) {
+        const blade = new THREE.Mesh(
+            new THREE.BoxGeometry(0.8, 1.5, 0.15),
+            grassMat
+        );
+        blade.rotation.z = (i / 5) * Math.PI;
+        blade.position.set(x, 0.8, z);
+        group.add(blade);
+    }
+    return group;
+}
+
+function addTreeField(centerX, centerZ, count, areaSize = 100, scale = 1) {
+    for (let i = 0; i < count; i++) {
+        const x = centerX + (Math.random() - 0.5) * areaSize;
+        const z = centerZ + (Math.random() - 0.5) * areaSize;
+        const tree = createTree(scale);
+        tree.position.set(x, 0, z);
+        scene.add(tree);
+    }
+}
+
+function addGrassField(centerX, centerZ, count, areaSize = 150) {
+    for (let i = 0; i < count; i++) {
+        const x = centerX + (Math.random() - 0.5) * areaSize;
+        const z = centerZ + (Math.random() - 0.5) * areaSize;
+        const grass = createGrassClump(x, z);
+        scene.add(grass);
+    }
+}
+
+// Große grüne Wiesen rund um Nürnberg
+addGrassField(800, 500, 50, 300);
+addGrassField(-600, -700, 45, 280);
+addGrassField(500, -900, 40, 250);
+addGrassField(-900, 400, 55, 320);
+
+// Bäume in grünen Bereichen
+addTreeField(600, 400, 50, 250, 0.9);
+addTreeField(-500, -600, 55, 280, 1.0);
+addTreeField(400, -800, 45, 220, 0.85);
+addTreeField(-800, 300, 60, 350, 1.1);
+
+// ================================================================
+// GIANT SEHENSWÜRDIGKEITEN - DEUTLICH SICHTBAR
+// ================================================================
+
+// Kaiserburg - massive Festung
+const kaiserBurgX = (10.7828 - LON0) * M_PER_DEG_LON;
+const kaiserBurgZ = -(49.4540 - LAT0) * M_PER_DEG_LAT;
+
+function createCastle() {
+    const group = new THREE.Group();
+    const stoneColor = 0x8b7355;
+    const stoneMat = new THREE.MeshPhongMaterial({ color: stoneColor });
+
+    // 4 große Ecktürme
+    const towerGeo = new THREE.CylinderGeometry(20, 25, 60, 16);
+    for (let pos of [[40, 40], [-40, 40], [40, -40], [-40, -40]]) {
+        const tower = new THREE.Mesh(towerGeo, stoneMat);
+        tower.castShadow = true;
+        tower.position.set(pos[0], 30, pos[1]);
+        group.add(tower);
+    }
+
+    // Großer Mitteltower
+    const centerTower = new THREE.Mesh(new THREE.CylinderGeometry(28, 32, 80, 16), stoneMat);
+    centerTower.castShadow = true;
+    centerTower.position.y = 40;
+    group.add(centerTower);
+
+    // Großes Dach
+    const roofMat = new THREE.MeshPhongMaterial({ color: 0x5a4a3a });
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(35, 16, 16), roofMat);
+    roof.castShadow = true;
+    roof.position.y = 88;
+    group.add(roof);
+
+    return group;
+}
+
+const castle = createCastle();
+castle.position.set(kaiserBurgX, 0, kaiserBurgZ);
+scene.add(castle);
+
+// Label für Kaiserburg
+const kaiserLabel = document.createElement('div');
+kaiserLabel._worldPos = new THREE.Vector3(kaiserBurgX, 100, kaiserBurgZ);
+kaiserLabel._label = '🏰 KAISERBURG';
+
+// Sebalduskirche - gotische Kirche mit großen Türmen
+const sebaldX = (10.7755 - LON0) * M_PER_DEG_LON;
+const sebaldZ = -(49.4515 - LAT0) * M_PER_DEG_LAT;
+
+function createChurch() {
+    const group = new THREE.Group();
+    const brickMat = new THREE.MeshPhongMaterial({ color: 0xa85a3a });
+
+    // Großes Kirchenschiff
+    const nave = new THREE.Mesh(new THREE.BoxGeometry(32, 50, 70), brickMat);
+    nave.castShadow = true;
+    nave.position.y = 25;
+    group.add(nave);
+
+    // Großes Dach
+    const roofMat = new THREE.MeshPhongMaterial({ color: 0x4a3a2a });
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(38, 32, 4), roofMat);
+    roof.castShadow = true;
+    roof.position.y = 66;
+    group.add(roof);
+
+    // Zwei große Türme vorne
+    const towerGeo = new THREE.CylinderGeometry(10, 12, 80, 12);
+    const towerMat = new THREE.MeshPhongMaterial({ color: 0x8a4a2a });
+    for (let x of [-16, 16]) {
+        const tower = new THREE.Mesh(towerGeo, towerMat);
+        tower.castShadow = true;
+        tower.position.set(x, 40, -28);
+        group.add(tower);
+
+        // Große Turmspitze
+        const spire = new THREE.Mesh(new THREE.ConeGeometry(8, 24, 8), towerMat);
+        spire.position.set(x, 94, -28);
+        group.add(spire);
+    }
+
+    return group;
+}
+
+const church = createChurch();
+church.position.set(sebaldX, 0, sebaldZ);
+scene.add(church);
+
+// Marktplatz mit großen Gebäuden & Brunnen
+const marketX = (10.7737 - LON0) * M_PER_DEG_LON;
+const marketZ = -(49.4505 - LAT0) * M_PER_DEG_LAT;
+
+function createMarketSquare() {
+    const group = new THREE.Group();
+
+    // Große Gebäude rund um den Markt
+    const houseColors = [0xc85a3a, 0xb85a3a, 0xd85a3a, 0xa85a3a];
+    for (let i = 0; i < 4; i++) {
+        const angle = (i / 4) * Math.PI * 2;
+        const hx = Math.cos(angle) * 60;
+        const hz = Math.sin(angle) * 60;
+        const houseMat = new THREE.MeshPhongMaterial({ color: houseColors[i] });
+        const house = new THREE.Mesh(new THREE.BoxGeometry(28, 36, 28), houseMat);
+        house.castShadow = true;
+        house.position.set(hx, 18, hz);
+        group.add(house);
+
+        // Große Dächer
+        const roofMat = new THREE.MeshPhongMaterial({ color: 0x4a3a2a });
+        const roof = new THREE.Mesh(new THREE.ConeGeometry(20, 16, 4), roofMat);
+        roof.position.set(hx, 43, hz);
+        group.add(roof);
+    }
+
+    // Großer Zentral-Brunnen
+    const fountain = new THREE.Mesh(new THREE.CylinderGeometry(16, 20, 8, 16), new THREE.MeshPhongMaterial({ color: 0x888888 }));
+    fountain.castShadow = true;
+    fountain.position.y = 4;
+    group.add(fountain);
+
+    // Große Brunnen-Säule
+    const column = new THREE.Mesh(new THREE.CylinderGeometry(6, 6, 24, 8), new THREE.MeshPhongMaterial({ color: 0x666666 }));
+    column.position.y = 16;
+    group.add(column);
+
+    // Brunnen-Aufsatz
+    const top = new THREE.Mesh(new THREE.ConeGeometry(10, 12, 8), new THREE.MeshPhongMaterial({ color: 0x555555 }));
+    top.position.y = 34;
+    group.add(top);
+
+    return group;
+}
+
+const market = createMarketSquare();
+market.position.set(marketX, 0, marketZ);
+scene.add(market);
+
+// ================================================================
+// MEHR GEBÄUDE - STADT VERTEILT
+// ================================================================
+function addCityBuildings() {
+    const buildingPositions = [
+        { x: 150, z: -200, width: 20, height: 25, color: 0x996644 },
+        { x: -180, z: 150, width: 16, height: 28, color: 0x887744 },
+        { x: 280, z: 180, width: 24, height: 32, color: 0x998855 },
+        { x: -250, z: -280, width: 18, height: 26, color: 0x776655 },
+        { x: 320, z: -150, width: 22, height: 30, color: 0x998866 },
+        { x: -200, z: 280, width: 20, height: 24, color: 0x886655 },
+    ];
+
+    buildingPositions.forEach(building => {
+        const mat = new THREE.MeshPhongMaterial({ color: building.color });
+        const buildingMesh = new THREE.Mesh(
+            new THREE.BoxGeometry(building.width, building.height, building.width * 1.2),
+            mat
+        );
+        buildingMesh.castShadow = true;
+        buildingMesh.position.set(building.x, building.height / 2, building.z);
+        scene.add(buildingMesh);
+
+        const roofMat = new THREE.MeshPhongMaterial({ color: 0x4a3a2a });
+        const roof = new THREE.Mesh(
+            new THREE.ConeGeometry(building.width + 2, 10, 4),
+            roofMat
+        );
+        roof.position.set(building.x, building.height + 5, building.z);
+        scene.add(roof);
+    });
+}
+addCityBuildings();
+
+// ================================================================
+// WELTWEITE 3D-WAHRZEICHEN
+// ================================================================
+
+// Eiffelturm - Paris
+function createEiffelTower() {
+    const group = new THREE.Group();
+    const ironMat = new THREE.MeshPhongMaterial({ color: 0x8b6f47 });
+
+    // 4 Beine die nach oben zusammenlaufen
+    for (let angle of [0, Math.PI/2, Math.PI, 3*Math.PI/2]) {
+        const leg = new THREE.Mesh(
+            new THREE.CylinderGeometry(2, 6, 80, 8),
+            ironMat
+        );
+        leg.position.set(Math.cos(angle) * 18, 40, Math.sin(angle) * 18);
+        leg.lookAt(0, 80, 0);
+        leg.rotateX(Math.PI / 2);
+        leg.castShadow = true;
+        group.add(leg);
+    }
+
+    // Erste Plattform
+    const plat1 = new THREE.Mesh(
+        new THREE.BoxGeometry(38, 4, 38),
+        ironMat
+    );
+    plat1.position.y = 32;
+    plat1.castShadow = true;
+    group.add(plat1);
+
+    // Mittelteil
+    const middle = new THREE.Mesh(
+        new THREE.CylinderGeometry(3, 8, 60, 8),
+        ironMat
+    );
+    middle.position.y = 70;
+    middle.castShadow = true;
+    group.add(middle);
+
+    // Zweite Plattform
+    const plat2 = new THREE.Mesh(
+        new THREE.BoxGeometry(20, 3, 20),
+        ironMat
+    );
+    plat2.position.y = 105;
+    plat2.castShadow = true;
+    group.add(plat2);
+
+    // Oberer Turm
+    const upper = new THREE.Mesh(
+        new THREE.CylinderGeometry(1, 4, 80, 8),
+        ironMat
+    );
+    upper.position.y = 150;
+    upper.castShadow = true;
+    group.add(upper);
+
+    // Spitze
+    const spire = new THREE.Mesh(
+        new THREE.ConeGeometry(1.5, 20, 8),
+        new THREE.MeshPhongMaterial({ color: 0xddaa44 })
+    );
+    spire.position.y = 200;
+    spire.castShadow = true;
+    group.add(spire);
+
+    return group;
+}
+
+// Schiefer Turm von Pisa
+function createPisaTower() {
+    const group = new THREE.Group();
+    const marbleMat = new THREE.MeshPhongMaterial({ color: 0xeeeedd });
+
+    for (let i = 0; i < 8; i++) {
+        const ring = new THREE.Mesh(
+            new THREE.CylinderGeometry(8, 8, 8, 24),
+            marbleMat
+        );
+        ring.position.y = 4 + i * 8;
+        ring.castShadow = true;
+        group.add(ring);
+    }
+
+    // Glockenspitze
+    const top = new THREE.Mesh(
+        new THREE.CylinderGeometry(6, 7, 6, 16),
+        marbleMat
+    );
+    top.position.y = 72;
+    top.castShadow = true;
+    group.add(top);
+
+    // Neigung
+    group.rotation.z = Math.PI / 32;
+
+    return group;
+}
+
+// Brandenburger Tor - Berlin
+function createBrandenburgGate() {
+    const group = new THREE.Group();
+    const stoneMat = new THREE.MeshPhongMaterial({ color: 0xddccaa });
+
+    // Hauptkörper
+    const body = new THREE.Mesh(
+        new THREE.BoxGeometry(60, 26, 12),
+        stoneMat
+    );
+    body.position.y = 13;
+    body.castShadow = true;
+    group.add(body);
+
+    // 6 Säulen vorne
+    for (let i = -2.5; i <= 2.5; i++) {
+        const col = new THREE.Mesh(
+            new THREE.CylinderGeometry(2, 2, 22, 12),
+            stoneMat
+        );
+        col.position.set(i * 9, 11, 7);
+        col.castShadow = true;
+        group.add(col);
+
+        const colBack = new THREE.Mesh(
+            new THREE.CylinderGeometry(2, 2, 22, 12),
+            stoneMat
+        );
+        colBack.position.set(i * 9, 11, -7);
+        colBack.castShadow = true;
+        group.add(colBack);
+    }
+
+    // Quadriga (Statue oben)
+    const quadriga = new THREE.Mesh(
+        new THREE.BoxGeometry(20, 8, 8),
+        new THREE.MeshPhongMaterial({ color: 0x444444 })
+    );
+    quadriga.position.y = 30;
+    quadriga.castShadow = true;
+    group.add(quadriga);
+
+    return group;
+}
+
+// Berliner Mauer (Reststück)
+function createBerlinWall() {
+    const group = new THREE.Group();
+    const wallMat = new THREE.MeshPhongMaterial({ color: 0xaaaaaa });
+
+    // 8 Mauer-Segmente in einer Reihe mit Graffiti-Farben
+    const colors = [0xff4444, 0x44ff88, 0x4488ff, 0xffaa22, 0xaa44ff, 0xff88aa, 0x44ffff, 0xffff44];
+    for (let i = 0; i < 8; i++) {
+        const segment = new THREE.Mesh(
+            new THREE.BoxGeometry(8, 12, 1.5),
+            new THREE.MeshPhongMaterial({ color: colors[i] })
+        );
+        segment.position.set(i * 8 - 28, 6, 0);
+        segment.castShadow = true;
+        group.add(segment);
+    }
+
+    return group;
+}
+
+// Kolosseum - Rom
+function createColosseum() {
+    const group = new THREE.Group();
+    const stoneMat = new THREE.MeshPhongMaterial({ color: 0xc8a878 });
+
+    // Ovaler Ring aus Bögen (3 Etagen)
+    const segments = 32;
+    for (let etage = 0; etage < 3; etage++) {
+        for (let i = 0; i < segments; i++) {
+            const angle = (i / segments) * Math.PI * 2;
+            const rx = 50;
+            const rz = 40;
+            const arch = new THREE.Mesh(
+                new THREE.BoxGeometry(8, 12, 4),
+                stoneMat
+            );
+            arch.position.set(
+                Math.cos(angle) * rx,
+                6 + etage * 13,
+                Math.sin(angle) * rz
+            );
+            arch.lookAt(0, 6 + etage * 13, 0);
+            arch.castShadow = true;
+            group.add(arch);
+        }
+    }
+
+    // Innerer Boden
+    const floor = new THREE.Mesh(
+        new THREE.CylinderGeometry(40, 40, 1, 32),
+        new THREE.MeshPhongMaterial({ color: 0x8a6a4a })
+    );
+    floor.position.y = 0.5;
+    floor.scale.z = 0.85;
+    group.add(floor);
+
+    return group;
+}
+
+// Big Ben - London
+function createBigBen() {
+    const group = new THREE.Group();
+    const stoneMat = new THREE.MeshPhongMaterial({ color: 0xb8a890 });
+
+    // Haupt-Turm
+    const tower = new THREE.Mesh(
+        new THREE.BoxGeometry(14, 80, 14),
+        stoneMat
+    );
+    tower.position.y = 40;
+    tower.castShadow = true;
+    group.add(tower);
+
+    // Uhren auf 4 Seiten
+    const clockMat = new THREE.MeshPhongMaterial({ color: 0xffffaa, emissive: 0x442200 });
+    for (let angle of [0, Math.PI/2, Math.PI, 3*Math.PI/2]) {
+        const clock = new THREE.Mesh(
+            new THREE.CircleGeometry(4.5, 16),
+            clockMat
+        );
+        clock.position.set(Math.cos(angle) * 7.1, 70, Math.sin(angle) * 7.1);
+        clock.lookAt(Math.cos(angle) * 100, 70, Math.sin(angle) * 100);
+        group.add(clock);
+    }
+
+    // Spitzes Dach
+    const roof = new THREE.Mesh(
+        new THREE.ConeGeometry(10, 20, 4),
+        new THREE.MeshPhongMaterial({ color: 0x4a5a3a })
+    );
+    roof.position.y = 90;
+    roof.castShadow = true;
+    group.add(roof);
+
+    // Goldene Spitze
+    const spire = new THREE.Mesh(
+        new THREE.ConeGeometry(1, 8, 8),
+        new THREE.MeshPhongMaterial({ color: 0xffcc00 })
+    );
+    spire.position.y = 104;
+    group.add(spire);
+
+    return group;
+}
+
+// Freiheitsstatue - New York
+function createStatueOfLiberty() {
+    const group = new THREE.Group();
+
+    // Sockel (sternförmig vereinfacht als Box)
+    const baseMat = new THREE.MeshPhongMaterial({ color: 0x886644 });
+    const base = new THREE.Mesh(new THREE.BoxGeometry(30, 20, 30), baseMat);
+    base.position.y = 10;
+    base.castShadow = true;
+    group.add(base);
+
+    // Sockel oben (Pyramide)
+    const pedestal = new THREE.Mesh(new THREE.BoxGeometry(20, 30, 20), baseMat);
+    pedestal.position.y = 35;
+    pedestal.castShadow = true;
+    group.add(pedestal);
+
+    // Statue-Körper (Gewand)
+    const statueMat = new THREE.MeshPhongMaterial({ color: 0x4ab8a0 });
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(5, 8, 25, 8), statueMat);
+    body.position.y = 62;
+    body.castShadow = true;
+    group.add(body);
+
+    // Kopf
+    const head = new THREE.Mesh(new THREE.SphereGeometry(3, 12, 12), statueMat);
+    head.position.y = 78;
+    head.castShadow = true;
+    group.add(head);
+
+    // Krone
+    const crown = new THREE.Mesh(new THREE.ConeGeometry(4, 5, 7), statueMat);
+    crown.position.y = 82;
+    group.add(crown);
+
+    // Erhobener Arm mit Fackel
+    const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 14, 8), statueMat);
+    arm.position.set(4, 80, 0);
+    arm.rotation.z = -0.3;
+    group.add(arm);
+
+    // Fackel
+    const torch = new THREE.Mesh(new THREE.ConeGeometry(2, 5, 8),
+        new THREE.MeshPhongMaterial({ color: 0xffcc00, emissive: 0xff6600 }));
+    torch.position.set(8, 90, 0);
+    group.add(torch);
+
+    return group;
+}
+
+// Pyramiden von Gizeh
+function createPyramids() {
+    const group = new THREE.Group();
+    const sandMat = new THREE.MeshPhongMaterial({ color: 0xd4b27a });
+
+    // 3 Pyramiden in Reihe
+    const sizes = [[40, 50], [35, 45], [25, 30]];
+    sizes.forEach((s, i) => {
+        const pyramid = new THREE.Mesh(
+            new THREE.ConeGeometry(s[0], s[1], 4),
+            sandMat
+        );
+        pyramid.rotation.y = Math.PI / 4;
+        pyramid.position.set(i * 80 - 80, s[1]/2, 0);
+        pyramid.castShadow = true;
+        group.add(pyramid);
+    });
+
+    // Sphinx (vereinfacht)
+    const sphinx = new THREE.Mesh(
+        new THREE.BoxGeometry(20, 12, 8),
+        sandMat
+    );
+    sphinx.position.set(60, 6, 30);
+    sphinx.castShadow = true;
+    group.add(sphinx);
+    const sphinxHead = new THREE.Mesh(
+        new THREE.BoxGeometry(8, 10, 8),
+        sandMat
+    );
+    sphinxHead.position.set(70, 14, 30);
+    group.add(sphinxHead);
+
+    return group;
+}
+
+// Sydney Opera House
+function createOperaHouse() {
+    const group = new THREE.Group();
+    const shellMat = new THREE.MeshPhongMaterial({ color: 0xeeeeee });
+
+    // Mehrere Segel-Strukturen (Halbkugeln)
+    const positions = [[-25, 0], [-10, 5], [5, 0], [20, 5], [30, 0]];
+    positions.forEach((p, i) => {
+        const shell = new THREE.Mesh(
+            new THREE.SphereGeometry(15, 16, 8, 0, Math.PI),
+            shellMat
+        );
+        shell.position.set(p[0], 8, p[1]);
+        shell.rotation.x = -Math.PI / 2;
+        shell.scale.set(1, 1.2, 0.6);
+        shell.castShadow = true;
+        group.add(shell);
+    });
+
+    // Sockel
+    const base = new THREE.Mesh(
+        new THREE.BoxGeometry(80, 6, 30),
+        new THREE.MeshPhongMaterial({ color: 0xcc8855 })
+    );
+    base.position.y = 3;
+    group.add(base);
+
+    return group;
+}
+
+// Christus Erlöser - Rio de Janeiro
+function createChristRedeemer() {
+    const group = new THREE.Group();
+    const stoneMat = new THREE.MeshPhongMaterial({ color: 0xe0d8c8 });
+
+    // Sockel
+    const base = new THREE.Mesh(
+        new THREE.BoxGeometry(15, 15, 15),
+        new THREE.MeshPhongMaterial({ color: 0x886644 })
+    );
+    base.position.y = 7.5;
+    base.castShadow = true;
+    group.add(base);
+
+    // Statue-Körper (langes Gewand)
+    const body = new THREE.Mesh(
+        new THREE.CylinderGeometry(4, 8, 35, 8),
+        stoneMat
+    );
+    body.position.y = 32;
+    body.castShadow = true;
+    group.add(body);
+
+    // Kopf
+    const head = new THREE.Mesh(new THREE.SphereGeometry(3, 12, 12), stoneMat);
+    head.position.y = 53;
+    head.castShadow = true;
+    group.add(head);
+
+    // Ausgestreckte Arme (horizontal)
+    const arms = new THREE.Mesh(
+        new THREE.CylinderGeometry(2, 2, 28, 8),
+        stoneMat
+    );
+    arms.rotation.z = Math.PI / 2;
+    arms.position.y = 45;
+    arms.castShadow = true;
+    group.add(arms);
+
+    return group;
+}
+
+// Taj Mahal - Indien
+function createTajMahal() {
+    const group = new THREE.Group();
+    const marbleMat = new THREE.MeshPhongMaterial({ color: 0xfafaf0 });
+
+    // Hauptkörper
+    const body = new THREE.Mesh(
+        new THREE.BoxGeometry(40, 25, 40),
+        marbleMat
+    );
+    body.position.y = 12.5;
+    body.castShadow = true;
+    group.add(body);
+
+    // Hauptkuppel
+    const dome = new THREE.Mesh(
+        new THREE.SphereGeometry(15, 24, 16),
+        marbleMat
+    );
+    dome.position.y = 35;
+    dome.castShadow = true;
+    group.add(dome);
+
+    // Kuppel-Spitze
+    const tip = new THREE.Mesh(
+        new THREE.ConeGeometry(2, 8, 8),
+        new THREE.MeshPhongMaterial({ color: 0xffcc00 })
+    );
+    tip.position.y = 52;
+    group.add(tip);
+
+    // 4 Minarette
+    for (let pos of [[25, 25], [-25, 25], [25, -25], [-25, -25]]) {
+        const minaret = new THREE.Mesh(
+            new THREE.CylinderGeometry(2, 2.5, 30, 12),
+            marbleMat
+        );
+        minaret.position.set(pos[0], 15, pos[1]);
+        minaret.castShadow = true;
+        group.add(minaret);
+
+        const top = new THREE.Mesh(
+            new THREE.SphereGeometry(2.5, 12, 8),
+            marbleMat
+        );
+        top.position.set(pos[0], 32, pos[1]);
+        group.add(top);
+    }
+
+    return group;
+}
+
+// Chinesische Mauer (Wachturm-Stück)
+function createGreatWall() {
+    const group = new THREE.Group();
+    const stoneMat = new THREE.MeshPhongMaterial({ color: 0x9a8870 });
+
+    // Mauer-Segmente
+    for (let i = 0; i < 8; i++) {
+        const wall = new THREE.Mesh(
+            new THREE.BoxGeometry(10, 8, 4),
+            stoneMat
+        );
+        wall.position.set(i * 10 - 35, 4, 0);
+        wall.castShadow = true;
+        group.add(wall);
+    }
+
+    // 2 Wachtürme
+    for (let x of [-25, 25]) {
+        const tower = new THREE.Mesh(
+            new THREE.BoxGeometry(12, 18, 12),
+            stoneMat
+        );
+        tower.position.set(x, 9, 0);
+        tower.castShadow = true;
+        group.add(tower);
+
+        const roof = new THREE.Mesh(
+            new THREE.ConeGeometry(8, 6, 4),
+            new THREE.MeshPhongMaterial({ color: 0x553a2a })
+        );
+        roof.position.set(x, 21, 0);
+        group.add(roof);
+    }
+
+    return group;
+}
+
+// Tokio Tower (Japan)
+function createTokyoTower() {
+    const group = new THREE.Group();
+    const redMat = new THREE.MeshPhongMaterial({ color: 0xee2222 });
+    const whiteMat = new THREE.MeshPhongMaterial({ color: 0xffffff });
+
+    // 4 Beine
+    for (let angle of [0, Math.PI/2, Math.PI, 3*Math.PI/2]) {
+        const leg = new THREE.Mesh(
+            new THREE.CylinderGeometry(1.5, 4, 90, 8),
+            redMat
+        );
+        leg.position.set(Math.cos(angle) * 12, 45, Math.sin(angle) * 12);
+        leg.lookAt(0, 90, 0);
+        leg.rotateX(Math.PI / 2);
+        leg.castShadow = true;
+        group.add(leg);
+    }
+
+    // Mittelteil rot/weiß gestreift
+    for (let i = 0; i < 6; i++) {
+        const seg = new THREE.Mesh(
+            new THREE.CylinderGeometry(2, 4, 16, 8),
+            i % 2 === 0 ? redMat : whiteMat
+        );
+        seg.position.y = 8 + i * 16;
+        seg.castShadow = true;
+        group.add(seg);
+    }
+
+    // Aussichtsplattform
+    const obs = new THREE.Mesh(
+        new THREE.CylinderGeometry(6, 8, 8, 12),
+        whiteMat
+    );
+    obs.position.y = 110;
+    obs.castShadow = true;
+    group.add(obs);
+
+    // Antenne
+    const ant = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.5, 1.5, 40, 8),
+        redMat
+    );
+    ant.position.y = 135;
+    group.add(ant);
+
+    return group;
+}
+
+// Akropolis (Parthenon) - Athen
+function createParthenon() {
+    const group = new THREE.Group();
+    const marbleMat = new THREE.MeshPhongMaterial({ color: 0xeeeedc });
+
+    // Sockel-Stufen
+    for (let i = 0; i < 3; i++) {
+        const step = new THREE.Mesh(
+            new THREE.BoxGeometry(50 - i*2, 1.5, 25 - i),
+            marbleMat
+        );
+        step.position.y = 0.75 + i * 1.5;
+        group.add(step);
+    }
+
+    // Säulen
+    for (let x = -22; x <= 22; x += 5.5) {
+        for (let z of [-10, 10]) {
+            const col = new THREE.Mesh(
+                new THREE.CylinderGeometry(1.6, 1.8, 22, 16),
+                marbleMat
+            );
+            col.position.set(x, 17, z);
+            col.castShadow = true;
+            group.add(col);
+        }
+    }
+
+    // Dach
+    const roof = new THREE.Mesh(
+        new THREE.BoxGeometry(50, 4, 25),
+        marbleMat
+    );
+    roof.position.y = 30;
+    roof.castShadow = true;
+    group.add(roof);
+
+    // Giebel (Dreieck)
+    const pediment = new THREE.Mesh(
+        new THREE.ConeGeometry(15, 8, 3),
+        marbleMat
+    );
+    pediment.rotation.y = Math.PI/2;
+    pediment.position.set(0, 36, 0);
+    pediment.scale.set(1, 1, 0.4);
+    group.add(pediment);
+
+    return group;
+}
+
+// Burj Khalifa (Dubai)
+function createBurjKhalifa() {
+    const group = new THREE.Group();
+    const glassMat = new THREE.MeshPhongMaterial({ color: 0xaadddd, shininess: 200 });
+
+    // Mehrere Sektionen die nach oben dünner werden
+    const sections = [
+        { y: 30, r: 14, h: 60 },
+        { y: 80, r: 11, h: 40 },
+        { y: 115, r: 8, h: 30 },
+        { y: 140, r: 5, h: 20 },
+        { y: 158, r: 3, h: 12 },
+    ];
+
+    sections.forEach(s => {
+        const seg = new THREE.Mesh(
+            new THREE.CylinderGeometry(s.r * 0.8, s.r, s.h, 8),
+            glassMat
+        );
+        seg.position.y = s.y;
+        seg.castShadow = true;
+        group.add(seg);
+    });
+
+    // Antennenspitze
+    const antenna = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.3, 1.5, 30, 8),
+        new THREE.MeshPhongMaterial({ color: 0x888888 })
+    );
+    antenna.position.y = 180;
+    group.add(antenna);
+
+    return group;
+}
+
+// Basilius-Kathedrale - Moskau
+function createSaintBasil() {
+    const group = new THREE.Group();
+    const baseMat = new THREE.MeshPhongMaterial({ color: 0xbb6644 });
+
+    // Hauptkörper
+    const body = new THREE.Mesh(
+        new THREE.BoxGeometry(30, 25, 30),
+        baseMat
+    );
+    body.position.y = 12.5;
+    body.castShadow = true;
+    group.add(body);
+
+    // Bunte Zwiebeltürme
+    const colors = [0xff4488, 0x44aaff, 0xffaa22, 0x44ff88, 0xaa44ff];
+    const positions = [[0, 0], [-12, -12], [12, -12], [-12, 12], [12, 12]];
+    positions.forEach((p, i) => {
+        // Turm-Sockel
+        const turret = new THREE.Mesh(
+            new THREE.CylinderGeometry(4, 4, 18, 12),
+            new THREE.MeshPhongMaterial({ color: colors[i] })
+        );
+        turret.position.set(p[0], 34, p[1]);
+        turret.castShadow = true;
+        group.add(turret);
+
+        // Zwiebelkuppel
+        const dome = new THREE.Mesh(
+            new THREE.SphereGeometry(5, 16, 12),
+            new THREE.MeshPhongMaterial({ color: colors[i] })
+        );
+        dome.position.set(p[0], 47, p[1]);
+        dome.scale.y = 1.2;
+        group.add(dome);
+
+        // Spitze
+        const tip = new THREE.Mesh(
+            new THREE.ConeGeometry(0.5, 4, 8),
+            new THREE.MeshPhongMaterial({ color: 0xffcc00 })
+        );
+        tip.position.set(p[0], 54, p[1]);
+        group.add(tip);
+    });
+
+    return group;
+}
+
+// Golden Gate Bridge (San Francisco)
+function createGoldenGate() {
+    const group = new THREE.Group();
+    const orangeMat = new THREE.MeshPhongMaterial({ color: 0xee5522 });
+
+    // 2 Pfeiler/Türme
+    for (let x of [-40, 40]) {
+        const tower = new THREE.Mesh(
+            new THREE.BoxGeometry(6, 80, 6),
+            orangeMat
+        );
+        tower.position.set(x, 40, 0);
+        tower.castShadow = true;
+        group.add(tower);
+
+        // Querbalken
+        const beam = new THREE.Mesh(
+            new THREE.BoxGeometry(12, 4, 6),
+            orangeMat
+        );
+        beam.position.set(x, 65, 0);
+        group.add(beam);
+    }
+
+    // Brückenfahrbahn
+    const deck = new THREE.Mesh(
+        new THREE.BoxGeometry(120, 2, 8),
+        new THREE.MeshPhongMaterial({ color: 0x444444 })
+    );
+    deck.position.y = 30;
+    group.add(deck);
+
+    // Hängeseile (vereinfacht)
+    for (let x = -38; x <= 38; x += 4) {
+        const cable = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.2, 0.2, 30, 4),
+            orangeMat
+        );
+        cable.position.set(x, 45, 0);
+        group.add(cable);
+    }
+
+    return group;
+}
+
+// ================================================================
+// LANDMARK DATABASE - Weltweite Wahrzeichen
+// ================================================================
+const WORLD_LANDMARKS = [
+    { name: 'Eiffelturm', city: 'Paris', country: 'Frankreich', lat: 48.8584, lon: 2.2945, builder: createEiffelTower, icon: '🗼' },
+    { name: 'Schiefer Turm Pisa', city: 'Pisa', country: 'Italien', lat: 43.7230, lon: 10.3966, builder: createPisaTower, icon: '🗼' },
+    { name: 'Brandenburger Tor', city: 'Berlin', country: 'Deutschland', lat: 52.5163, lon: 13.3777, builder: createBrandenburgGate, icon: '🏛' },
+    { name: 'Berliner Mauer', city: 'Berlin', country: 'Deutschland', lat: 52.5057, lon: 13.3915, builder: createBerlinWall, icon: '🧱' },
+    { name: 'Kolosseum', city: 'Rom', country: 'Italien', lat: 41.8902, lon: 12.4922, builder: createColosseum, icon: '🏟' },
+    { name: 'Big Ben', city: 'London', country: 'England', lat: 51.5007, lon: -0.1246, builder: createBigBen, icon: '🕰' },
+    { name: 'Freiheitsstatue', city: 'New York', country: 'USA', lat: 40.6892, lon: -74.0445, builder: createStatueOfLiberty, icon: '🗽' },
+    { name: 'Pyramiden Gizeh', city: 'Kairo', country: 'Ägypten', lat: 29.9792, lon: 31.1342, builder: createPyramids, icon: '🔺' },
+    { name: 'Opernhaus', city: 'Sydney', country: 'Australien', lat: -33.8568, lon: 151.2153, builder: createOperaHouse, icon: '🏛' },
+    { name: 'Christus Erlöser', city: 'Rio de Janeiro', country: 'Brasilien', lat: -22.9519, lon: -43.2105, builder: createChristRedeemer, icon: '✝' },
+    { name: 'Taj Mahal', city: 'Agra', country: 'Indien', lat: 27.1751, lon: 78.0421, builder: createTajMahal, icon: '🕌' },
+    { name: 'Chinesische Mauer', city: 'Peking', country: 'China', lat: 40.4319, lon: 116.5704, builder: createGreatWall, icon: '🧱' },
+    { name: 'Tokio Tower', city: 'Tokio', country: 'Japan', lat: 35.6586, lon: 139.7454, builder: createTokyoTower, icon: '🗼' },
+    { name: 'Parthenon', city: 'Athen', country: 'Griechenland', lat: 37.9715, lon: 23.7257, builder: createParthenon, icon: '🏛' },
+    { name: 'Burj Khalifa', city: 'Dubai', country: 'VAE', lat: 25.1972, lon: 55.2744, builder: createBurjKhalifa, icon: '🏢' },
+    { name: 'Basilius-Kathedrale', city: 'Moskau', country: 'Russland', lat: 55.7525, lon: 37.6231, builder: createSaintBasil, icon: '⛪' },
+    { name: 'Golden Gate Bridge', city: 'San Francisco', country: 'USA', lat: 37.8199, lon: -122.4783, builder: createGoldenGate, icon: '🌉' },
+];
+
+// Cache für geladene Wahrzeichen
+const loadedLandmarks = new Set();
+const landmarkObjects = [];
+
+function lonLatToWorld(lon, lat) {
+    return {
+        wx: (lon - LON0) * M_PER_DEG_LON,
+        wz: -(lat - LAT0) * M_PER_DEG_LAT
+    };
+}
+
+function spawnLandmark(landmark) {
+    if (loadedLandmarks.has(landmark.name)) return;
+    loadedLandmarks.add(landmark.name);
+    const { wx, wz } = lonLatToWorld(landmark.lon, landmark.lat);
+    const obj = landmark.builder();
+    obj.position.set(wx, 0, wz);
+    obj._landmark = landmark;
+    obj._worldX = wx;
+    obj._worldZ = wz;
+    scene.add(obj);
+    landmarkObjects.push(obj);
+}
+
+// Spawne ALLE Wahrzeichen direkt beim Start
+WORLD_LANDMARKS.forEach(lm => spawnLandmark(lm));
+
+// ================================================================
+// CESSNA 172
+// ================================================================
+function buildCessna() {
+    const ac = new THREE.Group();
+    const mR  = new THREE.MeshPhongMaterial({ color: 0xcc1111, shininess: 100 });
+    const mDR = new THREE.MeshPhongMaterial({ color: 0x990000, shininess: 80 });
+    const mW  = new THREE.MeshPhongMaterial({ color: 0xf2f2f2, shininess: 65 });
+    const mG  = new THREE.MeshPhongMaterial({ color: 0x88ccee, transparent: true, opacity: 0.55, shininess: 140 });
+    const mC  = new THREE.MeshPhongMaterial({ color: 0xcccccc, shininess: 230, specular: 0xffffff });
+    const mDk = new THREE.MeshPhongMaterial({ color: 0x111111 });
+    const mTy = new THREE.MeshPhongMaterial({ color: 0x1a1a1a });
+
+    function mk(geo, mat, px, py, pz, rx, ry, rz) {
+        const m = new THREE.Mesh(geo, mat);
+        if (px !== undefined) m.position.set(px, py, pz);
+        if (rx !== undefined) m.rotation.set(rx, ry, rz);
+        m.castShadow = true; ac.add(m); return m;
+    }
+
+    mk(new THREE.CylinderGeometry(1.1, 2.0, 7.5, 14), mW, 0, 0, 5.0, Math.PI/2, 0, 0);
+    mk(new THREE.BoxGeometry(3.5, 2.65, 5.5), mW, 0, 0.5, 0.5);
+    mk(new THREE.CylinderGeometry(0.48, 1.8, 8.2, 14), mW, 0, -0.1, -4.6, Math.PI/2, 0, 0);
+    mk(new THREE.BoxGeometry(3.6, 0.54, 14.5), mR, 0, 0.15, 0);
+    const nose = new THREE.Mesh(new THREE.ConeGeometry(1.05, 2.6, 14), mDR);
+    nose.rotation.x = -Math.PI/2; nose.position.set(0, 0, 9.3); nose.castShadow = true; ac.add(nose);
+
+    const ws = new THREE.Mesh(new THREE.BoxGeometry(3.0, 1.45, 0.14), mG);
+    ws.rotation.x = -0.4; ws.position.set(0, 1.2, 2.8); ac.add(ws);
+    [-1.77, 1.77].forEach(sx => {
+        const sw = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.95, 2.1), mG);
+        sw.position.set(sx, 0.8, 1.0); ac.add(sw);
+        const bw = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.7, 0.85), mG);
+        bw.position.set(sx, 0.75, -0.9); ac.add(bw);
+    });
+
+    mk(new THREE.BoxGeometry(33, 0.48, 4.3), mW, 0, 1.65, 0.1);
+    [-15.8, 15.8].forEach(wx => {
+        mk(new THREE.BoxGeometry(2.6, 0.5, 4.3), mR, wx + (wx < 0 ? 1.3 : -1.3), 1.65, 0.1);
+    });
+    [-11.5, 11.5].forEach(wx => {
+        mk(new THREE.BoxGeometry(4.5, 0.28, 1.45), mW, wx, 1.42, -1.55);
+    });
+    [-8.2, 8.2].forEach(sx => {
+        const st = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 6, 8), mC);
+        st.position.set(sx, -0.22, 0.5);
+        st.rotation.z = (sx < 0 ? -1 : 1) * 0.5; ac.add(st);
+    });
+
+    mk(new THREE.BoxGeometry(11, 0.28, 2.85), mW, 0, 0.1, -7.95);
+    mk(new THREE.BoxGeometry(11, 0.31, 0.55), mR, 0, 0.1, -9.15);
+    mk(new THREE.BoxGeometry(0.3, 4.3, 2.35), mW, 0, 2.25, -8.0);
+    mk(new THREE.BoxGeometry(0.3, 1.85, 1.1), mR, 0, 4.9, -7.5);
+
+    const spn = new THREE.Mesh(new THREE.ConeGeometry(0.54, 1.38, 14), mC);
+    spn.rotation.x = -Math.PI/2; spn.position.set(0, 0, 9.85); ac.add(spn);
+    const prop = new THREE.Group();
+    prop.position.set(0, 0, 8.85);
+    [0, Math.PI/2].forEach(rz => {
+        const b = new THREE.Mesh(new THREE.BoxGeometry(0.37, 13.2, 0.31), mDk);
+        b.rotation.z = rz; b.castShadow = true; prop.add(b);
+    });
+    ac.add(prop); ac.prop = prop;
+
+    [-7, 7].forEach(wx => {
+        mk(new THREE.CylinderGeometry(0.15, 0.15, 4.7, 8), mC, wx, -1.82, 0.3);
+        const whl = new THREE.Mesh(new THREE.CylinderGeometry(0.82, 0.82, 0.5, 18), mTy);
+        whl.rotation.z = Math.PI/2; whl.position.set(wx, -3.65, 0.3); ac.add(whl);
+        const pant = new THREE.Mesh(new THREE.SphereGeometry(1.0, 12, 8), mW);
+        pant.scale.set(0.5, 1.0, 1.3); pant.position.set(wx, -3.12, 0.3); ac.add(pant);
+    });
+    mk(new THREE.CylinderGeometry(0.13, 0.13, 3.7, 8), mC, 0, -1.25, 7.85);
+    const nw = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.4, 14), mTy);
+    nw.rotation.z = Math.PI/2; nw.position.set(0, -2.85, 7.85); ac.add(nw);
+
+    mk(new THREE.CylinderGeometry(0.05, 0.05, 3.5, 6), mC, 0, 1.5, -1.5);
+
+    ac.traverse(m => { if (m.isMesh) m.castShadow = true; });
+    return ac;
+}
+
+const aircraft = buildCessna();
+aircraft.position.set(0, 0, 600);
+scene.add(aircraft);
+
+const shadowMesh = new THREE.Mesh(
+    new THREE.CircleGeometry(12, 16),
+    new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.35 })
+);
+shadowMesh.rotation.x = -Math.PI / 2;
+scene.add(shadowMesh);
+
+// ================================================================
+// HERZ + FALLSCHIRM für Katapult [K]
+// ================================================================
+const ejectGroup = new THREE.Group();
+scene.add(ejectGroup);
+
+function createHeart(scale = 1) {
+    const s = scale * 1.4;
+    const shape = new THREE.Shape();
+    shape.moveTo(0, s * 0.4);
+    shape.bezierCurveTo(-s * 0.05, s * 0.55,  -s * 0.5, s * 0.7,  -s * 0.5, s * 1.1);
+    shape.bezierCurveTo(-s * 0.5,  s * 1.55,   0,        s * 1.7,   0,        s * 1.1);
+    shape.bezierCurveTo( 0,        s * 1.7,    s * 0.5,  s * 1.55,  s * 0.5,  s * 1.1);
+    shape.bezierCurveTo( s * 0.5,  s * 0.7,    s * 0.05, s * 0.55,  0,        s * 0.4);
+    const extrudeSettings = {
+        depth: s * 0.35,
+        bevelEnabled: true,
+        bevelSegments: 5,
+        steps: 2,
+        bevelSize: s * 0.12,
+        bevelThickness: s * 0.12
+    };
+    const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    geom.center();
+    const mat = new THREE.MeshStandardMaterial({
+        color: 0xff0000,
+        emissive: 0xcc0000,
+        emissiveIntensity: 0.25,
+        roughness: 0.3,
+        metalness: 0.1
+    });
+    return new THREE.Mesh(geom, mat);
+}
+
+// Fallschirm - 8 abwechselnde rot/weiße Segmente
+const chuteRadius = 3.5;
+const chuteY = 4.5;
+const numSegs = 8;
+const segColors = [0xffffff, 0xff3333];
+for (let i = 0; i < numSegs; i++) {
+    const phiStart = (i / numSegs) * Math.PI * 2;
+    const phiLen = (1 / numSegs) * Math.PI * 2;
+    const segGeom = new THREE.SphereGeometry(chuteRadius, 1, 8, phiStart, phiLen, 0, Math.PI / 2);
+    const segMat = new THREE.MeshStandardMaterial({
+        color: segColors[i % 2],
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.92
+    });
+    const segMesh = new THREE.Mesh(segGeom, segMat);
+    segMesh.position.y = chuteY;
+    ejectGroup.add(segMesh);
+}
+
+// Vent-Loch oben am Fallschirm
+const ventGeom = new THREE.TorusGeometry(0.35, 0.08, 8, 16);
+const ventMat = new THREE.MeshStandardMaterial({ color: 0xdddddd });
+const ventMesh = new THREE.Mesh(ventGeom, ventMat);
+ventMesh.position.y = chuteY + chuteRadius;
+ventMesh.rotation.x = Math.PI / 2;
+ejectGroup.add(ventMesh);
+
+// Rotes Herz unten
+const heartMesh = createHeart(0.42);
+heartMesh.position.y = -1.2;
+heartMesh.position.z = 0.2;
+ejectGroup.add(heartMesh);
+
+// 8 Seile zwischen Fallschirm und Herz
+const lineMat = new THREE.LineBasicMaterial({ color: 0xdddddd });
+for (let i = 0; i < numSegs; i++) {
+    const angle = (i / numSegs) * Math.PI * 2;
+    const sx = Math.cos(angle) * chuteRadius;
+    const sz = Math.sin(angle) * chuteRadius;
+    const ropeGeom = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(sx, chuteY, sz),
+        new THREE.Vector3(0, -0.8, 0)
+    ]);
+    ejectGroup.add(new THREE.Line(ropeGeom, lineMat));
+}
+
+ejectGroup.position.set(0, -1000, 0);
+
+// ================================================================
+// STATE & INPUT
+// ================================================================
+const WIND_SPD = 8 + Math.random() * 12;
+const WIND_DIR = Math.random() * 360;
+
+const S = {
+    spd: 0, alt: 0, vs: 0, prevAlt: 0,
+    thr: 0, pitch: 0, roll: 0, hdg: 0,
+    posX: 0, posZ: 600,
+    fuel: 100, engOn: false, gear: true, flaps: 0,
+    stall: false, status: 'READY', gforce: 1.0,
+    oat: 15, isGrounded: false,
+    ejectActive: false,
+    ejectPosX: 0, ejectPosY: 0, ejectPosZ: 0,
+    ejectVX: 0, ejectVY: 0, ejectVZ: 0,
+    ejectTime: 0, ejectGrounded: false,
+    planeEjected: false, planeEjectHdg: 0
+};
+
+const K = {};
+window.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT') return;
+    K[e.code] = true;
+    if (!e.ctrlKey && !e.metaKey) e.preventDefault();
+});
+window.addEventListener('keyup', e => {
+    if (e.target.tagName === 'INPUT') return;
+    K[e.code] = false;
+});
+
+window.addEventListener('keydown', e => {
+    if (e.code === 'KeyV') {
+        viewMode = (viewMode + 1) % 3;
+        document.getElementById('vm').textContent = VM[viewMode];
+    }
+    if (e.code === 'KeyT') {
+        timeOfDay = (timeOfDay + 0.08) % 1;
+        updateSky();
+    }
+});
+
+let camYaw = 0, camPit = 0.28, camDist = 120, viewMode = 0;
+let mDown = false, mLX = 0, mLY = 0;
+const VM = ['EXTERIOR', 'CHASE-CAM', 'COCKPIT'];
+
+window.addEventListener('mousedown',  e => { mDown = true; mLX = e.clientX; mLY = e.clientY; });
+window.addEventListener('mouseup',    ()  => { mDown = false; });
+window.addEventListener('mousemove',  e  => {
+    if (!mDown) return;
+    camYaw += (e.clientX - mLX) * 0.0038;
+    camPit += (e.clientY - mLY) * 0.0038;
+    camPit  = Math.max(-1.1, Math.min(0.9, camPit));
+    mLX = e.clientX; mLY = e.clientY;
+});
+window.addEventListener('wheel', e => {
+    camDist = Math.max(18, Math.min(700, camDist + e.deltaY * 0.07));
+});
+
+const aCtx = new (window.AudioContext || window.webkitAudioContext)();
+let osc1, osc2, aGain;
+
+function engStart() {
+    if (osc1) return;
+    aGain = aCtx.createGain(); aGain.gain.value = 0.016; aGain.connect(aCtx.destination);
+    osc1 = aCtx.createOscillator(); osc1.type = 'sawtooth'; osc1.connect(aGain); osc1.start();
+    osc2 = aCtx.createOscillator(); osc2.type = 'triangle'; osc2.connect(aGain); osc2.start();
+}
+function engStop() {
+    if (!osc1) return; osc1.stop(); osc2.stop(); osc1 = osc2 = null;
+}
+
+let tileTimer = 0, skyTimer = 0;
+
+function physics() {
+    if (K['KeyE']) { K['KeyE'] = false; S.engOn = !S.engOn; S.engOn ? engStart() : engStop(); }
+
+    if (S.engOn) {
+        if (K['KeyW']) S.thr = Math.min(1, S.thr + 0.038);
+        if (K['KeyS']) S.thr = Math.max(0, S.thr - 0.038);
+    } else {
+        S.thr = Math.max(0, S.thr - 0.014);
+    }
+
+    const tgtSpd = S.thr * 132;
+    S.spd += (tgtSpd - S.spd) * 0.03;
+    if (S.alt < 1 && !S.engOn) S.spd *= 0.972;
+
+    if (osc1) {
+        osc1.frequency.value = 66 + S.thr * 320 + S.spd * 0.35;
+        osc2.frequency.value = 72 + S.thr * 295 + S.spd * 0.3;
+    }
+
+    if (K['KeyI']) S.pitch = Math.min( 0.5,  S.pitch + 0.019);
+    if (K['KeyO']) S.pitch = Math.max(-0.38, S.pitch - 0.019);
+    S.pitch *= 0.942;
+
+    if (K['ArrowLeft'])  S.roll = Math.max(-0.5, S.roll - 0.019);
+    if (K['ArrowRight']) S.roll = Math.min( 0.5, S.roll + 0.019);
+    S.roll *= 0.942;
+
+    const wdR = WIND_DIR * Math.PI / 180;
+    const windX = Math.sin(wdR) * WIND_SPD * 0.02;
+    const windZ = -Math.cos(wdR) * WIND_SPD * 0.02;
+
+    if (S.spd < 38 && S.alt > 15) { S.stall = true; S.pitch -= 0.02; }
+    else if (S.spd > 52) { S.stall = false; }
+
+    S.prevAlt = S.alt;
+    if (S.spd > 42) {
+        S.alt += Math.sin(S.pitch) * S.spd * 0.08;
+    } else {
+        S.alt = Math.max(S.alt - 1.1, 0);
+    }
+    S.alt = Math.max(S.alt, 0);
+    S.vs  = (S.alt - S.prevAlt) * 60;
+
+    S.isGrounded = S.alt < 5;
+
+    S.hdg = ((S.hdg + S.roll * S.spd * 0.00062) % 360 + 360) % 360;
+    const hdR = S.hdg * Math.PI / 180;
+    const mps = S.spd * 0.5144 / 60;
+    S.posX += Math.sin(hdR) * mps + (S.alt > 5 ? windX : 0);
+    S.posZ -= Math.cos(hdR) * mps + (S.alt > 5 ? windZ : 0);
+
+    if (S.engOn) S.fuel = Math.max(0, S.fuel - S.thr * 0.026);
+    S.oat = Math.round(15 - S.alt * 0.00198);
+
+    if (S.alt < 2)   { S.pitch = S.roll = 0; S.status = S.spd < 3 ? 'READY' : 'ROLLEN'; }
+    else if (S.vs > 40)  { S.status = 'STEIGEN'; }
+    else if (S.vs < -40) { S.status = 'SINKEN'; }
+    else if (S.spd > 85 && S.alt > 500) { S.status = 'CRUISE'; }
+    else               { S.status = 'FLUG'; }
+    if (S.stall) S.status = 'STALL!';
+
+    S.gforce = 1 + Math.abs(S.pitch) * 2.5 + Math.abs(S.roll) * 1.5;
+
+    if (K['KeyF']) { K['KeyF'] = false; S.flaps = Math.min(1, S.flaps + 0.1); }
+    if (K['KeyR']) { K['KeyR'] = false; S.flaps = Math.max(0, S.flaps - 0.1); }
+    if (K['KeyG']) { K['KeyG'] = false; S.gear  = !S.gear; }
+
+    // ===== KATAPULT mit K-Taste =====
+    if (K['KeyK'] && !S.ejectActive) {
+        K['KeyK'] = false;
+        S.ejectActive   = true;
+        S.ejectPosX     = S.posX;
+        S.ejectPosY     = Math.max(S.alt * 0.3048, 5);
+        S.ejectPosZ     = S.posZ;
+        S.ejectVX       = 0;
+        S.ejectVY       = 2.0;
+        S.ejectVZ       = 0;
+        S.ejectTime     = 0;
+        S.ejectGrounded = false;
+        S.planeEjected  = true;
+        S.planeEjectHdg = S.hdg;
+    }
+
+    // Flugzeug fliegt nach Katapult automatisch weg
+    if (S.planeEjected) {
+        const pHdR = S.planeEjectHdg * Math.PI / 180;
+        S.posX += Math.sin(pHdR) * 8;
+        S.posZ -= Math.cos(pHdR) * 8;
+        S.alt  += 2;
+    }
+
+    // ===== EJECT HERO PHYSIK =====
+    if (S.ejectActive) {
+        S.ejectTime++;
+        const eHdR = S.hdg * Math.PI / 180;
+        if (K['ArrowLeft'])  { S.ejectVX -= Math.cos(eHdR)*0.12; S.ejectVZ -= Math.sin(eHdR)*0.12; }
+        if (K['ArrowRight']) { S.ejectVX += Math.cos(eHdR)*0.12; S.ejectVZ += Math.sin(eHdR)*0.12; }
+        if (K['ArrowUp'])    { S.ejectVX += Math.sin(eHdR)*0.12; S.ejectVZ -= Math.cos(eHdR)*0.12; }
+        if (K['ArrowDown'])  { S.ejectVX -= Math.sin(eHdR)*0.12; S.ejectVZ += Math.cos(eHdR)*0.12; }
+
+        if (K['KeyO']) S.ejectVY += 0.10;
+        if (K['KeyL']) S.ejectVY -= 0.08;
+
+        if (K['KeyJ']) {
+            K['KeyJ'] = false;
+            S.ejectVY += 1.6;
+            S.ejectVY = Math.min(S.ejectVY, 4.0);
+        }
+
+        if (!S.ejectGrounded) S.ejectVY -= 0.018;
+        S.ejectVX *= 0.92;
+        S.ejectVZ *= 0.92;
+        S.ejectVY = Math.max(-0.6, Math.min(2.5, S.ejectVY));
+
+        S.ejectPosX += S.ejectVX;
+        S.ejectPosY += S.ejectVY;
+        S.ejectPosZ += S.ejectVZ;
+
+        if (S.ejectPosY <= 0) {
+            S.ejectPosY = 0;
+            S.ejectVY   = 0;
+            S.ejectVX  *= 0.7;
+            S.ejectVZ  *= 0.7;
+            S.ejectGrounded = true;
+        } else {
+            S.ejectGrounded = false;
+        }
+
+        ejectGroup.position.set(S.ejectPosX, S.ejectPosY, S.ejectPosZ);
+        ejectGroup.rotation.y = S.ejectTime * 0.01;
+        heartMesh.rotation.z = Math.sin(S.ejectTime * 0.15) * 0.15;
+    }
+
+    aircraft.position.set(S.posX, S.alt * 0.3048, S.posZ);
+    aircraft.rotation.order = 'YXZ';
+    aircraft.rotation.y = Math.PI - hdR;
+    aircraft.rotation.x = S.pitch;
+    aircraft.rotation.z = S.roll;
+    aircraft.prop.rotation.z += S.thr * 0.92 + 0.01;
+
+    shadowMesh.position.set(S.posX, 0.5, S.posZ);
+    const shadowScale = Math.max(0.1, 1 - S.alt / 3000);
+    shadowMesh.scale.setScalar(shadowScale);
+    shadowMesh.material.opacity = 0.35 * shadowScale;
+
+    clouds.forEach(cl => {
+        cl.position.x += cl._spd;
+        if (cl.position.x > 14000) cl.position.x = -14000;
+        if (cl.position.x < -14000) cl.position.x = 14000;
+    });
+
+    tileTimer++;
+    if (tileTimer >= 100) { tileTimer = 0; syncTiles(S.posX, S.posZ); }
+
+    skyTimer++;
+    if (skyTimer >= 600) { skyTimer = 0; timeOfDay = (timeOfDay + 0.002) % 1; updateSky(); }
+}
+
+const ahiEl  = document.getElementById('ahi');
+const ahiCtx2 = ahiEl.getContext('2d');
+
+function drawAHI() {
+    const W = 78, H = 78, cx = 39, cy = 39;
+    ahiCtx2.clearRect(0, 0, W, H);
+    ahiCtx2.save();
+    ahiCtx2.beginPath(); ahiCtx2.arc(cx, cy, 38, 0, Math.PI * 2); ahiCtx2.clip();
+    ahiCtx2.save();
+    ahiCtx2.translate(cx, cy); ahiCtx2.rotate(-S.roll);
+    const py = S.pitch * 185;
+    ahiCtx2.fillStyle = '#2a90e0'; ahiCtx2.fillRect(-W, -H + py, W * 2, H * 2);
+    ahiCtx2.fillStyle = '#7a5030'; ahiCtx2.fillRect(-W, py, W * 2, H * 2);
+    ahiCtx2.strokeStyle = 'rgba(255,255,255,0.7)'; ahiCtx2.lineWidth = 1.2;
+    ahiCtx2.beginPath(); ahiCtx2.moveTo(-W, py); ahiCtx2.lineTo(W, py); ahiCtx2.stroke();
+    [-2, -1, 1, 2].forEach(p => {
+        ahiCtx2.strokeStyle = 'rgba(255,255,255,0.3)'; ahiCtx2.lineWidth = 0.7;
+        const ly = py - p * 20;
+        ahiCtx2.beginPath(); ahiCtx2.moveTo(-15, ly); ahiCtx2.lineTo(15, ly); ahiCtx2.stroke();
+    });
+    ahiCtx2.restore();
+    ahiCtx2.strokeStyle = '#ffcc00'; ahiCtx2.lineWidth = 2;
+    ahiCtx2.beginPath();
+    ahiCtx2.moveTo(17, cy); ahiCtx2.lineTo(30, cy);
+    ahiCtx2.moveTo(48, cy); ahiCtx2.lineTo(61, cy);
+    ahiCtx2.moveTo(cx, cy - 4); ahiCtx2.lineTo(cx, cy + 4);
+    ahiCtx2.stroke();
+    ahiCtx2.restore();
+    ahiCtx2.strokeStyle = '#006688'; ahiCtx2.lineWidth = 1.5;
+    ahiCtx2.beginPath(); ahiCtx2.arc(cx, cy, 38, 0, Math.PI * 2); ahiCtx2.stroke();
+}
+
+const spdC = document.getElementById('spdtapec').getContext('2d');
+function drawSpdTape() {
+    const W = 52, H = 200;
+    spdC.fillStyle = 'rgba(2,8,20,0.0)'; spdC.clearRect(0, 0, W, H);
+    spdC.fillStyle = 'rgba(0,0,0,0.55)'; spdC.fillRect(0, 0, W, H);
+    const spd = S.spd;
+    const step = 10, pxPerKt = H / 60;
+    spdC.strokeStyle = 'rgba(180,220,255,0.5)'; spdC.lineWidth = 0.8;
+    spdC.fillStyle = '#8ab8cc'; spdC.font = '9px Courier New';
+    for (let v = 0; v <= 160; v += step) {
+        const y = H / 2 - (v - spd) * pxPerKt;
+        if (y < -5 || y > H + 5) continue;
+        spdC.beginPath(); spdC.moveTo(W - 10, y); spdC.lineTo(W, y); spdC.stroke();
+        spdC.fillText(v, 2, y + 3);
+    }
+    spdC.fillStyle = '#00e888';
+    spdC.fillRect(W - 3, H / 2 - 9, 3, 18);
+    spdC.fillStyle = '#00cc77'; spdC.font = 'bold 11px Courier New';
+    spdC.fillText(Math.round(spd), 4, H / 2 + 4);
+}
+
+const altC = document.getElementById('alttapec').getContext('2d');
+function drawAltTape() {
+    const W = 52, H = 200;
+    altC.clearRect(0, 0, W, H);
+    altC.fillStyle = 'rgba(0,0,0,0.55)'; altC.fillRect(0, 0, W, H);
+    const alt = S.alt;
+    const step = 200, pxPer = H / 2000;
+    altC.strokeStyle = 'rgba(180,220,255,0.5)'; altC.lineWidth = 0.8;
+    altC.fillStyle = '#8ab8cc'; altC.font = '9px Courier New';
+    for (let v = -1000; v <= 20000; v += step) {
+        const y = H / 2 - (v - alt) * pxPer;
+        if (y < -5 || y > H + 5) continue;
+        altC.beginPath(); altC.moveTo(0, y); altC.lineTo(10, y); altC.stroke();
+        if (v >= 0) altC.fillText(v, 12, y + 3);
+    }
+    altC.fillStyle = '#d8f0ff';
+    altC.fillRect(0, H / 2 - 9, 3, 18);
+    altC.fillStyle = '#d8f0ff'; altC.font = 'bold 11px Courier New';
+    altC.fillText(Math.round(alt), 6, H / 2 + 4);
+}
+
+const kpC = document.getElementById('kpc').getContext('2d');
+function drawCompass() {
+    const W = 130, H = 130, cx = 65, cy = 65, r = 56;
+    kpC.clearRect(0, 0, W, H);
+    kpC.save();
+    kpC.translate(cx, cy);
+    kpC.rotate(-S.hdg * Math.PI / 180);
+
+    kpC.beginPath(); kpC.arc(0, 0, r, 0, Math.PI * 2);
+    kpC.fillStyle = 'rgba(2,8,20,0.82)'; kpC.fill();
+    kpC.strokeStyle = 'rgba(0,150,210,0.4)'; kpC.lineWidth = 1; kpC.stroke();
+
+    for (let d = 0; d < 360; d += 5) {
+        const a = d * Math.PI / 180;
+        const inner = d % 10 === 0 ? r - 10 : r - 6;
+        kpC.strokeStyle = d % 90 === 0 ? 'rgba(0,200,255,0.8)' : 'rgba(150,200,220,0.35)';
+        kpC.lineWidth = d % 10 === 0 ? 1.2 : 0.7;
+        kpC.beginPath();
+        kpC.moveTo(Math.sin(a) * inner, -Math.cos(a) * inner);
+        kpC.lineTo(Math.sin(a) * r,     -Math.cos(a) * r);
+        kpC.stroke();
+    }
+
+    const dirs = [['N',0,'#ff4444'],['E',90,'#d8f0ff'],['S',180,'#d8f0ff'],['W',270,'#d8f0ff']];
+    dirs.forEach(([lbl, deg, col]) => {
+        const a = deg * Math.PI / 180;
+        kpC.fillStyle = col;
+        kpC.font = 'bold 11px Courier New';
+        kpC.textAlign = 'center'; kpC.textBaseline = 'middle';
+        kpC.fillText(lbl, Math.sin(a) * (r - 16), -Math.cos(a) * (r - 16));
+    });
+
+    kpC.restore();
+
+    kpC.save();
+    kpC.translate(cx, cy);
+    kpC.strokeStyle = '#ffcc00'; kpC.lineWidth = 2;
+    kpC.beginPath();
+    kpC.moveTo(-14, 0); kpC.lineTo(-4, 0);
+    kpC.moveTo(4, 0);   kpC.lineTo(14, 0);
+    kpC.moveTo(0, -5);  kpC.lineTo(0, 5);
+    kpC.stroke();
+    kpC.restore();
+
+    kpC.fillStyle = '#00aadd'; kpC.font = 'bold 12px Courier New';
+    kpC.textAlign = 'center'; kpC.textBaseline = 'top';
+    kpC.fillText(Math.round(S.hdg).toString().padStart(3, '0') + 'deg', cx, H - 14);
+}
+
+const mmCanvas = document.getElementById('mmc');
+const mmCtx    = mmCanvas.getContext('2d');
+const mmOv     = document.getElementById('mmov').getContext('2d');
+const MM_W = 200, MM_H = 200;
+const MM_ZOOM = 12;
+const MM_N = 1 << MM_ZOOM;
+const MM_TILES = 3;
+const mmTxLoader = new THREE.TextureLoader();
+const mmCache = {};
+
+function lonLatToMM(lon, lat) {
+    const tx = (lon + 180) / 360 * MM_N;
+    const latR = lat * Math.PI / 180;
+    const ty = (1 - Math.log(Math.tan(latR) + 1 / Math.cos(latR)) / Math.PI) / 2 * MM_N;
+    return { tx, ty };
+}
+
+function drawMinimap() {
+    const curLat = LAT0 - S.posZ / M_PER_DEG_LAT;
+    const curLon = LON0 + S.posX / M_PER_DEG_LON;
+    const { tx: ptx, ty: pty } = lonLatToMM(curLon, curLat);
+    const iTX = Math.floor(ptx), iTY = Math.floor(pty);
+    const fTX = ptx - iTX, fTY = pty - iTY;
+
+    const tileSize = MM_W / MM_TILES;
+    const off = Math.floor(MM_TILES / 2);
+
+    mmCtx.clearRect(0, 0, MM_W, MM_H);
+    mmCtx.fillStyle = '#1a3a1a'; mmCtx.fillRect(0, 0, MM_W, MM_H);
+
+    for (let dy = -off; dy <= off; dy++) {
+        for (let dx = -off; dx <= off; dx++) {
+            const tx = iTX + dx, ty = iTY + dy;
+            const key = MM_ZOOM + '/' + ty + '/' + tx;
+            const sx = (dx + off - fTX) * tileSize;
+            const sy = (dy + off - fTY) * tileSize;
+
+            if (mmCache[key] === undefined) {
+                mmCache[key] = null;
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => { mmCache[key] = img; };
+                img.onerror = () => { mmCache[key] = null; };
+                img.src = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/' + key;
+            }
+            if (mmCache[key]) {
+                mmCtx.drawImage(mmCache[key], sx, sy, tileSize + 1, tileSize + 1);
+            }
+        }
+    }
+
+    const acX = MM_W / 2, acY = MM_H / 2;
+    mmOv.clearRect(0, 0, MM_W, MM_H);
+
+    const hdR = S.hdg * Math.PI / 180;
+    mmOv.strokeStyle = 'rgba(255,200,0,0.5)'; mmOv.lineWidth = 1;
+    mmOv.beginPath();
+    mmOv.moveTo(acX, acY);
+    mmOv.lineTo(acX + Math.sin(hdR) * 30, acY - Math.cos(hdR) * 30);
+    mmOv.stroke();
+
+    mmOv.save(); mmOv.translate(acX, acY); mmOv.rotate(hdR);
+    mmOv.fillStyle = '#ff3333';
+    mmOv.beginPath();
+    mmOv.moveTo(0, -7); mmOv.lineTo(4, 4); mmOv.lineTo(0, 2); mmOv.lineTo(-4, 4); mmOv.closePath();
+    mmOv.fill();
+    mmOv.strokeStyle = '#ffffff'; mmOv.lineWidth = 0.8; mmOv.stroke();
+    mmOv.restore();
+
+    mmOv.strokeStyle = 'rgba(0,160,220,0.4)'; mmOv.lineWidth = 1;
+    mmOv.strokeRect(0, 0, MM_W, MM_H);
+    mmOv.fillStyle = 'rgba(0,160,220,0.7)'; mmOv.font = '8.5px Courier New';
+    mmOv.fillText('GPS  Z' + MM_ZOOM, 4, MM_H - 4);
+    const scalePx = tileSize / 2;
+    const scaleKm = (40075 * Math.cos(curLat * Math.PI / 180) / MM_N / 2).toFixed(1);
+    mmOv.strokeStyle = '#ffffff'; mmOv.lineWidth = 1;
+    mmOv.beginPath();
+    mmOv.moveTo(MM_W - scalePx - 5, MM_H - 6);
+    mmOv.lineTo(MM_W - 5, MM_H - 6);
+    mmOv.stroke();
+    mmOv.fillStyle = '#aaaaaa';
+    mmOv.fillText(scaleKm + 'km', MM_W - scalePx - 2, MM_H - 8);
+}
+
+function sv(id, txt, cls) {
+    const el = document.getElementById(id);
+    el.textContent = txt;
+    el.className = 'v ' + (cls || '');
+}
+
+const DEST_X = (10.8853 - LON0) * M_PER_DEG_LON;
+const DEST_Z = -(49.5694 - LAT0) * M_PER_DEG_LAT;
+
+function updateHUD() {
+    sv('dspd',  Math.round(S.spd),  S.stall ? 'v vr' : S.spd > 115 ? 'v vy' : 'v vg');
+    sv('dalt',  Math.round(S.alt),  'v');
+    sv('dvs',   (S.vs >= 0 ? '+' : '') + Math.round(S.vs), S.vs > 60 ? 'v vg' : S.vs < -250 ? 'v vr' : 'v vy');
+    sv('dhdg',  Math.round(S.hdg), 'v');
+    sv('dthr',  Math.round(S.thr * 100), S.thr > 0.65 ? 'v vg' : 'v');
+    const eEl = document.getElementById('deng');
+    eEl.textContent = S.engOn ? 'AN' : 'AUS';
+    eEl.className = 'v ' + (S.engOn ? 'vg' : 'vr');
+    sv('dfuel', Math.round(S.fuel), S.fuel > 40 ? 'v vg' : S.fuel > 15 ? 'v vy' : 'v vr');
+    sv('dgf',   S.gforce.toFixed(1), S.gforce > 3.5 ? 'v vr' : S.gforce > 2.5 ? 'v vy' : 'v');
+    sv('dgear', S.gear ? 'AUS' : 'EIN', S.gear ? 'v vg' : 'v vy');
+    sv('dflp',  Math.round(S.flaps * 40) + ' Grad', 'v');
+    sv('dsta',  S.status, S.stall ? 'v vr' : S.status === 'CRUISE' ? 'v vg' : 'v');
+    sv('doat',  (S.oat >= 0 ? '+' : '') + S.oat, S.oat < -10 ? 'v vy' : 'v');
+    document.getElementById('dwind').textContent = WIND_DIR.toFixed(0) + 'deg/' + WIND_SPD.toFixed(0) + 'kts';
+
+    const dX = DEST_X - S.posX, dZ = DEST_Z - S.posZ;
+    const dist = Math.hypot(dX, dZ);
+    const brg = ((Math.atan2(dX, -dZ) * 180 / Math.PI) + 360) % 360;
+    const curLat = (LAT0 - S.posZ / M_PER_DEG_LAT).toFixed(4);
+    const curLon = (LON0 + S.posX / M_PER_DEG_LON).toFixed(4);
+    document.getElementById('dnav').textContent =
+        'EDDN->EDQH  |  ' + (dist / 1852).toFixed(1) + ' nm  |  ' + brg.toFixed(0) + 'deg  |  ' +
+        curLat + 'N  ' + curLon + 'E';
+
+    document.getElementById('groundStatus').style.display = S.isGrounded ? 'block' : 'none';
+
+    let done = 0;
+    const T = ['o  -','o  -','o  -','o  -','o  -'];
+    let phase = 'PRE-FLIGHT';
+    function chk(i, ok, lbl) { T[i] = (ok ? 'v  ' : 'o  ') + lbl; if (ok) done++; }
+
+    if (S.alt < 5 && S.spd < 10) {
+        phase = 'PRE-FLIGHT';
+        chk(0, S.fuel > 70, 'Treibstoff OK');
+        chk(1, !S.engOn,    'Motor aus');
+        chk(2, S.thr < 0.1, 'Schub 0');
+        chk(3, S.flaps < 0.1,'Klappen ein');
+        chk(4, S.gear,      'Fahrwerk aus');
+    } else if (S.spd > 10 && S.alt < 20) {
+        phase = 'START';
+        chk(0, S.spd > 30, '30 kts');
+        chk(1, S.spd > 55, '55 kts Vr');
+        chk(2, S.alt > 5,  'Abgehoben');
+        chk(3, S.pitch > 0.08, 'Nose up');
+        chk(4, S.alt > 200,'Steigflug');
+    } else if (S.alt > 20 && S.vs > 30) {
+        phase = 'STEIGFLUG';
+        chk(0, S.alt > 300,  '300 ft');
+        chk(1, S.spd > 65,   '65 kts');
+        chk(2, !S.stall,     'Kein Stall');
+        chk(3, S.alt > 800,  '800 ft');
+        chk(4, S.alt > 2000, '2000 ft');
+    } else if (S.alt > 100 && Math.abs(S.vs) < 50) {
+        phase = 'REISEFLUG';
+        chk(0, S.spd > 90,  'Reisegschw.');
+        chk(1, !S.stall,    'Kein Stall');
+        chk(2, S.fuel > 30, 'Treibstoff');
+        chk(3, Math.abs(S.roll) < 0.1, 'Waagerecht');
+        chk(4, S.alt > 500, 'Hoehe OK');
+    } else if (S.alt > 20 && S.vs < -30) {
+        phase = 'ANFLUG';
+        chk(0, S.alt < 1000, 'Sinkflug');
+        chk(1, S.flaps > 0.3,'Klappen');
+        chk(2, S.gear,       'Fahrwerk');
+        chk(3, S.spd < 85,   'Anfluggeschw.');
+        chk(4, S.alt < 300,  'Final');
+    } else if (S.alt < 5 && S.spd > 5) {
+        phase = 'GELANDET';
+        done = 5;
+        ['Gelandet','Sicher','Rollend','Bremsen','Super!'].forEach((t,i) => T[i] = 'v  ' + t);
+    }
+    document.getElementById('cph').textContent = phase;
+    for (let i = 0; i < 5; i++) document.getElementById('c' + (i + 1)).textContent = T[i];
+    document.getElementById('cpg').textContent = done + ' / 5';
+    document.getElementById('sw').style.display = S.stall ? 'block' : 'none';
+
+    drawAHI();
+    drawSpdTape();
+    drawAltTape();
+    drawCompass();
+    drawMinimap();
+}
+
+const _cT = new THREE.Vector3(), _cP = new THREE.Vector3();
+
+function updateCamera() {
+    // Kamera folgt dem Herz wenn katapultiert
+    if (S.ejectActive) {
+        const ep = ejectGroup.position;
+        _cP.set(ep.x - Math.sin(camYaw)*22, ep.y + 8, ep.z - Math.cos(camYaw)*22);
+        camera.position.lerp(_cP, 0.08);
+        camera.lookAt(ep.x, ep.y + 2, ep.z);
+        return;
+    }
+
+    const ap = aircraft.position;
+    if (viewMode === 0) {
+        _cP.set(
+            ap.x - Math.sin(camYaw) * camDist * Math.cos(camPit),
+            ap.y + 18 + Math.sin(camPit) * camDist,
+            ap.z - Math.cos(camYaw) * camDist * Math.cos(camPit)
+        );
+        camera.position.lerp(_cP, 0.09);
+        camera.lookAt(ap.x, ap.y + 5, ap.z);
+    } else if (viewMode === 1) {
+        const hdR = S.hdg * Math.PI / 180;
+        _cP.set(ap.x - Math.sin(hdR) * 165, ap.y + 48, ap.z + Math.cos(hdR) * 165);
+        camera.position.lerp(_cP, 0.07);
+        camera.lookAt(ap.x, ap.y + 5, ap.z);
+    } else {
+        const hdR = S.hdg * Math.PI / 180;
+        camera.position.set(ap.x + Math.sin(hdR) * 4, ap.y + 2.6, ap.z - Math.cos(hdR) * 4);
+        _cT.set(ap.x + Math.sin(hdR) * 1000, ap.y + 2.6 + S.pitch * 120, ap.z - Math.cos(hdR) * 1000);
+        camera.lookAt(_cT);
+    }
+}
+
+// ================================================================
+// STADT-SUCHE & TELEPORT
+// ================================================================
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const searchStatus = document.getElementById('searchStatus');
+const landmarkListEl = document.getElementById('landmarkList');
+
+function showStatus(msg, color) {
+    searchStatus.textContent = msg;
+    searchStatus.style.color = color || '#00ffaa';
+    searchStatus.style.display = 'block';
+    setTimeout(() => { searchStatus.style.display = 'none'; }, 3500);
+}
+
+function teleportTo(lat, lon, name) {
+    const wx = (lon - LON0) * M_PER_DEG_LON;
+    const wz = -(lat - LAT0) * M_PER_DEG_LAT;
+    S.posX = wx;
+    S.posZ = wz + 600;
+    S.alt = 1500;
+    S.spd = 95;
+    S.engOn = true;
+    S.thr = 0.7;
+    if (!osc1) engStart();
+    syncTiles(S.posX, S.posZ);
+    showStatus('✈ Teleportiert zu ' + name, '#00ffaa');
+}
+
+function showLandmarkList(filter) {
+    const f = (filter || '').toLowerCase();
+    const matches = WORLD_LANDMARKS.filter(l =>
+        l.name.toLowerCase().includes(f) ||
+        l.city.toLowerCase().includes(f) ||
+        l.country.toLowerCase().includes(f)
+    );
+    if (matches.length === 0) {
+        landmarkListEl.style.display = 'none';
+        return;
+    }
+    landmarkListEl.innerHTML = '';
+    matches.forEach(lm => {
+        const item = document.createElement('div');
+        item.className = 'landmarkItem';
+        item.innerHTML = '<span class="ln">' + lm.icon + ' ' + lm.name + '</span>' +
+                         '<span class="lc">' + lm.city + ', ' + lm.country + '</span>';
+        item.onclick = () => {
+            teleportTo(lm.lat, lm.lon, lm.name);
+            landmarkListEl.style.display = 'none';
+            searchInput.value = '';
+        };
+        landmarkListEl.appendChild(item);
+    });
+    landmarkListEl.style.display = 'block';
+}
+
+searchInput.addEventListener('input', () => {
+    showLandmarkList(searchInput.value);
+});
+
+searchInput.addEventListener('focus', () => {
+    if (searchInput.value === '') showLandmarkList('');
+});
+
+document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !landmarkListEl.contains(e.target)
+        && !searchBtn.contains(e.target)) {
+        landmarkListEl.style.display = 'none';
+    }
+});
+
+async function searchCity(query) {
+    if (!query.trim()) return;
+
+    // Erst lokale Wahrzeichen prüfen
+    const local = WORLD_LANDMARKS.find(l =>
+        l.name.toLowerCase() === query.toLowerCase() ||
+        l.city.toLowerCase() === query.toLowerCase()
+    );
+    if (local) {
+        teleportTo(local.lat, local.lon, local.name);
+        landmarkListEl.style.display = 'none';
+        searchInput.value = '';
+        return;
+    }
+
+    showStatus('🔍 Suche ' + query + '...', '#ffcc00');
+    try {
+        const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' +
+                    encodeURIComponent(query);
+        const res = await fetch(url, { headers: { 'Accept-Language': 'de' } });
+        const data = await res.json();
+        if (data.length > 0) {
+            const r = data[0];
+            teleportTo(parseFloat(r.lat), parseFloat(r.lon), r.display_name.split(',')[0]);
+            landmarkListEl.style.display = 'none';
+            searchInput.value = '';
+        } else {
+            showStatus('❌ Stadt "' + query + '" nicht gefunden', '#ff4444');
+        }
+    } catch (err) {
+        showStatus('⚠ Fehler: ' + err.message, '#ff4444');
+    }
+}
+
+searchBtn.addEventListener('click', () => searchCity(searchInput.value));
+searchInput.addEventListener('keydown', (e) => {
+    if (e.code === 'Enter') searchCity(searchInput.value);
+});
+
+// Verhindere dass Tasten beim Tippen die Cessna steuern
+searchInput.addEventListener('keydown', (e) => e.stopPropagation());
+searchInput.addEventListener('keyup', (e) => e.stopPropagation());
+
+// ================================================================
+// LANDMARK LABELS - Anzeige der Sehenswürdigkeiten in der Nähe
+// ================================================================
+const labelEl = document.getElementById('landmarkLabel');
+const _labelV = new THREE.Vector3();
+
+function updateLandmarkLabel() {
+    let nearest = null, nearestDist = Infinity;
+    for (const obj of landmarkObjects) {
+        const dx = obj._worldX - S.posX;
+        const dz = obj._worldZ - S.posZ;
+        const d = Math.hypot(dx, dz);
+        if (d < nearestDist && d < 5000) {
+            nearestDist = d;
+            nearest = obj;
+        }
+    }
+
+    if (nearest) {
+        _labelV.set(nearest._worldX, 100, nearest._worldZ);
+        _labelV.project(camera);
+        if (_labelV.z < 1) {
+            const x = (_labelV.x * 0.5 + 0.5) * innerWidth;
+            const y = (-_labelV.y * 0.5 + 0.5) * innerHeight;
+            labelEl.style.left = x + 'px';
+            labelEl.style.top = (y - 50) + 'px';
+            labelEl.style.transform = 'translateX(-50%)';
+            labelEl.textContent = nearest._landmark.icon + ' ' + nearest._landmark.name +
+                                  ' · ' + (nearestDist/1000).toFixed(1) + ' km';
+            labelEl.style.display = 'block';
+        } else {
+            labelEl.style.display = 'none';
+        }
+    } else {
+        labelEl.style.display = 'none';
+    }
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    physics();
+    updateCamera();
+    updateHUD();
+    updateLandmarkLabel();
+    renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

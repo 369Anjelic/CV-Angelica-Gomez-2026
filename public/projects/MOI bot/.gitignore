@@ -1,0 +1,73 @@
+# Environment Variables - NIEMALS pushen!
+.env
+.env.local
+.env.*.local
+
+# Node Modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Dependencies lock files (optional, je nach Projekt)
+# package-lock.json
+# yarn.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Database (local)
+*.db
+*.sqlite
+data/
+
+# Secrets
+secrets/
+.secrets
+private_key*
+*.pem
+
+# Vercel
+.vercel/
+.env.production.local
+
+# Docker
+.dockerignore
+
+# AI/ML
+*.model
+*.weights

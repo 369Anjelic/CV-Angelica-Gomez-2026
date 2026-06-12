@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOI - Dein AI-Bot-Experte | Unwritten Studio</title>
+    <meta
+      name="description"
+      content="MOI erklärt dir wie du intelligente Bots baust. Kompletes Onboarding-System für Bot-Entwicklung."
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #3987b8;
+        --primary-light: #5ba3d0;
+        --primary-dark: #2a5f8a;
+        --dark: #3e4447;
+        --light-gray: #f4f5f5;
+        --text-primary: #3e4447;
+        --text-secondary: #7a8a8f;
+        --border-color: #e0e0e0;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f9fafa;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.8;
+        overflow-x: hidden;
+      }
+
+      /* Navigation */
+      nav {
+        background: var(--bg-primary);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1.2rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      nav .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        letter-spacing: -0.5px;
+      }
+
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--primary);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 2.5rem;
+      }
+
+      nav a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.3s;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      nav a:hover {
+        color: var(--primary);
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 2rem;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -40%;
+        right: -20%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+        opacity: 0.08;
+        filter: blur(50px);
+        z-index: 0;
+      }
+
+      .hero-content {
+        max-width: 700px;
+        text-align: center;
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        color: var(--text-primary);
+        letter-spacing: -1px;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        margin-bottom: 2.5rem;
+        line-height: 1.8;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+      }
+
+      .btn {
+        padding: 0.9rem 2rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        letter-spacing: 0.3px;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(57, 135, 184, 0.25);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+      }
+
+      .btn-secondary:hover {
+        background: var(--bg-secondary);
+        border-color: var(--primary-dark);
+      }
+
+      /* Features Grid */
+      .features {
+        max-width: 1200px;
+        margin: 5rem auto;
+        padding: 0 2rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .feature-card {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 2rem;
+        transition: all 0.3s;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--primary);
+        box-shadow: 0 10px 25px rgba(57, 135, 184, 0.1);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .feature-card h3 {
+        color: var(--text-primary);
+        margin-bottom: 0.8rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .feature-card p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      /* Chat Section */
+      .chat-section {
+        max-width: 850px;
+        margin: 5rem auto;
+        padding: 0 2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: var(--text-primary);
+        letter-spacing: -0.5px;
+      }
+
+      .chat-container {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 500px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      }
+
+      .chat-header {
+        background: var(--primary);
+        padding: 1.5rem;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        background: var(--bg-secondary);
+      }
+
+      .message {
+        display: flex;
+        gap: 1rem;
+        animation: slideIn 0.3s ease;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message.user {
+        justify-content: flex-end;
+      }
+
+      .message-bubble {
+        max-width: 85%;
+        padding: 0.9rem 1.1rem;
+        border-radius: 8px;
+        word-wrap: break-word;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .message.user .message-bubble {
+        background: var(--primary);
+        color: white;
+      }
+
+      .message.bot .message-bubble {
+        background: white;
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+      }
+
+      .chat-input-area {
+        border-top: 1px solid var(--border-color);
+        padding: 1rem;
+        display: flex;
+        gap: 0.7rem;
+        background: var(--bg-primary);
+      }
+
+      .chat-input {
+        flex: 1;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 0.85rem;
+        color: var(--text-primary);
+        font-size: 0.95rem;
+        font-family: inherit;
+      }
+
+      .chat-input::placeholder {
+        color: var(--text-secondary);
+      }
+
+      .chat-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: white;
+      }
+
+      .chat-send {
+        background: var(--primary);
+        border: none;
+        border-radius: 6px;
+        color: white;
+        cursor: pointer;
+        padding: 0.85rem 1.8rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.3s;
+      }
+
+      .chat-send:hover {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(57, 135, 184, 0.2);
+      }
+
+      .chat-send:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .loading {
+        display: flex;
+        gap: 0.3rem;
+      }
+
+      .loading span {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: var(--text-secondary);
+        animation: blink 1.4s infinite;
+      }
+
+      .loading span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .loading span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes blink {
+        0%,
+        60%,
+        100% {
+          opacity: 0.3;
+        }
+        30% {
+          opacity: 1;
+        }
+      }
+
+      /* Code Examples Section */
+      .code-examples {
+        max-width: 1200px;
+        margin: 5rem auto;
+        padding: 3rem 2rem;
+        background: var(--bg-secondary);
+        border-radius: 8px;
+      }
+
+      .code-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .code-card {
+        background: var(--bg-primary);
+        padding: 2rem;
+        border-radius: 8px;
+        border-left: 4px solid var(--primary);
+        transition: all 0.3s;
+      }
+
+      .code-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .code-card h4 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .code-card code {
+        background: var(--bg-secondary);
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        color: var(--dark);
+      }
+
+      /* Footer */
+      footer {
+        background: var(--dark);
+        border-top: 1px solid var(--border-color);
+        padding: 3rem 2rem;
+        text-align: center;
+        color: white;
+        margin-top: 5rem;
+      }
+
+      footer p {
+        margin-bottom: 0.8rem;
+        opacity: 0.9;
+      }
+
+      footer a {
+        color: white;
+        text-decoration: none;
+        transition: opacity 0.3s;
+      }
+
+      footer a:hover {
+        opacity: 0.7;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        nav ul {
+          gap: 1rem;
+          font-size: 0.9rem;
+        }
+
+        .message-bubble {
+          max-width: 95%;
+        }
+
+        .features {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Scrollbar styling */
+      .chat-messages::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .chat-messages::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .chat-messages::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 4px;
+      }
+
+      .chat-messages::-webkit-scrollbar-thumb:hover {
+        background: var(--primary);
+      }
+
+      /* Floating Chat Bubble */
+      .chat-bubble {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 8px 30px rgba(57, 135, 184, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        z-index: 999;
+        transition: all 0.3s;
+        animation: bubble-float 3s ease-in-out infinite;
+      }
+
+      .chat-bubble:hover {
+        transform: scale(1.15);
+        box-shadow: 0 12px 40px rgba(57, 135, 184, 0.4);
+      }
+
+      @keyframes bubble-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      .chat-bubble.open {
+        background: var(--dark);
+      }
+
+      /* Floating Chat Window */
+      .floating-chat-window {
+        position: fixed;
+        bottom: 110px;
+        right: 30px;
+        width: 380px;
+        height: 600px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+        z-index: 998;
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+        pointer-events: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .floating-chat-window.open {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: all;
+      }
+
+      .floating-chat-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px 12px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+      }
+
+      .floating-chat-close {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }
+
+      .floating-chat-close:hover {
+        transform: rotate(90deg);
+      }
+
+      .floating-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        background: var(--bg-secondary);
+      }
+
+      .floating-message {
+        display: flex;
+        gap: 0.8rem;
+        animation: slideIn 0.3s ease;
+      }
+
+      .floating-message.user {
+        justify-content: flex-end;
+      }
+
+      .floating-message-bubble {
+        max-width: 75%;
+        padding: 0.8rem 1rem;
+        border-radius: 12px;
+        word-wrap: break-word;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .floating-message.user .floating-message-bubble {
+        background: var(--primary);
+        color: white;
+        border-bottom-right-radius: 4px;
+      }
+
+      .floating-message.bot .floating-message-bubble {
+        background: white;
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+        border-bottom-left-radius: 4px;
+      }
+
+      .floating-chat-input {
+        border-top: 1px solid var(--border-color);
+        padding: 1rem;
+        display: flex;
+        gap: 0.5rem;
+        background: white;
+        border-radius: 0 0 12px 12px;
+      }
+
+      .floating-input-field {
+        flex: 1;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 0.7rem;
+        color: var(--text-primary);
+        font-size: 0.9rem;
+        font-family: inherit;
+      }
+
+      .floating-input-field:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: white;
+      }
+
+      .floating-input-field::placeholder {
+        color: var(--text-secondary);
+      }
+
+      .floating-send-btn {
+        background: var(--primary);
+        border: none;
+        border-radius: 6px;
+        color: white;
+        cursor: pointer;
+        padding: 0.7rem 1rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+      }
+
+      .floating-send-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+      }
+
+      .floating-send-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .floating-loading {
+        display: flex;
+        gap: 0.3rem;
+        padding: 0.8rem;
+      }
+
+      .floating-loading span {
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius: 50%;
+        background: var(--primary);
+        animation: blink 1.4s infinite;
+      }
+
+      .floating-loading span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .floating-loading span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @media (max-width: 480px) {
+        .floating-chat-window {
+          width: calc(100vw - 20px);
+          height: 70vh;
+          bottom: 90px;
+          right: 10px;
+        }
+
+        .chat-bubble {
+          width: 50px;
+          height: 50px;
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="container">
+        <a href="/" class="logo">
+          <span class="logo-icon">🤖</span>
+          <span>MOI</span>
+        </a>
+        <ul>
+          <li><a href="./tutorial.html">Anleitung</a></li>
+          <li><a href="./README.md">Info</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>🤖 Baue deinen eigenen KI-Bot</h1>
+        <p>
+          Schritt für Schritt Anleitung: Von Anfänger zu Bot-Developer.<br>
+          Alles was du brauchst, um einen funktionierenden Bot zu bauen - in 30 Minuten!
+        </p>
+        <div class="cta-buttons">
+          <a href="./tutorial.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.2rem 3rem;">🚀 Jetzt Bot bauen!</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info Section -->
+    <section style="max-width: 900px; margin: 5rem auto; padding: 0 2rem;">
+      <div style="background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); padding: 3rem; border-radius: 12px; border: 2px solid var(--primary);">
+        <h2 style="font-size: 1.8rem; color: var(--primary); margin-bottom: 1.5rem;">📚 Der komplette Weg zum Bot</h2>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+          <div>
+            <h3 style="color: var(--text-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 1.5rem;">✓</span> Was du lernst
+            </h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">✨ Installation (Claude, VS Code, Node.js)</li>
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">✨ Projekt setup & API Key</li>
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">✨ Erste Bot-Befehle schreiben</li>
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">✨ Bot personalisieren</li>
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">✨ Online deployen (Vercel)</li>
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">✨ Nächste Schritte & Ideen</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 style="color: var(--text-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 1.5rem;">⏱️</span> Zeitaufwand
+            </h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">📖 7 einfache Schritte</li>
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">⏱️ Nur 30 Minuten</li>
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">💻 Copy-Paste Code</li>
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">📚 Keine Vorkenntnisse nötig</li>
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">✓ Checklist zum abhaken</li>
+              <li style="margin-bottom: 0.8rem; color: var(--text-secondary);">🎉 Am Ende: Funktionierender Bot!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="background: white; padding: 2rem; border-radius: 8px; border-left: 4px solid var(--success);">
+          <p style="margin: 0; color: var(--text-secondary); line-height: 1.8;">
+            <strong>Perfekt für Anfänger:</strong> Diese Anleitung erklärt jeden Schritt so einfach, dass es auch jemand versteht, der noch nie Code geschrieben oder mit KI gearbeitet hat.
+            Alle Tools werden erklärt, alle Befehle sind copy-paste fertig, und am Ende hast du einen echten, funktionierenden KI-Bot!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Floating Chat Bubble -->
+    <div class="chat-bubble" id="chatBubble" onclick="toggleFloatingChat()">💬</div>
+
+    <!-- Floating Chat Window -->
+    <div class="floating-chat-window" id="floatingChatWindow">
+      <div class="floating-chat-header">
+        <span>💬 MOI Chat</span>
+        <button class="floating-chat-close" onclick="toggleFloatingChat()">✕</button>
+      </div>
+      <div class="floating-messages" id="floatingMessages">
+        <div class="floating-message bot">
+          <div class="floating-message-bubble">
+            Hallo! 👋 Wie kann ich dir helfen?
+          </div>
+        </div>
+      </div>
+      <div class="floating-chat-input">
+        <input type="text" class="floating-input-field" id="floatingInput" placeholder="Schreib eine Frage..." onkeypress="floatingKeyPress(event)">
+        <button class="floating-send-btn" id="floatingSend" onclick="sendFloatingMessage()">➤</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>🤖 MOI v10.5.2026 - Powered by Claude & Unwritten Studio</p>
+      <p>
+        <a href="./README.md">Dokumentation</a> •
+        <a href="./SETUP.md">Setup Guide</a> •
+        <a href="./LEGAL.md">Rechtliches</a>
+      </p>
+      <p style="margin-top: 1rem; font-size: 0.9rem">
+        Made with ❤️ für Bot-Entwicklung
+      </p>
+    </footer>
+
+    <script>
+      function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // ===== Floating Chat Bubble =====
+      let floatingChatOpen = false;
+      let floatingIsLoading = false;
+
+      function toggleFloatingChat() {
+        floatingChatOpen = !floatingChatOpen;
+        const chatWindow = document.getElementById('floatingChatWindow');
+        const bubble = document.getElementById('chatBubble');
+
+        if (floatingChatOpen) {
+          chatWindow.classList.add('open');
+          bubble.classList.add('open');
+          document.getElementById('floatingInput').focus();
+        } else {
+          chatWindow.classList.remove('open');
+          bubble.classList.remove('open');
+        }
+      }
+
+      function floatingKeyPress(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+          event.preventDefault();
+          sendFloatingMessage();
+        }
+      }
+
+      async function sendFloatingMessage() {
+        const input = document.getElementById('floatingInput');
+        const message = input.value.trim();
+        if (!message || floatingIsLoading) return;
+
+        const messagesContainer = document.getElementById('floatingMessages');
+        const sendBtn = document.getElementById('floatingSend');
+
+        // Add user message
+        const userMsg = document.createElement('div');
+        userMsg.className = 'floating-message user';
+        userMsg.innerHTML = `<div class="floating-message-bubble">${escapeHtml(message)}</div>`;
+        messagesContainer.appendChild(userMsg);
+        input.value = '';
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // Show loading
+        const loadingMsg = document.createElement('div');
+        loadingMsg.className = 'floating-message bot';
+        loadingMsg.innerHTML = '<div class="floating-message-bubble"><div class="floating-loading"><span></span><span></span><span></span></div></div>';
+        messagesContainer.appendChild(loadingMsg);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        floatingIsLoading = true;
+        sendBtn.disabled = true;
+
+        try {
+          const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              userId: 'floating-chat',
+              message: message
+            })
+          });
+
+          const data = await response.json();
+          loadingMsg.remove();
+
+          if (response.ok) {
+            const botMsg = document.createElement('div');
+            botMsg.className = 'floating-message bot';
+            botMsg.innerHTML = `<div class="floating-message-bubble">${escapeHtml(data.message).replace(/\n/g, '<br>')}</div>`;
+            messagesContainer.appendChild(botMsg);
+          } else {
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'floating-message bot';
+            errorMsg.innerHTML = `<div class="floating-message-bubble">❌ ${escapeHtml(data.message || 'Fehler')}</div>`;
+            messagesContainer.appendChild(errorMsg);
+          }
+        } catch (error) {
+          loadingMsg.remove();
+          const errorMsg = document.createElement('div');
+          errorMsg.className = 'floating-message bot';
+          errorMsg.innerHTML = '<div class="floating-message-bubble">❌ Verbindungsfehler</div>';
+          messagesContainer.appendChild(errorMsg);
+        } finally {
+          floatingIsLoading = false;
+          sendBtn.disabled = false;
+          messagesContainer.scrollTop = messagesContainer.scrollHeight;
+          input.focus();
+        }
+      }
+    </script>
+  </body>
+</html>

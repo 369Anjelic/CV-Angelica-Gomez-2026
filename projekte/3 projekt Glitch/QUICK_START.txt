@@ -1,0 +1,123 @@
+╔════════════════════════════════════════════════════════════════╗
+║            🚀 GLITCH LOCAL — QUICK START (5 Minuten)           ║
+╚════════════════════════════════════════════════════════════════╝
+
+[1] DIAGNOSE ✅
+────────────────────────────────────────────────────────────────
+
+  Das Problem war: Backend Server läuft nicht!
+
+  ✅ Frontend (index.html) — OK
+  ✅ Backend Code (server.js) — OK
+  ✅ API Key (.env) — OK
+  ✅ Dependencies (node_modules) — OK
+  ❌ Server nicht gestartet — BEHOBEN! ← DAS WAR DAS PROBLEM!
+
+  Folgende Dateien wurden erstellt um dir zu helfen:
+
+  📄 DEBUG_REPORT.md      ← Detaillierte Fehleranalyse
+  📄 README_SETUP.md      ← Komplettes Setup-Guide
+  📄 START.ps1            ← Windows Startup Script
+  📄 QUICK_START.txt      ← Diese Datei
+
+
+[2] JETZT STARTEN! 🎯
+────────────────────────────────────────────────────────────────
+
+  Windows PowerShell:
+  ┌────────────────────────────────────────────────────┐
+  │  .\START.ps1                                       │
+  │  (Dann automatisch beide Server starten!)          │
+  └────────────────────────────────────────────────────┘
+
+  ODER manuell in 2 Terminal-Fenster:
+
+  Terminal 1 (Frontend):
+  ┌────────────────────────────────────────────────────┐
+  │  python -m http.server 3000                        │
+  └────────────────────────────────────────────────────┘
+
+  Terminal 2 (Backend):
+  ┌────────────────────────────────────────────────────┐
+  │  npm start                                         │
+  │  oder: node server.js                             │
+  └────────────────────────────────────────────────────┘
+
+
+[3] TEST 🧪
+────────────────────────────────────────────────────────────────
+
+  Öffne Browser: http://localhost:3000
+
+  ✓ Login? (Falls nicht deaktiviert)
+  ✓ Schreib: "Hallo Glitch!"
+  ✓ Bekommst du eine Antwort?
+  ✓ Wurde eine data/*.json erstellt?
+
+
+[4] FERTIG! 🎉
+────────────────────────────────────────────────────────────────
+
+  Dein Glitch Local System läuft jetzt vollständig:
+
+  Frontend:  http://localhost:3000
+  Backend:   http://localhost:3003
+  API:       POST /chat, /identify, /history, /export
+
+
+╔════════════════════════════════════════════════════════════════╗
+║                    💡 TIPPS ZUM DEBUGGEN                       ║
+╚════════════════════════════════════════════════════════════════╝
+
+Browser Console (F12) öffnen:
+  → Sehe alle API Calls zum Backend
+  → Sehe alle Fehler live
+  → Teste API Requests manuell
+
+Server Logs checken:
+  → Sehe was Backend macht
+  → Sehe Claude API Responses
+  → Sehe Fehler beim Speichern
+
+Daten anschauen:
+  → data/ Ordner → Jede User-Session als .json
+  → data/kernel.merge.deploy.json ← z.B. User-Daten
+
+
+╔════════════════════════════════════════════════════════════════╗
+║                   ⚠️  HÄUFIGE PROBLEME                         ║
+╚════════════════════════════════════════════════════════════════╝
+
+"Connection refused: localhost:3003"
+→ Backend Server NOT running
+→ Terminal 2: "npm start"
+
+"API Key invalid"
+→ .env Datei fehlt oder kaputt
+→ Prüfe: ANTHROPIC_API_KEY=sk-ant-...
+
+"Address already in use: :3000 oder :3003"
+→ Port belegt von anderem Process
+→ Ändere in index.html:1796 oder server.js:9
+→ Oder: Kill anderen Process auf dem Port
+
+Keine Datei wird erstellt
+→ Schreib eine Nachricht im Chat
+→ Dann guckt es in data/ Ordner
+
+
+╔════════════════════════════════════════════════════════════════╗
+║                       📖 MEHR INFOS                            ║
+╚════════════════════════════════════════════════════════════════╝
+
+README_SETUP.md     → Komplettes Setup-Guide
+DEBUG_REPORT.md     → Technische Fehleranalyse
+index.html          → Frontend Code
+server.js           → Backend Code
+
+
+═══════════════════════════════════════════════════════════════════
+
+  Ready? → .\START.ps1  (oder manual starten wie oben)
+
+═══════════════════════════════════════════════════════════════════
