@@ -1,0 +1,9 @@
+export async function GET(request: Request) {
+  return Response.json({
+    leaderboard: [
+      { rank: 1, name: 'Kaspar Hauser', solved: 10, time: '45:23' },
+      { rank: 2, name: 'Nürnberg Entdecker', solved: 8, time: '62:15' },
+      { rank: 3, name: 'Rätsel Meister', solved: 6, time: '78:40' }
+    ]
+  });
+}
