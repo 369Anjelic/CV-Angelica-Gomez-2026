@@ -13,6 +13,7 @@ export default function GlitchPage() {
         }}
         title="Glitch verbessert"
         allow="fullscreen"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-storage-access-by-user-activation"
       />
     </div>
   );

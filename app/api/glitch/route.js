@@ -62,7 +62,7 @@ async function handleChat(body) {
 
     // Create message with Claude
     const completion = await client.messages.create({
-      model: 'claude-opus-4-7',
+      model: 'claude-opus-4-8',
       max_tokens: 300,
       system: `Du bist Glitch, ein KI-Lernbegleiter für Fachinformatiker-Azubis (Anwendungsentwicklung).
 Du hilfst bei der Vorbereitung auf die IHK-Prüfung.
