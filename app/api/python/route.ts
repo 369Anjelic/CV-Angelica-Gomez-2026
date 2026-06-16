@@ -1,43 +1,57 @@
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const hostname = process.env.VERCEL ? 'vercel' : 'localhost';
 
-    // On localhost, proxy to the local Python server on port 5000
-    if (hostname === 'localhost' || process.env.NODE_ENV === 'development') {
-      const localUrl = 'http://127.0.0.1:5000/run';
-      console.log(`[Python Proxy] Forwarding to: ${localUrl}`);
-
-      try {
-        const response = await fetch(localUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
-        });
-        const data = await response.json();
-        return Response.json(data, { status: response.status });
-      } catch (err) {
-        console.error(`[Python Proxy] Failed to reach localhost:5000:`, err);
-        return Response.json(
-          {
-            success: false,
-            output: '',
-            error: 'Python Server auf http://127.0.0.1:5000 nicht erreichbar. Starte den Server mit: npm run python',
-          },
-          { status: 503 }
-        );
+    // Determine Python server URL based on environment
+    const getPythonServerUrl = () => {
+      // On localhost, use local server
+      if (process.env.NODE_ENV === 'development') {
+        return 'http://127.0.0.1:5000';
       }
-    }
 
-    // On Vercel production, return a helpful message
-    return Response.json(
-      {
-        success: false,
-        output: '',
-        error: 'Python Code Execution ist nur lokal verfügbar. Nutze http://localhost:3000/python für lokale Python-Übungen.',
-      },
-      { status: 501 }
-    );
+      // On production, use Railway or custom backend
+      const railwayUrl = process.env.PYTHON_SERVER_URL;
+      if (railwayUrl) {
+        return railwayUrl;
+      }
+
+      // Fallback
+      return 'http://127.0.0.1:5000';
+    };
+
+    const pythonServerUrl = getPythonServerUrl();
+    const runUrl = `${pythonServerUrl}/run`;
+
+    console.log(`[Python Proxy] Forwarding to: ${runUrl}`);
+
+    try {
+      const response = await fetch(runUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        timeout: 15000,
+      });
+
+      const data = await response.json();
+      return Response.json(data, { status: response.status });
+    } catch (err: any) {
+      console.error(`[Python Proxy] Failed to reach ${runUrl}:`, err);
+
+      // Determine error message based on environment
+      const errorMessage =
+        process.env.NODE_ENV === 'development'
+          ? 'Python Server auf http://127.0.0.1:5000 nicht erreichbar. Starte: python app.py'
+          : `Python Server nicht erreichbar. URL: ${runUrl}. Bitte Railway deployment prüfen.`;
+
+      return Response.json(
+        {
+          success: false,
+          output: '',
+          error: errorMessage,
+        },
+        { status: 503 }
+      );
+    }
   } catch (error) {
     console.error('[Python API] Error:', error);
     return Response.json(

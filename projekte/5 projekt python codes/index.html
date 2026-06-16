@@ -2068,14 +2068,34 @@ Bot: Tschüss Anna! Bis bald! 👋`,
       terminal.innerHTML += '<div class="terminal-line" style="color: #ffaa00;">[LOADING] Code wird ausgeführt...</div>';
 
       try {
+        // Determine server URL based on environment
+        const getServerUrl = () => {
+          const hostname = window.location.hostname;
+
+          // Lokal: use localhost
+          if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            return 'http://127.0.0.1:5000';
+          }
+
+          // Production: try to use Next.js API route first, then fallback to Railway
+          if (hostname.includes('vercel.app') || hostname.includes('angelica')) {
+            return '/api/python';  // Use Next.js API proxy
+          }
+
+          // Fallback
+          return 'http://127.0.0.1:5000';
+        };
+
+        const serverUrl = getServerUrl();
+
         // Set timeout for fetch
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 
-        terminal.innerHTML += '<div class="terminal-line" style="color: #ffaa00;">[SEND] Request wird gesendet...</div>';
+        terminal.innerHTML += '<div class="terminal-line" style="color: #ffaa00;">[SEND] Request wird gesendet zu: ' + serverUrl + '</div>';
         terminal.scrollTop = terminal.scrollHeight;
 
-        const response = await fetch('http://127.0.0.1:5000/run', {
+        const response = await fetch(`${serverUrl}/run`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
