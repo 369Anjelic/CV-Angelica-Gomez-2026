@@ -1,0 +1,19 @@
+{
+  "words": "deploy.heap.cache",
+  "messages": [
+    {
+      "role": "user",
+      "content": "deploy.heap.cache",
+      "ts": "2026-06-16T19:27:50.575Z"
+    },
+    {
+      "role": "assistant",
+      "content": "Hey! 👋 Ich bin Glitch, dein KI-Lernbegleiter für die Fachinformatiker-Prüfung.\n\nSo funktioniert's: Ich stelle dir Fragen zu deinem gewählten Lernfeld (LF1-LF18) und leite dich zum eigenen Denken an, statt dir Antworten vorzukauen. Wir decken alles ab – von Programmiergrundlagen über Datenbanken bis zu Cloud & KI.\n\nWelches Lernfeld möchtest du heute angehen? Zum Beispiel **LF3 Datenbanken**, **LF2 Programmiergrundlagen** oder **LF14 Cloud-Native**?",
+      "ts": "2026-06-16T19:27:50.575Z",
+      "learned": null
+    }
+  ],
+  "level": "draft",
+  "jokers": 3,
+  "learned": []
+}

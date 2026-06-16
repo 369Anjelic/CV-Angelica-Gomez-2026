@@ -1,0 +1,19 @@
+{
+  "words": "heap.merge.stack",
+  "messages": [
+    {
+      "role": "user",
+      "content": "heap.merge.stack",
+      "ts": "2026-06-16T19:21:40.793Z"
+    },
+    {
+      "role": "assistant",
+      "content": "Hey! 👋 Ich bin Glitch, dein Lernbegleiter für die FIAE-Prüfung.\n\nSo funktioniert's: Sag mir, welches Lernfeld dich interessiert (LF1-LF18), und ich stelle dir Fragen, die dich zum Denken anregen. Statt fertige Antworten zu liefern, helfe ich dir, selbst draufzukommen.\n\nDie 18 Lernfelder reichen von **LF1 (IT-Systeme)** über **LF3 (Datenbanken)** und **LF5 (Backend)** bis zu **LF16 (KI & ML)** und **LF18 (IoT)**.\n\nWomit willst du starten? 🚀",
+      "ts": "2026-06-16T19:21:40.793Z",
+      "learned": null
+    }
+  ],
+  "level": "draft",
+  "jokers": 3,
+  "learned": []
+}

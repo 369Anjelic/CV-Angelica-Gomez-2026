@@ -1,0 +1,12 @@
+{
+  "name": "python-coding-ubungen",
+  "version": "1.0.0",
+  "description": "20 Python Coding Übungen für Anfänger und Fortgeschrittene",
+  "author": "Angelica Gomez",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
