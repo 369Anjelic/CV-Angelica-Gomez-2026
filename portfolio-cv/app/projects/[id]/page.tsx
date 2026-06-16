@@ -7,7 +7,7 @@ const projects: Record<number, any> = {
   1: {
     id: 1,
     icon: '✈️',
-    title: 'Flight Trainer - 2 Player',
+    title: 'Flight Trainer',
     description: 'Interaktiver Flight Simulator für Piloten-Training.',
     fullDescription: 'Ein interaktives 3D Flight Simulator Spiel, in dem zwei Spieler gemeinsam Flugszenarien trainieren können. Mit realistischen Flugphysiken, Umgebungen und Missions-Modi.',
     status: 'active',
