@@ -21,7 +21,7 @@
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body { font-family:'Plus Jakarta Sans',sans-serif; font-weight:500; background:var(--bg); color:var(--text); line-height:1.7; }
+    body { font-family:'Plus Jakarta Sans',sans-serif; font-weight:300; background:var(--bg); color:var(--text); line-height:1.7; }
     h1,h2,h3,h4,h5,h6 { font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; }
     a { color:inherit; text-decoration:none; }
     .container { max-width:1100px; margin:0 auto; padding:0 1.5rem; }
@@ -91,7 +91,7 @@
     .map-status { padding:1.25rem; border-bottom:2px solid var(--primary); display:flex; gap:1rem; align-items:center; }
     .status-icon { font-size:1.8rem; }
     .status-title { font-weight:600; color:var(--text); font-size:0.95rem; }
-    .status-text { color:var(--text-muted); font-size:0.82rem; margin-top:1.5rem; }
+    .status-text { color:var(--text-muted); font-size:0.82rem; margin-top:2px; }
     .distance-badge { margin:0 1.25rem 1rem; background:rgba(57,135,184,0.1); border:1px solid var(--primary); border-radius:6px; padding:0.6rem 1rem; font-size:0.85rem; color:var(--primary); font-weight:500; }
     #enable-location-btn { margin:0 1.25rem 1.25rem; }
 
@@ -189,6 +189,18 @@
     footer p { color:var(--text-muted); font-size:0.85rem; margin:0.3rem 0; }
     footer a { color:var(--primary); }
 
+    /* AUTH MODAL */
+    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; z-index:2000; padding:1rem; }
+    .modal-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:2.5rem; width:100%; max-width:400px; }
+    .modal-box h2 { font-size:1.5rem; color:var(--text); margin-bottom:0.35rem; }
+    .modal-box .modal-sub { color:var(--text-muted); font-size:0.875rem; margin-bottom:1.75rem; }
+    .form-input { width:100%; background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem; color:var(--text); font-family:'Plus Jakarta Sans',sans-serif; font-size:0.9rem; outline:none; box-sizing:border-box; margin-bottom:0.75rem; transition:border-color 0.2s; }
+    .form-input:focus { border-color:var(--primary); }
+    .form-input::placeholder { color:var(--text-muted); }
+    .error-box { background:rgba(192,57,43,0.15); border:1px solid rgba(192,57,43,0.4); color:#e74c3c; padding:0.75rem 1rem; border-radius:6px; font-size:0.875rem; margin-bottom:1rem; display:none; }
+    .modal-switch { text-align:center; margin-top:1rem; font-size:0.875rem; color:var(--text-muted); }
+    .modal-switch a { color:var(--primary); cursor:pointer; font-weight:600; }
+    .modal-cancel { width:100%; margin-top:0.5rem; }
 
     /* SHARE MODAL */
     #share-modal { position:fixed; inset:0; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; z-index:2000; padding:1rem; }
@@ -232,31 +244,8 @@
     @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
     @keyframes bounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
 
-    /* KASPAR INTRO MODAL */
-    #kaspar-intro-modal { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:2000; padding:1rem; }
-    .kaspar-intro-box { background:var(--surface); border:2px solid var(--primary); border-radius:12px; padding:2.5rem; width:100%; max-width:500px; }
-    .kaspar-intro-box h2 { font-size:1.8rem; color:var(--primary); margin-bottom:1rem; text-align:center; }
-    .kaspar-intro-avatar { font-size:4rem; text-align:center; margin-bottom:1rem; }
-    .kaspar-intro-text { font-size:0.95rem; color:var(--text); line-height:1.8; margin-bottom:1.5rem; }
-    .kaspar-intro-cta { display:flex; gap:1rem; margin-top:2rem; }
-    .kaspar-intro-cta button { flex:1; padding:0.75rem; }
-
-    /* QUEST INTRO MODAL */
-    #quest-intro-modal { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:2000; padding:1rem; overflow-y:auto; }
-    .quest-intro-box { background:var(--surface); border:2px solid var(--primary); border-radius:12px; padding:2.5rem; width:100%; max-width:550px; }
-    .quest-intro-box h2 { font-size:1.8rem; color:var(--primary); margin-bottom:1.5rem; }
-    .quest-intro-section { margin-bottom:2rem; }
-    .quest-intro-section h3 { font-size:1.1rem; color:var(--text); margin-bottom:0.75rem; font-weight:700; }
-    .quest-intro-section p { color:var(--text-muted); font-size:0.9rem; line-height:1.6; margin-bottom:0.5rem; }
-    .profile-code-box { background:var(--bg); border:2px solid var(--primary); border-radius:8px; padding:1.5rem; text-align:center; margin:1.5rem 0; }
-    .profile-code-title { font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--primary); font-weight:700; margin-bottom:0.5rem; }
-    .profile-code-display { font-size:1.4rem; font-weight:700; color:var(--primary); font-family:monospace; margin:0.75rem 0; letter-spacing:2px; }
-    .profile-code-warning { font-size:0.8rem; color:#d97706; background:rgba(217,118,6,0.1); padding:0.75rem; border-radius:6px; margin-top:1rem; }
-    .quest-intro-cta { display:flex; gap:1rem; margin-top:2rem; }
-    .quest-intro-cta button { flex:1; padding:0.75rem; }
-
     /* DEBUG PANEL */
-    #debug-panel { display:none; }
+    #debug-panel { position:fixed; bottom:20px; right:20px; background:#000; color:#00ff00; border:2px solid #00ff00; border-radius:8px; padding:1rem; max-width:350px; font-family:monospace; font-size:0.75rem; z-index:999; max-height:400px; overflow-y:auto; box-shadow:0 0 20px rgba(0,255,0,0.3); }
     #debug-panel.hidden { display:none; }
     .debug-header { font-weight:700; color:#ffff00; margin-bottom:0.5rem; border-bottom:1px solid #00ff00; padding-bottom:0.5rem; }
     .debug-item { margin:0.5rem 0; line-height:1.4; }
@@ -265,197 +254,6 @@
     #unlock-btn, #auto-answer-btn { background:#00ff00; color:#000; border:none; padding:0.5rem 1rem; border-radius:4px; margin:0.5rem 0; cursor:pointer; font-weight:700; width:100%; }
     #unlock-btn:hover, #auto-answer-btn:hover { background:#00dd00; }
     #unlock-btn.unlocked { background:#ff5500; }
-
-    /* CHARACTERS SECTION */
-    .characters-section { background:var(--bg); }
-    .characters-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:1.5rem; margin-bottom:3rem; }
-    .character-card {
-      background:var(--surface); border:2px solid var(--border); border-radius:10px;
-      padding:1.5rem; cursor:pointer; transition:all 0.3s ease;
-      position:relative; overflow:hidden;
-    }
-    .character-card:hover {
-      border-color:var(--primary); transform:translateY(-6px);
-      box-shadow:0 8px 24px rgba(57,135,184,0.2);
-    }
-    .character-card.ritter { border-top:4px solid #3987b8; }
-    .character-card.hexe { border-top:4px solid #6c3483; }
-    .character-card.narr { border-top:4px solid #d4af37; }
-    .character-card.kaspar { border-top:4px solid #555; }
-
-    .character-avatar {
-      font-size:3rem; margin-bottom:1rem; text-align:center;
-      width:80px; height:80px; display:flex; align-items:center;
-      justify-content:center; background:rgba(57,135,184,0.1);
-      border-radius:50%; margin-left:auto; margin-right:auto;
-    }
-    .character-card.ritter .character-avatar { background:rgba(57,135,184,0.15); }
-    .character-card.hexe .character-avatar { background:rgba(108,52,131,0.15); }
-    .character-card.narr .character-avatar { background:rgba(212,175,55,0.15); }
-    .character-card.kaspar .character-avatar { background:rgba(85,85,85,0.15); }
-
-    .character-name {
-      font-size:1.2rem; font-weight:700; color:var(--text);
-      margin-bottom:0.5rem; text-align:center;
-    }
-    .character-role {
-      font-size:0.75rem; letter-spacing:2px; text-transform:uppercase;
-      color:var(--primary); margin-bottom:1rem; text-align:center;
-      font-weight:700;
-    }
-    .character-quote {
-      font-style:italic; color:var(--text); font-size:0.95rem;
-      margin-bottom:1rem; line-height:1.6; border-left:3px solid var(--primary);
-      padding-left:1rem;
-    }
-    .character-details {
-      background:var(--bg); border-radius:6px; padding:1rem;
-      margin-bottom:1rem; font-size:0.875rem; color:var(--text-muted);
-    }
-    .character-details p { margin:0.5rem 0; }
-    .character-details strong { color:var(--text); font-weight:600; }
-
-    .character-abilities {
-      font-size:0.8rem; color:var(--text);
-      background:rgba(57,135,184,0.05); padding:0.75rem;
-      border-radius:6px; line-height:1.6;
-    }
-    .character-ability-item {
-      margin:0.4rem 0; padding-left:1rem;
-    }
-    .character-ability-item::before { content:'✦ '; color:var(--primary); font-weight:700; margin-left:-0.7rem; }
-
-    .character-click-hint {
-      text-align:center; margin-top:1rem; padding-top:1rem;
-      border-top:1px solid var(--border); font-size:0.8rem;
-      color:var(--text-muted); display:flex; align-items:center;
-      justify-content:center; gap:0.4rem;
-    }
-    .character-click-hint::after { content:'›'; margin-left:0.3rem; }
-
-    .character-featured {
-      background:var(--surface); border:2px solid var(--primary);
-      border-radius:10px; padding:2rem; display:grid;
-      grid-template-columns:250px 1fr; gap:2rem; align-items:center;
-      margin-top:2rem;
-    }
-    .character-featured-img {
-      width:100%; aspect-ratio:1; background:linear-gradient(135deg, var(--primary) 0%, #5ba3c8 100%);
-      border-radius:8px; display:flex; align-items:center; justify-content:center;
-      font-size:5rem;
-    }
-    .character-featured h3 {
-      font-size:1.4rem; color:var(--text); margin-bottom:0.5rem;
-    }
-    .character-featured .character-quote {
-      margin-bottom:1.5rem; color:var(--primary); font-size:1rem;
-    }
-    .character-featured p {
-      font-size:0.95rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.7;
-    }
-    .character-featured .btn { margin-top:1rem; }
-
-    /* CHARACTER DETAIL MODAL */
-    #character-modal { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:2000; padding:1rem; overflow-y:auto; }
-    .character-modal-box {
-      background:var(--surface); border:1px solid var(--border); border-radius:12px;
-      padding:2.5rem; width:100%; max-width:700px; position:relative;
-    }
-    .character-modal-close {
-      position:absolute; top:1rem; right:1.5rem; background:none;
-      border:none; font-size:1.5rem; cursor:pointer; color:var(--text-muted);
-    }
-    .character-modal-close:hover { color:var(--text); }
-    .character-modal-header {
-      display:flex; align-items:center; gap:2rem; margin-bottom:2rem;
-      padding-bottom:1.5rem; border-bottom:2px solid var(--border);
-    }
-    .character-modal-avatar {
-      font-size:4rem; width:120px; height:120px;
-      background:rgba(57,135,184,0.1); border-radius:50%;
-      display:flex; align-items:center; justify-content:center; flex-shrink:0;
-    }
-    .character-modal-info h2 {
-      font-size:1.8rem; color:var(--text); margin-bottom:0.3rem;
-    }
-    .character-modal-role {
-      font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;
-      color:var(--primary); font-weight:700; margin-bottom:0.5rem;
-    }
-    .character-modal-quote {
-      font-style:italic; color:var(--primary); font-size:1.05rem; line-height:1.6;
-    }
-    .character-modal-section { margin-bottom:2rem; }
-    .character-modal-section h3 {
-      font-size:1.1rem; color:var(--text); margin-bottom:1rem;
-      padding-bottom:0.5rem; border-bottom:2px solid var(--primary);
-    }
-    .character-modal-section p {
-      font-size:0.95rem; color:var(--text-muted); margin-bottom:0.75rem; line-height:1.7;
-    }
-    .character-modal-abilities {
-      background:var(--bg); padding:1rem; border-radius:6px;
-    }
-    .character-modal-ability {
-      margin:0.75rem 0; padding:0.75rem 0; border-bottom:1px solid var(--border);
-    }
-    .character-modal-ability:last-child { border-bottom:none; }
-    .character-modal-ability strong { color:var(--text); font-size:0.95rem; }
-    .character-modal-ability-desc {
-      font-size:0.85rem; color:var(--text-muted); margin-top:0.3rem; line-height:1.5;
-    }
-
-    @media(max-width:768px) {
-      .character-featured { grid-template-columns:1fr; }
-      .character-featured-img { width:100%; height:250px; }
-      .character-modal-header { flex-direction:column; text-align:center; }
-      .characters-grid { grid-template-columns:repeat(2, 1fr); gap:1rem; }
-    }
-    @media(max-width:480px) {
-      .characters-grid { grid-template-columns:1fr; gap:1rem; }
-    }
-
-    /* TEST-RUNDGANG SECTION */
-    .testrun-section { background:linear-gradient(135deg, var(--primary) 0%, #5ba3c8 50%, #3e6b8f 100%); color:white; position:relative; overflow:hidden; }
-    .testrun-section::before {
-      content:''; position:absolute; inset:0;
-      background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><filter id="feTurbulence2"><feTurbulence type="fractalNoise" baseFrequency="0.003" numOctaves="4" result="noise"/></filter></defs><g fill="rgba(255,255,255,0.05)" filter="url(%23feTurbulence2)"><circle cx="200" cy="150" r="100"/><circle cx="1000" cy="400" r="150"/><polygon points="600,50 700,150 500,150"/></g></svg>') repeat;
-      opacity:0.4; z-index:0;
-    }
-    .testrun-content { position:relative; z-index:1; }
-    .testrun-headline { font-size:clamp(1.4rem,3vw,2rem); font-weight:700; margin-bottom:0.5rem; line-height:1.2; }
-    .testrun-date { font-size:1.1rem; opacity:0.95; margin-bottom:2rem; font-weight:300; }
-    .testrun-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; margin-bottom:2rem; }
-    .testrun-main h3 { font-size:1.5rem; margin-bottom:1.5rem; font-weight:700; }
-    .testrun-main p { font-size:0.95rem; margin-bottom:1.25rem; line-height:1.7; opacity:0.95; }
-    .testrun-main strong { font-weight:600; }
-    .testrun-highlight { background:rgba(255,255,255,0.15); padding:1.5rem; border-radius:8px; margin:1.5rem 0; border-left:4px solid rgba(255,255,255,0.8); }
-    .testrun-highlight h4 { font-size:1rem; margin-bottom:0.5rem; font-weight:700; }
-    .testrun-highlight p { margin:0.5rem 0; font-size:0.9rem; }
-
-    .testrun-side { background:rgba(255,255,255,0.1); padding:1.5rem; border-radius:10px; border:2px solid rgba(255,255,255,0.3); }
-    .testrun-side h4 { font-size:1rem; font-weight:700; margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem; }
-    .testrun-side-item { margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.2); }
-    .testrun-side-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
-    .testrun-side-item strong { display:block; margin-bottom:0.3rem; font-size:0.95rem; }
-    .testrun-side-item p { font-size:0.85rem; opacity:0.9; margin:0; }
-
-    .testrun-cta { margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap; }
-    .testrun-cta .btn { background:white; color:var(--primary); font-weight:700; padding:12px 28px; }
-    .testrun-cta .btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.2); }
-    .testrun-cta .btn-secondary { background:transparent; color:white; border:2px solid white; }
-    .testrun-cta .btn-secondary:hover { background:rgba(255,255,255,0.1); }
-
-    .testrun-counter { background:rgba(255,255,255,0.2); padding:1rem 1.5rem; border-radius:8px; display:inline-block; margin-top:1rem; }
-    .testrun-counter .label { font-size:0.8rem; opacity:0.8; letter-spacing:1px; text-transform:uppercase; }
-    .testrun-counter .number { font-size:2rem; font-weight:700; margin-top:0.3rem; }
-
-
-    @media(max-width:768px) {
-      .testrun-grid { grid-template-columns:1fr; gap:1.5rem; }
-      .testrun-cta { flex-direction:column; }
-      .testrun-cta .btn { width:100%; text-align:center; }
-    }
   </style>
 </head>
 <body>
@@ -476,11 +274,13 @@
       <a href="#map" data-i18n="nav_map">Karte</a>
       <a href="#route" data-i18n="nav_route">Route</a>
       <a href="#story" data-i18n="nav_story">Geschichte</a>
-      <a href="#characters" data-i18n="nav_characters">Rollen</a>
-      <a href="#testrun" data-i18n="nav_testrun">Test 25.5</a>
       <a href="#leaderboard" data-i18n="nav_lb">Rangliste</a>
       <a href="#faq" data-i18n="nav_faq">FAQ</a>
     </nav>
+    <div id="auth-header" class="header-auth">
+      <button class="btn btn-ghost" onclick="openAuth('login')">Login</button>
+      <button class="btn btn-gold" onclick="openAuth('register')">Registrieren</button>
+    </div>
     <div id="user-header">
       <span class="user-badge" id="hdr-name"></span>
       <span class="user-badge" id="hdr-points"></span>
@@ -502,31 +302,10 @@
     <p class="hero-sub" data-i18n="hero_sub">Folge Kaspar Hauser durch 10 mittelalterliche Sehenswürdigkeiten Nürnbergs. Löse Rätsel aus dem Dunkel der Geschichte — und entdecke die Stadt von einer neuen Seite.</p>
     <div class="hero-btns">
       <button class="btn btn-gold" onclick="openDemoChat()" data-i18n="btn_kaspar">Mit Kaspar sprechen</button>
+      <button class="btn btn-outline" onclick="openAuth('register')" data-i18n="btn_register">Kostenlos starten</button>
     </div>
     <p class="hero-meta" data-i18n="hero_meta">Kein Download nötig · Läuft im Browser · ~4 km Stadtrundgang</p>
     <p class="hero-scroll">↓</p>
-  </div>
-</section>
-
-<!-- TICKER SEKTION -->
-<section style="background:linear-gradient(135deg, rgba(57,135,184,0.1) 0%, rgba(57,135,184,0.05) 100%); padding:70px 0; border-top:3px solid var(--primary); border-bottom:3px solid var(--primary);">
-  <div class="container" style="text-align:center;">
-    <div style="max-width:800px; margin:0 auto;">
-      <div style="font-size:0.75rem; letter-spacing:4px; text-transform:uppercase; color:var(--primary); margin-bottom:2rem; font-weight:700;">👻 Kaspar Hauser spricht...</div>
-
-      <div id="ticker-text" style="font-size:1.1rem; font-weight:500; color:var(--text); line-height:2; font-style:italic; min-height:auto; display:flex; align-items:center; justify-content:center; position:relative; max-width:900px; margin:0 auto;">
-        <div style="position:relative; display:block; text-align:center;">
-          <span id="ticker-content" style="font-weight:500; white-space:pre-wrap;"></span><span id="ticker-cursor" style="display:inline-block; width:3px; height:1.1rem; background:var(--primary); margin-left:5px; animation:blink 0.7s infinite; vertical-align:text-bottom;"></span>
-        </div>
-      </div>
-
-      <style>
-        @keyframes blink {
-          0%, 49% { opacity:1; }
-          50%, 100% { opacity:0; }
-        }
-      </style>
-    </div>
   </div>
 </section>
 
@@ -550,149 +329,20 @@
           Entfernung: <strong id="distance-value">--</strong> m
         </div>
         <button class="btn btn-gold" id="enable-location-btn" onclick="enableLocation()" style="margin:0 1.25rem 1.25rem;">📍 Standort aktivieren</button>
+        <button class="btn btn-outline" onclick="openDemoChat()" style="margin:0 1.25rem 1.25rem;">Demo: Kaspar sprechen</button>
 
-        <!-- TABS ZUM WECHSELN -->
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin:0 1.25rem 1.25rem;">
-          <button class="btn btn-gold" id="tab-riddle-btn" onclick="openRiddleModeModal()" style="font-size:0.85rem; background:var(--primary);">🧩 Rätsel lösen</button>
-          <button class="btn btn-outline" id="tab-chat-btn" onclick="showChatPanel()" style="font-size:0.85rem;">💬 Mit Kaspar sprechen</button>
-        </div>
-
-        <!-- RÄTZEL LÖSEN PANEL -->
-        <div id="riddle-panel" class="chat-panel">
+        <!-- CHAT -->
+        <div id="bot-chat-panel" class="chat-panel hidden">
           <div class="chat-header">
-            <h3>🧩 Rätsel lösen</h3>
-            <p id="riddle-location-label">Team-Überprüfung</p>
-          </div>
-
-          <!-- RÄTZEL PREVIEW (Immer sichtbar) -->
-          <div id="riddle-preview" class="chat-messages" style="background:#f9f9f9; padding:0;">
-            <div class="chat-message bot" style="background:rgba(57,135,184,0.1); border:2px solid var(--primary); margin:0.75rem;">
-              <strong>📍 Station 1: Unschlittplatz</strong><br><br>
-              <strong>Die Frage:</strong><br>
-              "WER war der Mann, der mich brachte?"<br><br>
-              <strong>👻 Kaspar erklärt:</strong><br>
-              "Hier began alles. 1828 wurde ich auf diesem Platz gefunden. Ein Mann brachte mich hier. Ich kannte ihn nicht. Er sprach nicht viel. Er zeigte nur auf den Ort und... verschwand. Aber warum? Wer war dieser Mann?"<br><br>
-              <strong style="color:var(--danger);">🗺️ WICHTIG: Gehe zum Handwerkerhof am Königstor (Spot #1)</strong><br>
-              Erst wenn du dort ankommst, kann das Rätzel gelöst werden!
-            </div>
-          </div>
-
-          <!-- TEAM SETUP PHASE -->
-          <div id="team-setup-phase" class="chat-messages" style="background:#f9f9f9; padding:1rem;">
-            <div class="chat-message bot" style="margin-bottom:1rem;">
-              <strong>👻 Kaspar fragt:</strong><br><br>
-              "Seid ihr bereit für dieses Abenteuer?<br><br>
-              Wie viele Detektive sind heute dabei? (1-4 Spieler)"
-            </div>
-            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.5rem; margin:1rem 0;">
-              <button class="btn btn-gold" onclick="setTeamSize(1)" style="padding:0.75rem; font-size:0.9rem;">👤 1 Spieler</button>
-              <button class="btn btn-gold" onclick="setTeamSize(2)" style="padding:0.75rem; font-size:0.9rem;">👥 2 Spieler</button>
-              <button class="btn btn-gold" onclick="setTeamSize(3)" style="padding:0.75rem; font-size:0.9rem;">👥 3 Spieler</button>
-              <button class="btn btn-gold" onclick="setTeamSize(4)" style="padding:0.75rem; font-size:0.9rem;">👥 4 Spieler</button>
-            </div>
-            <div style="font-size:0.8rem; color:var(--text-muted); text-align:center;">
-              Wähle die Anzahl eurer Spieler um zu beginnen
-            </div>
-          </div>
-
-          <!-- RÄTZEL PHASE (versteckt bis Team bestätigt) -->
-          <div id="riddle-play-phase" class="hidden" style="display:flex; flex-direction:column; height:100%;">
-            <div class="chat-messages" id="riddle-messages" style="background:#f9f9f9; flex:1; overflow-y:auto; margin-bottom:1rem;"></div>
-            <div class="chat-input-row" style="flex-direction:column; gap:0.75rem; margin-top:auto;">
-              <div style="display:flex; gap:0.5rem;">
-                <input type="text" id="riddle-input" placeholder="Rätsel-Lösung..." style="flex:1; padding:0.75rem; border:2px solid var(--primary); border-radius:6px; font-family:monospace;" />
-                <button class="btn btn-gold" id="riddle-btn" onclick="submitRiddleAnswer()" style="padding:8px 16px;">Rätzel</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FREIES KASPAR CHAT PANEL -->
-        <div id="chat-panel" class="chat-panel hidden">
-          <div class="chat-header">
-            <h3>👻 Kaspar Hauser</h3>
-            <p id="chat-location-label">Freie Konversation · Stelle Fragen</p>
+            <h3>Kaspar Hauser</h3>
+            <p id="chat-location-label">Mittelalterliche Rundroute · Nürnberg</p>
           </div>
           <div class="chat-messages" id="chat-messages"></div>
-          <div class="chat-input-row" style="flex-direction:column; gap:0.75rem;">
-            <div style="display:flex; gap:0.5rem;">
-              <input type="text" id="chat-input" placeholder="Frage Kaspar etwas..." style="flex:1; padding:0.75rem; border:2px solid var(--primary); border-radius:6px;" />
-              <button class="btn btn-gold" id="send-btn" onclick="sendMessage()" style="padding:8px 16px;">→</button>
-            </div>
-            <div style="font-size:0.8rem; color:var(--text-muted); text-align:center; padding:0.5rem; background:rgba(57,135,184,0.08); border-radius:6px;">
-              💬 <strong>Freies Gespräch</strong> mit Kaspar — Stelle beliebige Fragen
-            </div>
+          <div class="chat-input-row">
+            <input type="text" id="chat-input" placeholder="Schreibe Kaspar...">
+            <button class="btn btn-gold" id="send-btn" onclick="sendMessage()" style="padding:8px 16px;">→</button>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROFIL LOADER SECTION -->
-<section style="background:var(--surface); padding:60px 0; border-top:2px solid var(--primary);">
-  <div class="container">
-    <p class="section-label">Mein Fortschritt</p>
-    <h2 class="section-title">Dein Profil laden</h2>
-    <p class="section-sub">Gib deine 3 Code-Wörter ein um deinen Fortschritt zu sehen</p>
-
-    <div style="background:var(--bg); border:2px solid var(--primary); border-radius:12px; padding:2rem; max-width:600px; margin:0 auto;">
-      <!-- CODE INPUT -->
-      <div style="display:flex; gap:0.5rem; margin-bottom:2rem;">
-        <input type="text" id="load-code-input" placeholder="Wort1 Wort2 Wort3" style="flex:1; padding:0.75rem; border:2px solid var(--primary); border-radius:6px; font-family:monospace; font-size:0.95rem;" oninput="loadProfileByCode()" />
-        <button class="btn btn-gold" onclick="clearLoadProfile()" style="padding:0.75rem 1.5rem; white-space:nowrap;">🔄 Löschen</button>
-      </div>
-
-      <!-- PROFIL ANZEIGE -->
-      <div id="load-profile-display" style="display:none;">
-        <div style="background:var(--surface); border:2px solid var(--primary); border-radius:10px; padding:1.5rem;">
-          <!-- HEADER MIT AVATAR -->
-          <div style="display:flex; gap:1.5rem; align-items:center; margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:2px solid var(--border);">
-            <div id="load-profile-avatar" style="font-size:4rem; width:80px; height:80px; display:flex; align-items:center; justify-content:center; background:rgba(57,135,184,0.15); border-radius:12px;"></div>
-            <div style="flex:1;">
-              <div style="font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--primary); font-weight:700; margin-bottom:0.5rem;" id="load-profile-role">Ritter</div>
-              <h3 style="font-size:1.3rem; color:var(--text); font-weight:700; margin:0;" id="load-profile-code">Code Wort1...</h3>
-              <p style="color:var(--text-muted); font-size:0.85rem; margin:0.25rem 0 0;">Erstellt: <span id="load-profile-date">--</span></p>
-            </div>
-          </div>
-
-          <!-- STATS GRID -->
-          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
-            <!-- RÄTSEL GELÖST -->
-            <div style="background:rgba(39,174,96,0.1); border:2px solid #27ae60; border-radius:8px; padding:1rem; text-align:center;">
-              <div style="font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:#27ae60; font-weight:700; margin-bottom:0.5rem;">Rätsel gelöst</div>
-              <div style="font-size:2rem; color:#27ae60; font-weight:700;" id="load-profile-riddles">0/10</div>
-              <p style="font-size:0.8rem; color:var(--text-muted); margin:0.5rem 0 0;">von 10</p>
-            </div>
-
-            <!-- TALER VERDIENT -->
-            <div style="background:rgba(212,175,55,0.1); border:2px solid #d4af37; border-radius:8px; padding:1rem; text-align:center;">
-              <div style="font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:#d4af37; font-weight:700; margin-bottom:0.5rem;">Taler verdient</div>
-              <div style="font-size:2rem; color:#d4af37; font-weight:700;" id="load-profile-taler">0 💰</div>
-              <p style="font-size:0.8rem; color:var(--text-muted); margin:0.5rem 0 0;">Punkte</p>
-            </div>
-
-            <!-- LEVEL -->
-            <div style="background:rgba(108,52,131,0.1); border:2px solid #6c3483; border-radius:8px; padding:1rem; text-align:center;">
-              <div style="font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:#6c3483; font-weight:700; margin-bottom:0.5rem;">Level</div>
-              <div style="font-size:2rem; color:#6c3483; font-weight:700;" id="load-profile-level">1</div>
-              <p style="font-size:0.8rem; color:var(--text-muted); margin:0.5rem 0 0;">Fortschritt</p>
-            </div>
-          </div>
-
-          <!-- GELÖSTE RÄTSEL LIST -->
-          <div id="load-profile-solved" style="background:rgba(57,135,184,0.05); border-radius:8px; padding:1rem; margin-top:1.5rem; display:none;">
-            <div style="font-size:0.85rem; font-weight:700; color:var(--primary); margin-bottom:0.75rem;">✅ Gelöste Rätsel:</div>
-            <div id="load-profile-solved-list" style="font-size:0.85rem; color:var(--text); line-height:1.8;"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- NICHT GEFUNDEN MESSAGE -->
-      <div id="load-profile-notfound" style="display:none; text-align:center; padding:2rem;">
-        <div style="font-size:3rem; margin-bottom:1rem;">🔍</div>
-        <div style="color:var(--text-muted); font-size:0.95rem;">Profil nicht gefunden</div>
-        <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;">Überprüfe deine 3 Code-Wörter</p>
       </div>
     </div>
   </div>
@@ -838,110 +488,6 @@
   </div>
 </section>
 
-<!-- CHARACTERS -->
-<section class="characters-section" id="characters">
-  <div class="container">
-    <p class="section-label">Die Rollen</p>
-    <h2 class="section-title">Wer wirst du sein?</h2>
-    <p class="section-sub">Jede Rolle hat ihre Stärke, ihr Geheimnis und ihren Preis. Klicke auf eine Karte, um mehr zu erfahren.</p>
-
-    <div class="characters-grid">
-      <!-- RITTER -->
-      <div class="character-card ritter" onclick="openCharacterModal('ritter')">
-        <div class="character-avatar">⚔️</div>
-        <h3 class="character-name">Der Ritter</h3>
-        <p class="character-role">Anführer & Entscheider</p>
-        <p class="character-quote">"Ich entscheide. Ich trage die Konsequenz."</p>
-        <div class="character-details">
-          <p><strong>🔥 Deine Kräfte:</strong></p>
-          <p>• Du wählst den nächsten Ort</p>
-          <p>• Du siehst Hinweise andere nicht sehen</p>
-          <p>• +3 Taler bei richtiger Wahl</p>
-          <p><strong style="color:#c0392b;">⚠️ Der Preis:</strong></p>
-          <p>-2 Taler wenn falsch — die Gruppe leidet</p>
-        </div>
-        <div class="character-click-hint">Mehr erfahren</div>
-      </div>
-
-      <!-- HEXE -->
-      <div class="character-card hexe" onclick="openCharacterModal('hexe')">
-        <div class="character-avatar">🔮</div>
-        <h3 class="character-name">Die Hexe</h3>
-        <p class="character-role">Wahrsagerin & Fragensteller</p>
-        <p class="character-quote">"Ich kenne den Preis. Und ich zahle ihn."</p>
-        <div class="character-details">
-          <p><strong>🔥 Deine Kräfte:</strong></p>
-          <p>• Kannst 4x direkt Kaspar befragen</p>
-          <p>• Erhältst exklusive Audio-Fragmente</p>
-          <p>• Du kontrollierst das Tempo</p>
-          <p><strong style="color:#c0392b;">⚠️ Der Preis:</strong></p>
-          <p>Mit Wissen kommt Verantwortung — du weißt mehr</p>
-        </div>
-        <div class="character-click-hint">Mehr erfahren</div>
-      </div>
-
-      <!-- NARR -->
-      <div class="character-card narr" onclick="openCharacterModal('narr')">
-        <div class="character-avatar">🃏</div>
-        <h3 class="character-name">Der Narr</h3>
-        <p class="character-role">Kritiker & Wahrheitssprecher</p>
-        <p class="character-quote">"Alle liegen falsch. Das ist mein Moment."</p>
-        <div class="character-details">
-          <p><strong>🔥 Deine Kräfte:</strong></p>
-          <p>• Du darfst alles hinterfragen</p>
-          <p>• Du siehst Lügen zuerst</p>
-          <p>• +5 Taler wenn nur du recht hast</p>
-          <p><strong style="color:#c0392b;">⚠️ Der Preis:</strong></p>
-          <p>Deine Punkte gehören der Gruppe — dein Opfer</p>
-        </div>
-        <div class="character-click-hint">Mehr erfahren</div>
-      </div>
-
-      <!-- SPIELER / BALANCE -->
-      <div class="character-card" style="border:3px solid var(--primary); cursor:pointer;" onclick="openCharacterModal('spieler')">
-        <div class="character-avatar" style="background:rgba(57,135,184,0.15);">👤</div>
-        <h3 class="character-name">Der Spieler</h3>
-        <p class="character-role">Balance & Entscheidungsträger</p>
-        <p class="character-quote">"Ich sehe, wie es zusammenpasst."</p>
-        <div class="character-details">
-          <p><strong>🔥 Deine Kräfte:</strong></p>
-          <p>• Du siehst die ganze Gruppe</p>
-          <p>• Du triffst die FINALE Entscheidung</p>
-          <p>• +100 Taler wenn Wunsch gelöst</p>
-          <p><strong style="color:#c0392b;">⚠️ Die Verantwortung:</strong></p>
-          <p>Die ganze Gruppe ruht auf DEINER Schulter</p>
-        </div>
-        <div class="character-click-hint">Mehr erfahren</div>
-      </div>
-    </div>
-
-    <!-- KASPAR FEATURED -->
-    <div class="character-featured">
-      <div class="character-featured-img">👻</div>
-      <div>
-        <h3>Kaspar Hauser — Dein Guide</h3>
-        <p class="character-quote">"Ich war verloren. Nun führe ich euch."</p>
-        <p>
-          Am 26. Mai 1828 tauchte Kaspar Hauser auf dem Unschlittplatz auf. Woher er kam, wer er war — niemand weiß es bis heute. 1833 wurde er ermordet. Sein Mörder wurde nie gefunden.
-        </p>
-        <p>
-          Kaspar ist nicht nur ein Audioguide — er ist dein Gesprächspartner. Jemand, der dir antwortet, dich befragt, und manchmal nicht sagt, was er weiß. Weil er sich selbst nicht kennt.
-        </p>
-        <button class="btn btn-gold" onclick="openCharacterModal('kaspar')">Kaspar kennenlernen</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CHARACTER DETAIL MODAL -->
-<div id="character-modal">
-  <div class="character-modal-box">
-    <button class="character-modal-close" onclick="closeCharacterModal()">✕</button>
-    <div id="character-modal-content"></div>
-  </div>
-</div>
-
-
 <!-- LEADERBOARD -->
 <section class="lb-section" id="leaderboard">
   <div class="container">
@@ -998,6 +544,14 @@
   </div>
 </section>
 
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Bereit das Mittelalter zu erkunden?</h2>
+    <p>Registriere dich kostenlos und starte deine Tour durch das mittelalterliche Nürnberg.</p>
+    <button class="btn btn-gold" onclick="openAuth('register')" style="padding:14px 40px;font-size:1rem;">Jetzt starten</button>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
@@ -1007,6 +561,32 @@
   </div>
 </footer>
 
+<!-- AUTH MODAL -->
+<div id="auth-modal" class="modal-overlay">
+  <div class="modal-box">
+    <div id="form-login">
+      <h2>Einloggen</h2>
+      <p class="modal-sub">Willkommen zurück, Detektiv.</p>
+      <div id="login-err" class="error-box"></div>
+      <input class="form-input" type="email" id="login-email" placeholder="E-Mail" onkeypress="if(event.key==='Enter')submitLogin()">
+      <input class="form-input" type="password" id="login-pw" placeholder="Passwort" onkeypress="if(event.key==='Enter')submitLogin()">
+      <button class="btn btn-gold" onclick="submitLogin()" style="width:100%;padding:1rem;">Einloggen</button>
+      <div class="modal-switch"><a onclick="switchAuthForm('register')">Registrieren</a></div>
+      <button class="btn btn-ghost modal-cancel" onclick="closeAuth()">Abbrechen</button>
+    </div>
+    <div id="form-register" style="display:none;">
+      <h2>Registrieren</h2>
+      <p class="modal-sub">Werde Teil der Kaspar Hauser Quest.</p>
+      <div id="reg-err" class="error-box"></div>
+      <input class="form-input" type="text" id="reg-name" placeholder="Benutzername" onkeypress="if(event.key==='Enter')submitRegister()">
+      <input class="form-input" type="email" id="reg-email" placeholder="E-Mail" onkeypress="if(event.key==='Enter')submitRegister()">
+      <input class="form-input" type="password" id="reg-pw" placeholder="Passwort (min. 6 Zeichen)" onkeypress="if(event.key==='Enter')submitRegister()">
+      <button class="btn btn-gold" onclick="submitRegister()" style="width:100%;padding:1rem;">Account erstellen</button>
+      <div class="modal-switch">Schon registriert? <a onclick="switchAuthForm('login')">Einloggen</a></div>
+      <button class="btn btn-ghost modal-cancel" onclick="closeAuth()">Abbrechen</button>
+    </div>
+  </div>
+</div>
 
 <!-- PROFILE MODAL -->
 <div id="profile-modal">
@@ -1691,6 +1271,101 @@ function startQuest() {
   return `Gut... wir werden das gemeinsam tun. Lass uns gehen.\n\n📍 Wir befinden uns am **${loc.name}** — wo alles für mich begann.\n\nDie Luft hier ist kalt. Erinnerungen flüstern...`;
 }
 
+// ===== AUTH =====
+function openAuth(form) {
+  document.getElementById('auth-modal').style.display = 'flex';
+  switchAuthForm(form);
+}
+function closeAuth() {
+  document.getElementById('auth-modal').style.display = 'none';
+  ['login-err','reg-err'].forEach(id => { const el = document.getElementById(id); el.style.display='none'; el.textContent=''; });
+}
+function switchAuthForm(form) {
+  document.getElementById('form-login').style.display = form==='login' ? 'block' : 'none';
+  document.getElementById('form-register').style.display = form==='register' ? 'block' : 'none';
+}
+document.getElementById('auth-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeAuth();
+});
+
+async function submitLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw = document.getElementById('login-pw').value;
+  const err = document.getElementById('login-err');
+  err.style.display = 'none';
+  if (!email || !pw) { err.textContent='E-Mail und Passwort erforderlich'; err.style.display='block'; return; }
+  try {
+    const r = await fetch('/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email,password:pw}) });
+    const d = await r.json();
+    if (!r.ok) { err.textContent = d.error||'Login fehlgeschlagen'; err.style.display='block'; return; }
+    localStorage.setItem('kq_token', d.token);
+    localStorage.setItem('kq_user', JSON.stringify(d.user));
+    setUser(d.user); closeAuth();
+  } catch { err.textContent='Server nicht erreichbar'; err.style.display='block'; }
+}
+
+async function submitRegister() {
+  const username = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pw = document.getElementById('reg-pw').value;
+  const err = document.getElementById('reg-err');
+  err.style.display = 'none';
+  if (!username || !email || !pw) { err.textContent='Alle Felder erforderlich'; err.style.display='block'; return; }
+  if (pw.length < 6) { err.textContent='Passwort min. 6 Zeichen'; err.style.display='block'; return; }
+  try {
+    const r = await fetch('/auth/register', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({username,email,password:pw}) });
+    const d = await r.json();
+    if (!r.ok) { err.textContent = d.error||'Registrierung fehlgeschlagen'; err.style.display='block'; return; }
+    localStorage.setItem('kq_token', d.token);
+    localStorage.setItem('kq_user', JSON.stringify(d.user));
+    setUser(d.user); closeAuth();
+  } catch { err.textContent='Server nicht erreichbar'; err.style.display='block'; }
+}
+
+function setUser(user) {
+  currentUser = user;
+  localStorage.setItem('kq_user', JSON.stringify(user));
+  document.getElementById('auth-header').style.display = 'none';
+  document.getElementById('user-header').style.display = 'flex';
+  document.getElementById('hdr-name').textContent = user.username || 'Detektiv';
+  document.getElementById('hdr-points').textContent = (user.points || 0) + ' Punkte';
+  const talers = parseInt(localStorage.getItem('kq_talers') || '0');
+  document.getElementById('hdr-talers').textContent = '💰 ' + talers + ' Taler';
+  document.getElementById('hdr-rank').textContent = user.rank || 'Neuling';
+  updateLevelBadge();
+}
+
+function updateTalersHeader() {
+  const talerEl = document.getElementById('hdr-talers');
+  if (talerEl) {
+    talerEl.textContent = '💰 ' + questState.totalTalers + ' Taler';
+  }
+}
+
+function logout() {
+  localStorage.removeItem('kq_token');
+  localStorage.removeItem('kq_user');
+  currentUser = null;
+  document.getElementById('auth-header').style.display = 'flex';
+  document.getElementById('user-header').style.display = 'none';
+}
+
+async function checkAuth() {
+  const token = localStorage.getItem('kq_token');
+  const savedUser = localStorage.getItem('kq_user');
+  if (savedUser && token) {
+    try {
+      const user = JSON.parse(savedUser);
+      setUser(user);
+      try {
+        const r = await fetch('/auth/me', { headers:{'Authorization':'Bearer '+token} });
+        if (r.ok) { const d = await r.json(); setUser(d.user); }
+        else { localStorage.removeItem('kq_token'); localStorage.removeItem('kq_user'); currentUser = null; }
+      } catch(e) {}
+    } catch(e) { localStorage.removeItem('kq_user'); }
+  }
+}
+
 // ===== SHARE =====
 function openShareModal() {
   document.getElementById('share-points').textContent = currentUser ? (currentUser.points||0) : 0;
@@ -1835,15 +1510,9 @@ async function sendMessage() {
 document.getElementById('chat-input').addEventListener('keypress', e => { if(e.key==='Enter') sendMessage(); });
 
 function openDemoChat() {
-  // Zeige zuerst das Quest-Intro Modal mit Hero-Selection
-  if (!questState.active) {
-    openQuestIntro();
-    return;
-  }
-
   document.getElementById('map').scrollIntoView({ behavior:'smooth' });
   setTimeout(() => {
-    showChatPanel();
+    document.getElementById('bot-chat-panel').classList.remove('hidden');
     if (chatHistory.length === 0) {
       const gr = `👻 Ich bin Kaspar Hauser... ein Geist, verloren zwischen Zeit und Erinnerung.
 
@@ -2091,1174 +1760,7 @@ window.addEventListener('keydown', (e) => {
     window.unlockCheat();
   }
 });
-
-// ===== CHARACTER MODAL =====
-const CHARACTER_DATA = {
-  ritter: {
-    name: 'Der Ritter',
-    avatar: '⚔️',
-    role: 'Anführer · Entscheidungsträger',
-    quote: '"Ich entscheide. Ich trage die Konsequenz."',
-    bio: 'Der Ritter ist der strategische Kopf der Gruppe. Er hat das Privilegium, die Route zu wählen und die Richtung vorzugeben. Doch jede falsche Wahl trägt das Gewicht der gesamten Gruppe.',
-    abilities: [
-      { title: 'Route-Wahl', desc: 'Wähle aus 3 möglichen nächsten Stationen für die Gruppe.' },
-      { title: 'Sicht-Vorteil', desc: 'Sehe auf der Karte, wo die Rätsel-Hinweise versteckt sind.' },
-      { title: 'Bonuspunkte', desc: '+3 Taler für richtige Wahl, -2 für falsche.' }
-    ],
-    details: 'Der Ritter trägt die Last der Führung. Seine Entscheidungen beeinflussen nicht nur seinen eigenen Erfolg, sondern den der gesamten Gruppe. Es ist eine Rolle für Selbstbewusste — oder für jene, die ihre Ängste überwinden wollen.'
-  },
-  hexe: {
-    name: 'Die Hexe',
-    avatar: '🔮',
-    role: 'Wahrsagerin · Wissende',
-    quote: '"Ich kenne den Preis. Und ich zahle ihn."',
-    bio: 'Die Hexe hat Zugang zu Geheimnissen, die anderen verborgen bleiben. Sie kann Kaspar direkt befragen und erhält exklusive Audio-Fragmente. Doch diese Macht hat ihren Preis — sie trägt auch das Wissen um die Dunkelheit.',
-    abilities: [
-      { title: 'Kaspar-Befragung', desc: '4x während des Spiels kannst du Kaspar direkt eine Frage stellen.' },
-      { title: 'Audio-Fragmente', desc: 'Nur du hörst exklusive Botschaften an jedem Ort.' },
-      { title: 'Pausen-Kontrolle', desc: 'Du kannst Pausen initiieren, wenn die Gruppe zu schnell handelt.' }
-    ],
-    details: 'Die Hexe ist die Verbindung zu Kaspar — seine vertraute. Sie trägt die Last des Wissens, das die anderen nicht verstehen. Eine Rolle für Intuitive, für jene, die bereit sind, die dunkleren Wahrheiten zu tragen.'
-  },
-  narr: {
-    name: 'Der Narr',
-    avatar: '🃏',
-    role: 'Kritiker · Zweifler',
-    quote: '"Alle liegen falsch. Das ist mein Moment."',
-    bio: 'Der Narr ist der Gegenpol. Er darf alles in Frage stellen, jede These des Ritters hinterfragen, jede sichere Annahme anzweifeln. Seine Punkte gehören der Gruppe — sein Nutzen liegt in der Wahrheit.',
-    abilities: [
-      { title: 'Widerspruch', desc: 'Du darfst offen gegen die Meinung des Ritters argumentieren.' },
-      { title: 'Gemeinschafts-Fokus', desc: '50% deiner Punkte gehen an die Gruppe — immer.' },
-      { title: 'Bonuspunkte für Wahrheit', desc: '+5 Taler, wenn du der Einzige bist, der recht hat.' }
-    ],
-    details: 'Der Narr ist die Stimme des Zweifels in einer Gruppe, die sich einig ist. Eine schwierige, aber unglaublich wichtige Rolle. Es ist eine Rolle für die Mutigen — für jene, die bereit sind, allein zu stehen und den Status quo zu hinterfragen.'
-  },
-  spieler: {
-    name: 'Der Spieler — Die Balance',
-    avatar: '👤',
-    role: 'Entscheidungsträger · Der ruhende Punkt',
-    quote: '"Ich sehe, wie es zusammenpasst."',
-    bio: 'Du bist die Balance zwischen den Kräften. Der Ritter will führen, die Hexe will wissen, der Narr will hinterfragen — aber DU entscheidest am Ende. Du siehst das Gesamtbild. Du triffst die Finale Abstimmung: Wer ist der Unbekannte?',
-    abilities: [
-      { title: 'Verbindung sehen', desc: 'Du erkennst, wie die Rollen zusammenpassen und sich gegenseitig verstärken.' },
-      { title: 'Finale Entscheidung', desc: 'Nach allen 10 Stationen stimmst NUR du ab: Wer ist der Mörder? Die anderen helfen, aber DU entscheidest.' },
-      { title: 'Der höchste Preis', desc: '+100 Taler wenn richtig — aber die ganze Gruppe trägt die Last wenn falsch.' }
-    ],
-    details: 'Der Spieler ist die wichtigste Rolle. Ohne dich zerreißt die Gruppe sich selbst. Der Ritter dominiert, die Hexe manipuliert mit Wissen, der Narr säht Zweifel. Du muss ihre Kräfte balancieren. Am Ende triffst du die Entscheidung: Wer unter diesen drei sitzt neben dir und trägt das Geheimnis des Mörders in sich? Die Verantwortung liegt GANZ bei dir.'
-  },
-  kaspar: {
-    name: 'Kaspar Hauser — Der Rätselbringer',
-    avatar: '👻',
-    role: 'KI-Guide · Das lebendige Geheimnis',
-    quote: '"Ich war verloren. Nun führe ich euch."',
-    bio: 'Kaspar Hauser ist nicht spielbar — er ist dein Gesprächspartner, dein Guide und dein Gegenpol. Ein KI-generierter historischer Charakter, der auf deine Fragen antwortet, deine Entscheidungen kommentiert und die Stimmung der Welt um ihn herum verändert.',
-    abilities: [
-      { title: 'Dynamisches Feedback', desc: 'Kaspar reagiert auf deine Entscheidungen — wird hoffnungsvoller, nüchterner oder verstörter.' },
-      { title: 'Geheimnisvolle Hinweise', desc: 'Er gibt dir Rätsel, die genau zu den Orten passen, die du besuchst.' },
-      { title: 'Die Frage nach Identität', desc: 'Kaspar kennt sein eigenes Geheimnis nicht — bis zum Ende.' }
-    ],
-    details: 'Kaspar Hauser war ein historisches Rätsel — ein junger Mann, der 1828 auf dem Unschlittplatz in Nürnberg auftauchte ohne Gedächtnis, ohne Namen, ohne Vergangenheit. 1833 wurde er ermordet. Sein Mörder wurde nie gefunden. Im Kaspar Hauser Quest wird er dein Guide, dein Freund und dein größtes Geheimnis. Gemeinsam mit den vier Rollen werdet ihr die Wahrheit hinter dem größten Rätsel Deutschlands aufdecken — oder zumindest verstehen, warum es unlösbar ist.'
-  }
-};
-
-function openCharacterModal(character) {
-  const data = CHARACTER_DATA[character];
-  if (!data) return;
-
-  let html = `
-    <div class="character-modal-header">
-      <div class="character-modal-avatar">${data.avatar}</div>
-      <div class="character-modal-info">
-        <h2>${data.name}</h2>
-        <p class="character-modal-role">${data.role}</p>
-        <p class="character-modal-quote">${data.quote}</p>
-      </div>
-    </div>
-
-    <div class="character-modal-section">
-      <h3>Wer ist ${data.name.includes('Kaspar') ? 'er' : 'sie'}?</h3>
-      <p>${data.bio}</p>
-      <p>${data.details}</p>
-    </div>
-  `;
-
-  if (data.abilities) {
-    html += `<div class="character-modal-section">
-      <h3>Fähigkeiten & Verantwortung</h3>
-      <div class="character-modal-abilities">`;
-    data.abilities.forEach(ab => {
-      html += `<div class="character-modal-ability">
-        <strong>⚡ ${ab.title}</strong>
-        <div class="character-modal-ability-desc">${ab.desc}</div>
-      </div>`;
-    });
-    html += `</div></div>`;
-  }
-
-  document.getElementById('character-modal-content').innerHTML = html;
-  document.getElementById('character-modal').style.display = 'flex';
-}
-
-function closeCharacterModal() {
-  document.getElementById('character-modal').style.display = 'none';
-}
-
-document.getElementById('character-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeCharacterModal();
-});
-
-// ===== PROFIL SYSTEM =====
-const PROFILE_WORDS = ['Schatten', 'Herz', 'Schloss', 'Geheimnis', 'Nacht', 'Brücke', 'Feuer', 'Wind', 'Stern', 'Wald', 'Stein', 'Lied', 'Furcht', 'Hoffnung', 'Zeit', 'Weg', 'Frage', 'Antwort', 'Traum', 'Wirklichkeit', 'Licht', 'Raum', 'Kraft', 'Wahrheit', 'Rätsel'];
-let userProfile = null;
-let userLog = [];
-let selectedHero = null;
-
-function generateProfileCode() {
-  try {
-    const words = [];
-    const indices = [];
-
-    for (let attempts = 0; attempts < 100 && words.length < 3; attempts++) {
-      const idx = Math.floor(Math.random() * PROFILE_WORDS.length);
-      if (!indices.includes(idx)) {
-        indices.push(idx);
-        words.push(PROFILE_WORDS[idx]);
-      }
-    }
-
-    if (words.length < 3) {
-      alert('⚠️ Fehler beim Code-Generieren. Versuche erneut!');
-      return;
-    }
-
-    const code = words.join(' ');
-    const codeInput = document.getElementById('profile-code-input');
-    if (codeInput) {
-      codeInput.value = code;
-      codeInput.style.borderColor = 'var(--primary)';
-    }
-
-    console.log('✓ Code generiert:', code);
-    logEvent('generate-profile', { code });
-    checkQuestReady();
-  } catch (error) {
-    console.error('Fehler in generateProfileCode:', error);
-    alert('⚠️ Fehler: ' + error.message);
-  }
-}
-
-function selectHero(heroName) {
-  selectedHero = heroName;
-
-  // Deselect all
-  document.querySelectorAll('#hero-ritter, #hero-hexe, #hero-narr, #hero-spieler').forEach(el => {
-    el.style.borderColor = 'transparent';
-    el.style.borderWidth = '3px';
-    el.style.boxShadow = 'none';
-    el.style.opacity = '0.7';
-  });
-
-  // Select current
-  const selectedEl = document.getElementById(`hero-${heroName}`);
-  if (selectedEl) {
-    selectedEl.style.borderColor = 'var(--primary)';
-    selectedEl.style.borderWidth = '3px';
-    selectedEl.style.boxShadow = '0 0 20px rgba(57,135,184,0.4)';
-    selectedEl.style.opacity = '1';
-  }
-
-  console.log('🎭 Held gewählt:', heroName);
-  logEvent('hero-selected', { hero: heroName });
-  checkQuestReady();
-}
-
-function checkQuestReady() {
-  const codeInput = document.getElementById('profile-code-input');
-  const code = codeInput?.value?.trim() || '';
-  const btnElement = document.getElementById('start-quest-btn');
-  const copyBtn = document.getElementById('copy-code-btn');
-
-  const isReady = code.length > 0 && selectedHero;
-
-  // Start-Quest Button
-  if (btnElement) {
-    btnElement.disabled = !isReady;
-    btnElement.style.opacity = isReady ? '1' : '0.5';
-    btnElement.style.cursor = isReady ? 'pointer' : 'not-allowed';
-  }
-
-  // Copy-Code Button
-  if (copyBtn) {
-    copyBtn.disabled = code.length === 0;
-    copyBtn.style.opacity = code.length > 0 ? '1' : '0.5';
-    copyBtn.style.cursor = code.length > 0 ? 'pointer' : 'not-allowed';
-    copyBtn.title = code.length > 0 ? 'Code kopieren!' : 'Gib erst einen Code ein';
-  }
-}
-
-function copyProfileCode() {
-  const codeInput = document.getElementById('profile-code-input');
-  const code = codeInput?.value?.trim();
-
-  if (!code) return;
-
-  navigator.clipboard.writeText(code).then(() => {
-    const copyBtn = document.getElementById('copy-code-btn');
-    const originalText = copyBtn.textContent;
-
-    // Feedback geben
-    copyBtn.textContent = '✅';
-    copyBtn.style.background = '#27ae60';
-
-    setTimeout(() => {
-      copyBtn.textContent = originalText;
-      copyBtn.style.background = 'var(--primary)';
-    }, 2000);
-
-    console.log('✓ Code kopiert:', code);
-  }).catch(() => {
-    alert('⚠️ Kopieren fehlgeschlagen. Bitte manuell kopieren!');
-  });
-}
-
-async function startQuestWithProfile() {
-  try {
-    const codeInput = document.getElementById('profile-code-input');
-    const code = codeInput?.value?.trim();
-
-    if (!code || !selectedHero) {
-      alert('⚠️ Bitte gib einen Code ein und wähle eine Rolle!');
-      return;
-    }
-
-    // Starte Quest DIREKT - ohne API-Call
-    userProfile = {
-      code: code,
-      hero: selectedHero,
-      createdAt: new Date().toISOString()
-    };
-    localStorage.setItem('kaspar_profile', JSON.stringify(userProfile));
-    logEvent('profile-created', { code, hero: selectedHero });
-
-    // Aktiviere Quest-State
-    questState.active = true;
-    questState.currentIndex = 0;
-    currentTeamSize = 0;
-
-    closeQuestIntro();
-    alert(`✅ Quest gestartet!\n\nCode: ${code}\nRolle: ${selectedHero}\n\n🎭 Gehe zum Rätsel-Panel um zu spielen!`);
-
-    // Zeige die Map-Sektion
-    document.getElementById('map').scrollIntoView({ behavior: 'smooth' });
-  } catch (error) {
-    console.error('Fehler beim Quest-Start:', error);
-    alert('⚠️ Fehler: ' + error.message);
-  }
-}
-
-function openKasparIntro() {
-  document.getElementById('kaspar-intro-modal').style.display = 'flex';
-  logEvent('open-kaspar-intro', {});
-}
-
-function closeKasparIntro() {
-  document.getElementById('kaspar-intro-modal').style.display = 'none';
-  logEvent('close-kaspar-intro', {});
-}
-
-function openQuestIntro() {
-  selectedHero = null;
-  const codeInput = document.getElementById('profile-code-input');
-  if (codeInput) {
-    codeInput.value = '';
-    codeInput.addEventListener('input', checkQuestReady);
-  }
-  document.querySelectorAll('#hero-ritter, #hero-hexe, #hero-narr, #hero-spieler').forEach(el => {
-    el.style.borderColor = 'transparent';
-    el.style.opacity = '0.7';
-  });
-  document.getElementById('quest-intro-modal').style.display = 'flex';
-  logEvent('open-quest-intro', {});
-}
-
-function closeQuestIntro() {
-  document.getElementById('quest-intro-modal').style.display = 'none';
-  logEvent('close-quest-intro', {});
-}
-
-// ===== RÄTSEL LÖSEN MODAL =====
-let riddleModeHero = null;
-let riddleLoadMode = 'new'; // 'new' oder 'load'
-
-function openRiddleModeModal() {
-  riddleModeHero = null;
-  riddleLoadMode = 'new';
-  document.getElementById('riddle-mode-modal').style.display = 'flex';
-  updateRiddleModeUI();
-}
-
-function closeRiddleModeModal() {
-  document.getElementById('riddle-mode-modal').style.display = 'none';
-}
-
-function selectRiddleHero(heroName) {
-  riddleModeHero = heroName;
-  document.querySelectorAll('[data-riddle-hero]').forEach(el => {
-    el.style.borderColor = 'transparent';
-    el.style.opacity = '0.6';
-  });
-  const selected = document.querySelector(`[data-riddle-hero="${heroName}"]`);
-  if (selected) {
-    selected.style.borderColor = 'var(--primary)';
-    selected.style.borderWidth = '3px';
-    selected.style.boxShadow = '0 0 20px rgba(57,135,184,0.4)';
-    selected.style.opacity = '1';
-  }
-  updateRiddleModeUI();
-}
-
-function toggleRiddleLoadMode(mode) {
-  riddleLoadMode = mode;
-  updateRiddleModeUI();
-}
-
-function updateRiddleModeUI() {
-  const codeInput = document.getElementById('riddle-code-input');
-  const startBtn = document.getElementById('riddle-start-btn');
-  const newModeBtn = document.getElementById('riddle-new-mode-btn');
-  const loadModeBtn = document.getElementById('riddle-load-mode-btn');
-  const codeSection = document.getElementById('riddle-code-section');
-  const genBtn = document.getElementById('riddle-gen-btn');
-  const copyBtn = document.getElementById('riddle-copy-btn');
-  const profileView = document.getElementById('riddle-profile-view');
-
-  // Update mode buttons
-  if (newModeBtn && loadModeBtn) {
-    if (riddleLoadMode === 'new') {
-      newModeBtn.style.background = 'var(--primary)';
-      newModeBtn.style.color = '#fff';
-      loadModeBtn.style.background = 'transparent';
-      loadModeBtn.style.color = 'var(--text)';
-    } else {
-      newModeBtn.style.background = 'transparent';
-      newModeBtn.style.color = 'var(--text)';
-      loadModeBtn.style.background = 'var(--primary)';
-      loadModeBtn.style.color = '#fff';
-    }
-  }
-
-  // Update code section visibility
-  if (codeSection) {
-    codeSection.style.display = riddleModeHero ? 'block' : 'none';
-  }
-
-  // Check if ready to start
-  const code = codeInput?.value?.trim() || '';
-  const isReady = riddleModeHero && code.length > 0;
-
-  if (startBtn) {
-    startBtn.disabled = !isReady;
-    startBtn.style.opacity = isReady ? '1' : '0.5';
-    startBtn.style.cursor = isReady ? 'pointer' : 'not-allowed';
-  }
-
-  // Update copy button
-  if (copyBtn) {
-    if (code.length > 0) {
-      copyBtn.disabled = false;
-      copyBtn.style.opacity = '1';
-      copyBtn.style.cursor = 'pointer';
-    } else {
-      copyBtn.disabled = true;
-      copyBtn.style.opacity = '0.3';
-      copyBtn.style.cursor = 'not-allowed';
-    }
-  }
-
-  // Show/hide gen button
-  if (genBtn && riddleLoadMode === 'new') {
-    genBtn.style.display = 'inline-block';
-  } else if (genBtn) {
-    genBtn.style.display = 'none';
-  }
-
-  // Load profile if in load mode
-  if (riddleLoadMode === 'load' && code.length > 0 && profileView) {
-    const profile = localStorage.getItem(`kaspar_profile_${code}`);
-    if (profile) {
-      try {
-        const data = JSON.parse(profile);
-        profileView.innerHTML = `
-          <div style="background:rgba(57,135,184,0.1); border-left:4px solid var(--primary); padding:1rem; border-radius:6px; margin:1rem 0;">
-            <div style="font-weight:700; color:var(--primary); margin-bottom:0.5rem;">📋 Dein Profil gefunden!</div>
-            <div style="font-size:0.9rem; color:var(--text);">
-              <strong>Held:</strong> ${data.hero}<br>
-              <strong>Code:</strong> ${code}<br>
-              <strong>Rätsel gelöst:</strong> ${data.questsCompleted?.length || 0}/10<br>
-              <strong>Punkte:</strong> ${data.totalPoints || 0}
-            </div>
-          </div>
-        `;
-      } catch (e) {
-        profileView.innerHTML = `<div style="color:var(--danger);">⚠️ Profil konnte nicht geladen werden.</div>`;
-      }
-    } else {
-      profileView.innerHTML = `<div style="color:var(--danger);">⚠️ Profil mit diesem Code nicht gefunden!</div>`;
-    }
-  } else if (profileView && riddleLoadMode === 'load') {
-    profileView.innerHTML = '';
-  }
-}
-
-function generateRiddleCode() {
-  const words = [];
-  const indices = [];
-
-  for (let attempts = 0; attempts < 100 && words.length < 3; attempts++) {
-    const idx = Math.floor(Math.random() * PROFILE_WORDS.length);
-    if (!indices.includes(idx)) {
-      indices.push(idx);
-      words.push(PROFILE_WORDS[idx]);
-    }
-  }
-
-  const code = words.join(' ');
-  const codeInput = document.getElementById('riddle-code-input');
-  if (codeInput) {
-    codeInput.value = code;
-    codeInput.style.borderColor = 'var(--primary)';
-  }
-  updateRiddleModeUI();
-}
-
-function copyRiddleCode() {
-  const codeInput = document.getElementById('riddle-code-input');
-  const code = codeInput?.value?.trim();
-
-  if (!code) return;
-
-  navigator.clipboard.writeText(code).then(() => {
-    const copyBtn = document.getElementById('riddle-copy-btn');
-    const originalText = copyBtn.textContent;
-    copyBtn.textContent = '✅ Kopiert!';
-    copyBtn.style.background = '#27ae60';
-
-    setTimeout(() => {
-      copyBtn.textContent = originalText;
-      copyBtn.style.background = 'var(--primary)';
-    }, 2000);
-  }).catch(() => {
-    alert('⚠️ Kopieren fehlgeschlagen!');
-  });
-}
-
-function startRiddleMode() {
-  const codeInput = document.getElementById('riddle-code-input');
-  const code = codeInput?.value?.trim();
-
-  if (!riddleModeHero || !code) {
-    alert('⚠️ Bitte wähle einen Held und gib einen Code ein!');
-    return;
-  }
-
-  // Speichere Profil
-  if (riddleLoadMode === 'new') {
-    const profile = {
-      code: code,
-      hero: riddleModeHero,
-      createdAt: new Date().toISOString(),
-      questsCompleted: [],
-      totalPoints: 0
-    };
-    localStorage.setItem(`kaspar_profile_${code}`, JSON.stringify(profile));
-  } else {
-    // Lade existierendes Profil
-    const profileStr = localStorage.getItem(`kaspar_profile_${code}`);
-    if (!profileStr) {
-      alert('⚠️ Profil nicht gefunden!');
-      return;
-    }
-  }
-
-  userProfile = {
-    code: code,
-    hero: riddleModeHero
-  };
-
-  // Aktiviere Quest
-  questState.active = true;
-  questState.currentIndex = 0;
-
-  closeRiddleModeModal();
-  showRiddlePanel();
-
-  // Zeige erste Quest
-  const q = KASPAR_QUESTS[0];
-  if (q) {
-    const messagesEl = document.getElementById('riddle-messages');
-    if (messagesEl) {
-      messagesEl.innerHTML = '';
-      setTimeout(() => {
-        const stationMsg = document.createElement('div');
-        stationMsg.className = 'chat-message bot';
-
-        let tipsText = '';
-        if (q.clues && q.clues.length > 0) {
-          tipsText = `<br><br><strong>💡 3 Tipps zum Lösen:</strong><br>`;
-          q.clues.forEach((clue, idx) => {
-            tipsText += `<span style="color:var(--primary); font-weight:500;">• Tipp ${idx + 1}:</span> ${clue}<br>`;
-          });
-        }
-
-        stationMsg.innerHTML = `<strong>📍 Station ${questState.currentIndex + 1}: ${q.name}</strong><br><br>
-        <strong>Worum es geht:</strong><br>
-        ${q.kasparSays}<br><br>
-        <strong>🧩 Das Rätzel:</strong><br>
-        ${q.riddle}${tipsText}<br><br>
-        <strong>⏱️ Ihr habt 3 Versuche!</strong>`;
-        messagesEl.appendChild(stationMsg);
-        messagesEl.scrollTop = messagesEl.scrollHeight;
-      }, 1000);
-    }
-  }
-}
-
-// ===== PROFIL LOADER SECTION =====
-const HERO_AVATARS = {
-  ritter: '⚔️',
-  hexe: '🔮',
-  narr: '🃏',
-  spieler: '👤'
-};
-
-const HERO_COLORS = {
-  ritter: '#3987b8',
-  hexe: '#6c3483',
-  narr: '#d97706',
-  spieler: '#3987b8'
-};
-
-function loadProfileByCode() {
-  const codeInput = document.getElementById('load-code-input');
-  const code = codeInput?.value?.trim();
-
-  if (!code || code.split(' ').length < 3) {
-    document.getElementById('load-profile-display').style.display = 'none';
-    document.getElementById('load-profile-notfound').style.display = 'none';
-    return;
-  }
-
-  const profileStr = localStorage.getItem(`kaspar_profile_${code}`);
-
-  if (!profileStr) {
-    document.getElementById('load-profile-display').style.display = 'none';
-    document.getElementById('load-profile-notfound').style.display = 'block';
-    return;
-  }
-
-  try {
-    const profile = JSON.parse(profileStr);
-    displayLoadedProfile(profile, code);
-  } catch (e) {
-    document.getElementById('load-profile-display').style.display = 'none';
-    document.getElementById('load-profile-notfound').style.display = 'block';
-  }
-}
-
-function displayLoadedProfile(profile, code) {
-  const avatar = HERO_AVATARS[profile.hero] || '👤';
-  const color = HERO_COLORS[profile.hero] || '#3987b8';
-  const riddlesSolved = profile.questsCompleted?.length || 0;
-  const totalTaler = profile.totalPoints || 0;
-  const level = Math.floor(riddlesSolved / 2) + 1;
-  const createdDate = new Date(profile.createdAt).toLocaleDateString('de-DE');
-
-  // Avatar anzeigen
-  const avatarEl = document.getElementById('load-profile-avatar');
-  avatarEl.textContent = avatar;
-  avatarEl.style.background = `rgba(57,135,184,0.15)`;
-  avatarEl.style.color = color;
-
-  // Held-Rolle anzeigen
-  const heroNames = { ritter: 'Ritter', hexe: 'Hexe', narr: 'Narr', spieler: 'Spieler' };
-  document.getElementById('load-profile-role').textContent = heroNames[profile.hero] || 'Unbekannt';
-  document.getElementById('load-profile-role').style.color = color;
-
-  // Code anzeigen
-  document.getElementById('load-profile-code').textContent = code;
-
-  // Datum anzeigen
-  document.getElementById('load-profile-date').textContent = createdDate;
-
-  // Statistiken
-  document.getElementById('load-profile-riddles').textContent = `${riddlesSolved}/10`;
-  document.getElementById('load-profile-taler').textContent = `${totalTaler} 💰`;
-  document.getElementById('load-profile-level').textContent = level;
-
-  // Gelöste Rätsel auflisten
-  if (profile.questsCompleted && profile.questsCompleted.length > 0) {
-    const solvedSection = document.getElementById('load-profile-solved');
-    const solvedList = document.getElementById('load-profile-solved-list');
-
-    let solvedHTML = '';
-    profile.questsCompleted.forEach(questId => {
-      const quest = KASPAR_QUESTS.find(q => q.id === questId);
-      if (quest) {
-        solvedHTML += `<div>✅ ${quest.name}</div>`;
-      }
-    });
-
-    solvedList.innerHTML = solvedHTML;
-    solvedSection.style.display = 'block';
-  } else {
-    document.getElementById('load-profile-solved').style.display = 'none';
-  }
-
-  // Anzeige aktualisieren
-  document.getElementById('load-profile-display').style.display = 'block';
-  document.getElementById('load-profile-notfound').style.display = 'none';
-}
-
-function clearLoadProfile() {
-  document.getElementById('load-code-input').value = '';
-  document.getElementById('load-profile-display').style.display = 'none';
-  document.getElementById('load-profile-notfound').style.display = 'none';
-}
-
-// Modal Event Listener mit Fehlerbehandlung
-window.addEventListener('load', () => {
-  const kasparModal = document.getElementById('kaspar-intro-modal');
-  if (kasparModal) {
-    kasparModal.addEventListener('click', function(e) {
-      if (e.target === this) closeKasparIntro();
-    });
-  }
-
-  const questModal = document.getElementById('quest-intro-modal');
-  if (questModal) {
-    questModal.addEventListener('click', function(e) {
-      if (e.target === this) closeQuestIntro();
-    });
-  }
-});
-
-// ===== LOGGING & DEBUG =====
-async function logEvent(eventName, data = {}) {
-  const log = { timestamp: new Date().toISOString(), event: eventName, data };
-  userLog.push(log);
-  updateDebugPanel();
-  console.log('[KASPAR LOG]', log);
-
-  // Sende auch zum Backend wenn Profil existiert
-  if (userProfile && userProfile.code) {
-    try {
-      await fetch(`/api/profiles/${encodeURIComponent(userProfile.code)}/log`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ event: eventName, data })
-      });
-    } catch (err) {
-      console.warn('Log nicht zum Server gesendet:', err);
-    }
-  }
-}
-
-function updateDebugPanel() {
-  const debugPanel = document.getElementById('debug-panel');
-  if (!debugPanel) return;
-
-  const recentLogs = userLog.slice(-8);
-  let html = '<div class="debug-header">📊 SYSTEM LOG (API Connected)</div>';
-
-  if (userProfile) {
-    html += `<div class="debug-item"><span class="debug-label">👤 PROFIL:</span><br/><span class="debug-value" style="font-size:0.7rem;">${userProfile.code}</span></div>`;
-    html += `<div class="debug-item"><span class="debug-label">📌 GESPEICHERT:</span> <span class="debug-value">✅ API</span></div>`;
-  } else {
-    html += `<div class="debug-item"><span class="debug-label">👤 PROFIL:</span> <span class="debug-value">-</span></div>`;
-  }
-
-  html += `<div class="debug-item"><span class="debug-label">📋 EVENTS:</span> <span class="debug-value">${userLog.length}</span></div>`;
-  html += '<div style="border-top:1px solid #00ff00; margin:0.5rem 0;"></div>';
-
-  recentLogs.forEach(log => {
-    const time = new Date(log.timestamp).toLocaleTimeString('de-DE');
-    const eventSymbol = log.event.includes('question') ? '💬' : log.event.includes('profile') ? '👤' : '📍';
-    html += `<div class="debug-item"><span class="debug-label">${time}</span> ${eventSymbol} <span class="debug-value" style="font-size:0.7rem;">${log.event}</span></div>`;
-  });
-
-  debugPanel.innerHTML = html;
-}
-
-// Zeige Debug Panel beim Laden
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('✓ DOMContentLoaded - Debug System initialisiert');
-
-  const debugPanel = document.getElementById('debug-panel');
-  if (debugPanel) {
-    debugPanel.classList.remove('hidden');
-    console.log('✓ Debug Panel angezeigt');
-  }
-
-  // Lade gespeichertes Profil
-  const savedProfile = localStorage.getItem('kaspar_profile');
-  if (savedProfile) {
-    try {
-      userProfile = JSON.parse(savedProfile);
-      console.log('✓ Profil geladen:', userProfile.code);
-      logEvent('profile-loaded', userProfile);
-    } catch (e) {
-      console.error('Fehler beim Profil laden:', e);
-    }
-  }
-
-  updateDebugPanel();
-
-  // Modal Setup
-  const kasparModal = document.getElementById('kaspar-intro-modal');
-  const questModal = document.getElementById('quest-intro-modal');
-
-  if (kasparModal) {
-    kasparModal.addEventListener('click', function(e) {
-      if (e.target === this) closeKasparIntro();
-    });
-    console.log('✓ Kaspar Modal Event-Listener eingerichtet');
-  }
-
-  if (questModal) {
-    questModal.addEventListener('click', function(e) {
-      if (e.target === this) closeQuestIntro();
-    });
-    console.log('✓ Quest Modal Event-Listener eingerichtet');
-  }
-});
-
-// Überschreibe sendMessage um Fragen zu loggen
-const originalSendMessage = window.sendMessage;
-window.sendMessage = async function() {
-  const input = document.getElementById('chat-input');
-  const msg = input.value.trim();
-  if (msg) {
-    await logEvent('user-question', { message: msg });
-  }
-  if (originalSendMessage) originalSendMessage.call(this);
-};
-
-// ===== TEAM SIZE SETUP =====
-let currentTeamSize = 0;
-
-function setTeamSize(size) {
-  currentTeamSize = size;
-
-  // Verstecke Team-Setup, zeige Rätzel
-  document.getElementById('team-setup-phase').classList.add('hidden');
-  document.getElementById('riddle-play-phase').classList.remove('hidden');
-
-  // Zeige Rätzel mit Erklärung
-  if (questState.active && questState.currentIndex < KASPAR_QUESTS.length) {
-    const q = KASPAR_QUESTS[questState.currentIndex];
-    const messagesEl = document.getElementById('riddle-messages');
-    messagesEl.innerHTML = ''; // Clear old messages
-
-    // Kaspar begrüßt das Team
-    const welcomeMsg = document.createElement('div');
-    welcomeMsg.className = 'chat-message bot';
-    welcomeMsg.innerHTML = `<strong>👻 Willkommen, ${size === 1 ? 'Detektiv' : 'Detektive'}!</strong><br><br>
-    "Ihr seid ${size} ${size === 1 ? 'Spieler' : 'Spieler'}... gut. Gemeinsam könnt ihr stärker sein."<br><br>
-    ✓ Team ist komplett! Lasst uns beginnen...`;
-    messagesEl.appendChild(welcomeMsg);
-
-    setTimeout(() => {
-      // Zeige die aktuelle Station und Erklärung
-      const stationMsg = document.createElement('div');
-      stationMsg.className = 'chat-message bot';
-
-      // Baue die Tips in die Nachricht ein
-      let tipsText = '';
-      if (q.clues && q.clues.length > 0) {
-        tipsText = `<br><br><strong>💡 3 Tipps zum Lösen:</strong><br>`;
-        q.clues.forEach((clue, idx) => {
-          tipsText += `<span style="color:var(--primary); font-weight:500;">• Tipp ${idx + 1}:</span> ${clue}<br>`;
-        });
-      }
-
-      stationMsg.innerHTML = `<strong>📍 Station ${questState.currentIndex + 1}: ${q.name}</strong><br><br>
-      <strong>Worum es geht:</strong><br>
-      ${q.kasparSays}<br><br>
-      <strong>🧩 Das Rätzel:</strong><br>
-      ${q.riddle}${tipsText}<br><br>
-      <strong>⏱️ Ihr habt 3 Versuche!</strong>`;
-      messagesEl.appendChild(stationMsg);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-    }, 1000);
-  }
-}
-
-// ===== PANEL SWITCHING =====
-function showRiddlePanel() {
-  document.getElementById('riddle-panel').classList.remove('hidden');
-  document.getElementById('chat-panel').classList.add('hidden');
-  document.getElementById('tab-riddle-btn').style.background = 'var(--primary)';
-  document.getElementById('tab-riddle-btn').style.color = '#fff';
-  document.getElementById('tab-chat-btn').style.background = 'transparent';
-  document.getElementById('tab-chat-btn').style.color = 'var(--primary)';
-  document.getElementById('tab-chat-btn').style.border = '2px solid var(--primary)';
-
-  // PREVIEW ist immer sichtbar
-  document.getElementById('riddle-preview').classList.remove('hidden');
-
-  // Wenn noch kein Team gesetzt, zeige Team-Setup
-  if (currentTeamSize === 0) {
-    document.getElementById('team-setup-phase').classList.remove('hidden');
-    document.getElementById('riddle-play-phase').classList.add('hidden');
-  } else {
-    document.getElementById('team-setup-phase').classList.add('hidden');
-    document.getElementById('riddle-play-phase').classList.remove('hidden');
-  }
-}
-
-function showChatPanel() {
-  document.getElementById('riddle-panel').classList.add('hidden');
-  document.getElementById('chat-panel').classList.remove('hidden');
-  document.getElementById('tab-chat-btn').style.background = 'var(--primary)';
-  document.getElementById('tab-chat-btn').style.color = '#fff';
-  document.getElementById('tab-chat-btn').style.border = 'none';
-  document.getElementById('tab-riddle-btn').style.background = 'transparent';
-  document.getElementById('tab-riddle-btn').style.color = 'var(--primary)';
-  document.getElementById('tab-riddle-btn').style.border = '2px solid var(--primary)';
-
-  // Zeige Kaspar's erstes Intro wenn Chat leer
-  const messagesEl = document.getElementById('chat-messages');
-  if (messagesEl.children.length === 0) {
-    const introMsg = document.createElement('div');
-    introMsg.className = 'chat-message bot';
-    introMsg.innerHTML = `<strong>👻 Kaspar Hauser:</strong><br><br>
-    "Hallo... hallo... ist da jemand?<br><br>
-    Bitte... sprech mit mir.<br><br>
-    Ich bin hier. Allein. Verloren zwischen den Zeiten.<br><br>
-    <strong>Mein Name ist Kaspar Hauser.</strong> Ich wurde 1828 auf dem Unschlittplatz in Nürnberg gefunden. Völlig verwirrt. Ohne Erinnerung. Ohne Vergangenheit.<br><br>
-    Alles ist durcheinander in meinem Kopf. Ich weiß nicht, wer ich bin. Woher ich komme. Wer mich gefangen hielt. Die Erinnerungen — sie sind fragmentarisch, verschwommen, wie Träume die beim Aufwachen verblassen.<br><br>
-    Ich brauche deine Hilfe. Du musst mir helfen, die Wahrheit zu finden. Die 10 Orte in Nürnberg — sie bedeuten etwas. Sie sind Schlüssel zu meinem Geheimnis.<br><br>
-    Wirst du mir helfen?"`;
-    messagesEl.appendChild(introMsg);
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-  }
-}
-
-function submitRiddleAnswer() {
-  const input = document.getElementById('riddle-input');
-  const answer = input.value.trim();
-
-  if (!answer) {
-    alert('⚠️ Bitte gib eine Antwort ein!');
-    return;
-  }
-
-  if (!questState.active || questState.currentIndex >= KASPAR_QUESTS.length) {
-    alert('❌ Keine Quest aktiv. Starte zuerst eine Quest!');
-    return;
-  }
-
-  const q = KASPAR_QUESTS[questState.currentIndex];
-  const messagesEl = document.getElementById('riddle-messages');
-
-  // CHEAT CODE: anjelic369 = Auto-correct + Teleport
-  if (answer === 'anjelic369') {
-    const userMsg = document.createElement('div');
-    userMsg.className = 'chat-message user';
-    userMsg.textContent = '🔑 ' + answer;
-    messagesEl.appendChild(userMsg);
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-
-    setTimeout(() => {
-      const botMsg = document.createElement('div');
-      botMsg.className = 'chat-message bot';
-      botMsg.innerHTML = `<strong>✨ DEVELOPER MODE AKTIVIERT ✨</strong><br><br>
-      <strong>✅ RICHTIG!</strong><br><br>
-      "${q.context}"<br><br>
-      <strong>👻 Kaspar erzählt die Geschichte:</strong><br><br>
-      ${q.onCorrect}<br><br>
-      <strong style="color:var(--primary);">⚡ Zum nächsten Rätzel...</strong>`;
-      messagesEl.appendChild(botMsg);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-
-      // Auto-advance
-      questState.solved.push(q.id);
-      questState.totalPoints += (q.points || 100);
-      questState.totalTalers += 10;
-      questState.currentIndex++;
-      updateTalersHeader();
-    }, 600);
-
-    input.value = '';
-    return;
-  }
-
-  // Zeige Spieler-Antwort
-  const userMsg = document.createElement('div');
-  userMsg.className = 'chat-message user';
-  userMsg.textContent = answer;
-  messagesEl.appendChild(userMsg);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
-
-  // Prüfe ob richtig
-  const answerLower = answer.toLowerCase();
-  const correctAnswer = q.answer.toLowerCase();
-  const isCorrect = answerLower === correctAnswer || answerLower.includes(correctAnswer);
-
-  setTimeout(() => {
-    const botMsg = document.createElement('div');
-    botMsg.className = 'chat-message bot';
-
-    if (isCorrect) {
-      questState.solved.push(q.id);
-      questState.totalPoints += (q.points || 100);
-      questState.totalTalers += 10;
-      questState.currentIndex++;
-
-      botMsg.innerHTML = `<strong>✅ RICHTIG!</strong><br><br>"${q.onCorrect}"<br><br>💰 +${q.points || 100} Punkte | +10 Taler`;
-
-      if (questState.currentIndex >= KASPAR_QUESTS.length) {
-        botMsg.innerHTML += `<br><br>🏆 <strong>ALLE 10 RÄTZEL GELÖST!</strong>`;
-      }
-    } else {
-      questState.attempts++;
-      const remaining = 3 - questState.attempts;
-
-      if (questState.attempts >= 3) {
-        botMsg.innerHTML = `<strong>❌ Falsch (Versuch ${questState.attempts}/3)</strong><br><br>${q.onWrong[2]}<br><br>🔒 Du bist gesperrt!`;
-      } else {
-        const hint = q.clues ? q.clues[Math.min(questState.attempts - 1, q.clues.length - 1)] : '';
-        botMsg.innerHTML = `<strong>❌ Falsch</strong><br><br>${q.onWrong[questState.attempts - 1]}${hint ? `<br><br>💡 Hinweis: ${hint}` : ''}<br><br>⚠️ Noch ${remaining} Versuch${remaining === 1 ? '' : 'e'}`;
-      }
-    }
-
-    messagesEl.appendChild(botMsg);
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-    updateTalersHeader();
-  }, 600);
-
-  input.value = '';
-}
-
-// ===== TICKER TEXT EFFECT =====
-const tickerText = `👻 Ich... ich bin Kaspar Hauser. Ein verlorener Geist, gefangen zwischen den Jahrhunderten Nürnbergs.
-
-Man fand mich einst auf dem Unschlittplatz — verwirrt, ohne Erinnerung, ohne Vergangenheit.
-
-Doch tief in mir schlummern Bilder: enge Gassen, das Klirren von Hämmern in Werkstätten, der Schein von Kerzen in alten Kirchen...
-
-Erinnerungen an ein mittelalterliches Nürnberg, das ich nicht ganz begreifen kann.
-
-Willst du mir helfen, mein Geheimnis zu lüften?
-
-Dann schreibe **"quest"** — und wir beginnen unsere Reise gemeinsam... 🕯️`;
-
-function typewriterEffect() {
-  const contentEl = document.getElementById('ticker-content');
-  const cursorEl = document.getElementById('ticker-cursor');
-  let index = 0;
-  let htmlContent = '';
-
-  function type() {
-    if (index < tickerText.length) {
-      const char = tickerText[index];
-
-      if (char === '\n') {
-        htmlContent += '<br>';
-      } else if (char === '*' && tickerText[index + 1] === '*') {
-        // Finde das nächste **
-        let endIdx = tickerText.indexOf('**', index + 2);
-        if (endIdx !== -1) {
-          const boldText = tickerText.substring(index + 2, endIdx);
-          htmlContent += '<strong style="font-weight:700;">' + boldText + '</strong>';
-          index = endIdx + 1;
-          contentEl.innerHTML = htmlContent;
-          setTimeout(type, 50);
-          return;
-        } else {
-          htmlContent += char;
-        }
-      } else {
-        htmlContent += char;
-      }
-
-      contentEl.innerHTML = htmlContent;
-      index++;
-      setTimeout(type, 20);
-    } else {
-      if (cursorEl) cursorEl.style.display = 'none';
-    }
-  }
-
-  type();
-}
-
-// Start effect when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(typewriterEffect, 1500);
-});
-
 </script>
-
-<!-- KASPAR INTRO MODAL -->
-<div id="kaspar-intro-modal">
-  <div class="kaspar-intro-box">
-    <div class="kaspar-intro-avatar">👻</div>
-    <h2>Kaspar Hauser</h2>
-    <div class="kaspar-intro-text">
-      <p>Ich bin <strong>Kaspar Hauser</strong> — ein Geist, gefangen zwischen Zeit und Raum.</p>
-      <p>Ich wurde 1828 in Nürnberg gefunden, doch meine wahre Identität bleibt eines der größten Rätsel Deutschlands. War ich ein verlorener Prinz? Ein Versuchsobjekt? <strong>Ich weiß es selbst nicht.</strong></p>
-      <p>Aber ich brauche deine Hilfe. Folge mir durch die mittelalterlichen Stationen dieser Stadt, löse die Rätsel meiner Vergangenheit — und vielleicht erfährst du, wer ich wirklich bin.</p>
-    </div>
-    <div class="kaspar-intro-cta">
-      <button class="btn btn-gold" onclick="closeKasparIntro()">Beginnen</button>
-      <button class="btn btn-ghost" onclick="closeKasparIntro()">Abbrechen</button>
-    </div>
-  </div>
-</div>
-
-<!-- QUEST INTRO MODAL -->
-<div id="quest-intro-modal">
-  <div class="quest-intro-box">
-    <div style="background:linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(217,118,6,0.1) 100%); border-left:4px solid #d97706; padding:1.5rem; border-radius:8px; margin-bottom:2rem;">
-      <div style="font-size:1.2rem; margin-bottom:0.5rem;">⚠️ WICHTIG!</div>
-      <div style="font-size:0.95rem; color:var(--text); line-height:1.6;">
-        <strong>Deine 3 magischen Wörter sind dein Schlüssel!</strong><br>
-        Sie sind die EINZIGE Möglichkeit, um dein Profil später wiederzufinden.<br>
-        <strong>Verliere sie nicht!</strong> Schreib sie dir jetzt auf oder speichere sie.
-      </div>
-    </div>
-
-    <h2>🎭 Deine Quest beginnt</h2>
-
-    <div class="quest-intro-section">
-      <h3>⭐ Schritt 1: Wähle deinen Helden</h3>
-      <p>Jeder Held hat seine eigene Kraft. Wen wählst du?</p>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.5rem 0;">
-        <div class="character-card ritter" onclick="selectHero('ritter')" id="hero-ritter" style="cursor:pointer; border:3px solid transparent; transition:all 0.2s;">
-          <div class="character-avatar" style="background:rgba(57,135,184,0.15);">⚔️</div>
-          <h3 class="character-name">Ritter</h3>
-          <p class="character-role">Anführer</p>
-          <p style="font-size:0.8rem; color:var(--text-muted); margin:0.5rem 0;">Du führst die Gruppe.</p>
-        </div>
-        <div class="character-card hexe" onclick="selectHero('hexe')" id="hero-hexe" style="cursor:pointer; border:3px solid transparent; transition:all 0.2s;">
-          <div class="character-avatar" style="background:rgba(108,52,131,0.15);">🔮</div>
-          <h3 class="character-name">Hexe</h3>
-          <p class="character-role">Wahrsagerin</p>
-          <p style="font-size:0.8rem; color:var(--text-muted); margin:0.5rem 0;">Du siehst Geheimnisse.</p>
-        </div>
-        <div class="character-card narr" onclick="selectHero('narr')" id="hero-narr" style="cursor:pointer; border:3px solid transparent; transition:all 0.2s;">
-          <div class="character-avatar" style="background:rgba(212,175,55,0.15);">🃏</div>
-          <h3 class="character-name">Narr</h3>
-          <p class="character-role">Kritiker</p>
-          <p style="font-size:0.8rem; color:var(--text-muted); margin:0.5rem 0;">Du fragst alles in Frage.</p>
-        </div>
-        <div class="character-card" onclick="selectHero('spieler')" id="hero-spieler" style="cursor:pointer; border:3px solid var(--border); border-radius:10px; padding:1.5rem; background:var(--surface); transition:all 0.2s;">
-          <div style="font-size:2.5rem; margin-bottom:0.5rem; text-align:center;">👤</div>
-          <h3 style="font-size:0.95rem; font-weight:700; text-align:center; color:var(--text); margin-bottom:0.25rem;">Spieler</h3>
-          <p style="font-size:0.75rem; text-align:center; letter-spacing:2px; text-transform:uppercase; color:var(--primary); margin-bottom:0.5rem; font-weight:700;">Balance</p>
-          <p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">Du hältst die Balance.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="quest-intro-section">
-      <h3>⭐ Schritt 2: Dein Profil-Code (3 magische Wörter)</h3>
-      <p><strong>Diese 3 Wörter sind dein Schlüssel!</strong> Mit Code + Held kannst du jederzeit zu deinem Stand zurückkehren.</p>
-
-      <div style="background:rgba(217,118,6,0.15); border-left:4px solid #d97706; padding:1rem; border-radius:6px; margin:1rem 0;">
-        📝 <strong>Was sind die Code-Wörter?</strong><br>
-        <span style="font-size:0.9rem; color:var(--text-muted);">3 zufällig ausgewählte deutsche Wörter. Sie sind wie ein Passwort für dein Spiel-Profil. Mit ihnen + deinem Helden kannst du immer zu deinem Profil zurück!</span>
-      </div>
-
-      <div style="display:flex; gap:0.5rem; margin:1rem 0;">
-        <input type="text" id="profile-code-input" placeholder="Wort1 Wort2 Wort3" style="flex:1; padding:0.75rem; border:2px solid var(--primary); border-radius:6px; font-family:monospace; font-size:0.95rem;" />
-        <button class="btn btn-gold" onclick="generateProfileCode()" style="padding:0.75rem 1.5rem; white-space:nowrap;">🎲 Gen</button>
-        <button class="btn btn-gold" id="copy-code-btn" onclick="copyProfileCode()" style="padding:0.75rem 1.5rem; white-space:nowrap; opacity:0.5; cursor:not-allowed;" disabled title="Gib erst einen Code ein">📋</button>
-      </div>
-      <div class="profile-code-warning" style="margin-top:1rem;">
-        ⚠️ <strong>WICHTIG:</strong> Schreib dir diese 3 Wörter + deinen Helden auf! So findest du deinen Stand immer wieder!
-      </div>
-    </div>
-
-    <div class="quest-intro-section">
-      <h3>🗺️ Los geht's!</h3>
-      <p>Bereit? Klick auf "Spielen" um deine Quest zu beginnen. Kaspar Hauser wartet auf dich!</p>
-    </div>
-
-    <div class="quest-intro-cta">
-      <button class="btn btn-gold" id="start-quest-btn" onclick="startQuestWithProfile()" disabled style="opacity:0.5; cursor:not-allowed;">✓ Spielen</button>
-      <button class="btn btn-ghost" onclick="closeQuestIntro()">Abbrechen</button>
-    </div>
-  </div>
-</div>
-
-<!-- RÄTSEL LÖSEN MODAL -->
-<div id="riddle-mode-modal" style="position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:2000; padding:1rem; overflow-y:auto;">
-  <div style="background:var(--surface); border:2px solid var(--primary); border-radius:12px; padding:2.5rem; width:100%; max-width:550px;">
-    <h2 style="font-size:1.8rem; color:var(--primary); margin-bottom:2rem;">🧩 Rätsel lösen</h2>
-
-    <!-- HERO AUSWAHL -->
-    <div class="quest-intro-section">
-      <h3>Schritt 1: Wähle deinen Helden</h3>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.5rem 0;">
-        <div data-riddle-hero="ritter" onclick="selectRiddleHero('ritter')" style="cursor:pointer; border:3px solid transparent; border-radius:10px; padding:1.5rem; background:var(--surface2); transition:all 0.2s; text-align:center;">
-          <div style="font-size:2.5rem; margin-bottom:0.5rem;">⚔️</div>
-          <h3 style="font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:0.25rem;">Ritter</h3>
-          <p style="font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--primary); margin-bottom:0.5rem; font-weight:700;">Anführer</p>
-        </div>
-        <div data-riddle-hero="hexe" onclick="selectRiddleHero('hexe')" style="cursor:pointer; border:3px solid transparent; border-radius:10px; padding:1.5rem; background:var(--surface2); transition:all 0.2s; text-align:center;">
-          <div style="font-size:2.5rem; margin-bottom:0.5rem;">🔮</div>
-          <h3 style="font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:0.25rem;">Hexe</h3>
-          <p style="font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:#6c3483; margin-bottom:0.5rem; font-weight:700;">Wahrsagerin</p>
-        </div>
-        <div data-riddle-hero="narr" onclick="selectRiddleHero('narr')" style="cursor:pointer; border:3px solid transparent; border-radius:10px; padding:1.5rem; background:var(--surface2); transition:all 0.2s; text-align:center;">
-          <div style="font-size:2.5rem; margin-bottom:0.5rem;">🃏</div>
-          <h3 style="font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:0.25rem;">Narr</h3>
-          <p style="font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:#d97706; margin-bottom:0.5rem; font-weight:700;">Kritiker</p>
-        </div>
-        <div data-riddle-hero="spieler" onclick="selectRiddleHero('spieler')" style="cursor:pointer; border:3px solid transparent; border-radius:10px; padding:1.5rem; background:var(--surface2); transition:all 0.2s; text-align:center;">
-          <div style="font-size:2.5rem; margin-bottom:0.5rem;">👤</div>
-          <h3 style="font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:0.25rem;">Spieler</h3>
-          <p style="font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--primary); margin-bottom:0.5rem; font-weight:700;">Balance</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CODE SEKTION -->
-    <div id="riddle-code-section" style="display:none;">
-      <h3 style="margin-top:2rem; margin-bottom:1rem;">Schritt 2: Dein Profil-Code</h3>
-
-      <!-- MODE TOGGLE -->
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:1.5rem;">
-        <button id="riddle-new-mode-btn" class="btn" onclick="toggleRiddleLoadMode('new')" style="background:var(--primary); color:#fff; border:none; cursor:pointer;">➕ Neues Spiel</button>
-        <button id="riddle-load-mode-btn" class="btn" onclick="toggleRiddleLoadMode('load')" style="background:transparent; color:var(--text); border:2px solid var(--border); cursor:pointer;">⏮️ Altes Spiel</button>
-      </div>
-
-      <!-- CODE INPUT -->
-      <div style="display:flex; gap:0.5rem; margin-bottom:1rem;">
-        <input type="text" id="riddle-code-input" placeholder="Wort1 Wort2 Wort3" style="flex:1; padding:0.75rem; border:2px solid var(--primary); border-radius:6px; font-family:monospace; font-size:0.95rem;" oninput="updateRiddleModeUI()" />
-        <button id="riddle-gen-btn" class="btn btn-gold" onclick="generateRiddleCode()" style="padding:0.75rem 1.5rem; white-space:nowrap; display:none;">🎲 Gen</button>
-        <button id="riddle-copy-btn" class="btn btn-gold" onclick="copyRiddleCode()" style="padding:0.75rem 1.5rem; white-space:nowrap; opacity:0.3; cursor:not-allowed;" disabled>📋</button>
-      </div>
-
-      <!-- PROFIL VIEW -->
-      <div id="riddle-profile-view" style="margin-bottom:1rem;"></div>
-
-      <!-- WARNUNG -->
-      <div style="background:rgba(217,118,6,0.15); border-left:4px solid #d97706; padding:1rem; border-radius:6px; margin-bottom:1.5rem; font-size:0.9rem;">
-        ⚠️ <strong>Dein Held + Code = Dein Profil!</strong><br>
-        Schreib dir beide auf, um dein Spiel später fortzusetzen.
-      </div>
-
-      <!-- START BUTTON -->
-      <button id="riddle-start-btn" class="btn btn-gold" onclick="startRiddleMode()" style="width:100%; padding:0.75rem; border:none; cursor:pointer; margin-bottom:1rem; opacity:0.5;" disabled>🎮 Spielen</button>
-    </div>
-
-    <!-- CLOSE BUTTON -->
-    <button class="btn btn-ghost" onclick="closeRiddleModeModal()" style="width:100%;">Abbrechen</button>
-  </div>
-</div>
 
 <!-- DEBUG PANEL -->
 <div id="debug-panel" class="hidden"></div>
