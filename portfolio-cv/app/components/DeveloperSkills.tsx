@@ -197,9 +197,128 @@ model.fit(X_train, y_train)
 accuracy = model.score(X_test, y_test)`,
     description: 'ML Models, Python Scikit-learn, Data Analysis, Predictions',
   },
+  {
+    name: 'Python Programming',
+    category: 'Programmierung & Web',
+    level: 50,
+    codeExample: `# Python für Machine Learning & Data Science
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+
+df = pd.read_csv('data.csv')
+X = df.iloc[:, :-1].values
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)`,
+    description: 'Machine Learning, Data Science, Backend Development, Data Analysis',
+  },
+  {
+    name: 'Full-Stack Web Development',
+    category: 'Programmierung & Web',
+    level: 48,
+    codeExample: `// Full-Stack API Integration
+import axios from 'axios';
+
+export async function createBackendConnection() {
+  const response = await axios.post('/api/data', {
+    payload: {userId: 123, data: 'value'}
+  });
+  return response.data;
+}`,
+    description: 'HTML, Next.js, Full-Stack API-Integration, Backend Development, Website-Erstellung mit KI',
+  },
+  {
+    name: 'AI Agents & LLMs',
+    category: 'KI-Integration',
+    level: 55,
+    codeExample: `// Claude AI mit LangChain
+from langchain.llms import Anthropic
+from langchain.chains import ConversationChain
+
+llm = Anthropic()
+chain = ConversationChain(llm=llm)
+response = chain.run(input="Erkläre Machine Learning")`,
+    description: 'Claude AI, LangChain, Transformers, GPT Integration, Prompt Engineering',
+  },
+  {
+    name: 'Deep Learning & NLP',
+    category: 'KI-Integration',
+    level: 42,
+    codeExample: `# Deep Learning mit Hugging Face
+from transformers import pipeline
+
+nlp = pipeline("sentiment-analysis")
+result = nlp("Das ist ein großartiges Projekt!")
+print(result)  # [{label: POSITIVE, score: 0.99}]`,
+    description: 'Deep Learning, NLP, Hugging Face, OpenAI APIs, Large Language Models',
+  },
+  {
+    name: 'Machine Learning Techniken',
+    category: 'KI-Integration',
+    level: 45,
+    codeExample: `# Regression, Classification, Neuronale Netze
+from sklearn.linear_model import LogisticRegression
+from tensorflow import keras
+
+model = keras.Sequential([
+  keras.layers.Dense(64, activation='relu'),
+  keras.layers.Dense(1, activation='sigmoid')
+])`,
+    description: 'Regression, Klassifikation, Neuronale Netze, Data Science, Datenanalyse',
+  },
+  {
+    name: 'n8n Automation',
+    category: 'KI-Automation',
+    level: 46,
+    codeExample: `// n8n Workflow Automation
+// Trigger: Schedule (täglich)
+// Node 1: HTTP Request (API Call)
+// Node 2: Filter (Daten verarbeiten)
+// Node 3: Send Email (Ergebnis)`,
+    description: 'Workflow Automation, n8n Integration, Process Automation',
+  },
+  {
+    name: 'Voice AI & Agents',
+    category: 'KI-Automation',
+    level: 40,
+    codeExample: `// Retell AI Voice Agent
+const agent = new VoiceAgent({
+  model: 'gpt-4',
+  voice: 'german',
+  instructions: 'Du bist ein Kundenservice Agent'
+});
+agent.startConversation();`,
+    description: 'Retell AI, Voice Agents, KI-Agentur-Entwicklung, Conversation AI',
+  },
+  {
+    name: 'MCP & AI Integration',
+    category: 'KI-Automation',
+    level: 48,
+    codeExample: `// Model Context Protocol Integration
+import mcp from '@anthropic-ai/sdk';
+
+const client = mcp.createClient({
+  model: 'claude-opus',
+  contextSize: 200000
+});`,
+    description: 'Model Context Protocol, KI-System-Integration, Advanced Prompting',
+  },
+  {
+    name: 'Version Control & Tools',
+    category: 'Tools & Version Control',
+    level: 45,
+    codeExample: `# GitHub & Git Workflows
+git clone <repo>
+git checkout -b feature/name
+git add -A
+git commit -m "feat: description"
+git push origin feature/name
+# Create Pull Request`,
+    description: 'GitHub, Git Version Control, VS Code, Android Studio, PyCharm IDE, Vercel Deployment',
+  },
 ];
 
-const categories = ['Backend', 'Architecture', 'Specialized', 'Infrastructure', 'Emerging Tech', 'Tools & Version Control', 'Tools & Design', 'Tools & Development', 'Tools & Mobile', 'Tools & Organization'];
+const categories = ['Backend', 'Architecture', 'Specialized', 'Infrastructure', 'Emerging Tech', 'Tools & Version Control', 'Tools & Design', 'Tools & Development', 'Tools & Mobile', 'Tools & Organization', 'Programmierung & Web', 'KI-Integration', 'KI-Automation'];
 
 export default function DeveloperSkills() {
   const [expandedSkill, setExpandedSkill] = useState<number | null>(null);
