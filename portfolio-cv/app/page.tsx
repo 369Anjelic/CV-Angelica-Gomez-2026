@@ -8,43 +8,43 @@ const PROJECTS = [
     emoji: '🎭',
     name: 'Kaspar Hauser Quest',
     desc: 'Interaktives Stadträtsel-Spiel über die Kaspar Hauser Geschichte.',
-    tags: ['Express.js', 'React', 'Claude API', 'JavaScript'],
-    link: 'http://localhost:3000/',
+    tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
+    link: '/projekte/Kaspar%20hauser/',
   },
   {
     emoji: '✈️',
     name: 'Flight Trainer - 2 Player',
     desc: 'Interaktiver Flight Simulator für Piloten-Training.',
     tags: ['HTML5', 'Canvas', 'JavaScript', 'WebGL'],
-    link: 'http://localhost:3001/',
+    link: '/projekte/fly%20game/',
   },
   {
     emoji: '⚡',
     name: 'Glitch verbessert',
     desc: 'Verbessertes Action-Game mit neuen Features.',
-    tags: ['Node.js', 'Express', 'Canvas', 'JavaScript'],
-    link: 'http://localhost:3003/',
+    tags: ['Next.js', 'React', 'Node.js', 'Docker'],
+    link: '/projekte/Glitch%20verbessert/',
   },
   {
     emoji: '💬',
     name: 'MOI Bot',
     desc: 'Intelligenter Chatbot mit natürlicher Sprachverarbeitung.',
-    tags: ['Express.js', 'Claude API', 'Node.js', 'JavaScript'],
-    link: 'http://localhost:3004/',
+    tags: ['Claude API', 'React', 'Node.js'],
+    link: '/projekte/MOI%20bot/',
   },
   {
     emoji: '🐍',
     name: 'Python Coding Übungen',
     desc: 'Sammlung von 20 Python-Programmierübungen.',
-    tags: ['Python', 'HTML5', 'JavaScript'],
-    link: 'http://localhost:3005/',
+    tags: ['Python', 'OOP', 'Algorithms'],
+    link: '/projekte/python%20coden%20%C3%BCbungen/',
   },
   {
     emoji: '📊',
     name: 'Umfrage App',
     desc: 'Umfrage-Anwendung für Erfassung und Auswertung von Daten.',
     tags: ['HTML5', 'JavaScript', 'CSS'],
-    link: 'http://localhost:3006/',
+    link: '/projekte/umfrage/',
   },
 ];
 
@@ -135,14 +135,14 @@ export default function Home() {
               onClick={() => setActiveTab('additional')}
             />
             <TabButton
+              label="Developer Skills & Code"
+              active={activeTab === 'developer'}
+              onClick={() => setActiveTab('developer')}
+            />
+            <TabButton
               label="Fachliche Skills"
               active={activeTab === 'skills'}
               onClick={() => setActiveTab('skills')}
-            />
-            <TabButton
-              label="Zusatz Kompetenzen"
-              active={activeTab === 'competencies'}
-              onClick={() => setActiveTab('competencies')}
             />
             <TabButton
               label="Softskills"
@@ -234,21 +234,21 @@ export default function Home() {
           </div>
         )}
 
-        {activeTab === 'skills' && (
-          <div className="mb-12 text-sm text-gray-600">
-            <p className="font-bold">Fachliche Skills werden geladen...</p>
-          </div>
-        )}
-
         {activeTab === 'softskills' && (
           <div className="mb-12 text-sm text-gray-600">
             <p className="font-bold">Softskills werden geladen...</p>
           </div>
         )}
 
-        {activeTab === 'competencies' && (
+        {activeTab === 'developer' && (
           <div className="mb-12 text-sm text-gray-600">
-            <p className="font-bold">Zusatz Kompetenzen werden geladen...</p>
+            <p className="font-bold">Developer Skills & Code Knowledge werden geladen...</p>
+          </div>
+        )}
+
+        {activeTab === 'skills' && (
+          <div className="mb-12 text-sm text-gray-600">
+            <p className="font-bold">Fachliche Skills werden geladen...</p>
           </div>
         )}
 
