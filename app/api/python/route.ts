@@ -25,15 +25,24 @@ export async function POST(request: Request) {
     console.log(`[Python Proxy] Forwarding to: ${runUrl}`);
 
     try {
-      const response = await fetch(runUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-        timeout: 15000,
-      });
+      // Use AbortController for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-      const data = await response.json();
-      return Response.json(data, { status: response.status });
+      try {
+        const response = await fetch(runUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+        const data = await response.json();
+        return Response.json(data, { status: response.status });
+      } finally {
+        clearTimeout(timeoutId);
+      }
     } catch (err: any) {
       console.error(`[Python Proxy] Failed to reach ${runUrl}:`, err);
 
