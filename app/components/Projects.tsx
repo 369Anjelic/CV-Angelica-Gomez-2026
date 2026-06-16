@@ -26,7 +26,7 @@ const PROJECTS: Project[] = [
   },
   {
     id: 'fly-game',
-    title: 'Flight Trainer - 2 Player',
+    title: 'Flight Trainer',
     description: 'Interaktiver Flight Simulator für Piloten-Training.',
     icon: '✈️',
     category: 'game',
