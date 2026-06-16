@@ -1,163 +1,95 @@
-# ⚡ Glitch verbessert
+# 🤖 Glitch — KI-Lernbegleiter für IHK Prüfung
 
-**Verbessertes Action-Game mit neuen Features und besserer Performance**
+**Glitch** ist ein KI-powered Learning Bot für Fachinformatiker-Azubis (Anwendungsentwicklung) zur Vorbereitung auf die **IHK-Prüfung**.
 
----
+## 📚 Was ist Glitch?
 
-## 📋 Über das Projekt
+Ein persistenter Lernbegleiter, der:
+- ✅ **18 Lernfelder** der IHK Prüfung abdeckt (LF1-LF18)
+- 🧠 **Intelligente Fragen stellt** statt nur Antworten zu geben
+- 📊 **Lernfortschritt speichert** - permanentes Gedächtnis ohne Account
+- 🎯 **Fokussiert auf Prüfungsvorbereitung** nicht bloß Stoff-Lernen
+- 🚀 **Claude AI powered** - mit aktuellen Sprachmodellen
 
-Ein vollständig überarbeitetes Action-Game mit neuen Spielmechaniken, erweiterten Levels, besserer Performance-Optimierung und verbessertem Gameplay.
+## 🎓 Für wen?
 
-**Status:** ✅ Aktiv & Vollständig  
-**Version:** 2.1  
-**Letztes Update:** 04.06.2026
+- Fachinformatiker-Azubis (Fachrichtung: **Anwendungsentwicklung**)
+- IHK Prüfungsvorbereitung (schriftlich + praktisch)
+- Selbstständiges Lernen zwischen Unterricht/Berufsschule
 
----
+## 🚀 Schnellstart
 
-## 🎯 Features
-
-- ⚡ Verbesserte Game-Mechaniken
-- 🎮 Erweiterte Level
-- 🚀 Performance-Optimierung
-- 🎨 Modernes UI/UX Design
-- 📊 Dashboard & Analytics
-- 💾 Persistente Daten
-- 🔄 Auto-Save System
-
----
-
-## 🛠️ Technologie-Stack
-
-| Bereich | Technologie |
-|---------|------------|
-| Frontend | React, Next.js |
-| Backend | Node.js, Express |
-| Database | Optional (Supabase) |
-| Deployment | Docker, Vercel |
-| Extras | Alpine.js, Tailwind CSS |
-
----
-
-## 🚀 Quick Start
-
-### Installation
+### 1. Abhängigkeiten installieren
 ```bash
 npm install
 ```
 
-### Mit Python (schnell)
+### 2. API-Key konfigurieren
+Kopiere `.env.example` zu `.env` und füge deinen Anthropic API Key ein:
 ```bash
-python -m http.server 3000
+cp .env.example .env
 ```
-Dann: `http://localhost:3000`
 
-### Mit Node
+Dann in `.env` editieren:
+```
+ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxxxxxxxxxx
+```
+
+> API Key bekommen: https://console.anthropic.com/keys
+
+### 3. Server starten
 ```bash
-npm install
-npm run serve
+npm start
 ```
 
-### Passwort
-```
-anjelic123
-```
-
----
-
-## 📁 Projektstruktur
-
-```
-projekt-glitch/
-├── index.html                   # Landing Page + Chat
-├── dashboard.html               # Benutzer-Dashboard
-├── server.js                    # Express Server
-├── package.json                 # Dependencies
-├── vercel.json                  # Vercel Config
-├── assets/
-│   ├── images/                 # Icons, Hero-Video
-│   └── ...
-├── data/                        # Game Data
-└── README.md                    # Diese Datei
-```
-
----
+Dann öffne: **http://localhost:3003**
 
 ## 🔌 API Endpoints
 
-```
-POST /chat              → Chat-Antworten
-POST /identify          → Benutzererkennung
-POST /history           → Tagebuch-Export
-POST /export            → Lernfortschritt-Export
-```
-
-**API URL:** `https://glitch-api.post-666.workers.dev`
-
-Für lokales Testing:
 ```javascript
-API_URL: 'http://localhost:3001'
+// Chat mit Glitch
+POST /chat
+{
+  "message": "Erkläre mir OOP",
+  "words": "kernel.deploy.merge"
+}
+
+// Profil abrufen
+POST /identify
+{
+  "words": "kernel.deploy.merge"
+}
+
+// Verlauf anschauen
+POST /history
+{
+  "words": "kernel.deploy.merge"
+}
+
+// Exportieren
+POST /export
+{
+  "words": "kernel.deploy.merge"
+}
+```
+
+## 🐛 Problem: API-Key nicht gesetzt
+
+**Fehler:** "Fehler bei der Verbindung zur KI. Versuche es später nochmal."
+
+**Lösung:**
+1. Erstelle eine `.env` Datei basierend auf `.env.example`
+2. Besorge einen API-Key: https://console.anthropic.com/keys
+3. Setze die ANTHROPIC_API_KEY in `.env`
+4. Starte den Server neu
+
+**Beispiel `.env`:**
+```
+ANTHROPIC_API_KEY=sk-ant-d7a1234567890abcdef
+PORT=3003
 ```
 
 ---
 
-## 🚀 Deployment
-
-### Vercel
-```bash
-vercel
-```
-
-### GitHub Pages
-Push zu `main` Branch, Pages aktivieren.
-
-### Docker
-```bash
-docker build -t glitch-pimp .
-docker run -p 3000:3000 glitch-pimp
-```
-
----
-
-## 🎨 Customization
-
-- **Farben:** `:root` in `<style>` (index.html)
-- **Texte:** Deutsche Strings durchsuchbar (Ctrl+F)
-- **Features:** Alpine.js Komponenten dokumentiert
-
----
-
-## 📊 Performance
-
-| Metrik | Target | Aktuell |
-|--------|--------|---------|
-| Load Time | < 2s | < 1s ✅ |
-| API Response | < 500ms | 200-400ms ✅ |
-| Lighthouse | 90+ | 95+ ✅ |
-
----
-
-## 🔐 Security
-
-- ✅ Input validation
-- ✅ API key in .env
-- ✅ CORS configured
-- ✅ Error handling
-- ✅ Rate limiting
-
----
-
-## 📧 Support
-
-**Projekt von:** Angelica Gomez  
-**Studio:** Unwritten.Studio  
-**Email:** angelica.gomez@unwritten.studio
-
----
-
-## 📄 Lizenz
-
-MIT © 2026 Unwritten Studio
-
----
-
-**Ready to Play! ⚡**
+**Für IHK Fachinformatiker Prüfung (Anwendungsentwicklung)**  
+**Powered by Claude AI**
