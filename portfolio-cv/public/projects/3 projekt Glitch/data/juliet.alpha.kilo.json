@@ -1,0 +1,19 @@
+{
+  "words": "juliet.alpha.kilo",
+  "messages": [
+    {
+      "role": "user",
+      "content": "juliet.alpha.kilo",
+      "ts": "2026-06-04T06:06:20.872Z"
+    },
+    {
+      "role": "assistant",
+      "content": "Hey! 👋 Willkommen bei Glitch!\n\nIch bin dein KI-Lernbegleiter für die IHK-Prüfung als Fachinformatiker Anwendungsentwicklung. So funktioniert's: Du sagst mir, welches Thema du lernen willst, und ich stelle dir Fragen, die dich zum eigenen Denken anregen — statt einfach Antworten zu liefern.\n\nWir haben **18 Lernfelder** (LF1-LF18) abgedeckt: von IT-Grundlagen über Programmierung, Datenbanken, Web-Entwicklung bis hin zu Cloud, KI und IoT.\n\nWomit möchtest du starten? Zum Beispiel **LF3 Datenbanken (SQL)**, **LF2 Programmiergrundlagen** oder **LF11 Testing**? 🚀",
+      "ts": "2026-06-04T06:06:20.872Z",
+      "learned": null
+    }
+  ],
+  "level": "draft",
+  "jokers": 3,
+  "learned": []
+}

@@ -147,8 +147,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Co
   <b style="color:#00aadd">[E]</b> Motor &ensp;
   <b style="color:#00aadd">[W/S]</b> Schub &ensp;
   <b style="color:#00aadd">[I/O]</b> Pitch &ensp;
-  <b style="color:#00aadd">[A]</b> links fliegen &ensp;
-  <b style="color:#00aadd">[D]</b> rechts fliegen &ensp;
+  <b style="color:#00aadd">[Pfeile]</b> Roll &ensp;
+  <b style="color:#00aadd">[F/R]</b> Klappen &ensp;
+  <b style="color:#00aadd">[G]</b> Fahrwerk &ensp;
   <b style="color:#00aadd">[V]</b> Kamera &ensp;
   <b style="color:#ff4444">[K]</b> KATAPULT &ensp;
   <b style="color:#ff4444">[J]</b> JUMP
@@ -1588,14 +1589,12 @@ const K = {};
 window.addEventListener('keydown', e => {
     if (e.target.tagName === 'INPUT') return;
     K[e.code] = true;
-    if (['KeyF','KeyR','KeyG','KeyE','KeyW','KeyS','KeyI','KeyO','KeyA','KeyD','KeyV','KeyK','KeyJ'].includes(e.code)) {
-        e.preventDefault();
-    }
-}, true);
+    if (!e.ctrlKey && !e.metaKey) e.preventDefault();
+});
 window.addEventListener('keyup', e => {
     if (e.target.tagName === 'INPUT') return;
     K[e.code] = false;
-}, true);
+});
 
 window.addEventListener('keydown', e => {
     if (e.code === 'KeyV') {
@@ -1607,25 +1606,6 @@ window.addEventListener('keydown', e => {
         updateSky();
     }
 });
-
-// DIREKTE FLAPS / GEAR KONTROLLE
-window.addEventListener('keydown', e => {
-    if (e.code === 'KeyF') {
-        e.preventDefault();
-        S.flaps = Math.min(1, S.flaps + 0.15);
-        console.log('🛩️ FLAPS UP:', Math.round(S.flaps * 40));
-    }
-    if (e.code === 'KeyR') {
-        e.preventDefault();
-        S.flaps = Math.max(0, S.flaps - 0.15);
-        console.log('🛩️ FLAPS DOWN:', Math.round(S.flaps * 40));
-    }
-    if (e.code === 'KeyG') {
-        e.preventDefault();
-        S.gear = !S.gear;
-        console.log('🛩️ GEAR:', S.gear ? 'RETRACTED' : 'DEPLOYED');
-    }
-}, true);
 
 let camYaw = 0, camPit = 0.28, camDist = 120, viewMode = 0;
 let mDown = false, mLX = 0, mLY = 0;
@@ -1682,8 +1662,8 @@ function physics() {
     if (K['KeyO']) S.pitch = Math.max(-0.38, S.pitch - 0.019);
     S.pitch *= 0.942;
 
-    if (K['KeyA'])  S.roll = Math.max(-0.5, S.roll - 0.019);
-    if (K['KeyD']) S.roll = Math.min( 0.5, S.roll + 0.019);
+    if (K['ArrowLeft'])  S.roll = Math.max(-0.5, S.roll - 0.019);
+    if (K['ArrowRight']) S.roll = Math.min( 0.5, S.roll + 0.019);
     S.roll *= 0.942;
 
     const wdR = WIND_DIR * Math.PI / 180;
@@ -1722,10 +1702,9 @@ function physics() {
 
     S.gforce = 1 + Math.abs(S.pitch) * 2.5 + Math.abs(S.roll) * 1.5;
 
-    if (K['KeyF']) S.flaps = Math.min(1, S.flaps + 0.025);
-    if (K['KeyR']) S.flaps = Math.max(0, S.flaps - 0.025);
-
-    if (K['KeyG']) { K['KeyG'] = false; S.gear = !S.gear; }
+    if (K['KeyF']) { K['KeyF'] = false; S.flaps = Math.min(1, S.flaps + 0.1); }
+    if (K['KeyR']) { K['KeyR'] = false; S.flaps = Math.max(0, S.flaps - 0.1); }
+    if (K['KeyG']) { K['KeyG'] = false; S.gear  = !S.gear; }
 
     // ===== KATAPULT mit K-Taste =====
     if (K['KeyK'] && !S.ejectActive) {
@@ -2072,7 +2051,7 @@ function updateHUD() {
         chk(0, S.fuel > 70, 'Treibstoff OK');
         chk(1, !S.engOn,    'Motor aus');
         chk(2, S.thr < 0.1, 'Schub 0');
-        chk(3, S.flaps < 0.1,'Klappen aus');
+        chk(3, S.flaps < 0.1,'Klappen ein');
         chk(4, S.gear,      'Fahrwerk aus');
     } else if (S.spd > 10 && S.alt < 20) {
         phase = 'START';
@@ -2099,7 +2078,7 @@ function updateHUD() {
         phase = 'ANFLUG';
         chk(0, S.alt < 1000, 'Sinkflug');
         chk(1, S.flaps > 0.3,'Klappen');
-        chk(2, !S.gear,      'Fahrwerk');
+        chk(2, S.gear,       'Fahrwerk');
         chk(3, S.spd < 85,   'Anfluggeschw.');
         chk(4, S.alt < 300,  'Final');
     } else if (S.alt < 5 && S.spd > 5) {

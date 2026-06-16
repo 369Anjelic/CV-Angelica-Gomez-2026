@@ -1,0 +1,19 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/chat/route": "app/api/chat/route.js",
+  "/api/execute-python/route": "app/api/execute-python/route.js",
+  "/api/glitch/route": "app/api/glitch/route.js",
+  "/api/moi/route": "app/api/moi/route.js",
+  "/api/python/route": "app/api/python/route.js",
+  "/api/kaspar/route": "app/api/kaspar/route.js",
+  "/api/send-email/route": "app/api/send-email/route.js",
+  "/fly/page": "app/fly/page.js",
+  "/glitch/page": "app/glitch/page.js",
+  "/kaspar/page": "app/kaspar/page.js",
+  "/page": "app/page.js",
+  "/moi/page": "app/moi/page.js",
+  "/project/[...path]/page": "app/project/[...path]/page.js",
+  "/python/page": "app/python/page.js",
+  "/projects/[id]/page": "app/projects/[id]/page.js",
+  "/umfrage/page": "app/umfrage/page.js"
+}

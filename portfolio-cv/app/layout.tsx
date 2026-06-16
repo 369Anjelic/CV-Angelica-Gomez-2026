@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geist = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Angelica Gomez - Developer Portfolio",
-  description: "Full-Stack Developer, Game Developer, AI Integration Specialist",
+  title: "Portfolio - Angelica Gomez",
+  description: "Vollständiges Portfolio mit allen Projekten von Angelica Gomez - Full Stack Developer",
+  viewport: "width=device-width, initial-scale=1.0, maximum-scale=5.0",
+  keywords: "Portfolio, Developer, Full Stack, Next.js, React, JavaScript, Python",
+  authors: [{ name: "Angelica Gomez" }],
+  openGraph: {
+    title: "Portfolio - Angelica Gomez",
+    description: "Vollständiges Portfolio mit allen Projekten",
+    url: "https://cv-angelica-gomez.vercel.app",
+    siteName: "Portfolio Angelica Gomez",
+  },
 };
 
 export default function RootLayout({
@@ -23,8 +21,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${geist.variable} ${geistMono.variable} antialiased`}>
+    <html lang="de">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
         {children}
       </body>
     </html>

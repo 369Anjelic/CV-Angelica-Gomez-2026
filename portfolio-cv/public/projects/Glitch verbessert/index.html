@@ -438,11 +438,21 @@
         }
 
         .progress-bar {
-            display: none;
+            height: 2px;
+            background: var(--blue);
+            border-radius: 1px;
+            transition: width 0.3s ease;
+            min-width: 20px;
+            opacity: 0.6;
         }
 
         .progress-text {
-            display: none;
+            font-size: 0.75rem;
+            color: var(--blue);
+            opacity: 0.6;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: right;
         }
 
         .fach-toggle {
@@ -1807,15 +1817,7 @@
                 learningProgress: {},
                 learnedTopics: {}, // Track welche Topics gelernt wurden
 
-                get API_URL() {
-                    const hostname = window.location.hostname;
-                    if (hostname === 'localhost' || hostname === '127.0.0.1') {
-                        return 'http://localhost:3003';
-                    } else if (hostname.includes('vercel') || hostname.includes('cv-angelica')) {
-                        return '/api/glitch';
-                    }
-                    return 'http://localhost:3003';
-                },
+                API_URL: 'http://localhost:3003',
 
                 // Definiere alle Topics pro Lernfeld
                 topicMap: {
@@ -1840,13 +1842,23 @@
                 },
 
                 initProgress() {
-                    // Lösche alte Test-Daten
-                    localStorage.removeItem('glitchProgress');
-                    localStorage.removeItem('glitchTopics');
+                    const saved = localStorage.getItem('glitchProgress');
+                    const savedTopics = localStorage.getItem('glitchTopics');
 
-                    // Starte immer mit 0%
-                    for (let i = 1; i <= 18; i++) {
-                        this.learningProgress[`lf${i}`] = 0;
+                    if (saved) {
+                        this.learningProgress = JSON.parse(saved);
+                    } else {
+                        for (let i = 1; i <= 18; i++) {
+                            this.learningProgress[`lf${i}`] = 0;
+                        }
+                    }
+
+                    if (savedTopics) {
+                        const topicsData = JSON.parse(savedTopics);
+                        // Konvertiere Arrays zurück zu Sets
+                        Object.keys(topicsData).forEach(key => {
+                            this.learnedTopics[key] = new Set(topicsData[key]);
+                        });
                     }
                 },
 
@@ -1947,14 +1959,14 @@
                             return `${lf.toUpperCase()} (${progress}%)`;
                         }).join(', ');
 
-                        // Sende Fortschritts-Nachricht (DISABLED)
-                        // const feedbackMsg = `💪 Du machst Fortschritt! ${progressNames}`;
-                        // this.messages.push({
-                        //     id: this.messageIdCounter++,
-                        //     role: 'system',
-                        //     content: feedbackMsg,
-                        //     timestamp: new Date().toISOString()
-                        // });
+                        // Sende Fortschritts-Nachricht
+                        const feedbackMsg = `💪 Du machst Fortschritt! ${progressNames}`;
+                        this.messages.push({
+                            id: this.messageIdCounter++,
+                            role: 'system',
+                            content: feedbackMsg,
+                            timestamp: new Date().toISOString()
+                        });
                     }
                 },
 
@@ -2063,7 +2075,7 @@
                         });
 
                         // Auto-track learning progress based on bot response
-                        // DISABLED: this.detectAndTrackLearningProgress(data.response);
+                        this.detectAndTrackLearningProgress(data.response);
 
                         // Automatisch Lernschritte mit grünem Haken markieren wenn Bot erkennt
                         if (data.learned_lf) {
@@ -2916,11 +2928,7 @@ print("Hallo Python!")
             outputDiv.textContent = '⏳ Code wird ausgeführt...';
 
             try {
-                const hostname = window.location.hostname;
-                const baseUrl = (hostname === 'localhost' || hostname === '127.0.0.1')
-                    ? 'http://localhost:3003'
-                    : '/api/glitch';
-                const response = await fetch(`${baseUrl}/execute-python`, {
+                const response = await fetch('/execute-python', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -2986,11 +2994,7 @@ print("Hallo Python!")
             chatDiv.scrollTop = chatDiv.scrollHeight;
 
             try {
-                const hostname = window.location.hostname;
-                const baseUrl = (hostname === 'localhost' || hostname === '127.0.0.1')
-                    ? 'http://localhost:3003'
-                    : '/api/glitch';
-                const response = await fetch(`${baseUrl}/chat`, {
+                const response = await fetch('/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

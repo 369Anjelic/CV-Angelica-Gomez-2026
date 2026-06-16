@@ -1,0 +1,19 @@
+{
+  "words": "deploy.commit.queue",
+  "messages": [
+    {
+      "role": "user",
+      "content": "deploy.commit.queue",
+      "ts": "2026-06-04T05:56:59.732Z"
+    },
+    {
+      "role": "assistant",
+      "content": "Hey! 👋 Ich bin Glitch, dein KI-Lernbegleiter für die Fachinformatiker-Prüfung.\n\nSo funktioniert's: Ich stelle dir Fragen zu den Lernfeldern (LF1-LF18) und helfe dir, durch eigenes Nachdenken zu lernen – statt dir einfach Antworten zu geben. Wir decken alles ab: von IT-Systemen (LF1) über Datenbanken (LF3) bis hin zu DevOps (LF15) und KI (LF16).\n\nWelches Lernfeld möchtest du heute angehen? Zum Beispiel **LF2 Programmiergrundlagen**, **LF3 Datenbanken** oder **LF15 DevOps**? 🚀",
+      "ts": "2026-06-04T05:56:59.732Z",
+      "learned": null
+    }
+  ],
+  "level": "draft",
+  "jokers": 3,
+  "learned": []
+}

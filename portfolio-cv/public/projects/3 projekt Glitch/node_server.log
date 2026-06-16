@@ -1,0 +1,26 @@
+◇ injected env (1) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+
+╔════════════════════════════════════════╗
+║   Glitch Local API Server mit Claude   ║
+║   http://localhost:3003               ║
+║   Powered by Anthropic Claude          ║
+╚════════════════════════════════════════╝
+    
+(node:15156) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[CHAT] Input - message: "test...", words: null
+[CHAT] Generated new words: kernel.kernel.kernel
+[CHAT] Input - message: "wie ist mein code...", words: null
+[CHAT] Generated new words: deploy.commit.queue
+[CHAT] Input - message: "deploy.commit.queue...", words: deploy.commit.queue
+[CHAT] Creating new file: C:\Users\Anjel\Desktop\Work Projekt\11 Porfolio bearbeiten 28.5.2026\11 Portfolio\portfolio projekte\aktiv\5 Glitch verbessert\8.5.2026\data\deploy.commit.queue.json
+[CHAT] Saved to: C:\Users\Anjel\Desktop\Work Projekt\11 Porfolio bearbeiten 28.5.2026\11 Portfolio\portfolio projekte\aktiv\5 Glitch verbessert\8.5.2026\data\deploy.commit.queue.json
+[CHAT] Input - message: "juliet.alpha.kilo...", words: juliet.alpha.kilo
+[CHAT] Creating new file: C:\Users\Anjel\Desktop\Work Projekt\11 Porfolio bearbeiten 28.5.2026\11 Portfolio\portfolio projekte\aktiv\5 Glitch verbessert\8.5.2026\data\juliet.alpha.kilo.json
+[CHAT] Saved to: C:\Users\Anjel\Desktop\Work Projekt\11 Porfolio bearbeiten 28.5.2026\11 Portfolio\portfolio projekte\aktiv\5 Glitch verbessert\8.5.2026\data\juliet.alpha.kilo.json
+[CHAT] Input - message: "test...", words: null
+[CHAT] Generated new words: commit.commit.draft
+[CHAT] Input - message: "test...", words: null
+[CHAT] Generated new words: queue.commit.commit
+[CHAT] Input - message: "Ich hätte gerne Hilfe zu: LF1 ...", words: null
+[CHAT] Generated new words: commit.stack.heap

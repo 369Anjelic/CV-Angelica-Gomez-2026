@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production (aber NICHT .next und .vercel - die gehören rein!)
+out/
+build/
+dist/
+
+# Misc
+.DS_Store
+*.pem
+.env.local
+.env.*.local
+.env
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.code-index/
+
+# OS
+Thumbs.db
+
+# System files
+.android/
+.bash_profile
+.bashrc
+.cache/
+.cagent/
+.chocolatey/
+.claude.json
+.claude.json.backup
+.claude/
+.config/
+.docker/
+.emulator_console_auth_token
+.expo/
+.gitconfig
+.gradle/
+.idlerc/
+.jdks/
+.local/
+.m2/
+.n8n-mcp/
+.n8n/
+.ssh/
+.thumbnails/
+.vscode-shared/
+AngelicaGomezCV/
+AppData/
+Downloads/
+IntelGraphicsProfiles/
+Music/
+OneDrive/
+Obsidian Vault/
+NTUSER.DAT*
