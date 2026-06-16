@@ -1943,14 +1943,14 @@
                             return `${lf.toUpperCase()} (${progress}%)`;
                         }).join(', ');
 
-                        // Sende Fortschritts-Nachricht
-                        const feedbackMsg = `💪 Du machst Fortschritt! ${progressNames}`;
-                        this.messages.push({
-                            id: this.messageIdCounter++,
-                            role: 'system',
-                            content: feedbackMsg,
-                            timestamp: new Date().toISOString()
-                        });
+                        // Sende Fortschritts-Nachricht (DISABLED)
+                        // const feedbackMsg = `💪 Du machst Fortschritt! ${progressNames}`;
+                        // this.messages.push({
+                        //     id: this.messageIdCounter++,
+                        //     role: 'system',
+                        //     content: feedbackMsg,
+                        //     timestamp: new Date().toISOString()
+                        // });
                     }
                 },
 
