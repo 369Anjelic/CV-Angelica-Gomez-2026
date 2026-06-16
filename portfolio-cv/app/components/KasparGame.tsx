@@ -10,9 +10,8 @@ export default function KasparGame() {
         border: 'none',
         display: 'block'
       }}
-      title="Kaspar Hauser - Das größte Rätsel Deutschlands"
-      allow="geolocation; microphone; camera"
-      sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation"
+      title="Kaspar Hauser Quest"
+      allow="geolocation"
     />
   );
 }
