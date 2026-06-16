@@ -1809,11 +1809,7 @@
 
                 get API_URL() {
                     const hostname = window.location.hostname;
-                    if (hostname === 'localhost' || hostname === '127.0.0.1') {
-                        return 'http://localhost:3003';
-                    } else if (hostname.includes('vercel') || hostname.includes('cv-angelica')) {
-                        return '/api/glitch';
-                    }
+                    // Immer localhost für Glitch API (local or remote)
                     return 'http://localhost:3003';
                 },
 
