@@ -48,7 +48,7 @@
       "static/chunks/fd9d1056-3eee857bde8f3b06.js",
       "static/chunks/117-29466efefd806f9c.js",
       "static/chunks/main-app-a1988e63c2ab70d2.js",
-      "static/chunks/app/page-e2b7c49479051434.js"
+      "static/chunks/app/page-dde51ca9c334d586.js"
     ],
     "/project/[...path]/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",
@@ -57,13 +57,12 @@
       "static/chunks/main-app-a1988e63c2ab70d2.js",
       "static/chunks/app/project/[...path]/page-de0f9f53ec5cec89.js"
     ],
-    "/projects/[id]/page": [
+    "/python/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",
       "static/chunks/fd9d1056-3eee857bde8f3b06.js",
       "static/chunks/117-29466efefd806f9c.js",
       "static/chunks/main-app-a1988e63c2ab70d2.js",
-      "static/chunks/648-e01041308e47feb0.js",
-      "static/chunks/app/projects/[id]/page-5c6705f523654ff1.js"
+      "static/chunks/app/python/page-f8b995f3d3e8a820.js"
     ],
     "/umfrage/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",
@@ -72,12 +71,13 @@
       "static/chunks/main-app-a1988e63c2ab70d2.js",
       "static/chunks/app/umfrage/page-1c4c851432b057e7.js"
     ],
-    "/python/page": [
+    "/projects/[id]/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",
       "static/chunks/fd9d1056-3eee857bde8f3b06.js",
       "static/chunks/117-29466efefd806f9c.js",
       "static/chunks/main-app-a1988e63c2ab70d2.js",
-      "static/chunks/app/python/page-f8b995f3d3e8a820.js"
+      "static/chunks/648-e01041308e47feb0.js",
+      "static/chunks/app/projects/[id]/page-5c6705f523654ff1.js"
     ]
   }
 }

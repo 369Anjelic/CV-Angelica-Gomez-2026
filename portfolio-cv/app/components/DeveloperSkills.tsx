@@ -127,6 +127,30 @@ obj.data.materials.append(mat)`,
     description: '3D Modeling, Animation, Rendering, Visual Effects',
   },
   {
+    name: 'CAD',
+    category: 'Tools & Design',
+    level: 35,
+    codeExample: `// CAD Design Workflow
+// 1. Erstelle technische Zeichnungen
+// 2. Baupläne und Konstruktionspläne
+// 3. 3D-Modellierung von Objekten
+// 4. Detailzeichnungen und Ansichten
+// 5. Export in verschiedene Formate`,
+    description: 'Technische Zeichnungen, Baupläne, 3D-Modellierung, Konstruktion',
+  },
+  {
+    name: 'DaVinci Resolve',
+    category: 'Tools & Design',
+    level: 45,
+    codeExample: `// DaVinci Resolve Videobearbeitung
+// 1. Import von Videoclips
+// 2. Color Grading und Farbkorrektur
+// 3. Schnitt und Timeline-Bearbeitung
+// 4. Text und Motion Graphics
+// 5. Audio-Mixing und Export`,
+    description: 'Videobearbeitung, Color Grading, Video-Schnitt, Motion Graphics, Audio-Mixing',
+  },
+  {
     name: 'PyCharm IDE',
     category: 'Tools & Development',
     level: 35,
