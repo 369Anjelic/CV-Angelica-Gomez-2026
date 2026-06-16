@@ -17,6 +17,8 @@ export async function POST(request) {
         return handleHistory(body);
       case 'export':
         return handleExport(body);
+      case 'execute-python':
+        return handleExecutePython(body);
       default:
         return Response.json(
           { error: `Unknown endpoint: ${endpoint}` },
@@ -38,13 +40,18 @@ async function handleChat(body) {
 
   console.log('[Glitch Chat]', { message: message?.substring(0, 30), words, apiKey: !!apiKey });
 
+  // Fallback response when API key is not available
   if (!apiKey) {
     return Response.json(
       {
-        response: 'Glitch: Fehler - API-Schlüssel nicht konfiguriert! Starte den lokalen Server mit `npm run dev`.',
-        error: 'API_KEY_MISSING',
+        response: generateOfflineResponse(message),
+        words_assigned: generateWords(),
+        level_up: null,
+        jokers_remaining: 3,
+        learned_lf: null,
+        learned_topic: null,
       },
-      { status: 503 }
+      { status: 200 }
     );
   }
 
@@ -123,6 +130,37 @@ function handleExport(body) {
     },
     { status: 200 }
   );
+}
+
+function handleExecutePython(body) {
+  const { code } = body;
+  console.log('[Glitch Execute Python]', { codeLength: code?.length });
+
+  // Note: Direct Python execution is not available on Vercel serverless
+  // Return a helpful message instead
+  return Response.json(
+    {
+      executed: false,
+      output: 'Python-Ausführung ist auf dieser Version nicht verfügbar.\n\nFür lokale Tests: npm run dev auf http://localhost:3003',
+      error: true
+    },
+    { status: 200 }
+  );
+}
+
+function generateOfflineResponse(message) {
+  const responses = {
+    python: '💡 Python ist eine vielseitige Sprache. Wichtig: print(), Variablen, Schleifen (for/while), Funktionen (def), OOP (Klassen). Welcher Bereich interessiert dich am meisten?',
+    sql: '💡 SQL ist deine Zugangskarte zu Datenbanken! SELECT, WHERE, JOIN sind die Basics. Denk an Normalisierung! Was möchtest du über Datenbanken lernen?',
+    javascript: '💡 JavaScript ist überall! DOM, Events, Fetch API sind essentiell. Wie steht es mit deinen JS-Skills?',
+    default: '💡 Gute Frage! Das ist wichtig für deine IHK-Prüfung. Lass mich dir ein paar Punkte geben zum Überlegen. Welches Lernfeld interessiert dich?'
+  };
+
+  const lowerMsg = message.toLowerCase();
+  if (lowerMsg.includes('python') || lowerMsg.includes('skript')) return responses.python;
+  if (lowerMsg.includes('sql') || lowerMsg.includes('datenbank')) return responses.sql;
+  if (lowerMsg.includes('javascript') || lowerMsg.includes('dom')) return responses.javascript;
+  return responses.default;
 }
 
 function generateWords() {
