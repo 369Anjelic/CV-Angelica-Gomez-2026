@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python Coding Übungen - IDE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script async src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      background: #252526;
+      border-bottom: 1px solid #3e3e42;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header h1 {
+      font-size: 16px;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .header-badge {
+      background: #007acc;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+
+    /* Main Content */
+    .main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: #1e1e1e;
+      border-right: 1px solid #3e3e42;
+      overflow-y: auto;
+      padding: 10px 0;
+    }
+
+    .exercise-item {
+      padding: 8px 15px;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+      user-select: none;
+      font-size: 13px;
+    }
+
+    .exercise-item:hover {
+      background: #2d2d30;
+    }
+
+    .exercise-item.active {
+      background: #007acc;
+      border-left-color: #007acc;
+      color: #fff;
+    }
+
+    .exercise-label {
+      font-weight: 500;
+      color: #b4b4b4;
+    }
+
+    .exercise-item.active .exercise-label {
+      color: #fff;
+    }
+
+    /* Editor Area */
+    .editor-area {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Code Panel */
+    .code-panel {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #3e3e42;
+    }
+
+    /* Description Panel */
+    .description-panel {
+      flex: 0.9;
+      display: flex;
+      flex-direction: column;
+      background: #1e1e1e;
+      border-right: 1px solid #3e3e42;
+    }
+
+    .description-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #d4d4d4;
+    }
+
+    .description-content h3 {
+      color: #4ec9b0;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .description-content p {
+      margin: 8px 0;
+    }
+
+    .description-content ul, .description-content ol {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+
+    .description-content li {
+      margin: 5px 0;
+    }
+
+    .description-content code {
+      background: #252526 !important;
+      padding: 2px 4px;
+      border-radius: 2px;
+      font-size: 11px;
+    }
+
+    .panel-header {
+      background: #252526;
+      border-bottom: 1px solid #3e3e42;
+      padding: 10px 15px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #d4d4d4;
+    }
+
+    .code-editor {
+      flex: 1;
+      overflow-y: auto;
+      position: relative;
+      background: #1e1e1e;
+    }
+
+    .code-content {
+      padding: 15px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    pre {
+      margin: 0;
+      background: #1e1e1e !important;
+    }
+
+    code {
+      background: #1e1e1e !important;
+      color: #d4d4d4 !important;
+    }
+
+    .hljs {
+      background: #1e1e1e !important;
+      color: #d4d4d4 !important;
+    }
+
+    /* Terminal Panel */
+    .terminal-panel {
+      flex: 0.9;
+      display: flex;
+      flex-direction: column;
+      background: #1e1e1e;
+    }
+
+    .terminal-header {
+      background: #252526;
+      border-bottom: 1px solid #3e3e42;
+      padding: 8px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #d4d4d4;
+    }
+
+    .run-button {
+      background: #007acc;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .run-button:hover {
+      background: #005a9e;
+    }
+
+    .run-button:active {
+      transform: scale(0.95);
+    }
+
+    .run-button.loading {
+      background: #666;
+      cursor: not-allowed;
+    }
+
+    .terminal {
+      flex: 1;
+      overflow-y: auto;
+      background: #000;
+      padding: 15px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #0dff00;
+    }
+
+    .terminal-line {
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .terminal-input-prompt {
+      color: #ffaa00;
+      display: inline;
+    }
+
+    .terminal-input-prompt {
+      margin-top: 5px;
+    }
+
+    .terminal-input-box {
+      background: #1a1a1a;
+      color: #0dff00;
+      border: 1px solid #0dff00;
+      padding: 6px 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      width: calc(100% - 20px);
+      outline: none;
+      margin-top: 3px;
+    }
+
+    .terminal-input-box:focus {
+      border-color: #4ec9b0;
+      box-shadow: 0 0 5px rgba(78, 201, 176, 0.3);
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1e1e1e;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #464647;
+      border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #5a5a5a;
+    }
+
+    @media (max-width: 1400px) {
+      .sidebar {
+        width: 250px;
+      }
+      .description-panel {
+        flex: 0.7;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🐍 Python Coding Übungen (33x)</h1>
+      <span class="header-badge">IDE mit Erklärungen</span>
+    </div>
+
+    <div class="main">
+      <div class="sidebar" id="sidebar"></div>
+
+      <div class="editor-area">
+        <div class="code-panel">
+          <div class="panel-header">📄 Code (main.py)</div>
+          <div class="code-editor">
+            <div class="code-content">
+              <pre><code class="language-python" id="code-display"></code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="description-panel">
+          <div class="panel-header">📖 Erklärung & Details</div>
+          <div class="description-content" id="description-display"></div>
+        </div>
+
+        <div class="terminal-panel">
+          <div class="terminal-header">
+            <span>🖥️ Terminal / Output</span>
+            <button class="run-button" id="runBtn" onclick="runCode()">▶ Run Code</button>
+          </div>
+          <div class="terminal" id="terminal">
+            <div class="terminal-line">$ python main.py</div>
+            <div class="terminal-line">Klicke "Run Code" zum Ausführen...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Server-basierte Ausführung (keine Pyodide nötig!)
+
+    // Exercise Data
+    const exercises = [
+      {
+        id: '01_calculator',
+        name: '01 - Calculator',
+        code: `# Einfacher Taschenrechner
+print("=== Einfacher Taschenrechner ===")
+
+num1 = float(input("Erste Zahl eingeben: "))
+num2 = float(input("Zweite Zahl eingeben: "))
+
+print("\\nWähle Operation:")
+print("1. Addition (+)")
+print("2. Subtraktion (-)")
+print("3. Multiplikation (*)")
+print("4. Division (/)")
+
+operation = input("\\nWähle (1/2/3/4): ")
+
+if operation == "1":
+    print(f"Ergebnis: {num1} + {num2} = {num1 + num2}")
+elif operation == "2":
+    print(f"Ergebnis: {num1} - {num2} = {num1 - num2}")
+elif operation == "3":
+    print(f"Ergebnis: {num1} * {num2} = {num1 * num2}")
+elif operation == "4":
+    if num2 != 0:
+        print(f"Ergebnis: {num1} / {num2} = {num1 / num2}")
+    else:
+        print("Fehler: Division durch Null!")`,
+        output: `=== Einfacher Taschenrechner ===
+Erste Zahl eingeben: 10
+Zweite Zahl eingeben: 5
+
+Wähle Operation:
+1. Addition (+)
+2. Subtraktion (-)
+3. Multiplikation (*)
+4. Division (/)
+
+Wähle (1/2/3/4): 1
+Ergebnis: 10.0 + 5.0 = 15.0`,
+        explanation: `<h3>🧮 Einfacher Taschenrechner</h3>
+<p><strong>Was ist das?</strong> Ein interaktives Rechenprogramm, das zwei Zahlen verarbeitet und vier Grundoperationen durchführt.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Beliebige Zahlenkombinationen addieren, subtrahieren, multiplizieren oder dividieren</li>
+<li>Fehler abfangen (Division durch Null)</li>
+<li>Benutzer-Input validieren und verarbeiten</li>
+</ul>
+<p><strong>Konzepte:</strong> input(), float(), if/elif/else, f-Strings</p>`
+      },
+      {
+        id: '02_mad_libs',
+        name: '02 - Mad Libs',
+        code: `# Mad Libs Generator
+print("=== Mad Libs Story Generator ===\\n")
+
+adjective = input("Adjektiv: ")
+noun = input("Nomen: ")
+verb = input("Verb: ")
+adverb = input("Adverb: ")
+
+story = f"""
+Es war einmal ein {adjective} {noun}.
+Der {noun} begann zu {verb} {adverb}.
+"Das ist fantastisch!" rief jemand.
+"""
+
+print(story)`,
+        output: `=== Mad Libs Story Generator ===
+
+Adjektiv: magisch
+Nomen: Drache
+Verb: fliegen
+Adverb: schnell
+
+Es war einmal ein magisch Drache.
+Der Drache begann zu fliegen schnell.
+"Das ist fantastisch!" rief jemand.`,
+        explanation: `<h3>📖 Mad Libs Story Generator</h3>
+<p><strong>Was ist das?</strong> Ein spielerisches Programm, das benutzerdefinierte Wörter in eine vorgefertigte Geschichte einfügt.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Lustige, randomisierte Geschichten generieren</li>
+<li>Mit Freunden spielen und kreative Wörter eingeben</li>
+<li>Bildung: Wortarten verstehen (Adjektive, Nomen, Verben)</li>
+</ul>
+<p><strong>Konzepte:</strong> input(), f-Strings, String-Interpolation, String-Templates</p>`
+      },
+      {
+        id: '03_number_guessing',
+        name: '03 - Number Guessing',
+        code: `# Zahlenratespiel
+import random
+
+print("=== Zahlenratespiel ===")
+secret = random.randint(1, 100)
+attempts = 0
+
+while True:
+    guess = int(input("Raten Sie eine Zahl (1-100): "))
+    attempts += 1
+
+    if guess < secret:
+        print("➜ Zu klein!")
+    elif guess > secret:
+        print("➜ Zu groß!")
+    else:
+        print(f"🎉 Richtig! Sie haben {attempts} Versuche benötigt!")
+        break`,
+        output: `=== Zahlenratespiel ===
+Raten Sie eine Zahl (1-100): 50
+➜ Zu klein!
+Raten Sie eine Zahl (1-100): 75
+➜ Zu groß!
+Raten Sie eine Zahl (1-100): 60
+➜ Zu klein!
+Raten Sie eine Zahl (1-100): 65
+🎉 Richtig! Sie haben 4 Versuche benötigt!`,
+        explanation: `<h3>🎯 Zahlenratespiel</h3>
+<p><strong>Was ist das?</strong> Ein interaktives Spiel, bei dem der Computer eine Zahl denkt und der Spieler sie erraten muss.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Ein unterhaltsames Spiel spielen mit Hinweisen</li>
+<li>Programmlogik verstehen (while-Schleifen, Bedingungen)</li>
+<li>Zufallszahlen-Generierung lernen</li>
+<li>Versuche zählen und Spielstatistiken tracken</li>
+</ul>
+<p><strong>Konzepte:</strong> while-Schleife, random, if/elif/else, break, Counter</p>`
+      },
+      {
+        id: '04_coin_flip',
+        name: '04 - Coin Flip',
+        code: `# Münzwurf-Simulator
+import random
+
+print("=== Münzwurf-Simulator ===\\n")
+
+flips = int(input("Wie viele Würfe? "))
+heads = 0
+tails = 0
+
+for _ in range(flips):
+    result = random.choice(["Kopf", "Zahl"])
+    if result == "Kopf":
+        heads += 1
+    else:
+        tails += 1
+
+print(f"\\nErgebnisse:")
+print(f"Kopf:  {heads} ({heads/flips*100:.1f}%)")
+print(f"Zahl:  {tails} ({tails/flips*100:.1f}%)")`,
+        output: `=== Münzwurf-Simulator ===
+
+Wie viele Würfe? 100
+
+Ergebnisse:
+Kopf:  52 (52.0%)
+Zahl:  48 (48.0%)`,
+        explanation: `<h3>🪙 Münzwurf-Simulator</h3>
+<p><strong>Was ist das?</strong> Ein Statistik-Tool, das Münzwürfe simuliert und die Häufigkeiten berechnet.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Wahrscheinlichkeits-Experimente durchführen</li>
+<li>Statistiken sammeln und visualisieren</li>
+<li>Teste die 50/50-Hypothese bei vielen Würfen</li>
+<li>Zufalls-Daten für Analysen generieren</li>
+</ul>
+<p><strong>Konzepte:</strong> for-Schleife, random.choice(), Zähler, Prozentrechnung</p>`
+      },
+      {
+        id: '05_rock_paper_scissors',
+        name: '05 - Rock Paper Scissors',
+        code: `# Stein-Papier-Schere Spiel
+import random
+
+print("=== Stein-Papier-Schere ===")
+choices = ["Stein", "Papier", "Schere"]
+
+while True:
+    player = input("\\nWähle (Stein/Papier/Schere) oder 'quit': ").capitalize()
+    if player == "Quit":
+        break
+
+    if player not in choices:
+        print("Ungültige Wahl!")
+        continue
+
+    computer = random.choice(choices)
+    print(f"Computer wählte: {computer}")
+
+    if player == computer:
+        print("Unentschieden!")
+    elif (player == "Stein" and computer == "Schere") or \\
+         (player == "Papier" and computer == "Stein") or \\
+         (player == "Schere" and computer == "Papier"):
+        print("✓ Du gewinnst!")
+    else:
+        print("✗ Computer gewinnt!")`,
+        output: `=== Stein-Papier-Schere ===
+
+Wähle (Stein/Papier/Schere) oder 'quit': Stein
+Computer wählte: Schere
+✓ Du gewinnst!`,
+        explanation: `<h3>✂️ Stein-Papier-Schere</h3>
+<p><strong>Was ist das?</strong> Eine digitale Version des klassischen Spiels gegen den Computer.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Ein beliebtes Spiel spielen</li>
+<li>Spiellogik und Regelwerk implementieren</li>
+<li>Input-Validierung verstehen</li>
+<li>Mehrere Runden spielen ohne Neustarten</li>
+</ul>
+<p><strong>Konzepte:</strong> while-Schleife, random, if/elif/else, String-Vergleiche, .capitalize()</p>`
+      },
+      {
+        id: '06_temperature_converter',
+        name: '06 - Temperature Converter',
+        code: `# Temperatur-Umwandler
+print("=== Temperatur-Umwandler ===\\n")
+
+while True:
+    print("1. Celsius → Fahrenheit")
+    print("2. Fahrenheit → Celsius")
+    print("3. Beenden")
+
+    choice = input("\\nWähle (1/2/3): ")
+
+    if choice == "1":
+        celsius = float(input("Celsius: "))
+        fahrenheit = (celsius * 9/5) + 32
+        print(f"= {fahrenheit:.1f}°F\\n")
+    elif choice == "2":
+        fahrenheit = float(input("Fahrenheit: "))
+        celsius = (fahrenheit - 32) * 5/9
+        print(f"= {celsius:.1f}°C\\n")
+    elif choice == "3":
+        break`,
+        output: `=== Temperatur-Umwandler ===
+
+1. Celsius → Fahrenheit
+2. Fahrenheit → Celsius
+3. Beenden
+
+Wähle (1/2/3): 1
+Celsius: 25
+= 77.0°F`,
+        explanation: `<h3>🌡️ Temperatur-Umwandler</h3>
+<p><strong>Was ist das?</strong> Ein praktisches Tool für die bidirektionale Temperaturkonvertierung zwischen Celsius und Fahrenheit.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Temperaturen zwischen Skalen konvertieren</li>
+<li>Reisen in Länder mit anderen Temperaturskalen verstehen</li>
+<li>Wissenschaftliche und praktische Berechnungen durchführen</li>
+<li>Formatierte Ausgabe lernen (.1f für Dezimalstellen)</li>
+</ul>
+<p><strong>Konzepte:</strong> Mathematische Formeln, f-String-Formatierung, Menü-Schleife</p>`
+      },
+      {
+        id: '07_todo_list',
+        name: '07 - Todo List',
+        code: `# TODO Liste
+todos = []
+
+while True:
+    print("\\n=== TODO Liste ===")
+    for i, task in enumerate(todos, 1):
+        print(f"{i}. {task}")
+
+    print("\\n1. Task hinzufügen")
+    print("2. Task löschen")
+    print("3. Beenden")
+
+    choice = input("Wähle: ")
+
+    if choice == "1":
+        task = input("Task: ")
+        todos.append(task)
+        print("✓ Hinzugefügt!")
+    elif choice == "2":
+        num = int(input("Nummer: ")) - 1
+        if 0 <= num < len(todos):
+            todos.pop(num)
+            print("✓ Gelöscht!")
+    elif choice == "3":
+        break`,
+        output: `
+=== TODO Liste ===
+
+1. Task hinzufügen
+2. Task löschen
+3. Beenden
+
+Wähle: 1
+Task: Python lernen
+✓ Hinzugefügt!`,
+        explanation: `<h3>✅ TODO Liste</h3>
+<p><strong>Was ist das?</strong> Ein einfacher Task-Manager, um deine Aufgaben zu organisieren und zu verwalten.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Tasks erstellen, anzeigen und löschen</li>
+<li>Deine täglichen Aufgaben verwalten</li>
+<li>Listen-Operationen (.append(), .pop()) üben</li>
+<li>Persistente Daten-Struktur verstehen</li>
+</ul>
+<p><strong>Konzepte:</strong> Listen, .append(), .pop(), enumerate(), Schleifen, Index-Validierung</p>`
+      },
+      {
+        id: '08_simple_quiz',
+        name: '08 - Simple Quiz',
+        code: `# Quiz-Spiel
+questions = [
+    ("Hauptstadt von Deutschland?", "Berlin"),
+    ("2 + 2 = ?", "4"),
+    ("Größter Planet?", "Jupiter")
+]
+
+score = 0
+
+for question, answer in questions:
+    response = input(f"\\n{question} ")
+    if response.lower() == answer.lower():
+        score += 1
+        print("✓ Richtig!")
+    else:
+        print(f"✗ Falsch! Antwort: {answer}")
+
+print(f"\\nPunktzahl: {score}/{len(questions)}")`,
+        output: `Hauptstadt von Deutschland? Berlin
+✓ Richtig!
+
+2 + 2 = ? 4
+✓ Richtig!
+
+Größter Planet? Jupiter
+✓ Richtig!
+
+Punktzahl: 3/3`,
+        explanation: `<h3>🎓 Simple Quiz</h3>
+<p><strong>Was ist das?</strong> Ein Frage-Antwort-Spiel mit automatischer Bewertung und Punktesystem.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Quizzes spielen und dein Wissen testen</li>
+<li>Lernmaterial gamifizieren</li>
+<li>Tuples und Schleifen-Paarungen verstehen</li>
+<li>Scoring und Statistiken berechnen</li>
+</ul>
+<p><strong>Konzepte:</strong> Tuples, for-Schleifen, .lower() für Case-Insensitivity, Zähler</p>`
+      },
+      {
+        id: '09_password_generator',
+        name: '09 - Password Generator',
+        code: `# Passwort-Generator
+import random
+import string
+
+print("=== Passwort-Generator ===\\n")
+
+length = int(input("Länge: "))
+include_upper = input("Großbuchstaben? (j/n): ").lower() == 'j'
+include_digits = input("Ziffern? (j/n): ").lower() == 'j'
+include_special = input("Sonderzeichen? (j/n): ").lower() == 'j'
+
+chars = string.ascii_lowercase
+if include_upper:
+    chars += string.ascii_uppercase
+if include_digits:
+    chars += string.digits
+if include_special:
+    chars += string.punctuation
+
+password = ''.join(random.choice(chars) for _ in range(length))
+print(f"\\nPasswort: {password}`,
+        output: `=== Passwort-Generator ===
+
+Länge: 12
+Großbuchstaben? (j/n): j
+Ziffern? (j/n): j
+Sonderzeichen? (j/n): n
+
+Passwort: aB3cDeFg9hIj`,
+        explanation: `<h3>🔐 Passwort-Generator</h3>
+<p><strong>Was ist das?</strong> Ein Sicherheits-Tool, das sichere, zufällige Passwörter mit benutzerdefinierten Kriterien generiert.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Sichere Passwörter für deine Konten generieren</li>
+<li>String-Konkatenation verstehen</li>
+<li>Bedingte Logik für Optionen nutzen</li>
+<li>Kryptografisch sichere Randomisierung lernen</li>
+</ul>
+<p><strong>Konzepte:</strong> random, string-Module, Bedingte Konstruktion, List Comprehension mit join()</p>`
+      },
+      {
+        id: '10_bmi_calculator',
+        name: '10 - BMI Calculator',
+        code: `# BMI-Kalkulator
+print("=== BMI-Kalkulator ===\\n")
+
+weight = float(input("Gewicht (kg): "))
+height = float(input("Größe (m): "))
+
+bmi = weight / (height ** 2)
+
+print(f"\\nBMI: {bmi:.1f}")
+
+if bmi < 18.5:
+    print("Kategorie: Untergewicht")
+elif bmi < 25:
+    print("Kategorie: Normalgewicht")
+elif bmi < 30:
+    print("Kategorie: Übergewicht")
+else:
+    print("Kategorie: Adipositas")`,
+        output: `=== BMI-Kalkulator ===
+
+Gewicht (kg): 75
+Größe (m): 1.8
+
+BMI: 23.1
+Kategorie: Normalgewicht`,
+        explanation: `<h3>⚖️ BMI Calculator</h3>
+<p><strong>Was ist das?</strong> Ein Gesundheits-Tool, das deinen Body Mass Index berechnet und kategorisiert.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Deinen BMI schnell berechnen</li>
+<li>Gewichtskategorie bestimmen</li>
+<li>Medizinische Formeln implementieren</li>
+<li>Bedingte Ausgabe basierend auf numerischen Bereichen</li>
+</ul>
+<p><strong>Konzepte:</strong> Mathematische Formeln, if/elif/else, Formatierung mit :.1f</p>`
+      },
+      {
+        id: '11_dice_roller',
+        name: '11 - Dice Roller',
+        code: `# Würfel-Roller
+import random
+
+print("=== Würfel-Roller ===\\n")
+
+notation = input("Notation (z.B. 3d6): ")
+parts = notation.lower().split('d')
+
+num_dice = int(parts[0])
+dice_size = int(parts[1])
+
+rolls = [random.randint(1, dice_size) for _ in range(num_dice)]
+
+print(f"\\nWürfe: {rolls}")
+print(f"Summe: {sum(rolls)}")`,
+        output: `=== Würfel-Roller ===
+
+Notation (z.B. 3d6): 3d6
+
+Würfe: [4, 2, 5]
+Summe: 11`,
+        explanation: `<h3>🎲 Dice Roller</h3>
+<p><strong>Was ist das?</strong> Ein Werkzeug für Tabletop-RPGs und Würfelspiele, das Würfelwürfe in der d&d-Notation simuliert.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Spielzüge in D&D, Pathfinder etc. werfen</li>
+<li>String-Parsing (split()) lernen</li>
+<li>List Comprehension mit random verstehen</li>
+<li>Zufallszahl-Statistiken sammeln</li>
+</ul>
+<p><strong>Konzepte:</strong> String-Parsing, List Comprehension, random.randint(), sum()</p>`
+      },
+      {
+        id: '12_random_quote',
+        name: '12 - Random Quote',
+        code: `# Zitat-Generator
+import random
+
+quotes = [
+    "Das Einzige, das sich niemals ändert, ist der Wandel. - Heraklit",
+    "Die beste Zeit einen Baum zu pflanzen war vor 20 Jahren. Die zweite beste Zeit ist jetzt. - Chinesisches Sprichwort",
+    "Es ist unmöglich, bis man es getan hat. - Nelson Mandela",
+    "Der Weg zum Erfolg ist Handlung. - Pablo Picasso"
+]
+
+print("=== Zitat des Tages ===\\n")
+print(random.choice(quotes))`,
+        output: `=== Zitat des Tages ===
+
+Das Einzige, das sich niemals ändert, ist der Wandel. - Heraklit`,
+        explanation: `<h3>💭 Random Quote</h3>
+<p><strong>Was ist das?</strong> Ein inspirierendes Tool, das täglich ein zufälliges Motivations-Zitat anzeigt.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Tägliche Inspiration und Motivation bekommen</li>
+<li>Listen-Struktur und random.choice() verstehen</li>
+<li>Eine Zitat-Datenbank aufbauen</li>
+<li>In Apps oder Bots integrieren</li>
+</ul>
+<p><strong>Konzepte:</strong> Listen, random.choice(), Daten-Strukturen</p>`
+      },
+      {
+        id: '13_text_analyzer',
+        name: '13 - Text Analyzer',
+        code: `# Text-Analyse
+text = input("Text eingeben: ")
+
+words = text.split()
+chars = len(text)
+letters = sum(1 for c in text if c.isalpha())
+digits = sum(1 for c in text if c.isdigit())
+spaces = text.count(' ')
+
+print(f"\\nStatistik:")
+print(f"Zeichen:      {chars}")
+print(f"Buchstaben:   {letters}")
+print(f"Ziffern:      {digits}")
+print(f"Leerzeichen:  {spaces}")
+print(f"Wörter:       {len(words)}")
+print(f"Ø Wortlänge:  {chars/len(words):.1f}")`,
+        output: `Text eingeben: Hallo Welt
+
+Statistik:
+Zeichen:      11
+Buchstaben:   9
+Ziffern:      0
+Leerzeichen:  1
+Wörter:       2
+Ø Wortlänge:  5.5`,
+        explanation: `<h3>📊 Text Analyzer</h3>
+<p><strong>Was ist das?</strong> Ein Analyse-Tool, das detaillierte Statistiken über eingegebenen Text liefert.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Textmetriken für schriftliche Arbeiten analysieren</li>
+<li>Wort- und Buchstabenzählung automatisieren</li>
+<li>Lesbarkeits-Analysen durchführen</li>
+<li>Generator-Ausdrücke mit sum() verstehen</li>
+</ul>
+<p><strong>Konzepte:</strong> String-Methoden (.isalpha(), .isdigit()), split(), Generator-Ausdrücke, sum()</p>`
+      },
+      {
+        id: '14_word_counter',
+        name: '14 - Word Counter',
+        code: `# Wort-Zähler
+from collections import Counter
+
+text = input("Text eingeben: ").lower()
+words = text.replace('.', '').replace(',', '').split()
+
+counter = Counter(words)
+
+print("\\nWort-Häufigkeit:")
+for word, count in counter.most_common(5):
+    print(f"{word}: {count}")`,
+        output: `Text eingeben: Das ist ein Test. Das ist ein Beispiel.
+
+Wort-Häufigkeit:
+das: 2
+ist: 2
+ein: 2
+test: 1
+beispiel: 1`,
+        explanation: `<h3>📈 Word Counter</h3>
+<p><strong>Was ist das?</strong> Ein Text-Analyse-Tool, das die Häufigkeit von Wörtern zählt und sortiert.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Häufigste Wörter in Texten identifizieren</li>
+<li>Sentiment-Analyse vorbereiten</li>
+<li>Collections.Counter Modul lernen</li>
+<li>Keyword-Analyse für SEO durchführen</li>
+</ul>
+<p><strong>Konzepte:</strong> Counter, most_common(), String-Bereinigung, .lower(), .split()</p>`
+      },
+      {
+        id: '15_age_calculator',
+        name: '15 - Age Calculator',
+        code: `# Alter-Kalkulator
+from datetime import datetime
+
+print("=== Alter-Kalkulator ===\\n")
+
+year = int(input("Geburtsjahr: "))
+month = int(input("Geburtsmonat (1-12): "))
+day = int(input("Geburtstag: "))
+
+birthdate = datetime(year, month, day)
+today = datetime.now()
+age = (today - birthdate).days // 365
+
+print(f"\\nAlter: {age} Jahre")`,
+        output: `=== Alter-Kalkulator ===
+
+Geburtsjahr: 1990
+Geburtsmonat (1-12): 5
+Geburtstag: 15
+
+Alter: 33 Jahre`,
+        explanation: `<h3>🎂 Age Calculator</h3>
+<p><strong>Was ist das?</strong> Ein Tool, das dein Alter basierend auf deinem Geburtsdatum berechnet.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Exaktes Alter in Jahren berechnen</li>
+<li>datetime-Modul verstehen</li>
+<li>Datums-Arithmetik durchführen</li>
+<li>Zeiten und Datumsangaben verarbeiten</li>
+</ul>
+<p><strong>Konzepte:</strong> datetime, datetime.now(), Datums-Differenzen, Integer Division (//)</p>`
+      },
+      {
+        id: '16_fibonacci',
+        name: '16 - Fibonacci',
+        code: `# Fibonacci-Sequenz
+def fibonacci(n):
+    sequence = [0, 1]
+    while len(sequence) < n:
+        sequence.append(sequence[-1] + sequence[-2])
+    return sequence
+
+print("=== Fibonacci-Sequenz ===\\n")
+
+count = int(input("Wie viele Zahlen? "))
+fib = fibonacci(count)
+
+print(f"\\nSequenz: {fib}")
+print(f"Summe: {sum(fib)}")`,
+        output: `=== Fibonacci-Sequenz ===
+
+Wie viele Zahlen? 10
+
+Sequenz: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+Summe: 88`,
+        explanation: `<h3>🔢 Fibonacci-Sequenz</h3>
+<p><strong>Was ist das?</strong> Ein mathematisches Programm, das die berühmte Fibonacci-Zahlenreihe generiert.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Fibonacci-Zahlen für mathematische Analysen generieren</li>
+<li>Funktionen schreiben und verwenden</li>
+<li>List-Indexierung mit negativen Indizes verstehen</li>
+<li>Klassische Algorithmen implementieren</li>
+</ul>
+<p><strong>Konzepte:</strong> Funktionen, while-Schleife, List-Indexierung ([-1], [-2]), return</p>`
+      },
+      {
+        id: '17_palindrome_checker',
+        name: '17 - Palindrome Checker',
+        code: `# Palindrom-Prüfer
+text = input("Text eingeben: ").lower().replace(" ", "")
+
+if text == text[::-1]:
+    print(f"'{text}' ist ein Palindrom! ✓")
+else:
+    print(f"'{text}' ist kein Palindrom. ✗")`,
+        output: `Text eingeben: racecar
+
+'racecar' ist ein Palindrom! ✓`,
+        explanation: `<h3>🔄 Palindrome Checker</h3>
+<p><strong>Was ist das?</strong> Ein Tool, das prüft, ob ein Text ein Palindrom (vorwärts = rückwärts) ist.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Palindrome identifizieren und validieren</li>
+<li>String-Slicing mit [::-1] verstehen</li>
+<li>Textverarbeitung üben</li>
+<li>Spiele und Rätsel lösen</li>
+</ul>
+<p><strong>Konzepte:</strong> String-Slicing ([::-1]), .lower(), .replace(), String-Vergleiche</p>`
+      },
+      {
+        id: '18_hangman',
+        name: '18 - Hangman',
+        code: `# Galgenmännchen
+import random
+
+words = ["python", "programm", "developer", "computer"]
+word = random.choice(words)
+guessed = set()
+wrong = 0
+
+while wrong < 6:
+    display = ''.join([c if c in guessed else '_' for c in word])
+    print(f"\\nWort: {display}")
+    print(f"Falsch: {wrong}/6")
+
+    guess = input("Buchstabe: ").lower()
+
+    if guess in word:
+        guessed.add(guess)
+        if all(c in guessed for c in word):
+            print(f"Gewonnen! Wort: {word}")
+            break
+    else:
+        wrong += 1`,
+        output: `Wort: _ _ _ _ _ _
+Falsch: 0/6
+Buchstabe: e
+
+Wort: _ _ _ _ _ _
+Falsch: 0/6
+Buchstabe: a
+
+Wort: _ _ _ _ a _
+Falsch: 0/6`,
+        explanation: `<h3>🎮 Hangman (Galgenmännchen)</h3>
+<p><strong>Was ist das?</strong> Das klassische Wort-Ratespiel, bei dem du Buchstaben raten musst, bevor deine Leben aufgebraucht sind.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Das beliebte Hangman-Spiel spielen</li>
+<li>Sets und ihre Operationen lernen</li>
+<li>List Comprehension mit Bedingungen üben</li>
+<li>Game-Loop und Spiellogik verstehen</li>
+</ul>
+<p><strong>Konzepte:</strong> Sets, List Comprehension, .join(), all(), add()</p>`
+      },
+      {
+        id: '19_pyramid_patterns',
+        name: '19 - Pyramid Patterns',
+        code: `# Pyramiden-Muster
+print("=== Pyramiden-Muster ===\\n")
+
+size = int(input("Größe: "))
+
+# Pyramide mit Sternen
+print("Pyramide mit Sternen:")
+for i in range(1, size + 1):
+    print(" " * (size - i) + "*" * (2 * i - 1))
+
+# Diamant
+print("\\nDiamant:")
+for i in range(1, size + 1):
+    print(" " * (size - i) + "*" * (2 * i - 1))
+for i in range(size - 1, 0, -1):
+    print(" " * (size - i) + "*" * (2 * i - 1))`,
+        output: `=== Pyramiden-Muster ===
+
+Größe: 5
+Pyramide mit Sternen:
+    *
+   ***
+  *****
+ *******
+*********
+
+Diamant:
+    *
+   ***
+  *****
+ *******
+*********
+ *******
+  *****
+   ***
+    *`,
+        explanation: `<h3>🔺 Pyramid Patterns</h3>
+<p><strong>Was ist das?</strong> Ein visuelles Programm, das Muster und Pyramiden mit Text-Zeichen zeichnet.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Schöne ASCII-Kunstwerke erstellen</li>
+<li>Schleifen-Kontrolle und String-Multiplikation verstehen</li>
+<li>Konzeptionelle Muster-Logik lernen</li>
+<li>Dekorative Ausgaben generieren</li>
+</ul>
+<p><strong>Konzepte:</strong> for-Schleifen mit range(), String-Multiplikation, String-Verkettung</p>`
+      },
+      {
+        id: '20_simple_stopwatch',
+        name: '20 - Simple Stopwatch',
+        code: `# Einfache Stoppuhr
+import time
+
+print("=== Stoppuhr ===\\n")
+
+input("Starten? (Enter)")
+start_time = time.time()
+
+try:
+    while True:
+        elapsed = time.time() - start_time
+        minutes, seconds = divmod(int(elapsed), 60)
+        print(f"\\rZeit: {minutes:02d}:{seconds:02d}", end="")
+        time.sleep(0.1)
+except KeyboardInterrupt:
+    elapsed = time.time() - start_time
+    minutes, seconds = divmod(int(elapsed), 60)
+    print(f"\\n\\nGestoppt: {minutes:02d}:{seconds:02d}")`,
+        output: `=== Stoppuhr ===
+
+Starten? (Enter)
+
+Zeit: 00:05
+Zeit: 00:10
+Zeit: 00:15
+
+Gestoppt: 00:15`,
+        explanation: `<h3>⏱️ Simple Stopwatch</h3>
+<p><strong>Was ist das?</strong> Eine einfache Stoppuhr-Implementierung, die verstrichene Zeit misst und anzeigt.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Zeit messen für Trainings- oder Arbeits-Sessions</li>
+<li>time.time() und time.sleep() verstehen</li>
+<li>Try-Except für Interrupt-Handling lernen</li>
+<li>Echtzeit-Aktualisierung mit \\r verstehen</li>
+</ul>
+<p><strong>Konzepte:</strong> time.time(), time.sleep(), try/except, divmod(), \\r für Zeilenüberschreibung</p>`
+      },
+      {
+        id: '21_list_comprehension',
+        name: '21 - List Comprehension',
+        code: `# List Comprehension
+print("=== List Comprehension ===\\n")
+
+# Zahlen quadrieren
+numbers = [1, 2, 3, 4, 5]
+squares = [x**2 for x in numbers]
+print(f"Quadrate: {squares}")
+
+# Filtern
+evens = [x for x in numbers if x % 2 == 0]
+print(f"Gerade Zahlen: {evens}")
+
+# Text-Manipulation
+words = ["hello", "world", "python"]
+upper = [w.upper() for w in words]
+print(f"Großbuchstaben: {upper}")
+
+# Nested List Comprehension
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+flattened = [x for row in matrix for x in row]
+print(f"Flache Liste: {flattened}")`,
+        output: `=== List Comprehension ===
+
+Quadrate: [1, 4, 9, 16, 25]
+Gerade Zahlen: [2, 4]
+Großbuchstaben: ['HELLO', 'WORLD', 'PYTHON']
+Flache Liste: [1, 2, 3, 4, 5, 6, 7, 8, 9]`,
+        explanation: `<h3>🎯 List Comprehension</h3>
+<p><strong>Was ist das?</strong> Eine pythonische und elegante Syntax, um Listen zu erstellen und zu transformieren - viel prägnanter als for-Schleifen.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Listen schnell und lesbar erstellen</li>
+<li>Daten transformieren und filtern</li>
+<li>Verschachtelte Datenstrukturen flach machen</li>
+<li>Performanten, eleganten Code schreiben</li>
+</ul>
+<p><strong>Konzepte:</strong> List Comprehension, Conditionals in Comprehensions, Nested Comprehensions</p>`
+      },
+      {
+        id: '22_dictionary_operations',
+        name: '22 - Dictionary Operations',
+        code: `# Dictionary Operations
+print("=== Dictionary Operations ===\\n")
+
+student = {"name": "Anna", "age": 20, "grade": "A"}
+
+# Zugriff und Änderung
+print(f"Name: {student['name']}")
+student['age'] = 21
+print(f"Alter aktualisiert: {student}")
+
+# Keys, Values, Items
+print(f"\\nKeys: {list(student.keys())}")
+print(f"Values: {list(student.values())}")
+
+# get() - sichere Zugriffe
+print(f"City (mit Default): {student.get('city', 'Unbekannt')}")
+
+# Dictionaries zusammenfügen
+additional = {"city": "Berlin", "email": "anna@example.com"}
+student.update(additional)
+print(f"\\nMerged: {student}")
+
+# Dict Comprehension
+scores = {"Math": 85, "Science": 90, "English": 88}
+curved = {subject: score + 5 for subject, score in scores.items()}
+print(f"\\nCurved Scores: {curved}")`,
+        output: `=== Dictionary Operations ===
+
+Name: Anna
+Alter aktualisiert: {'name': 'Anna', 'age': 21, 'grade': 'A'}
+
+Keys: ['name', 'age', 'grade']
+Values: ['Anna', 21, 'A']
+City (mit Default): Unbekannt
+
+Merged: {'name': 'Anna', 'age': 21, 'grade': 'A', 'city': 'Berlin', 'email': 'anna@example.com'}
+
+Curved Scores: {'Math': 90, 'Science': 95, 'English': 93}`,
+        explanation: `<h3>📚 Dictionary Operations</h3>
+<p><strong>Was ist das?</strong> Ein Überblick über Dictionary-Operationen - die wichtigsten Datenstruktur für Key-Value-Paare in Python.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Strukturierte Daten speichern und organisieren</li>
+<li>Konfigurationen und Settings verwalten</li>
+<li>Datenbanken-ähnliche Operationen durchführen</li>
+<li>APIs mit JSON-ähnlichen Strukturen nutzen</li>
+</ul>
+<p><strong>Konzepte:</strong> Dict-Zugriff, .keys(), .values(), .items(), .get(), .update(), Dict Comprehension</p>`
+      },
+      {
+        id: '23_set_operations',
+        name: '23 - Set Operations',
+        code: `# Set Operations
+print("=== Set Operations ===\\n")
+
+set_a = {1, 2, 3, 4, 5}
+set_b = {4, 5, 6, 7, 8}
+
+print(f"Set A: {set_a}")
+print(f"Set B: {set_b}")
+
+# Union (Vereinigung)
+union = set_a | set_b
+print(f"\\nUnion: {union}")
+
+# Intersection (Schnitt)
+intersection = set_a & set_b
+print(f"Intersection: {intersection}")
+
+# Difference (Differenz)
+difference = set_a - set_b
+print(f"Difference (A - B): {difference}")
+
+# Symmetric Difference
+sym_diff = set_a ^ set_b
+print(f"Symmetric Difference: {sym_diff}")
+
+# Member-Test (schneller als in Listen)
+print(f"\\n3 in Set A: {3 in set_a}")
+print(f"10 in Set A: {10 in set_a}")
+
+# Duplikate entfernen
+numbers = [1, 2, 2, 3, 3, 3, 4]
+unique = set(numbers)
+print(f"\\nUnikale von {numbers}: {unique}")`,
+        output: `=== Set Operations ===
+
+Set A: {1, 2, 3, 4, 5}
+Set B: {4, 5, 6, 7, 8}
+
+Union: {1, 2, 3, 4, 5, 6, 7, 8}
+Intersection: {4, 5}
+Difference (A - B): {1, 2, 3}
+Symmetric Difference: {1, 2, 3, 6, 7, 8}
+
+3 in Set A: True
+10 in Set A: False
+
+Unikale von [1, 2, 2, 3, 3, 3, 4]: {1, 2, 3, 4}`,
+        explanation: `<h3>🔗 Set Operations</h3>
+<p><strong>Was ist das?</strong> Mathematische Mengen-Operationen für eindeutige Wert-Sammlungen - perfekt für Duplikat-Entfernung und Vergleiche.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Duplikate aus Listen entfernen</li>
+<li>Mathematische Mengen-Operationen durchführen</li>
+<li>Schnelle Membership-Tests durchführen</li>
+<li>Gemeinsame Elemente zwischen Sammlungen finden</li>
+</ul>
+<p><strong>Konzepte:</strong> Sets, Union (|), Intersection (&), Difference (-), Symmetric Difference (^)</p>`
+      },
+      {
+        id: '24_sorting_&_filtering',
+        name: '24 - Sorting & Filtering',
+        code: `# Sorting & Filtering
+print("=== Sorting & Filtering ===\\n")
+
+numbers = [64, 34, 25, 12, 22, 11, 90]
+print(f"Original: {numbers}")
+
+# Sortieren
+sorted_asc = sorted(numbers)
+sorted_desc = sorted(numbers, reverse=True)
+print(f"Aufsteigend: {sorted_asc}")
+print(f"Absteigend: {sorted_desc}")
+
+# Filter mit lambda
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(f"Gerade Zahlen (filter): {evens}")
+
+# Komplexes Sortieren
+students = [
+    {"name": "Anna", "grade": 85},
+    {"name": "Bob", "grade": 92},
+    {"name": "Charlie", "grade": 78}
+]
+
+sorted_students = sorted(students, key=lambda s: s['grade'], reverse=True)
+print(f"\\nNach Noten (absteigend):")
+for s in sorted_students:
+    print(f"  {s['name']}: {s['grade']}")
+
+# min() und max()
+print(f"\\nMinimum: {min(numbers)}")
+print(f"Maximum: {max(numbers)}")`,
+        output: `=== Sorting & Filtering ===
+
+Original: [64, 34, 25, 12, 22, 11, 90]
+Aufsteigend: [11, 12, 22, 25, 34, 64, 90]
+Absteigend: [90, 64, 34, 25, 22, 12, 11]
+Gerade Zahlen (filter): [64, 34, 12, 22, 90]
+
+Nach Noten (absteigend):
+  Bob: 92
+  Anna: 85
+  Charlie: 78
+
+Minimum: 11
+Maximum: 90`,
+        explanation: `<h3>🔀 Sorting & Filtering</h3>
+<p><strong>Was ist das?</strong> Wichtige Datenmanipulations-Techniken zum Sortieren und Filtern von Daten nach benutzerdefinierten Kriterien.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Daten nach beliebigen Kriterien sortieren</li>
+<li>Unwanted-Daten herausfiltern</li>
+<li>Top-N-Listen erstellen</li>
+<li>Datenverarbeitung und -analyse durchführen</li>
+</ul>
+<p><strong>Konzepte:</strong> sorted(), filter(), key=lambda, min(), max()</p>`
+      },
+      {
+        id: '25_file_operations',
+        name: '25 - File Operations',
+        code: `# File Operations
+import os
+
+print("=== File Operations ===\\n")
+
+# Datei schreiben
+filename = "test.txt"
+data = ["Zeile 1\\n", "Zeile 2\\n", "Zeile 3\\n"]
+
+with open(filename, 'w') as f:
+    f.writelines(data)
+print(f"✓ Datei '{filename}' erstellt")
+
+# Datei lesen
+with open(filename, 'r') as f:
+    content = f.read()
+print(f"\\nInhalt:\\n{content}")
+
+# Zeilenweise lesen
+print("Zeilenweise:")
+with open(filename, 'r') as f:
+    for line in f:
+        print(f"  {line.strip()}")
+
+# Append (hinzufügen)
+with open(filename, 'a') as f:
+    f.write("Zeile 4\\n")
+
+# Überprüfe Dateigröße
+size = os.path.getsize(filename)
+print(f"\\nDateigröße: {size} bytes")
+
+# Löschen
+os.remove(filename)
+print(f"✓ Datei gelöscht")`,
+        output: `=== File Operations ===
+
+✓ Datei 'test.txt' erstellt
+
+Inhalt:
+Zeile 1
+Zeile 2
+Zeile 3
+
+Zeilenweise:
+  Zeile 1
+  Zeile 2
+  Zeile 3
+
+Dateigröße: 28 bytes
+✓ Datei gelöscht`,
+        explanation: `<h3>📁 File Operations</h3>
+<p><strong>Was ist das?</strong> Grundlegende Dateioperationen zum Lesen, Schreiben und Verwalten von Dateien auf der Festplatte.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Konfigurationen in Dateien speichern</li>
+<li>Daten persistent speichern</li>
+<li>Log-Dateien erstellen und lesen</li>
+<li>CSV- oder Text-Dateien verarbeiten</li>
+</ul>
+<p><strong>Konzepte:</strong> open() mit Context Manager (with), 'r'/'w'/'a'-Modi, .read(), .write(), os-Modul</p>`
+      },
+      {
+        id: '26_exception_handling',
+        name: '26 - Exception Handling',
+        code: `# Exception Handling
+print("=== Exception Handling ===\\n")
+
+# Basic try-except
+try:
+    num = int(input("Gib eine Zahl ein: ") or "invalid")
+except ValueError:
+    print("Fehler: Das ist keine Zahl!")
+
+# Multiple exceptions
+try:
+    numbers = [1, 2, 3]
+    result = numbers[5] / 0
+except IndexError:
+    print("Fehler: Index außerhalb der Liste")
+except ZeroDivisionError:
+    print("Fehler: Division durch Null!")
+except Exception as e:
+    print(f"Unerwarteter Fehler: {e}")
+
+# try-except-else-finally
+try:
+    file = open("example.txt", "r")
+except FileNotFoundError:
+    print("Datei nicht gefunden")
+else:
+    print("Datei erfolgreich geöffnet")
+finally:
+    print("Aufräumen (wird immer ausgeführt)")
+
+# Custom exceptions
+class CustomError(Exception):
+    pass
+
+try:
+    age = -5
+    if age < 0:
+        raise CustomError("Alter kann nicht negativ sein!")
+except CustomError as e:
+    print(f"Custom Error: {e}")`,
+        output: `=== Exception Handling ===
+
+Gib eine Zahl ein: abc
+Fehler: Das ist keine Zahl!
+
+Fehler: Index außerhalb der Liste
+
+Datei nicht gefunden
+Aufräumen (wird immer ausgeführt)
+
+Custom Error: Alter kann nicht negativ sein!`,
+        explanation: `<h3>⚠️ Exception Handling</h3>
+<p><strong>Was ist das?</strong> Ein mechanismus, um Fehler robust zu bearbeiten - essentiell für stabile und benutzerfreundliche Programme.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Programme zum Absturz bringen und fehlerbehandeln</li>
+<li>Benutzerfreundliche Fehler-Meldungen anzeigen</li>
+<li>Ressourcen sauber aufräumen</li>
+<li>Eigene Exception-Typen definieren</li>
+</ul>
+<p><strong>Konzepte:</strong> try/except/else/finally, raise, Custom Exceptions, Multiple Exception Handling</p>`
+      },
+      {
+        id: '27_lambda_functions',
+        name: '27 - Lambda Functions',
+        code: `# Lambda Functions
+print("=== Lambda Functions ===\\n")
+
+# Einfaches Lambda
+square = lambda x: x ** 2
+print(f"Quadrat von 5: {square(5)}")
+
+# Mit multiple Parameter
+add = lambda x, y: x + y
+print(f"5 + 3 = {add(5, 3)}")
+
+# Lambda mit map()
+numbers = [1, 2, 3, 4, 5]
+doubled = list(map(lambda x: x * 2, numbers))
+print(f"Verdoppelt: {doubled}")
+
+# Lambda mit filter()
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(f"Gerade: {evens}")
+
+# Sortieren mit Lambda
+students = [
+    {"name": "Alice", "score": 88},
+    {"name": "Bob", "score": 92},
+    {"name": "Charlie", "score": 85}
+]
+
+sorted_by_score = sorted(students, key=lambda s: s['score'], reverse=True)
+print(f"\\nNach Punkte:")
+for s in sorted_by_score:
+    print(f"  {s['name']}: {s['score']}")
+
+# Lambda in Conditional
+age = 25
+status = (lambda x: "Erwachsen" if x >= 18 else "Minderjährig")(age)
+print(f"\\nStatus: {status}")`,
+        output: `=== Lambda Functions ===
+
+Quadrat von 5: 25
+5 + 3 = 8
+Verdoppelt: [2, 4, 6, 8, 10]
+Gerade: [2, 4]
+
+Nach Punkte:
+  Bob: 92
+  Alice: 88
+  Charlie: 85
+
+Status: Erwachsen`,
+        explanation: `<h3>λ Lambda Functions</h3>
+<p><strong>Was ist das?</strong> Kurze, anonyme Funktionen für einfache Operationen - perfekt für map(), filter() und sorted().</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Inline-Funktionen schreiben ohne def-Block</li>
+<li>Funktionale Programmierung nutzen</li>
+<li>Code prägnant und lesbar halten</li>
+<li>Higher-Order-Funktionen effektiv nutzen</li>
+</ul>
+<p><strong>Konzepte:</strong> Lambda Syntax, Einsatz mit map/filter/sorted, Conditional in Lambda</p>`
+      },
+      {
+        id: '28_map,_filter,_reduce',
+        name: '28 - Map, Filter, Reduce',
+        code: `# Map, Filter, Reduce
+from functools import reduce
+
+print("=== Map, Filter, Reduce ===\\n")
+
+numbers = [1, 2, 3, 4, 5]
+
+# Map - Transformiere jeden Wert
+squared = list(map(lambda x: x ** 2, numbers))
+print(f"Quadrate (map): {squared}")
+
+# Filter - Wähle nur bestimmte Werte
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(f"Gerade (filter): {evens}")
+
+# Reduce - Kombiniere zu einem Wert
+sum_all = reduce(lambda x, y: x + y, numbers)
+product = reduce(lambda x, y: x * y, numbers)
+print(f"Summe (reduce): {sum_all}")
+print(f"Produkt (reduce): {product}")
+
+# Verkettung (Chaining)
+result = list(filter(
+    lambda x: x > 2,
+    map(lambda x: x ** 2, numbers)
+))
+print(f"\\nQuadrate > 2: {result}")
+
+# Mit Strings
+words = ["hello", "world", "python"]
+lengths = list(map(len, words))
+print(f"Wort-Längen: {lengths}")
+
+long_words = list(filter(lambda w: len(w) > 4, words))
+print(f"Lange Wörter: {long_words}")`,
+        output: `=== Map, Filter, Reduce ===
+
+Quadrate (map): [1, 4, 9, 16, 25]
+Gerade (filter): [2, 4]
+Summe (reduce): 15
+Produkt (reduce): 120
+
+Quadrate > 2: [4, 9, 16, 25]
+Wort-Längen: [5, 5, 6]
+Lange Wörter: ['hello', 'world', 'python']`,
+        explanation: `<h3>🔧 Map, Filter, Reduce</h3>
+<p><strong>Was ist das?</strong> Klassische funktionale Programmierungs-Techniken zur eleganten Datenverarbeitung.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Funktionale Programmierung anwenden</li>
+<li>Komplexe Daten-Transformationen elegant ausdrücken</li>
+<li>Listen und Datenströme verarbeiten</li>
+<li>Performance-Optimierungen durch Verkettung</li>
+</ul>
+<p><strong>Konzepte:</strong> map(), filter(), reduce(), Verkettung, Lambda-Integration</p>`
+      },
+      {
+        id: '29_decorators',
+        name: '29 - Decorators',
+        code: `# Decorators
+import time
+
+print("=== Decorators ===\\n")
+
+# Einfacher Decorator
+def my_decorator(func):
+    def wrapper(*args, **kwargs):
+        print(f"Vor {func.__name__}")
+        result = func(*args, **kwargs)
+        print(f"Nach {func.__name__}")
+        return result
+    return wrapper
+
+@my_decorator
+def greet(name):
+    print(f"Hallo, {name}!")
+
+greet("Alice")
+
+# Timing Decorator
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        elapsed = time.time() - start
+        print(f"Zeit: {elapsed:.4f}s")
+        return result
+    return wrapper
+
+@timer
+def slow_function():
+    time.sleep(0.1)
+    return "Fertig"
+
+print(f"\\n{slow_function()}")
+
+# Decorator mit Argumenten
+def repeat(times):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for _ in range(times):
+                func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@repeat(times=3)
+def say_hello():
+    print("Hallo!")`,
+        output: `=== Decorators ===
+
+Vor greet
+Hallo, Alice!
+Nach greet
+
+Zeit: 0.1005s
+Fertig
+
+Hallo!
+Hallo!
+Hallo!`,
+        explanation: `<h3>🎁 Decorators</h3>
+<p><strong>Was ist das?</strong> Funktionen, die andere Funktionen modifizieren oder erweitern - ein mächtiges Metaprogrammierungs-Tool.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Logging und Debugging zu Funktionen hinzufügen</li>
+<li>Performance-Messungen durchführen</li>
+<li>Authentifizierung und Autorisierung implementieren</li>
+<li>Code-Wiederverwendung maximieren</li>
+</ul>
+<p><strong>Konzepte:</strong> Decorator Syntax (@), Higher-Order Functions, Closures, *args/**kwargs</p>`
+      },
+      {
+        id: '30_classes_&_objects',
+        name: '30 - Classes & Objects',
+        code: `# Classes & Objects
+print("=== Classes & Objects ===\\n")
+
+class Car:
+    # Klassenvariable
+    total_cars = 0
+
+    # Constructor
+    def __init__(self, brand, model, year):
+        self.brand = brand
+        self.model = model
+        self.year = year
+        Car.total_cars += 1
+
+    # Methoden
+    def info(self):
+        return f"{self.year} {self.brand} {self.model}"
+
+    def age(self):
+        return 2026 - self.year
+
+    def __str__(self):
+        return self.info()
+
+# Objekte erstellen
+car1 = Car("BMW", "X5", 2020)
+car2 = Car("Tesla", "Model 3", 2023)
+
+print(f"Auto 1: {car1}")
+print(f"Auto 2: {car2}")
+print(f"Alter Auto 1: {car1.age()} Jahre")
+
+# Klassenvariable
+print(f"\\nGesamtanzahl Autos: {Car.total_cars}")
+
+# Attribute ändern
+car1.year = 2021
+print(f"Auto 1 (aktualisiert): {car1}")
+
+# hasattr() und getattr()
+print(f"\\nHat 'brand'? {hasattr(car1, 'brand')}")
+print(f"Brand-Wert: {getattr(car1, 'brand', 'N/A')}")`,
+        output: `=== Classes & Objects ===
+
+Auto 1: 2020 BMW X5
+Auto 2: 2023 Tesla Model 3
+Alter Auto 1: 6 Jahre
+
+Gesamtanzahl Autos: 2
+Auto 1 (aktualisiert): 2021 BMW X5
+
+Hat 'brand'? True
+Brand-Wert: BMW`,
+        explanation: `<h3>🏗️ Classes & Objects</h3>
+<p><strong>Was ist das?</strong> Fundament der objektorientierten Programmierung - erstelle deine eigenen Datentypen mit Eigenschaften und Methoden.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Komplexe Datenstrukturen modellieren</li>
+<li>Code organisieren und kapselnt</li>
+<li>Wiederverwendbare Komponenten erstellen</li>
+<li>Real-World-Konzepte in Code abbilden</li>
+</ul>
+<p><strong>Konzepte:</strong> Class Definition, __init__, self, Methoden, Klassenvariablen, __str__</p>`
+      },
+      {
+        id: '31_inheritance_&_polymorphism',
+        name: '31 - Inheritance & Polymorphism',
+        code: `# Inheritance & Polymorphism
+print("=== Inheritance & Polymorphism ===\\n")
+
+# Basis-Klasse
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        return f"{self.name} macht Laute"
+
+# Vererbte Klassen
+class Dog(Animal):
+    def speak(self):
+        return f"{self.name} bellt: Woof!"
+
+class Cat(Animal):
+    def speak(self):
+        return f"{self.name} miaut: Meow!"
+
+class Bird(Animal):
+    def speak(self):
+        return f"{self.name} singt: Tweet!"
+
+# Polymorphismus - gleiche Methode, verschiedene Verhalten
+animals = [
+    Dog("Rex"),
+    Cat("Whiskers"),
+    Bird("Chirpy")
+]
+
+print("Zoo:")
+for animal in animals:
+    print(f"  {animal.speak()}")
+
+# Super() - Aufrufen der Basis-Methode
+class Vehicle:
+    def __init__(self, brand):
+        self.brand = brand
+
+class Car(Vehicle):
+    def __init__(self, brand, model):
+        super().__init__(brand)
+        self.model = model
+
+    def info(self):
+        return f"{self.brand} {self.model}"
+
+car = Car("Toyota", "Camry")
+print(f"\\nAuto: {car.info()}")`,
+        output: `=== Inheritance & Polymorphism ===
+
+Zoo:
+  Rex bellt: Woof!
+  Whiskers miaut: Meow!
+  Chirpy singt: Tweet!
+
+Auto: Toyota Camry`,
+        explanation: `<h3>🧬 Inheritance & Polymorphism</h3>
+<p><strong>Was ist das?</strong> Techniken zur Wiederverwendung und Erweiterung von Code durch Vererbungshierarchien.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Code zwischen ähnlichen Klassen wiederverwenden</li>
+<li>Spezialisierte Versionen von Klassen erstellen</li>
+<li>Polymorph agieren (gleiche Schnittstelle, verschiedene Implementierung)</li>
+<li>Wartbare und skalierbare Architektur bauen</li>
+</ul>
+<p><strong>Konzepte:</strong> Inheritance, Method Overriding, super(), Polymorphism</p>`
+      },
+      {
+        id: '32_simple_chat_bot',
+        name: '32 - Simple Chat Bot',
+        code: `# Einfacher Chat Bot (Keine API nötig!)
+import random
+
+print("=== Einfacher Chat Bot ===")
+print("Tippe 'exit' zum Beenden\\n")
+
+# Bot-Antworten
+responses = {
+    "hallo": ["Hallo! Wie geht es dir?", "Hi! Schön dich zu sehen!"],
+    "wie": ["Mir geht es gut, danke! Und dir?", "Super, danke der Nachfrage!"],
+    "name": ["Ich bin ChatBot v1.0", "Ich heiße SimpleBot"],
+    "wetter": ["Das kann ich nicht prüfen, aber es wird schön!"],
+    "danke": ["Gerne! Freut mich zu helfen!", "Anytime! 😊"],
+}
+
+def get_response(user_input):
+    user_input = user_input.lower().strip()
+
+    # Genaue Matches
+    for key, answers in responses.items():
+        if key in user_input:
+            return random.choice(answers)
+
+    # Standard-Antwort
+    return "Das verstehe ich nicht. Versuche: Hallo, Wie, Name, Wetter"
+
+# Chat Loop
+while True:
+    user = input("Du: ").strip()
+    if user.lower() == "exit":
+        print("Bot: Auf Wiedersehen!")
+        break
+    if not user:
+        continue
+
+    response = get_response(user)
+    print(f"Bot: {response}\\n")`,
+        output: `=== Einfacher Chat Bot ===
+Tippe 'exit' zum Beenden
+
+Du: Hallo
+Bot: Hallo! Wie geht es dir?
+
+Du: Wie geht es dir?
+Bot: Mir geht es gut, danke! Und dir?
+
+Du: Was ist dein Name?
+Bot: Ich bin ChatBot v1.0
+
+Du: Danke!
+Bot: Gerne! Freut mich zu helfen!
+
+Du: exit
+Bot: Auf Wiedersehen!`,
+        explanation: `<h3>🤖 Simple Chat Bot</h3>
+<p><strong>Was ist das?</strong> Ein funktionsfähiger Conversational AI ohne externe APIs - nur Python! Ein Einstiegspunkt zu Bot-Development.</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Mit einem Bot chatten und interagieren</li>
+<li>Bot-Logik und Pattern-Matching verstehen</li>
+<li>Einfache Conversational AI bauen</li>
+<li>Basis für komplexere Bots schaffen</li>
+</ul>
+<p><strong>Konzepte:</strong> Dictionaries, random.choice(), Keyword-Matching, While-Loop, User-Input-Handling</p>`
+      },
+      {
+        id: '33_advanced_chat_bot_(rule-based)',
+        name: '33 - Advanced Chat Bot (Rule-Based)',
+        code: `# Advanced Chat Bot mit Memory
+import random
+from datetime import datetime
+
+print("=== Advanced Chat Bot (Rule-Based) ===")
+print("Tippe 'exit' zum Beenden, 'memory' um Infos zu sehen\\n")
+
+# Bot-Memory
+user_memory = {
+    "name": None,
+    "greeting_count": 0,
+    "last_topic": None
+}
+
+# Intelligente Antworten
+def get_advanced_response(user_input):
+    inp = user_input.lower().strip()
+    user_memory["greeting_count"] += 1
+
+    # Begrüßung
+    if any(word in inp for word in ["hallo", "hi", "hey"]):
+        if user_memory["name"]:
+            return f"Hallo {user_memory['name']}! Schön dich zu sehen! ✨"
+        return "Hallo! Wie heißt du?"
+
+    # Name erfassen
+    if "mein name ist" in inp or "ich bin" in inp:
+        name = inp.split("ist")[-1].strip() if "ist" in inp else inp.split("bin")[-1].strip()
+        if name:
+            user_memory["name"] = name
+            return f"Freut mich, {name}! 🎉"
+
+    # Uhrzeit/Datum
+    if "uhrzeit" in inp or "zeit" in inp:
+        time_str = datetime.now().strftime("%H:%M:%S")
+        return f"Es ist jetzt {time_str} Uhr."
+
+    # Mathematik
+    if "+" in inp or "-" in inp or "*" in inp or "/" in inp:
+        try:
+            result = eval(inp)
+            return f"Das Ergebnis ist: {result}"
+        except:
+            return "Ich konnte das nicht berechnen."
+
+    # Fallback
+    return "Interessant! Erzähl mir mehr davon..."
+
+# Chat
+while True:
+    user = input("Du: ").strip()
+
+    if user.lower() == "exit":
+        if user_memory["name"]:
+            print(f"Bot: Tschüss {user_memory['name']}! Bis bald! 👋")
+        else:
+            print("Bot: Auf Wiedersehen!")
+        break
+
+    if user.lower() == "memory":
+        print(f"Bot-Memory: {user_memory}\\n")
+        continue
+
+    if not user:
+        continue
+
+    response = get_advanced_response(user)
+    print(f"Bot: {response}\\n")`,
+        output: `=== Advanced Chat Bot (Rule-Based) ===
+Tippe 'exit' zum Beenden, 'memory' um Infos zu sehen
+
+Du: Hallo!
+Bot: Hallo! Wie heißt du?
+
+Du: Mein Name ist Anna
+Bot: Freut mich, Anna! 🎉
+
+Du: Wie spät ist es?
+Bot: Es ist jetzt 14:35:22 Uhr.
+
+Du: Was ist 25 + 17?
+Bot: Das Ergebnis ist: 42
+
+Du: Hallo nochmal
+Bot: Hallo Anna! Schön dich zu sehen! ✨
+
+Du: memory
+Bot-Memory: {'name': 'Anna', 'greeting_count': 3, 'last_topic': None}
+
+Du: exit
+Bot: Tschüss Anna! Bis bald! 👋`,
+        explanation: `<h3>🧠 Advanced Chat Bot (Rule-Based)</h3>
+<p><strong>Was ist das?</strong> Ein intelligenter Bot mit Memory, Rule-basierter Logik und erweiterten Features - perfekt zum Verstehen von Bot-Architektur!</p>
+<p><strong>Was kannst du damit machen?</strong></p>
+<ul>
+<li>Komplexere Bot-Konversationen führen</li>
+<li>Benutzer-Kontext und Memory verwalten</li>
+<li>Rule-basierte Entscheidungen implementieren</li>
+<li>Foundation für NLP und Machine Learning Bots legen</li>
+<li>Basis-Bot-Architektur verstehen</li>
+</ul>
+<p><strong>Konzepte:</strong> Dictionaries als Memory, Pattern-Matching, eval() für Mathematik, datetime, Conditional Logic, Personalisierung</p>
+<p><strong>🎓 Nächste Schritte:</strong> NLP-Libraries (NLTK, spaCy), API-Integration, Machine Learning mit TensorFlow/PyTorch!</p>`
+      },
+    ];
+
+    // Render Sidebar
+    function renderSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.innerHTML = exercises.map(ex => `
+        <div class="exercise-item" data-id="${ex.id}">
+          <div class="exercise-label">${ex.name}</div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.exercise-item').forEach((item, idx) => {
+        item.addEventListener('click', () => loadExercise(idx));
+        if (idx === 0) item.classList.add('active');
+      });
+    }
+
+    // Load Exercise
+    function loadExercise(idx) {
+      const exercise = exercises[idx];
+
+      // Update Active
+      document.querySelectorAll('.exercise-item').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('.exercise-item')[idx].classList.add('active');
+
+      // Update Code
+      const codeDisplay = document.getElementById('code-display');
+      codeDisplay.textContent = exercise.code;
+      hljs.highlightElement(codeDisplay);
+
+      // Update Description
+      const descDisplay = document.getElementById('description-display');
+      descDisplay.innerHTML = exercise.explanation || '<p>Keine Beschreibung verfügbar.</p>';
+
+      // Reset Terminal
+      const terminal = document.getElementById('terminal');
+      terminal.innerHTML = `
+        <div class="terminal-line">$ python main.py</div>
+        <div class="terminal-line">Klicke "Run Code" zum Ausführen...</div>
+      `;
+
+      // Scroll to top
+      document.querySelector('.code-editor').scrollTop = 0;
+      descDisplay.scrollTop = 0;
+      terminal.scrollTop = 0;
+    }
+
+    // Run Python Code (Server-based!)
+    async function runCode() {
+      const codeDisplay = document.getElementById('code-display');
+      const code = codeDisplay.textContent;
+      const terminal = document.getElementById('terminal');
+      const runBtn = document.getElementById('runBtn');
+
+      // Disable button
+      runBtn.classList.add('loading');
+      runBtn.disabled = true;
+
+      // Clear terminal
+      terminal.innerHTML = '<div class="terminal-line">$ python main.py</div>';
+      terminal.innerHTML += '<div class="terminal-line" style="color: #ffaa00;">[LOADING] Code wird ausgeführt...</div>';
+
+      try {
+        // Set timeout for fetch
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+        terminal.innerHTML += '<div class="terminal-line" style="color: #ffaa00;">[SEND] Request wird gesendet...</div>';
+        terminal.scrollTop = terminal.scrollHeight;
+
+        const response = await fetch('http://127.0.0.1:5000/run', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ code: code }),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeout);
+
+        terminal.innerHTML += '<div class="terminal-line" style="color: #ffaa00;">[RESPONSE] Antwort erhalten...</div>';
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        terminal.innerHTML = '<div class="terminal-line">$ python main.py</div>';
+
+        // Show output
+        if (result.output && result.output.trim()) {
+          const lines = result.output.split('\n');
+          lines.forEach(line => {
+            if (line) {
+              terminal.innerHTML += `<div class="terminal-line">${escapeHtml(line)}</div>`;
+            }
+          });
+        }
+
+        // Show errors
+        if (result.error && result.error.trim()) {
+          terminal.innerHTML += `<div class="terminal-line" style="color: #ff6b6b;">--- ERROR ---</div>`;
+          const errorLines = result.error.split('\n');
+          errorLines.forEach(line => {
+            if (line.trim()) {
+              terminal.innerHTML += `<div class="terminal-line" style="color: #ff6b6b;">${escapeHtml(line)}</div>`;
+            }
+          });
+        }
+
+        if (result.success && !result.output) {
+          terminal.innerHTML += `<div class="terminal-line" style="color: #4ec9b0;">[OK] Code ausgeführt</div>`;
+        }
+
+      } catch (error) {
+        terminal.innerHTML += `<div class="terminal-line" style="color: #ff6b6b;">ERROR: ${escapeHtml(error.message)}</div>`;
+        if (error.name === 'AbortError') {
+          terminal.innerHTML += `<div class="terminal-line" style="color: #ff6b6b;">Timeout nach 15 Sekunden!</div>`;
+        }
+        terminal.innerHTML += `<div class="terminal-line" style="color: #ffaa00;">Server auf http://127.0.0.1:5000 prüfen</div>`;
+      } finally {
+        // Re-enable button
+        runBtn.classList.remove('loading');
+        runBtn.disabled = false;
+        terminal.scrollTop = terminal.scrollHeight;
+      }
+    }
+
+    // Escape HTML for safe display
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Initialize
+    renderSidebar();
+    loadExercise(0);
+  </script>
+</body>
+</html>

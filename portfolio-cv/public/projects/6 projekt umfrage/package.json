@@ -1,0 +1,12 @@
+{
+  "name": "umfrage-app",
+  "version": "1.0.0",
+  "description": "Umfrage-Anwendung für Erfassung und Auswertung von Daten",
+  "author": "Angelica Gomez",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

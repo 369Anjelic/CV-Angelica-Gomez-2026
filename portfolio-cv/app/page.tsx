@@ -9,42 +9,42 @@ const PROJECTS = [
     name: 'Kaspar Hauser Quest',
     desc: 'Interaktives Stadträtsel-Spiel über die Kaspar Hauser Geschichte.',
     tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
-    link: '/projekte/Kaspar%20hauser/',
+    link: '/projects/Kaspar%20hauser/kaspar-mittelalter-quest.html',
   },
   {
     emoji: '✈️',
     name: 'Flight Trainer - 2 Player',
     desc: 'Interaktiver Flight Simulator für Piloten-Training.',
     tags: ['HTML5', 'Canvas', 'JavaScript', 'WebGL'],
-    link: '/projekte/fly%20game/',
+    link: '/projects/fly%20game/',
   },
   {
     emoji: '⚡',
     name: 'Glitch verbessert',
     desc: 'Verbessertes Action-Game mit neuen Features.',
     tags: ['Next.js', 'React', 'Node.js', 'Docker'],
-    link: '/projekte/Glitch%20verbessert/',
+    link: '/projects/Glitch%20verbessert/',
   },
   {
     emoji: '💬',
     name: 'MOI Bot',
     desc: 'Intelligenter Chatbot mit natürlicher Sprachverarbeitung.',
     tags: ['Claude API', 'React', 'Node.js'],
-    link: '/projekte/MOI%20bot/',
+    link: '/projects/MOI%20bot/index.html',
   },
   {
     emoji: '🐍',
     name: 'Python Coding Übungen',
     desc: 'Sammlung von 20 Python-Programmierübungen.',
     tags: ['Python', 'OOP', 'Algorithms'],
-    link: '/projekte/python%20coden%20%C3%BCbungen/',
+    link: '/projects/python%20coden%20%C3%BCbungen/',
   },
   {
     emoji: '📊',
     name: 'Umfrage App',
     desc: 'Umfrage-Anwendung für Erfassung und Auswertung von Daten.',
     tags: ['HTML5', 'JavaScript', 'CSS'],
-    link: '/projekte/umfrage/',
+    link: '/projects/umfrage/',
   },
 ];
 
@@ -104,14 +104,8 @@ export default function Home() {
             </p>
 
             <h3 className="text-lg font-bold text-blue-600 mb-3">Kurzprofil</h3>
-            <p className="text-sm font-semibold text-gray-800 mb-2 leading-relaxed">
-              Als neurodivergente (ADHS) und analytisch denkende Persönlichkeit bringe ich ausgeprägte Mustererkennung, kreative Problemlösung und die Fähigkeit zum fokussierten Arbeiten in Teams ein.
-            </p>
-            <p className="text-sm font-semibold text-gray-800 mb-2 leading-relaxed">
-              Ich erfasse komplexe Zusammenhänge schnell und nutze KI-Tools gezielt, um effiziente und praxisnahe Lösungen zu entwickeln.
-            </p>
             <p className="text-sm font-semibold text-gray-800 leading-relaxed">
-              Geprägt durch meine Ausbildung als Goldschmiedin verbinde ich Präzision und Kreativität mit Technologie und strebe danach, in einer Zeit, in der Science-Fiction Realität wird, aktiv an der Entwicklung des Codes der Zukunft mitzuwirken.
+              Als neurodivergente, analytisch denkende Persönlichkeit bringe ich Neugier, IT-Begeisterung und eine lösungsorientierte Arbeitsweise in Teams ein. Meine Stärke liegt darin, komplexe Probleme schnell zu durchdringen und KI-Tools effektiv zur Entwicklung praxisnaher Lösungen einzusetzen.
             </p>
           </div>
         </div>
@@ -168,36 +162,31 @@ export default function Home() {
             <h2 className="text-lg font-bold text-blue-600 mb-6">Berufserfahrung</h2>
             <ExperienceItem
               period="01/2026 – 06/2026"
-              title="Lern-Bot-Spezialist"
+              title="Praktikum als Lern-Bot-Spezialist"
               company="Unwritten Studio, Nürnberg"
               items={[
                 'Spezialisierung auf die Anwendung von Claude code und Vercel-Deployment',
                 'Tech Stack: React, Python Backend, Full-Stack API-Integration, GitHub',
-                'Projektleitung des Kaspar-Hauser-Chatbots: Konzeption der Feature-Architektur, Teamkoordination sowie Durchführung eines produktionsreifen Launchs inklusive Testing.',
-                'Konzeption und Entwicklung von Website-Umfragen sowie des Lernbots „Glitch" zur Unterstützung der Prüfungsvorbereitung (IHK Anwendungsentwicklung).',
-                'Team- und Projektmanagement, IT-Architekturverständnis, eigenständige Problemlösung'
+                'Projektleitung des Kaspar-Hauser-Chatbots: Konzeption der Feature-Architektur, Teamkoordination sowie Durchführung eines produktionsreifen Launchs inklusive Testing.'
               ]}
             />
             <ExperienceItem
               period="10/2025 – 12/2025"
-              title="Bauzeichnerin / CAD-Spezialistin"
+              title="Freiberufliche Bauzeichnerin / CAD-Spezialistin"
               company="Alexander Flügge Ingenieurbüro, Nürnberg"
               items={[
-                'Vertiefung CAD-Planung: Baupläne, Baueingabepläne, Detailzeichnungen',
-                'Eigenständige Teamkoordination und Qualitätssicherung technischer Dokumentation',
-                'Anwendung präziser Arbeitsweise, Systemdenken, technische Dokumentation'
+                'Vertiefung CAD-Planung: Baupläne, Baueingabepläne, Detailzeichnungen.',
+                'Eigenständige Teamkoordination und Qualitätssicherung technischer Dokumentation'
               ]}
             />
             <ExperienceItem
               period="01/2022 – 09/2025"
-              title="Freiberufliche Videografin (Eigene Firma)"
+              title="Freiberufliche Videografin"
               company="Deutschlandweit, Remote und vor Ort"
               items={[
-                'Konzeption, Planung und Umsetzung zielgruppenorientierter Videoprojekte für Unternehmen, politische Kampagnen, Kunstausstellungen und Social Media',
-                'Beratung von Kunden bei digitalen Content-Strategien',
+                'Konzeption, Planung und Umsetzung zielgruppenorientierter Videoprojekte',
                 'KI-gestützte Videobearbeitung, z. B. Color Grading in DaVinci',
-                'Nutzung von 3D-Animationen in Blender und Fusion für Logoanimationen',
-                'Eigenständige Umsetzung von IT- und KI-bezogenen Projekten'
+                'Nutzung von 3D-Animationen in Blender und Fusion für Logoanimationen'
               ]}
             />
             <ExperienceItem
@@ -211,12 +200,11 @@ export default function Home() {
               ]}
             />
             <ExperienceItem
-              period="06/2004 – 07/2005"
-              title="Administrator"
-              company="Familieneigene Rechtsanwaltskanzlei, Kolumbien"
+              period="07/2005 – 07/2009"
+              title="Freiberufliche Goldschmiedin"
+              company="Diverse Goldschmiede, Spanien"
               items={[
-                'Scanning, Dateneingabe, Dokumentenverwaltung',
-                'Digitalisierungs- & Administrative Assistenz'
+                '4 Jahre Praxis-Vertiefung in unterschiedlichen Goldschmiedebetrieben'
               ]}
             />
           </div>

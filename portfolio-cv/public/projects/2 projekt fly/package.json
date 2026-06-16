@@ -1,0 +1,12 @@
+{
+  "name": "fly-flight-trainer",
+  "version": "1.0.0",
+  "description": "Cessna 172 World Flight Trainer with Landmarks",
+  "author": "Unwritten Studio",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
