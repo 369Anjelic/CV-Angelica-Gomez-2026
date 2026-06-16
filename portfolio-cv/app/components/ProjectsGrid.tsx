@@ -44,7 +44,7 @@ export default function ProjectsGrid({ filter = 'all' }: { filter?: string }) {
       id: 3,
       icon: '⚡',
       title: 'Glitch verbessert',
-      description: 'Verbessertes Action-Game mit neuen Features, besserer Performance und erweiterten Levels.',
+      description: 'IHK Anwendungsentwickler bot',
       fullDescription: 'Ein vollständig überarbeitetes Action-Game mit verbesserten Mechaniken, neuen Features wie erweiterte Levels, besserer Performance-Optimierung, und erweitertem Gameplay.',
       status: 'active',
       tech: ['Next.js', 'React', 'Node.js', 'Docker'],

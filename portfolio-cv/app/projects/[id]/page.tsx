@@ -26,7 +26,7 @@ const projects: Record<number, any> = {
     id: 3,
     icon: '⚡',
     title: 'Glitch verbessert',
-    description: 'Verbessertes Action-Game mit neuen Features.',
+    description: 'IHK Anwendungsentwickler bot',
     fullDescription: 'Ein vollständig überarbeitetes Action-Game mit verbesserten Mechaniken, neuen Features und besserer Performance-Optimierung.',
     status: 'active',
     tech: ['Next.js', 'React', 'Node.js', 'Docker'],

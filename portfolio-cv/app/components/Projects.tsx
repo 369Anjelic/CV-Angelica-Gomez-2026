@@ -37,7 +37,7 @@ const PROJECTS: Project[] = [
   {
     id: 'glitch-game',
     title: 'Glitch verbessert',
-    description: 'Verbessertes Action-Game mit neuen Features.',
+    description: 'IHK Anwendungsentwickler bot',
     icon: '⚡',
     category: 'game',
     status: 'completed',

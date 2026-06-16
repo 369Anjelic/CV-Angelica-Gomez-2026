@@ -22,19 +22,19 @@
       "static/chunks/main-app-a1988e63c2ab70d2.js",
       "static/chunks/app/fly/page-230d7a22e4777d03.js"
     ],
-    "/kaspar/page": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-3eee857bde8f3b06.js",
-      "static/chunks/117-29466efefd806f9c.js",
-      "static/chunks/main-app-a1988e63c2ab70d2.js",
-      "static/chunks/app/kaspar/page-f6ce0989f8263c85.js"
-    ],
     "/glitch/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",
       "static/chunks/fd9d1056-3eee857bde8f3b06.js",
       "static/chunks/117-29466efefd806f9c.js",
       "static/chunks/main-app-a1988e63c2ab70d2.js",
       "static/chunks/app/glitch/page-c6daa78f17d4315e.js"
+    ],
+    "/kaspar/page": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-3eee857bde8f3b06.js",
+      "static/chunks/117-29466efefd806f9c.js",
+      "static/chunks/main-app-a1988e63c2ab70d2.js",
+      "static/chunks/app/kaspar/page-f6ce0989f8263c85.js"
     ],
     "/moi/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",
@@ -48,7 +48,7 @@
       "static/chunks/fd9d1056-3eee857bde8f3b06.js",
       "static/chunks/117-29466efefd806f9c.js",
       "static/chunks/main-app-a1988e63c2ab70d2.js",
-      "static/chunks/app/page-a443a0ac9f284f14.js"
+      "static/chunks/app/page-d1fb33b6742e7586.js"
     ],
     "/project/[...path]/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",
@@ -63,7 +63,7 @@
       "static/chunks/117-29466efefd806f9c.js",
       "static/chunks/main-app-a1988e63c2ab70d2.js",
       "static/chunks/648-e01041308e47feb0.js",
-      "static/chunks/app/projects/[id]/page-648f7c3fc41d0cba.js"
+      "static/chunks/app/projects/[id]/page-5c6705f523654ff1.js"
     ],
     "/python/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",
