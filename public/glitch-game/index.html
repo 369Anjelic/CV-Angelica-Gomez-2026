@@ -2891,6 +2891,88 @@ print("Hallo Python!")
     <script>
         let userSessionWords = null;
 
+        function glitchChat() {
+            return {
+                activeFach: 'lf1',
+                openFach: [],
+                learningProgress: {},
+                messages: [],
+                userInput: '',
+                words: { word1: '', word2: '', word3: '' },
+                jokers: 3,
+                conversationHistory: [],
+
+                toggleFach(fach) {
+                    if (this.openFach.includes(fach)) {
+                        this.openFach = this.openFach.filter(f => f !== fach);
+                    } else {
+                        this.openFach = [...this.openFach, fach];
+                    }
+                },
+
+                updateProgress(lf, increment) {
+                    const current = this.learningProgress[lf] || 0;
+                    this.learningProgress[lf] = Math.min(100, current + increment);
+                },
+
+                insertTopic(topic) {
+                    this.userInput = topic;
+                    this.sendMessage();
+                },
+
+                async sendMessage() {
+                    if (!this.userInput.trim()) return;
+
+                    this.messages.push({ role: 'user', text: this.userInput });
+                    const message = this.userInput;
+                    this.userInput = '';
+                    this.conversationHistory.push({ role: 'user', content: message });
+
+                    try {
+                        const hostname = window.location.hostname;
+                        const baseUrl = (hostname === 'localhost' || hostname === '127.0.0.1')
+                            ? 'http://localhost:3003'
+                            : '/api/glitch';
+
+                        const response = await fetch(`${baseUrl}/chat`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                message: message,
+                                words: userSessionWords
+                            })
+                        });
+
+                        if (!response.ok) throw new Error('API Error');
+                        const result = await response.json();
+
+                        this.messages.push({
+                            role: 'bot',
+                            text: result.response || 'Fehler bei der Antwort'
+                        });
+
+                        if (result.words_assigned) {
+                            userSessionWords = result.words_assigned;
+                        }
+                        if (result.jokers_remaining !== null) {
+                            this.jokers = result.jokers_remaining;
+                        }
+                    } catch (error) {
+                        this.messages.push({
+                            role: 'error',
+                            text: 'Fehler: ' + error.message
+                        });
+                    }
+                },
+
+                initProgress() {
+                    for (let i = 1; i <= 18; i++) {
+                        this.learningProgress[`lf${i}`] = Math.floor(Math.random() * 40);
+                    }
+                }
+            };
+        }
+
         function openPowerPython() {
             document.getElementById('powerPythonModal').style.display = 'flex';
             document.getElementById('pythonCodeEditor').focus();
