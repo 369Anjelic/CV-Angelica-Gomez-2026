@@ -3,3105 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glitch — Nicht Stoff lernen. Prüfung denken.</title>
-    <link rel="canonical" href="https://glitch.unwritten.studio">
-
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="de_DE">
-    <meta property="og:title" content="Glitch — Nicht Stoff lernen. Prüfung denken.">
-    <meta property="og:description" content="Der Begleiter für zwei Jahre IT-Ausbildung. Kein Account. Kein Reset. Ein Gedächtnis, das mitdenkt.">
-    <meta property="og:url" content="https://glitch.unwritten.studio">
-    <meta property="og:site_name" content="Unwritten Studio">
-    <meta property="og:image" content="assets/images/glitch-hero.jpg">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Glitch — Nicht Stoff lernen. Prüfung denken.">
-    <meta name="twitter:description" content="Der Begleiter für zwei Jahre IT-Ausbildung. Kein Account. Kein Reset. Ein Gedächtnis, das mitdenkt.">
-    <meta property="twitter:image" content="assets/images/glitch-hero.jpg">
-
-    <!-- Auth Protection -->
-    <script>
-        // if (!sessionStorage.getItem('glitch_auth_session')) {
-        //     window.location.href = 'login.html';
-        // }
-    </script>
-
-    <meta name="description" content="Glitch begleitet Fachinformatiker-Azubis durch zwei Jahre Ausbildung — persistentes Gedächtnis, kein Account, alle vier Fachrichtungen.">
-    <meta name="keywords" content="Fachinformatiker Ausbildung, IHK Prüfung, IT-Azubi, Prüfungsvorbereitung, KI Lernbegleiter, Anwendungsentwicklung, Systemintegration">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="Unwritten Studio">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Glitch",
-      "description": "KI-Lernbegleiter für IT-Ausbildungen — persistentes Gedächtnis über zwei Jahre",
-      "applicationCategory": "EducationalApplication",
-      "operatingSystem": "Web",
-      "url": "https://glitch.unwritten.studio",
-      "author": {
-        "@type": "Organization",
-        "name": "Unwritten GmbH",
-        "url": "https://unwritten.studio"
-      }
-    }
-    </script>
-
+    <title>Glitch — KI Lernbegleiter für Fachinformatiker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
-
     <style>
-        :root {
-            --blue: #3987b8;
-            --black: #3e4447;
-            --light-gray: #f4f5f5;
-            --white: #ffffff;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        .text-xl   { font-size: 3rem; }
-        .text-lg   { font-size: 2rem; }
-        .text-md   { font-size: 1.5rem; }
-        .text-base { font-size: 1.1rem; }
-        .text-sm   { font-size: 0.9rem; }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 300;
+            background: #ffffff;
+            color: #3e4447;
             line-height: 1.6;
-            color: var(--black);
-            background: var(--white);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
         }
-
-        /* Header */
 
         header {
-            padding: 20px 0;
-            background: var(--white);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 400;
-            color: var(--black);
-            text-decoration: none;
-        }
-
-        /* Hero */
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
-            padding-top: 80px;
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-            width: 100%;
-        }
-
-        .hero-text h1 {
-            font-size: clamp(2.5rem, 5vw, 3rem);
-            font-weight: 300;
-            color: var(--black);
-            margin-bottom: 30px;
-            line-height: 1.2;
-        }
-
-        .hero-text h1 .highlight {
-            color: var(--blue);
-            font-weight: 600;
-        }
-
-        .hero-text p {
-            font-size: 1.2rem;
+            background: linear-gradient(135deg, #3987b8 0%, #2c6b94 100%);
+            color: white;
+            padding: 40px 0;
             margin-bottom: 40px;
-            color: var(--black);
-            opacity: 0.8;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 18px 40px;
-            background: var(--blue);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 400;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background: #2c6b94;
-            transform: translateY(-2px);
-        }
-
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-image {
-            width: 100%;
-            max-height: 420px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        /* Value Proposition */
-
-        .value-proposition {
-            padding: 120px 0;
-            background: linear-gradient(135deg, var(--blue) 0%, #2c6b94 100%);
-            color: var(--white);
-        }
-
-        .value-inner {
-            text-align: center;
-            max-width: 860px;
-            margin: 0 auto;
-        }
-
-        .value-inner h2 {
-            font-size: 2rem;
-            font-weight: 300;
-            margin-bottom: 30px;
-            color: var(--white);
-        }
-
-        .value-inner p {
-            font-size: 1.35rem;
-            margin-bottom: 50px;
-            opacity: 0.95;
-            line-height: 1.8;
-        }
-
-        .value-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            margin-top: 70px;
-        }
-
-        .value-item {
-            text-align: center;
-        }
-
-        .value-item h4 {
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        .value-item p {
-            font-size: 0.9rem;
-            opacity: 0.85;
-            margin-bottom: 0;
-        }
-
-        /* Features */
-
-        .features {
-            padding: 120px 0;
-            background: var(--white);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: 2rem;
-            font-weight: 300;
-            color: var(--black);
-            margin-bottom: 20px;
-        }
-
-        .section-header .subtitle {
-            font-size: 1.1rem;
-            color: var(--blue);
-            font-weight: 600;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 50px;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 40px 24px;
-        }
-
-        .feature-icon {
-            margin: 0 auto 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .feature-icon img {
-            width: 90px;
-            height: 90px;
-            transition: all 0.3s ease;
-        }
-
-        @media (hover: hover) {
-            .feature-icon:hover img {
-                transform: translateY(-2px);
-                filter: drop-shadow(0 4px 8px rgba(57, 135, 184, 0.2));
-            }
-        }
-
-        .value-icon {
-            margin: 0 auto 12px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .value-icon img {
-            width: 52px;
-            height: 52px;
-            filter: brightness(0) invert(1);
-            opacity: 0.9;
-        }
-
-        .feature h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--black);
-        }
-
-        .feature p {
-            color: var(--black);
-            opacity: 0.8;
-            line-height: 1.7;
-        }
-
-        /* How it works */
-
-        .how-it-works {
-            padding: 120px 0;
-            background: var(--light-gray);
-        }
-
-        .how-content {
-            max-width: 560px;
-            margin: 0 auto;
-        }
-
-        .how-content h3 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--black);
-            margin-bottom: 36px;
-        }
-
-        .how-step {
-            margin-bottom: 28px;
-            padding-left: 20px;
-            border-left: 2px solid var(--blue);
-        }
-
-        .how-step h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--black);
-            margin-bottom: 8px;
-        }
-
-        .how-step p {
-            opacity: 0.8;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
+        header h1 {
             font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--blue);
+            font-weight: 600;
+            margin-bottom: 10px;
         }
 
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--black);
-            opacity: 0.7;
-            margin-top: 4px;
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
         }
 
-        /* Demo */
-
-        .demo-section {
-            padding: 120px 0;
-            background: var(--white);
-        }
-
-        .demo-wrapper {
+        .main-content {
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 300px 1fr;
             gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+            min-height: 60vh;
         }
 
         .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            background: #f4f5f5;
             padding: 20px;
-            background: var(--light-gray);
-            border-radius: 12px;
+            border-radius: 8px;
             height: fit-content;
-            max-height: 80vh;
+            max-height: 70vh;
             overflow-y: auto;
-            position: sticky;
-            top: 100px;
-            width: 280px;
         }
 
-        .sidebar-title {
-            font-size: 0.9rem;
+        .sidebar h3 {
+            font-size: 1rem;
             font-weight: 600;
-            color: var(--blue);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            opacity: 0.8;
+            margin-bottom: 15px;
+            color: #3987b8;
         }
 
         .fach-item {
-            cursor: pointer;
-            padding: 8px 12px;
+            padding: 12px;
+            background: white;
             border-radius: 6px;
-            background: var(--white);
-            border: 1px solid transparent;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-            color: var(--black);
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #e0e0e0;
         }
 
         .fach-item:hover {
-            background: var(--blue);
-            color: var(--white);
-            transform: translateX(4px);
+            background: #f0f6fb;
+            border-color: #3987b8;
         }
 
-        .fach-item.active {
-            background: var(--blue);
-            color: var(--white);
+        .fach-item h4 {
+            font-size: 0.95rem;
             font-weight: 600;
+            margin-bottom: 4px;
+            color: #3e4447;
         }
 
         .progress-bar {
-            display: none;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin: 6px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3987b8 0%, #2c6b94 100%);
+            border-radius: 2px;
+            transition: width 0.3s;
         }
 
         .progress-text {
-            display: none;
-        }
-
-        .fach-toggle {
-            font-size: 0.75rem;
-            transition: transform 0.2s;
-            margin-left: auto;
-        }
-
-        .fach-toggle.open {
-            transform: rotate(90deg);
-        }
-
-        .fach-topics {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            padding-left: 12px;
-            margin-top: 4px;
-            border-left: 2px solid var(--blue);
-            padding-left: 8px;
-        }
-
-        .fach-topics.show {
-            display: flex;
-        }
-
-        .topic-item {
-            cursor: pointer;
-            padding: 6px 8px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            color: var(--black);
-            opacity: 0.7;
-            background: transparent;
-            border: 1px solid transparent;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .topic-item:hover {
-            background: var(--blue);
-            color: var(--white);
-            opacity: 1;
+            font-size: 0.8rem;
+            color: #888;
         }
 
         .chat-container {
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 2px 20px rgba(62, 68, 71, 0.08);
-            overflow: hidden;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
-            max-height: 650px;
+            height: 70vh;
+        }
+
+        .chat-header {
+            padding: 20px;
+            background: #3987b8;
+            color: white;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 1px solid #2c6b94;
+        }
+
+        .chat-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
         }
 
         .chat-messages {
-            padding: 30px;
-            min-height: 400px;
-            max-height: 520px;
+            flex: 1;
             overflow-y: auto;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 15px;
         }
 
         .message {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .message.user { justify-content: flex-end; }
-
-        .message-bubble {
-            padding: 12px 18px;
-            border-radius: 18px;
+            padding: 12px 16px;
+            border-radius: 8px;
             max-width: 80%;
-            line-height: 1.55;
             word-wrap: break-word;
         }
 
-        .message.glitch .message-bubble {
-            background: var(--light-gray);
-            color: var(--black);
+        .message.user {
+            align-self: flex-end;
+            background: #3987b8;
+            color: white;
         }
 
-        .message.user .message-bubble {
-            background: var(--blue);
-            color: var(--white);
-            margin-left: auto;
+        .message.bot {
+            align-self: flex-start;
+            background: #f4f5f5;
+            color: #3e4447;
         }
 
-        .message.system .message-bubble {
-            background: linear-gradient(135deg, rgba(0, 100, 255, 0.15) 0%, rgba(100, 200, 255, 0.1) 100%);
-            border: 2px solid var(--blue);
-            border-radius: 8px;
-            padding: 16px 18px;
-            font-weight: 500;
-            color: var(--blue);
-            max-width: 85%;
-            margin: 15px auto;
-            text-align: center;
-        }
-
-        .message.system .message-bubble strong {
-            color: var(--blue);
-            font-size: 1.1em;
-        }
-
-        .message.system .message-bubble code {
-            background: rgba(0, 100, 255, 0.2);
-            border: 1px solid rgba(0, 100, 255, 0.3);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 1.05em;
-            font-weight: 600;
-        }
-
-        /* Drei-Wörter-Block */
-
-        .words-block {
-            border: 1.5px solid var(--blue);
-            border-radius: 10px;
-            padding: 18px 22px;
-            background: var(--white);
-            max-width: 80%;
-        }
-
-        .words-label {
-            font-size: 0.82em;
-            opacity: 0.55;
-            margin-bottom: 6px;
-        }
-
-        .words-value {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.25em;
-            color: var(--blue);
-            font-weight: 700;
-            letter-spacing: 0.04em;
-        }
-
-        .words-hint {
-            font-size: 0.8em;
-            opacity: 0.5;
-            margin-top: 6px;
-        }
-
-        /* Typing */
-
-        .typing-indicator {
-            display: flex;
-            gap: 4px;
-            padding: 12px 18px;
-            align-items: center;
-        }
-
-        .typing-indicator span {
-            width: 7px;
-            height: 7px;
-            background: rgba(62, 68, 71, 0.35);
-            border-radius: 50%;
-            animation: typing 1.4s infinite;
-        }
-
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typing {
-            0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-8px); }
-        }
-
-        /* Chat Input */
-
-        .chat-input-container {
-            padding: 20px 30px;
-            border-top: 1px solid var(--light-gray);
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .chat-input {
-            flex: 1;
-            border: 2px solid var(--light-gray);
-            border-radius: 18px;
-            padding: 12px 20px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1rem;
-            font-weight: 300;
-            transition: border-color 0.3s ease;
-            outline: none;
-            resize: none;
-            min-height: 48px;
-            max-height: 160px;
-            overflow-y: auto;
-            line-height: 1.5;
-        }
-
-        .chat-input:focus { border-color: var(--blue); }
-
-        .send-button {
-            background: var(--blue);
-            color: var(--white);
-            border: none;
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .send-button:hover:not(:disabled) {
-            background: #2c6b94;
-            transform: translateY(-2px);
-        }
-
-        .send-button:disabled { opacity: 0.4; cursor: not-allowed; }
-
-        .export-row {
-            padding: 10px 30px 20px;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            row-gap: 7px;
-            align-items: center;
-        }
-
-        .words-display {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 12px;
-            color: var(--blue);
-            opacity: 0.85;
-            letter-spacing: 0.04em;
-        }
-
-        .export-actions {
-            display: flex;
-            align-items: center;
-            gap: 0;
-        }
-
-        .export-btn {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--blue);
-            opacity: 0.9;
-            background: rgba(0, 100, 255, 0.05);
-            border: 1px solid rgba(0, 100, 255, 0.2);
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .export-btn:hover:not(:disabled) {
-            opacity: 1;
-            background: rgba(0, 100, 255, 0.1);
-            border-color: rgba(0, 100, 255, 0.4);
-        }
-        .export-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            background: rgba(100, 100, 100, 0.05);
-        }
-
-        /* Markdown in bubbles */
-
-        .message-bubble strong { font-weight: 600; }
-        .message-bubble em { font-style: italic; }
-
-        .message-bubble code {
-            font-family: 'Courier New', monospace;
-            font-size: 0.88em;
-            background: rgba(0, 0, 0, 0.07);
-            padding: 1px 5px;
-            border-radius: 3px;
-            word-break: break-all;
-        }
-
-        .message-bubble pre {
-            overflow-x: auto;
-            max-width: 100%;
-            background: rgba(0, 0, 0, 0.05);
-            padding: 10px 12px;
-            border-radius: 6px;
-            margin: 6px 0;
-        }
-
-        .message-bubble pre code {
-            background: none;
-            padding: 0;
-            word-break: normal;
-            white-space: pre;
-        }
-
-        .message.user .message-bubble code { background: rgba(255, 255, 255, 0.2); }
-        .message.user .message-bubble pre  { background: rgba(255, 255, 255, 0.1); }
-
-        .message-bubble ul,
-        .message-bubble ol { margin: 6px 0 6px 20px; }
-
-        .message-bubble li { margin: 3px 0; }
-        .message-bubble p { margin: 4px 0; }
-        .message-bubble p:first-child { margin-top: 0; }
-        .message-bubble p:last-child  { margin-bottom: 0; }
-
-        .message-bubble blockquote {
-            border-left: 3px solid;
-            margin: 8px 0;
-            padding-left: 12px;
-            opacity: 0.8;
-        }
-
-        .message.glitch .message-bubble blockquote { border-left-color: var(--blue); }
-        .message.user   .message-bubble blockquote { border-left-color: rgba(255, 255, 255, 0.5); }
-
-        .voice-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            opacity: 0.5;
-            transition: opacity 0.2s, transform 0.2s;
-            font-size: 18px;
-            padding: 0;
-            margin-left: 8px;
-        }
-
-        .voice-button:hover {
-            opacity: 0.8;
-            transform: scale(1.1);
-        }
-
-        .voice-button.playing {
-            opacity: 1;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
-        }
-
-        .message-wrapper {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-        }
-
-        .message.system {
-            background: linear-gradient(135deg, rgba(57, 135, 184, 0.1), rgba(57, 135, 184, 0.05));
-            border-left: 3px solid var(--blue);
-            padding-left: 15px;
-            margin: 12px 0;
-        }
-
-        .message.system .message-bubble {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--blue);
-        }
-
-        /* Learning Status Panel */
-        .learning-status-panel {
-            margin-top: 20px;
+        .chat-input-area {
             padding: 20px;
-            background: linear-gradient(135deg, var(--light-gray) 0%, rgba(57, 135, 184, 0.05) 100%);
-            border-radius: 10px;
-            border: 1px solid rgba(57, 135, 184, 0.2);
-        }
-
-        .learning-status-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--blue);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 15px;
-            opacity: 0.8;
-        }
-
-        .learning-fields-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            border-top: 1px solid #e0e0e0;
+            background: #f9f9f9;
+            border-radius: 0 0 8px 8px;
+            display: flex;
             gap: 10px;
         }
 
-        .learning-field-item {
-            background: var(--white);
+        .chat-input-area input {
+            flex: 1;
             padding: 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(57, 135, 184, 0.15);
-            transition: all 0.3s ease;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
         }
 
-        .learning-field-item:hover {
-            border-color: var(--blue);
-            box-shadow: 0 2px 8px rgba(57, 135, 184, 0.1);
-        }
-
-        .learning-field-label {
-            font-size: 0.85rem;
+        .chat-input-area button {
+            padding: 12px 24px;
+            background: #3987b8;
+            color: white;
+            border: none;
+            border-radius: 6px;
             font-weight: 600;
-            color: var(--black);
-            margin-bottom: 6px;
-        }
-
-        .learning-field-bar {
-            height: 6px;
-            background: #e0e0e0;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 5px;
-        }
-
-        .learning-field-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--blue) 0%, #2c6b94 100%);
-            border-radius: 3px;
-            transition: width 0.4s ease;
-        }
-
-        .learning-field-percent {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--blue);
-            text-align: right;
-        }
-
-        @media (max-width: 1200px) {
-            .learning-fields-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .learning-fields-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .learning-fields-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .message-bubble h1,
-        .message-bubble h2,
-        .message-bubble h3 {
-            font-weight: 600;
-            font-size: 1em;
-            margin: 8px 0 4px;
-        }
-
-        /* Mastery Chain */
-
-        .mastery-chain {
-            display: flex;
-            align-items: baseline;
-            gap: 5px;
-        }
-
-        .mastery-level {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 12px;
-            color: var(--black);
-            opacity: 0.65;
-            letter-spacing: 0.02em;
-            transition: opacity 0.2s ease;
-            cursor: default;
-            position: relative;
-        }
-
-        .mastery-level:not(.active):hover {
-            opacity: 0.55;
-        }
-
-        .mastery-level.active {
-            color: var(--blue);
-            opacity: 1;
-        }
-
-        /* tooltip: alle level (auch aktiver) */
-        .mastery-level[data-tooltip]:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: calc(100% + 6px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--black);
-            color: var(--white);
-            padding: 5px 9px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 300;
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 100;
-            opacity: 0.92;
-        }
-
-        /* joker tooltip */
-        .joker-icons[data-tooltip] {
-            position: relative;
-        }
-
-        .joker-icons[data-tooltip]:hover::after {
-            content: "Du hast genau drei Joker für die gesamte Ausbildung,\A falls du einmal stecken bleibst — use wisely!";
-            position: absolute;
-            bottom: calc(100% + 6px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--black);
-            color: var(--white);
-            padding: 6px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 300;
-            white-space: pre;
-            line-height: 1.5;
-            pointer-events: none;
-            z-index: 100;
-            opacity: 0.92;
-        }
-
-        .mastery-sep {
-            font-size: 11px;
-            opacity: 0.5;
-            color: var(--black);
-            user-select: none;
-        }
-
-        .user-label,
-        .mastery-label,
-        .export-group-label {
-            font-size: 13px;
-            opacity: 0.75;
-        }
-
-        .export-sep {
-            font-size: 14px;
-            opacity: 0.5;
-            user-select: none;
-        }
-
-        /* Joker Icons */
-
-        .joker-icons {
-            display: flex;
-            gap: 1px;
             cursor: pointer;
+            transition: background 0.2s;
         }
 
-        .joker-icon {
-            font-size: 13px;
-            line-height: 1;
+        .chat-input-area button:hover {
+            background: #2c6b94;
         }
 
-        .joker-icon.spent {
-            opacity: 0.15;
-            filter: grayscale(1);
-        }
-
-        .joker-icons:not([disabled]):hover .joker-icon:not(.spent) {
-            opacity: 0.75;
-        }
-
-        /* Level-Up Block */
-
-        .level-up-block {
-            border: 2px solid var(--blue);
-            border-radius: 10px;
-            padding: 18px 22px;
-            background: var(--light-gray);
-            max-width: 80%;
-        }
-
-        .level-up-label {
-            font-size: 0.82em;
-            opacity: 0.55;
-            margin-bottom: 6px;
-        }
-
-        .level-up-value {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.25em;
-            color: var(--blue);
-            font-weight: 700;
-            letter-spacing: 0.04em;
-        }
-
-        .level-up-hint {
-            font-size: 0.85em;
-            opacity: 0.65;
-            margin-top: 6px;
-        }
-
-        /* Footer */
-
-        footer {
-            padding: 60px 0;
-            background: var(--black);
-            color: var(--white);
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
             text-align: center;
-        }
-
-        .footer-cta { margin-bottom: 40px; }
-
-        .footer-cta h3 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 20px;
-        }
-
-        .footer-contact {
+            color: #888;
             font-size: 0.9rem;
-            opacity: 0.85;
         }
-
-        .footer-contact a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .footer-contact a:hover { opacity: 1; text-decoration: underline; }
-
-        .footer-meta {
-            margin-top: 20px;
-            font-size: 0.75rem;
-            opacity: 0.5;
-        }
-
-        /* Responsive */
 
         @media (max-width: 768px) {
-            .hero-content {
+            .main-content {
                 grid-template-columns: 1fr;
-                gap: 40px;
             }
 
-            .value-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
+            .sidebar {
+                max-height: 300px;
             }
 
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
+            header h1 {
+                font-size: 1.8rem;
             }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .demo-section { padding: 80px 0; }
-
-            .chat-messages {
-                min-height: 350px;
-                padding: 20px;
-            }
-
-            .message-bubble { max-width: 88%; }
-            .words-block     { max-width: 88%; }
-        }
-
-        @media (max-width: 480px) {
-            body { padding-top: 70px; }
-
-            .hero {
-                min-height: calc(100vh - 70px);
-                padding: 100px 0 60px;
-            }
-
-            .hero-text h1 {
-                font-size: 1.9rem;
-                line-height: 1.15;
-            }
-
-            .hero-text p { font-size: 1rem; }
-
-            .value-proposition { padding: 80px 0; }
-            .value-inner p     { font-size: 1.1rem; }
-            .value-grid        { grid-template-columns: 1fr 1fr; gap: 24px; }
-
-            .features { padding: 80px 0; }
-
-            .how-it-works { padding: 80px 0; }
-            .stats-grid   { grid-template-columns: repeat(2, 1fr); }
-
-            .chat-input-container { padding: 16px 20px; }
-            .chat-messages        { padding: 16px; }
         }
     </style>
 </head>
 <body>
-
     <header>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-            <a href="https://unwritten.studio/" class="logo">unwritten</a>
-            <a href="dashboard.html" style="padding: 10px 20px; background: #3987b8; color: white; text-decoration: none; border-radius: 6px; font-size: 0.95rem; transition: all 0.3s ease;" onmouseover="this.style.background='#2c6b94'" onmouseout="this.style.background='#3987b8'">📊 Dashboard</a>
+        <div class="container">
+            <h1>Glitch</h1>
+            <p>KI-Lernbegleiter für Fachinformatiker — IHK Prüfungsvorbereitung</p>
         </div>
     </header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Zwei Jahre. Vier Fachrichtungen.<br><span class="highlight">100% Bock.</span></h1>
-                    <p>Kein Lernprogramm. Kein Erklär-Bär. Glitch ist immer bei dir. Erinnert dich an das, was du gestern nicht verstanden hast. Holt dich morgen genau dort wieder ab.</p>
-                    <a href="#demo" class="cta-button">Glitch starten</a>
-                </div>
-
-                <div class="hero-visual">
-                    <video class="hero-image" autoplay muted loop playsinline>
-                        <source src="assets/images/moving-glitch-v2.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Value Proposition -->
-    <section class="value-proposition">
-        <div class="container">
-            <div class="value-inner">
-                <h2>Kein Bot. Kein Ausbilder. <strong>Ein Glitch.</strong></h2>
-                <p>Glitch manövriert dich von "den Stoff verstanden" zu "dem Prüfer überzeugend erklären können". Wir surfen gemeinsam das Curriculum. Statt sinnlosem Auswendig-Lernen fokussieren wir uns auf KI und die neue Welt da draußen. Kein unpersönlicher Reset nach jedem Gespräch. Stattdessen drei magische Wörter für deinen persönlichen Zugang.</p>
-
-                <div class="value-grid">
-                    <div class="value-item">
-                        <div class="value-icon"><img src="assets/images/infinity-icon.svg" alt="" width="52" height="52"></div>
-                        <h4>Kein Vergessen</h4>
-                        <p>Zwei Jahre Lernhistorie — jederzeit abrufbar</p>
+    <div class="container">
+        <div class="main-content">
+            <!-- Sidebar with Learning Fields -->
+            <aside class="sidebar">
+                <h3>📚 Lernfelder</h3>
+                <div id="learningFields">
+                    <div class="fach-item" onclick="selectTopic('LF1: IT-Systeme', 'Hardware, Betriebssysteme, Netzwerk')">
+                        <h4>LF1: IT-Systeme</h4>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 45%"></div></div>
+                        <span class="progress-text">45% Fortschritt</span>
                     </div>
-                    <div class="value-item">
-                        <div class="value-icon"><img src="assets/images/target-icon.svg" alt="" width="52" height="52"></div>
-                        <h4>Kein Account</h4>
-                        <p>Drei Wörter. Die gehören dir. Fertig.</p>
+                    <div class="fach-item" onclick="selectTopic('LF2: Programmiergrundlagen', 'Python, Variablen, OOP')">
+                        <h4>LF2: Programmiergrundlagen</h4>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div>
+                        <span class="progress-text">60% Fortschritt</span>
                     </div>
-                    <div class="value-item">
-                        <div class="value-icon"><img src="assets/images/compass-icon.svg" alt="" width="52" height="52"></div>
-                        <h4>Alle Fachrichtungen</h4>
-                        <p>AE, SI, DV, DPA — Glitch kennt den Unterschied</p>
+                    <div class="fach-item" onclick="selectTopic('LF3: Datenbanken', 'SQL, Normalisierung, ER-Modell')">
+                        <h4>LF3: Datenbanken</h4>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 35%"></div></div>
+                        <span class="progress-text">35% Fortschritt</span>
                     </div>
-                    <div class="value-item">
-                        <div class="value-icon"><img src="assets/images/graduation-icon.svg" alt="" width="52" height="52"></div>
-                        <h4>Reality-Check</h4>
-                        <p>Was gefragt wird — nicht was im Rahmenplan steht.</p>
+                    <div class="fach-item" onclick="selectTopic('LF4: Frontend', 'HTML, CSS, JavaScript')">
+                        <h4>LF4: Frontend</h4>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 70%"></div></div>
+                        <span class="progress-text">70% Fortschritt</span>
+                    </div>
+                    <div class="fach-item" onclick="selectTopic('LF5: Backend', 'Flask, Django, FastAPI')">
+                        <h4>LF5: Backend</h4>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
+                        <span class="progress-text">50% Fortschritt</span>
+                    </div>
+                    <div class="fach-item" onclick="selectTopic('LF6: Web-Sicherheit', 'OWASP, Hashing, Verschlüsselung')">
+                        <h4>LF6: Web-Sicherheit</h4>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
+                        <span class="progress-text">40% Fortschritt</span>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </aside>
 
-    <!-- Features -->
-    <section class="features">
-        <div class="container">
-            <div class="section-header">
-                <div class="subtitle">Was Glitch einzigartig macht</div>
-                <h2>Glitch vergisst nicht. Anders als du drei Tage vor der AP1.</h2>
-            </div>
-
-            <div class="features-grid">
-                <div class="feature">
-                    <div class="feature-icon">
-                        <img src="assets/images/sparkle-icon.svg" alt="KI als Referenzmodell" width="90" height="90">
-                    </div>
-                    <h3>KI als Referenzmodell</h3>
-                    <p>Kein Buzzword-Bingo. Jedes Thema wird dort verankert, wo es heute wirklich passiert: APIs, Vektordatenbanken, Inference-Cluster, DSGVO an Training Data. Prüfungsrelevant und zukunftsfähig.</p>
+            <!-- Chat Container -->
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2>💬 Lerne mit Glitch</h2>
                 </div>
-
-                <div class="feature">
-                    <div class="feature-icon">
-                        <img src="assets/images/user-profile-icon.svg" alt="Glitch lernt dich" width="90" height="90">
-                    </div>
-                    <h3>Glitch lernt dich</h3>
-                    <p>Kein Onboarding-Formular. Glitch lernt im Gespräch — Fachrichtung, Ausbildungsjahr, Confidence-Level pro Themengebiet. Was dabei rauskommt, ist kein generisches Skript sondern dein persönlicher Stand.</p>
-                </div>
-
-                <div class="feature">
-                    <div class="feature-icon">
-                        <img src="assets/images/book-icon.svg" alt="Dein Lerntagebuch" width="90" height="90">
-                    </div>
-                    <h3>Dein Lerntagebuch</h3>
-                    <p>Jederzeit: Lernfortschritt als Markdown exportieren. Meilensteine, Confidence-Scores, Summary — ein Entwicklungstagebuch, das für Transparenz und den Überblick sorgt.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How it works -->
-    <section class="how-it-works">
-        <div class="container">
-            <div class="how-content">
-                <h3>So funktioniert Glitch</h3>
-
-                <div class="how-step">
-                    <h4>Reinschreiben. Fertig.</h4>
-                    <p>Kein Onboarding. Kein Dropdown. Glitch fragt, was dich gerade beschäftigt — und lernt dabei. Nach ein paar echten Gesprächen weiß Glitch genug über dich.</p>
-                </div>
-
-                <div class="how-step">
-                    <h4>Drei Wörter statt Account</h4>
-                    <p>Sobald Glitch weiß, dass du angekommen bist — sobald du echte, ernste Fragen stellst — bekommst du deine drei Zugangsworte. Schreib sie auf. Sie bringen dich immer zurück. Egal welcher Browser, egal welches Gerät. Auch nach den Sommerferien.</p>
-                </div>
-
-                <div class="how-step">
-                    <h4>Begleitung bis zur Prüfung</h4>
-                    <p>Glitch erinnert sich, was du beim letzten Mal nicht verstanden hast, wo dein Confidence-Level liegt, und wann deine AP1 ist. Das Gespräch geht weiter — nie von vorn.</p>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="stat">
-                        <div class="stat-number">0</div>
-                        <div class="stat-label">Login</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">1</div>
-                        <div class="stat-label">Gedächtnis</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">3</div>
-                        <div class="stat-label">Worte</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">4</div>
-                        <div class="stat-label">Fachrichtungen</div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot">
+                        <strong>Glitch:</strong> Hallo! 👋 Ich bin Glitch, dein KI-Lernbegleiter für die IHK-Prüfung. Wähle ein Lernfeld links aus oder stelle mir eine Frage zu deinen Lernmaterialien!
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Demo -->
-    <section id="demo" class="demo-section">
-        <div class="container">
-            <div class="section-header">
-                <div class="subtitle">Mach's einfach</div>
-                <h2>Direkt einsteigen.</h2>
-                <p style="max-width: 600px; margin: 20px auto 0; opacity: 0.75;">Glitch lernt dich im Gespräch kennen. Keine Dropdowns, keine Formulare. Einfach losschreiben — und wenn du wiederkommst, gib deine drei Wörter ein.</p>
-            </div>
-
-            <div class="demo-wrapper" x-data="glitchChat()" @alpine:init="initProgress">
-
-                <!-- Sidebar mit 18 IHK-Lernfeldern -->
-                <div class="sidebar">
-                    <div class="sidebar-title">📚 18 Lernfelder</div>
-
-                    <!-- Power Python Button -->
-                    <button onclick="openPowerPython()" style="width: 100%; padding: 12px 10px; margin-bottom: 15px; background: linear-gradient(135deg, #3987b8 0%, #2c6b94 100%); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; transition: all 0.2s;">
-                        ⚡ Power Python Modul
-                    </button>
-
-                    <div class="fach-item" @click="toggleFach('lf1')" :class="{'active': activeFach === 'lf1'}">
-                        <span>LF1 IT-Systeme</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf1'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf1'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf1')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf1')}">
-                        <div class="topic-item" @click="updateProgress('lf1', 20); insertTopic('LF1 Python: Hardware-Grundlagen - CPU, RAM, Speicher, Motherboard')">Hardware</div>
-                        <div class="topic-item" @click="updateProgress('lf1', 20); insertTopic('LF1 Python: Betriebssysteme - Prozesse, Speicherverwaltung, Dateisysteme')">Betriebssysteme</div>
-                        <div class="topic-item" @click="updateProgress('lf1', 20); insertTopic('LF1 Python: Netzwerk - TCP/IP, HTTP/HTTPS, DNS, Firewall, Ports')">Netzwerk</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf2')" :class="{'active': activeFach === 'lf2'}">
-                        <span>LF2 Programmiergrundlagen</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf2'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf2'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf2')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf2')}">
-                        <div class="topic-item" @click="insertTopic('LF2 Python: Variablen & Datentypen (int, str, list, dict, tuple)')">Python Basics</div>
-                        <div class="topic-item" @click="insertTopic('LF2 Python: Schleifen & Bedingungen (if/elif/else, for, while)')">Kontrollstrukturen</div>
-                        <div class="topic-item" @click="insertTopic('LF2 Python: Funktionen definieren (def, Parameter, Return, *args, **kwargs)')">Funktionen</div>
-                        <div class="topic-item" @click="insertTopic('LF2 Python: OOP - Klassen, Vererbung, Polymorphismus, self')">OOP</div>
-                        <div class="topic-item" @click="insertTopic('LF2 Python: Exception Handling (try/except/finally, raise)')">Error Handling</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf3')" :class="{'active': activeFach === 'lf3'}">
-                        <span>LF3 Datenbanken</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf3'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf3'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf3')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf3')}">
-                        <div class="topic-item" @click="updateProgress('lf3', 20); insertTopic('LF3 SQL: SELECT, WHERE, ORDER BY, GROUP BY mit Python sqlite3')">SQL Grundlagen</div>
-                        <div class="topic-item" @click="updateProgress('lf3', 20); insertTopic('LF3 SQL: JOIN (INNER, LEFT, RIGHT, FULL) - praktische Queries')">Joins</div>
-                        <div class="topic-item" @click="updateProgress('lf3', 20); insertTopic('LF3 Normalisierung: 1NF, 2NF, 3NF, BCNF')">Normalisierung</div>
-                        <div class="topic-item" @click="updateProgress('lf3', 20); insertTopic('LF3 Python sqlite3: Cursor, Transactions, prepared statements')">Python DB</div>
-                        <div class="topic-item" @click="updateProgress('lf3', 20); insertTopic('LF3 ER-Modellierung: Entitäten, Attribute, Beziehungen')">ER-Modell</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf4')" :class="{'active': activeFach === 'lf4'}">
-                        <span>LF4 Frontend</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf4'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf4'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf4')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf4')}">
-                        <div class="topic-item" @click="updateProgress('lf4', 17); insertTopic('LF4 HTML/CSS: Semantisches HTML, CSS Grid, Flexbox')">HTML/CSS</div>
-                        <div class="topic-item" @click="updateProgress('lf4', 17); insertTopic('LF4 JavaScript: DOM-Manipulation, Event Listener, Fetch API')">JavaScript</div>
-                        <div class="topic-item" @click="updateProgress('lf4', 17); insertTopic('LF4 Python Flask: @app.route(), render_template, Jinja2')">Flask</div>
-                        <div class="topic-item" @click="updateProgress('lf4', 17); insertTopic('LF4 Python Django: Templates, Static Files, URL Routing')">Django</div>
-                        <div class="topic-item" @click="updateProgress('lf4', 17); insertTopic('LF4 Python FastAPI: HTML Templates, request/response')">FastAPI</div>
-                        <div class="topic-item" @click="updateProgress('lf4', 16); insertTopic('LF4 Jinja2: Template Inheritance, Filters, Loops')">Jinja2</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf5')" :class="{'active': activeFach === 'lf5'}">
-                        <span>LF5 Backend</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf5'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf5'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf5')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf5')}">
-                        <div class="topic-item" @click="updateProgress('lf5', 20); insertTopic('LF5 Python Flask: Flask-SQLAlchemy, Blueprints, Middleware')">Flask</div>
-                        <div class="topic-item" @click="updateProgress('lf5', 20); insertTopic('LF5 Python Django: Models, ORM, Queryset API, Migrations')">Django ORM</div>
-                        <div class="topic-item" @click="updateProgress('lf5', 20); insertTopic('LF5 Python FastAPI: Pydantic Models, Dependency Injection')">FastAPI</div>
-                        <div class="topic-item" @click="updateProgress('lf5', 20); insertTopic('LF5 REST APIs: Statuscode, JSON Response, Request Design')">REST APIs</div>
-                        <div class="topic-item" @click="updateProgress('lf5', 20); insertTopic('LF5 Auth: JWT, Session-based, Password Hashing (bcrypt)')">Auth</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf6')" :class="{'active': activeFach === 'lf6'}">
-                        <span>LF6 Web-Sicherheit</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf6'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf6'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf6')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf6')}">
-                        <div class="topic-item" @click="updateProgress('lf6', 25); insertTopic('LF6 OWASP Top 10: Injection, XSS, CSRF, Sensitive Data')">OWASP</div>
-                        <div class="topic-item" @click="updateProgress('lf6', 25); insertTopic('LF6 Python hashlib: MD5, SHA1, SHA256 für Hashing')">Hashing</div>
-                        <div class="topic-item" @click="updateProgress('lf6', 25); insertTopic('LF6 Python cryptography: Symmetric/Asymmetric Encryption')">Verschlüsselung</div>
-                        <div class="topic-item" @click="updateProgress('lf6', 25); insertTopic('LF6 Input Validation: Sanitization, SQL Injection Prevention')">Input Validation</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf7')" :class="{'active': activeFach === 'lf7'}">
-                        <span>LF7 Mobile iOS</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf7'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf7'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf7')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf7')}">
-                        <div class="topic-item" @click="updateProgress('lf7', 33); insertTopic('LF7 Swift Basics: Variables, Functions, Structs, Classes')">Swift</div>
-                        <div class="topic-item" @click="updateProgress('lf7', 33); insertTopic('LF7 iOS Development: UIKit, SwiftUI, View Controllers')">iOS Dev</div>
-                        <div class="topic-item" @click="updateProgress('lf7', 34); insertTopic('LF7 iOS APIs: Core Data, URLSession, Push Notifications')">iOS APIs</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf8')" :class="{'active': activeFach === 'lf8'}">
-                        <span>LF8 Mobile Android</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf8'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf8'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf8')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf8')}">
-                        <div class="topic-item" @click="updateProgress('lf8', 33); insertTopic('LF8 Kotlin Basics: Variables, Functions, Classes, Lambdas')">Kotlin</div>
-                        <div class="topic-item" @click="updateProgress('lf8', 33); insertTopic('LF8 Android Development: Activities, Fragments, Layouts')">Android Dev</div>
-                        <div class="topic-item" @click="updateProgress('lf8', 34); insertTopic('LF8 Android APIs: Room Database, Retrofit, Firebase')">Android APIs</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf9')" :class="{'active': activeFach === 'lf9'}">
-                        <span>LF9 Cross-Platform</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf9'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf9'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf9')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf9')}">
-                        <div class="topic-item" @click="updateProgress('lf9', 33); insertTopic('LF9 Flutter: Dart, Widgets, State Management')">Flutter</div>
-                        <div class="topic-item" @click="updateProgress('lf9', 33); insertTopic('LF9 React Native: JavaScript/TypeScript, Components, Navigation')">React Native</div>
-                        <div class="topic-item" @click="updateProgress('lf9', 34); insertTopic('LF9 Web Components: HTML Custom Elements, Shadow DOM')">Web Comp</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf10')" :class="{'active': activeFach === 'lf10'}">
-                        <span>LF10 Design Patterns</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf10'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf10'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf10')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf10')}">
-                        <div class="topic-item" @click="updateProgress('lf10', 33); insertTopic('LF10 Python Design Patterns: MVC, Factory, Singleton, Observer')">Patterns</div>
-                        <div class="topic-item" @click="updateProgress('lf10', 33); insertTopic('LF10 SOLID: Single Responsibility, Open/Closed, Liskov')">SOLID</div>
-                        <div class="topic-item" @click="updateProgress('lf10', 34); insertTopic('LF10 Code Quality: DRY, KISS, Refactoring, Technical Debt')">Code Quality</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf11')" :class="{'active': activeFach === 'lf11'}">
-                        <span>LF11 Testing & QA</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf11'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf11'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf11')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf11')}">
-                        <div class="topic-item" @click="updateProgress('lf11', 25); insertTopic('LF11 Python Testing: unittest, pytest, Fixtures, Mocking')">Unit Testing</div>
-                        <div class="topic-item" @click="updateProgress('lf11', 25); insertTopic('LF11 Test Types: Integration Tests, E2E, Regression Testing')">Test Types</div>
-                        <div class="topic-item" @click="updateProgress('lf11', 25); insertTopic('LF11 TDD/BDD: Test-Driven Development, Behavior-Driven')">TDD/BDD</div>
-                        <div class="topic-item" @click="updateProgress('lf11', 25); insertTopic('LF11 Code Coverage: Coverage.py, Metrics, Coverage Goals')">Coverage</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf12')" :class="{'active': activeFach === 'lf12'}">
-                        <span>LF12 Team-Entwicklung</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf12'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf12'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf12')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf12')}">
-                        <div class="topic-item" @click="updateProgress('lf12', 25); insertTopic('LF12 Git: add, commit, push, pull, branch, merge')">Git</div>
-                        <div class="topic-item" @click="updateProgress('lf12', 25); insertTopic('LF12 Git Workflows: Feature Branch, Pull Requests, Code Review')">Workflows</div>
-                        <div class="topic-item" @click="updateProgress('lf12', 25); insertTopic('LF12 Agile: Scrum, Kanban, Sprint Planning, Daily Standups')">Agile</div>
-                        <div class="topic-item" @click="updateProgress('lf12', 25); insertTopic('LF12 Teamwork: Communication, Documentation, Knowledge Sharing')">Teamwork</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf13')" :class="{'active': activeFach === 'lf13'}">
-                        <span>LF13 Enterprise</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf13'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf13'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf13')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf13')}">
-                        <div class="topic-item" @click="updateProgress('lf13', 33); insertTopic('LF13 Microservices: Architecture, Service-to-Service, Communication')">Microservices</div>
-                        <div class="topic-item" @click="updateProgress('lf13', 33); insertTopic('LF13 Enterprise Patterns: CQRS, Event Sourcing, Saga')">Patterns</div>
-                        <div class="topic-item" @click="updateProgress('lf13', 34); insertTopic('LF13 ERP Systems: SAP, Oracle, Integration, Business Logic')">ERP</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf14')" :class="{'active': activeFach === 'lf14'}">
-                        <span>LF14 Cloud-Native</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf14'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf14'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf14')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf14')}">
-                        <div class="topic-item" @click="updateProgress('lf14', 33); insertTopic('LF14 Kubernetes: Pods, Services, Deployments, ConfigMaps')">Kubernetes</div>
-                        <div class="topic-item" @click="updateProgress('lf14', 33); insertTopic('LF14 Docker: Containers, Dockerfile, Docker Compose, Registries')">Docker</div>
-                        <div class="topic-item" @click="updateProgress('lf14', 34); insertTopic('LF14 Cloud: AWS, GCP, Azure, Cloud Services, Serverless')">Cloud</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf15')" :class="{'active': activeFach === 'lf15'}">
-                        <span>LF15 DevOps</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf15'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf15'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf15')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf15')}">
-                        <div class="topic-item" @click="updateProgress('lf15', 33); insertTopic('LF15 CI/CD: GitHub Actions, GitLab CI, Jenkins, Pipelines')">CI/CD</div>
-                        <div class="topic-item" @click="updateProgress('lf15', 33); insertTopic('LF15 Monitoring: Prometheus, Grafana, ELK Stack, Alerting')">Monitoring</div>
-                        <div class="topic-item" @click="updateProgress('lf15', 34); insertTopic('LF15 IaC: Terraform, CloudFormation, Ansible, Configuration')">IaC</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf16')" :class="{'active': activeFach === 'lf16'}">
-                        <span>LF16 KI & ML</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf16'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf16'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf16')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf16')}">
-                        <div class="topic-item" @click="updateProgress('lf16', 25); insertTopic('LF16 Machine Learning: sklearn, pandas, numpy, Model Training')">ML</div>
-                        <div class="topic-item" @click="updateProgress('lf16', 25); insertTopic('LF16 Deep Learning: TensorFlow, Keras, PyTorch, Neural Networks')">DL</div>
-                        <div class="topic-item" @click="updateProgress('lf16', 25); insertTopic('LF16 LLMs: Transformers, Embeddings, RAG, Claude APIs')">LLMs</div>
-                        <div class="topic-item" @click="updateProgress('lf16', 25); insertTopic('LF16 AI Safety: Bias, Explainability, Ethics, DSGVO')">AI Safety</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf17')" :class="{'active': activeFach === 'lf17'}">
-                        <span>LF17 Data & BigData</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf17'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf17'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf17')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf17')}">
-                        <div class="topic-item" @click="updateProgress('lf17', 33); insertTopic('LF17 Data Analysis: Pandas, Data Cleaning, EDA, Statistics')">Analysis</div>
-                        <div class="topic-item" @click="updateProgress('lf17', 33); insertTopic('LF17 Visualization: Matplotlib, Seaborn, Plotly, Dashboards')">Visualization</div>
-                        <div class="topic-item" @click="updateProgress('lf17', 34); insertTopic('LF17 BigData: Spark, Hadoop, Data Lakes, ETL Pipelines')">BigData</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf18')" :class="{'active': activeFach === 'lf18'}">
-                        <span>LF18 Embedded & IoT</span>
-                        <div class="progress-bar" :style="`width: ${learningProgress['lf18'] || 0}%`"></div>
-                        <span class="progress-text" x-text="`${learningProgress['lf18'] || 0}%`"></span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf18')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf18')}">
-                        <div class="topic-item" @click="updateProgress('lf18', 33); insertTopic('LF18 Arduino: C++, Sketches, GPIO, Sensors, Actuators')">Arduino</div>
-                        <div class="topic-item" @click="updateProgress('lf18', 33); insertTopic('LF18 Raspberry Pi: Python, GPIO, Automation, Home IoT')">Raspberry Pi</div>
-                        <div class="topic-item" @click="updateProgress('lf18', 34); insertTopic('LF18 IoT Protocols: MQTT, CoAP, LoRaWAN, 5G')">Protocols</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf4')" :class="{'active': activeFach === 'lf4'}">
-                        <span>LF4 Frontend ⭐⭐⭐</span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf4')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf4')}">
-                        <div class="topic-item" @click="insertTopic('LF4 HTML/CSS: Semantisches HTML, CSS Grid/Flexbox, Responsive Design')">HTML/CSS</div>
-                        <div class="topic-item" @click="insertTopic('LF4 JavaScript: DOM-Manipulation, Event Listener, Fetch API, async/await')">JavaScript</div>
-                        <div class="topic-item" @click="insertTopic('LF4 Python Flask: @app.route(), request.form, render_template, Jinja2 Templates')">Flask Backend</div>
-                        <div class="topic-item" @click="insertTopic('LF4 Python Django: Django Templates, Static Files, URL Routing, Views')">Django Frontend</div>
-                        <div class="topic-item" @click="insertTopic('LF4 Python FastAPI: FastAPI mit HTML Templates, request/response handling')">FastAPI Frontend</div>
-                        <div class="topic-item" @click="insertTopic('LF4 Jinja2: Template Inheritance, Filters, Loops, Conditionals in Templates')">Jinja2 Templates</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf5')" :class="{'active': activeFach === 'lf5'}">
-                        <span>LF5 Backend ⭐⭐⭐</span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf5')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf5')}">
-                        <div class="topic-item" @click="insertTopic('LF5 Python Flask: Flask-SQLAlchemy, Blueprints, Middleware, error handlers')">Flask</div>
-                        <div class="topic-item" @click="insertTopic('LF5 Python Django: Models, ORM, Queryset API, Migrations, Admin Panel')">Django ORM</div>
-                        <div class="topic-item" @click="insertTopic('LF5 Python FastAPI: Pydantic Models, Dependency Injection, async endpoints')">FastAPI</div>
-                        <div class="topic-item" @click="insertTopic('LF5 REST APIs: Statuscode (200, 201, 400, 404, 500), JSON Response, Request/Response Design')">REST API Design</div>
-                        <div class="topic-item" @click="insertTopic('LF5 Authentication: JWT, Session-based Auth, Password Hashing (bcrypt), CORS')">Auth & Security</div>
-                    </div>
-
-                    <!-- ⭐⭐ CRITICAL (20% Exam) -->
-                    <div class="fach-item" @click="toggleFach('lf6')" :class="{'active': activeFach === 'lf6'}">
-                        <span>LF6 Web-Sicherheit ⭐⭐</span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf6')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf6')}">
-                        <div class="topic-item" @click="insertTopic('LF6 OWASP Top 10: Injection, Broken Auth, XSS, CSRF, Sensitive Data Exposure')">OWASP</div>
-                        <div class="topic-item" @click="insertTopic('LF6 Python Hashing: hashlib, bcrypt für Passwort-Speicherung, Salt & Pepper')">Hashing</div>
-                        <div class="topic-item" @click="insertTopic('LF6 Python Encryption: cryptography library, symmetric/asymmetric encryption, base64 encoding')">Verschlüsselung</div>
-                        <div class="topic-item" @click="insertTopic('LF6 Input Validation: Sanitization, SQL Injection Prevention, XSS Prevention in Python')">Input Validation</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf1')" :class="{'active': activeFach === 'lf1'}">
-                        <span>LF1 IT-Systeme ⭐⭐</span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf1')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf1')}">
-                        <div class="topic-item" @click="insertTopic('LF1 Hardware: CPU, RAM, Speicher, Motherboard, Peripherie, Boot-Prozess')">Hardware</div>
-                        <div class="topic-item" @click="insertTopic('LF1 Betriebssysteme: Windows/Linux, Prozesse, Speicherverwaltung, Dateisysteme')">Betriebssysteme</div>
-                        <div class="topic-item" @click="insertTopic('LF1 Netzwerk: TCP/IP, HTTP/HTTPS, DNS, Firewall, Ports, Netzwerk-Tools')">Netzwerk</div>
-                    </div>
-
-                    <!-- 🔥 PROFESSIONAL SKILLS (40% Exam) -->
-                    <div class="fach-item" @click="toggleFach('lf10')" :class="{'active': activeFach === 'lf10'}">
-                        <span>LF10 Design Patterns 🔥</span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf10')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf10')}">
-                        <div class="topic-item" @click="insertTopic('LF10 Python Design Patterns: MVC, Repository Pattern, Factory Pattern, Singleton')">Design Patterns</div>
-                        <div class="topic-item" @click="insertTopic('LF10 SOLID Principles: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion')">SOLID</div>
-                        <div class="topic-item" @click="insertTopic('LF10 Code Quality: DRY, KISS, Code Review, Refactoring, Technical Debt')">Code Quality</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf11')" :class="{'active': activeFach === 'lf11'}">
-                        <span>LF11 Testing & QA 🔥</span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf11')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf11')}">
-                        <div class="topic-item" @click="insertTopic('LF11 Python Testing: unittest, pytest, Fixtures, Mocking, Coverage')">Unit Testing</div>
-                        <div class="topic-item" @click="insertTopic('LF11 Test-Types: Integration Tests, End-to-End Tests, Regression Testing')">Test-Arten</div>
-                        <div class="topic-item" @click="insertTopic('LF11 TDD & BDD: Test-Driven Development, Behavior-Driven Development, Red-Green-Refactor')">TDD/BDD</div>
-                    </div>
-
-                    <div class="fach-item" @click="toggleFach('lf12')" :class="{'active': activeFach === 'lf12'}">
-                        <span>LF12 Team & Git 🔥</span>
-                        <span class="fach-toggle" :class="{'open': openFach.includes('lf12')}">›</span>
-                    </div>
-                    <div class="fach-topics" :class="{'show': openFach.includes('lf12')}">
-                        <div class="topic-item" @click="insertTopic('LF12 Git Grundlagen: add, commit, push, pull, branch, merge, conflict resolution')">Git Basics</div>
-                        <div class="topic-item" @click="insertTopic('LF12 Git Workflows: Feature Branch, Pull Requests, Code Review, Commits schreiben')">Git Workflows</div>
-                        <div class="topic-item" @click="insertTopic('LF12 Teamwork: Agile (Scrum/Kanban), Daily Standups, Sprint Planning, Documentation')">Teamwork</div>
-                    </div>
-                </div>
-
-                <!-- Chat Container -->
-                <div class="chat-container">
-                <div class="chat-messages" x-ref="messages">
-
-                    <template x-for="msg in messages" :key="msg.id">
-                        <div :class="'message ' + msg.role">
-
-                            <template x-if="msg.wordsAssigned">
-                                <div class="words-block">
-                                    <div class="words-label">Deine drei Wörter:</div>
-                                    <div class="words-value" x-text="msg.wordsAssigned"></div>
-                                    <div class="words-hint">Schreib sie auf. Sie bringen dich zurück.</div>
-                                </div>
-                            </template>
-
-                            <template x-if="msg.levelUp && !msg.wordsAssigned">
-                                <div class="level-up-block">
-                                    <div class="level-up-label">Level erreicht:</div>
-                                    <div class="level-up-value" x-text="`git ${msg.levelUp}`"></div>
-                                    <div class="level-up-hint" x-text="levelUpHint(msg.levelUp)"></div>
-                                </div>
-                            </template>
-
-                            <template x-if="!msg.wordsAssigned && !msg.levelUp">
-                                <div class="message-wrapper">
-                                    <div class="message-bubble" x-html="renderMarkdown(msg.content)"></div>
-                                    <template x-if="msg.role === 'glitch' && msg.content && msg.role !== 'system'">
-                                        <button class="voice-button" @click="speakMessage(msg.content, msg.id)" :data-msg-id="msg.id" title="Vorlesen">🔊</button>
-                                    </template>
-                                </div>
-                            </template>
-
-                        </div>
-                    </template>
-
-                    <template x-if="isTyping">
-                        <div class="message glitch">
-                            <div class="message-bubble">
-                                <div class="typing-indicator">
-                                    <span></span><span></span><span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-
-                </div>
-
-                <div class="chat-input-container">
-                    <textarea
-                        class="chat-input"
-                        placeholder="Wo hängst du gerade?"
-                        x-model="userInput"
-                        x-ref="chatInput"
-                        @keydown="$event.key === 'Enter' && !$event.shiftKey ? ($event.preventDefault(), sendMessage()) : null"
-                        @input="$event.target.style.height = 'auto'; $event.target.style.height = $event.target.scrollHeight + 'px'"
-                        :disabled="isTyping"
-                        rows="1"
-                    ></textarea>
-                    <button
-                        class="send-button"
-                        @click="sendMessage()"
-                        :disabled="isTyping || !userInput.trim()"
-                        aria-label="Senden"
+                <div class="chat-input-area">
+                    <input
+                        type="text"
+                        id="messageInput"
+                        placeholder="Deine Frage an Glitch..."
+                        onkeypress="if(event.key === 'Enter') sendMessage()"
                     >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-                        </svg>
-                    </button>
+                    <button onclick="sendMessage()">Senden</button>
                 </div>
-
-                <div class="export-row" style="display: grid !important; border-top: 1px solid rgba(0,0,0,0.1); margin-top: 10px;">
-
-                    <!-- Zeile 1 links: Identifier -->
-                    <div style="display: flex; align-items: baseline; gap: 5px;">
-                        <span class="user-label">user:</span>
-                        <span class="words-display" x-text="words || '(kein Code yet)'"></span>
-                    </div>
-
-                    <!-- Zeile 1 rechts: markdown export label -->
-                    <div style="display: flex; align-items: center; justify-content: flex-start;">
-                        <span class="export-group-label">markdown export:</span>
-                    </div>
-
-                    <!-- Zeile 2 links: Mastery Level Chain + Joker -->
-                    <div class="mastery-chain" x-show="level">
-                        <span class="mastery-label">mastery level:</span>
-                        <span :class="level === 'draft'  ? 'mastery-level active' : 'mastery-level'" data-tooltip="Anfänger, erste Berührung">draft</span>
-                        <span class="mastery-sep">—</span>
-                        <span :class="level === 'commit' ? 'mastery-level active' : 'mastery-level'" data-tooltip="Grundlagen sitzen, kannst es erklären">commit</span>
-                        <span class="mastery-sep">—</span>
-                        <span :class="level === 'merge'  ? 'mastery-level active' : 'mastery-level'" data-tooltip="Kannst es anwenden, auch in Kombinationen">merge</span>
-                        <span class="mastery-sep">—</span>
-                        <span :class="level === 'deploy' ? 'mastery-level active' : 'mastery-level'" data-tooltip="Prüfungsreif, automatisiert abrufbar">deploy</span>
-                        <span
-                            class="joker-icons"
-                            x-show="jokers !== null"
-                            @click="jokers > 0 && !isTyping && useJoker()"
-                            :style="jokers > 0 && !isTyping ? 'cursor:pointer;margin-left:1rem' : 'cursor:default;margin-left:1rem'"
-                            data-tooltip="Du hast genau drei Joker für die gesamte Ausbildung,&#10;falls du einmal stecken bleibst — use wisely!"
-                        >
-                            <span :class="(jokers ?? 0) >= 1 ? 'joker-icon' : 'joker-icon spent'">🪄</span>
-                            <span :class="(jokers ?? 0) >= 2 ? 'joker-icon' : 'joker-icon spent'">🪄</span>
-                            <span :class="(jokers ?? 0) >= 3 ? 'joker-icon' : 'joker-icon spent'">🪄</span>
-                        </span>
-                    </div>
-
-                    <!-- Zeile 2 rechts: Export-Links -->
-                    <div class="export-actions" style="justify-content: flex-start;">
-                        <button
-                            class="export-btn"
-                            @click="exportDiary()"
-                            :disabled="!words || isExporting"
-                        ><span x-text="words ? 'tagebuch' : 'tagebuch (warte auf code)'"></span></button>
-                        <span class="export-sep" style="margin: 0 4px;">·</span>
-                        <button
-                            class="export-btn"
-                            @click="exportProgress()"
-                            :disabled="!words || isExporting"
-                            x-text="isExporting ? '…' : (words ? 'lernfortschritt' : 'lernfortschritt (code?)')"
-                        ></button>
-                    </div>
-
-                </div>
-            </div>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-cta">
-                <h3>Glitch für dein Unternehmen? Wenn du Azubis ausbildest und dir wünscht, dass sie nicht nur eine Prüfung bestehen, sondern die Welt um sie herum verstehen — dann schreib uns.</h3>
-                <a href="mailto:hello@unwritten.studio" class="cta-button">Glitch anfordern</a>
-            </div>
-            <div class="footer-contact">
-                <p><a href="https://glitch.unwritten.studio">glitch.unwritten.studio</a> &nbsp;|&nbsp; <a href="mailto:hello@unwritten.studio">hello@unwritten.studio</a></p>
-                <p>Unwritten GmbH, Adlerweg 6, 90530 Wendelstein</p>
-                <p style="margin-top: 20px; font-size: 0.8rem;"><a href="https://unwritten.studio/privacy-policy">Privacy Policy</a></p>
-                <p class="footer-meta" id="glitch-build"></p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Build version: uses document.lastModified (auto-updated on each deploy via GitHub Pages)
-        (function() {
-            const d = new Date(document.lastModified);
-            const pad = n => String(n).padStart(2, '0');
-            const stamp = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-            const el = document.getElementById('glitch-build');
-            if (el) el.textContent = `build ${stamp}`;
-        })();
-    </script>
-
-    <script>
-        const GLITCH_VERSION = '2.1';
-
-        function glitchChat() {
-            return {
-                messages: [
-                    {
-                        id: 1,
-                        role: 'glitch',
-                        content: 'Ich bin Glitch. 🎯 Willkommen zur IHK Prüfungsvorbereitung!\n\nMöchtest du:\n• Eine **Anleitung** bekommen? Schreib "anleitung"\n• Ein **Fach wählen**? (z.B. "LF2 Programmiergrundlagen" oder "LF3 Datenbanken")\n• **Direkt loslernen**? Sag mir einfach, woran du arbeiten möchtest!',
-                        timestamp: new Date().toISOString(),
-                    }
-                ],
-                userInput: '',
-                isTyping: false,
-                isExporting: false,
-                words: null,
-                level: null,
-                jokers: null,
-                localHistory: [],
-                messageIdCounter: 2,
-                currentSessionId: Date.now(),
-                activeFach: null,
-                openFach: [],
-                learningProgress: {},
-                learnedTopics: {}, // Track welche Topics gelernt wurden
-
-                get API_URL() {
-                    const hostname = window.location.hostname;
-                    // Immer localhost für Glitch API (local or remote)
-                    return 'http://localhost:3003';
-                },
-
-                // Definiere alle Topics pro Lernfeld
-                topicMap: {
-                    'lf1': ['hardware', 'betriebssysteme', 'netzwerk'],
-                    'lf2': ['loops', 'functions', 'oop', 'error_handling', 'variables'],
-                    'lf3': ['select', 'joins', 'where', 'insert', 'normalisierung', 'er_modell', 'python_db'],
-                    'lf4': ['html', 'css', 'javascript', 'flask', 'django', 'fastapi', 'jinja2'],
-                    'lf5': ['api', 'auth', 'database_connection', 'flask', 'django', 'fastapi', 'rest_apis'],
-                    'lf6': ['injection', 'xss', 'encryption', 'hashing', 'input_validation'],
-                    'lf7': ['swift', 'ui_grundlagen'],
-                    'lf8': ['kotlin', 'ui_grundlagen'],
-                    'lf9': ['framework'],
-                    'lf10': ['patterns', 'solid', 'code_quality'],
-                    'lf11': ['unit_testing', 'integration_testing', 'tdd'],
-                    'lf12': ['git', 'workflows', 'agile'],
-                    'lf13': ['microservices', 'patterns', 'erp'],
-                    'lf14': ['kubernetes', 'docker', 'cloud'],
-                    'lf15': ['cicd', 'monitoring', 'iac'],
-                    'lf16': ['ml', 'deep_learning', 'llms', 'ai_safety'],
-                    'lf17': ['analysis', 'visualization', 'bigdata'],
-                    'lf18': ['arduino', 'raspberry_pi', 'protocols'],
-                },
-
-                initProgress() {
-                    // Lösche alte Test-Daten
-                    localStorage.removeItem('glitchProgress');
-                    localStorage.removeItem('glitchTopics');
-
-                    // Starte immer mit 0%
-                    for (let i = 1; i <= 18; i++) {
-                        this.learningProgress[`lf${i}`] = 0;
-                    }
-                },
-
-                updateProgress(fach, topicId) {
-                    // Mathematisch: (gelernte Topics / Gesamt Topics) * 100
-                    if (!this.learnedTopics[fach]) {
-                        this.learnedTopics[fach] = new Set();
-                    }
-
-                    // Füge Topic zur Menge hinzu
-                    this.learnedTopics[fach].add(topicId);
-
-                    // Berechne Prozent: (gelernte / gesamt) * 100
-                    const totalTopics = this.topicMap[fach]?.length || 1;
-                    const learnedCount = this.learnedTopics[fach]?.size || 0;
-                    const percentage = Math.round((learnedCount / totalTopics) * 100);
-
-                    this.learningProgress[fach] = Math.min(100, percentage);
-
-                    // Speichere beide
-                    localStorage.setItem('glitchProgress', JSON.stringify(this.learningProgress));
-                    const topicsForStorage = {};
-                    Object.keys(this.learnedTopics).forEach(key => {
-                        topicsForStorage[key] = Array.from(this.learnedTopics[key]);
-                    });
-                    localStorage.setItem('glitchTopics', JSON.stringify(topicsForStorage));
-                },
-
-                speakMessage(text, msgId) {
-                    if (!window.speechSynthesis) return;
-
-                    // Stoppe vorherige Rede
-                    window.speechSynthesis.cancel();
-
-                    const utterance = new SpeechSynthesisUtterance(text);
-                    utterance.lang = 'de-DE';
-                    utterance.rate = 0.95;
-                    utterance.pitch = 1.1;
-                    utterance.volume = 1;
-
-                    // Suche deutsche Frauenstimme
-                    const voices = window.speechSynthesis.getVoices();
-                    const femaleDE = voices.find(v => v.lang.includes('de') && v.name.includes('female'));
-                    const anyDE = voices.find(v => v.lang.includes('de'));
-
-                    if (femaleDE) utterance.voice = femaleDE;
-                    else if (anyDE) utterance.voice = anyDE;
-
-                    // Update button status
-                    const btn = document.querySelector(`[data-msg-id="${msgId}"]`);
-                    if (btn) btn.classList.add('playing');
-
-                    utterance.onend = () => {
-                        if (btn) btn.classList.remove('playing');
-                    };
-
-                    utterance.onerror = () => {
-                        if (btn) btn.classList.remove('playing');
-                    };
-
-                    window.speechSynthesis.speak(utterance);
-                },
-
-                stopSpeaking() {
-                    if (window.speechSynthesis) {
-                        window.speechSynthesis.cancel();
-                        document.querySelectorAll('.voice-button').forEach(btn => {
-                            btn.classList.remove('playing');
-                        });
-                    }
-                },
-
-                detectAndTrackLearningProgress(text) {
-                    // Detektiere welches Lernfeld in der Antwort besprochen wird
-                    const lfPattern = /LF(\d{1,2})/gi;
-                    const matches = text.match(lfPattern);
-
-                    if (matches && matches.length > 0) {
-                        // Lerne über mehrere Felder in einer Antwort
-                        const uniqueLFs = [...new Set(matches.map(m => m.toLowerCase()))];
-
-                        uniqueLFs.forEach(lf => {
-                            // Base progress increment (mehr bei längeren Texten)
-                            const baseIncrement = Math.min(15, Math.max(5, Math.floor(text.length / 100)));
-
-                            // Zusätzlicher Bonus für wiederholtes Lernen
-                            const currentProgress = this.learningProgress[lf] || 0;
-                            const depthBonus = currentProgress > 50 ? 2 : currentProgress > 25 ? 1.5 : 1;
-
-                            const finalIncrement = Math.floor(baseIncrement * depthBonus);
-                            this.updateProgress(lf, finalIncrement);
-                        });
-
-                        // Feedback geben
-                        const progressNames = uniqueLFs.map(lf => {
-                            const lfNum = lf.match(/\d+/)[0];
-                            const progress = this.learningProgress[lf] || 0;
-                            return `${lf.toUpperCase()} (${progress}%)`;
-                        }).join(', ');
-
-                        // Sende Fortschritts-Nachricht (DISABLED)
-                        // const feedbackMsg = `💪 Du machst Fortschritt! ${progressNames}`;
-                        // this.messages.push({
-                        //     id: this.messageIdCounter++,
-                        //     role: 'system',
-                        //     content: feedbackMsg,
-                        //     timestamp: new Date().toISOString()
-                        // });
-                    }
-                },
-
-                saveToLocalStorage() {
-                    const allChats = JSON.parse(localStorage.getItem('glitchChats') || '[]');
-                    const currentChat = allChats.find(c => c.id === this.currentSessionId);
-
-                    if (currentChat) {
-                        currentChat.messages = this.messages;
-                    } else {
-                        allChats.push({
-                            id: this.currentSessionId,
-                            timestamp: new Date().toISOString(),
-                            words: this.words,
-                            messages: this.messages
-                        });
-                    }
-
-                    localStorage.setItem('glitchChats', JSON.stringify(allChats));
-                },
-
-                renderMarkdown(text) {
-                    const html = marked.parse(text);
-                    return DOMPurify.sanitize(html, {
-                        ALLOWED_TAGS: ['strong', 'em', 'code', 'p', 'ul', 'ol', 'li', 'a', 'blockquote', 'h1', 'h2', 'h3', 'hr', 'br', 'pre'],
-                        ALLOWED_ATTR: ['href'],
-                    });
-                },
-
-                detectWords(text) {
-                    const match = text.match(/\b([a-z]{3,12})\.([a-z]{3,12})\.([a-z]{3,12})\b/i);
-                    return match ? match[0].toLowerCase() : null;
-                },
-
-                async sendMessage() {
-                    if (!this.userInput.trim() || this.isTyping) return;
-
-                    this.stopSpeaking(); // Stop any ongoing speech
-                    const text = this.userInput.trim();
-                    this.userInput = '';
-                    // Blur on mobile to prevent iOS keyboard-dismissal scroll jumping to footer
-                    if (this.$refs.chatInput) this.$refs.chatInput.blur();
-                    this.$nextTick(() => { if (this.$refs.chatInput) this.$refs.chatInput.style.height = 'auto'; });
-
-                    this.messages.push({
-                        id: this.messageIdCounter++,
-                        role: 'user',
-                        content: text,
-                        timestamp: new Date().toISOString()
-                    });
-                    this.scrollToBottom();
-                    this.saveToLocalStorage();
-                    this.isTyping = true;
-
-                    // Wiederkehrende User erkennen
-                    if (!this.words) {
-                        const detected = this.detectWords(text);
-                        if (detected) {
-                            const identified = await this.identify(detected);
-                            if (identified) {
-                                // Drei Wörter sind Login-Token, nicht Chat-Inhalt.
-                                // Willkommen zurück anzeigen, Nachricht NICHT an /chat schicken.
-                                this.isTyping = false;
-                                const name = identified.profile?.name;
-                                const welcome = name
-                                    ? `${name}. Alles da. Was kommt als nächstes?`
-                                    : `Alles da. Wo wollen wir weitermachen?`;
-                                this.messages.push({ id: this.messageIdCounter++, role: 'glitch', content: welcome });
-                                this.scrollToBottom();
-                                return;
-                            } else {
-                                // Wörter-Format erkannt, aber nicht gefunden — hilfreiche Meldung
-                                this.isTyping = false;
-                                this.messages.push({
-                                    id: this.messageIdCounter++,
-                                    role: 'glitch',
-                                    content: `\`${detected}\` — diese Wörter kenne ich nicht. Tippfehler? Format: alles klein, Punkte als Trennzeichen (z.B. \`kernel.moor.glide\`). Wenn du noch keine hast, einfach losschreiben.`,
-                                });
-                                this.scrollToBottom();
-                                return;
-                            }
-                        }
-                    }
-
-                    try {
-                        const res = await fetch(`${this.API_URL}/chat`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                message: text,
-                                words: this.words,
-                                history: this.words ? [] : this.localHistory,
-                            }),
-                        });
-
-                        const data = await res.json();
-                        if (!res.ok) throw new Error(data.error || 'Fehler');
-
-                        this.isTyping = false;
-
-                        this.messages.push({
-                            id: this.messageIdCounter++,
-                            role: 'glitch',
-                            content: data.response,
-                            timestamp: new Date().toISOString()
-                        });
-
-                        // Auto-track learning progress based on bot response
-                        // this.detectAndTrackLearningProgress(data.response);
-
-                        // Automatisch Lernschritte mit grünem Haken markieren wenn Bot erkennt
-                        if (data.learned_lf) {
-                            if (data.learned_topic) {
-                                window.markLFAsLearned(data.learned_lf, data.learned_topic);
-                                console.log(`✅ Glitch hat erkannt: ${data.learned_lf} / ${data.learned_topic} verstanden!`);
-                            } else {
-                                window.markLFAsLearned(data.learned_lf);
-                                console.log(`✅ Glitch hat erkannt: ${data.learned_lf} vollständig verstanden!`);
-                            }
-                        }
-
-                        this.saveToLocalStorage();
-
-                        if (data.words_assigned) {
-                            this.words  = data.words_assigned;
-                            this.level  = 'draft';
-                            this.jokers = 3;
-                            this.messages.push({
-                                id: this.messageIdCounter++,
-                                role: 'system',
-                                content: `🔑 **Dein Zugangs-Code:** \`${data.words_assigned}\`\n\nMerke dir diesen Code! Du kannst dich damit später wieder anmelden und dein Lernfortschritt wird wiederhergestellt.`,
-                            });
-                        }
-
-                        if (data.level_up) {
-                            this.level = data.level_up;
-                            this.messages.push({
-                                id: this.messageIdCounter++,
-                                role: 'glitch',
-                                levelUp: data.level_up,
-                                content: '',
-                            });
-                        }
-
-                        if (data.jokers_remaining !== null && data.jokers_remaining !== undefined) {
-                            this.jokers = data.jokers_remaining;
-                        }
-
-                        if (!this.words) {
-                            this.localHistory.push({ role: 'user',      content: text });
-                            this.localHistory.push({ role: 'assistant', content: data.response });
-                        }
-
-                        this.scrollToBottom(true); // scroll to start of new response
-
-                    } catch (err) {
-                        console.error('Chat error:', err);
-                        this.isTyping = false;
-                        this.messages.push({ id: this.messageIdCounter++, role: 'glitch', content: 'Da ist etwas schiefgelaufen. Versuch es nochmal.' });
-                        this.scrollToBottom();
-                    }
-                },
-
-                async identify(words) {
-                    try {
-                        const res = await fetch(`${this.API_URL}/identify`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ words }),
-                        });
-                        const data = await res.json();
-                        if (data.found) {
-                            this.words  = words;
-                            this.level  = data.profile?.level  || 'draft';
-                            this.jokers = data.profile?.jokers ?? 3;
-                            return data;
-                        }
-                        return null;
-                    } catch (err) {
-                        console.error('Identify error:', err);
-                        return null;
-                    }
-                },
-
-                async exportDiary() {
-                    if (!this.words || this.isExporting) return;
-                    this.isExporting = true;
-                    try {
-                        const res = await fetch(`${this.API_URL}/history`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ words: this.words }),
-                        });
-                        const data = await res.json();
-                        const history = data.history || [];
-                        if (!history.length) throw new Error('Keine Einträge');
-
-                        const today = new Date().toISOString().split('T')[0];
-                        let md = `# Glitch — Gesprächstagebuch\n`;
-                        md += `**Identifier:** \`${this.words}\`\n`;
-                        md += `**Exportiert:** ${today}\n`;
-                        md += `**Einträge:** ${history.length}\n\n---\n\n`;
-
-                        let lastDate = null;
-                        for (const msg of history) {
-                            const date = msg.ts ? msg.ts.split('T')[0] : today;
-                            if (date !== lastDate) {
-                                md += `## ${date}\n\n`;
-                                lastDate = date;
-                            }
-                            const role = msg.role === 'user' ? '**Du**' : '**Glitch**';
-                            md += `${role}\n${msg.content}\n\n`;
-                        }
-
-                        md += `---\n_Exportiert aus Glitch — glitch.unwritten.studio_`;
-
-                        const blob = new Blob([md], { type: 'text/markdown' });
-                        const a = document.createElement('a');
-                        a.href = URL.createObjectURL(blob);
-                        a.download = `glitch-tagebuch-${this.words}-${today}.md`;
-                        a.click();
-                        URL.revokeObjectURL(a.href);
-                        this.messages.push({ id: this.messageIdCounter++, role: 'glitch', content: `Tagebuch exportiert — ${history.length} Einträge.` });
-                        this.scrollToBottom();
-                    } catch (err) {
-                        console.error('Diary export error:', err);
-                        const errMsg = err.message || 'Unbekannter Fehler';
-                        this.messages.push({ id: this.messageIdCounter++, role: 'glitch', content: `Tagebuch-Export fehlgeschlagen: ${errMsg}` });
-                    } finally {
-                        this.isExporting = false;
-                    }
-                },
-
-                async exportProgress() {
-                    if (!this.words || this.isExporting) return;
-                    this.isExporting = true;
-                    try {
-                        const res = await fetch(`${this.API_URL}/export`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ words: this.words }),
-                        });
-                        const data = await res.json();
-                        if (!data.markdown) throw new Error('Kein Inhalt');
-                        const blob = new Blob([data.markdown], { type: 'text/markdown' });
-                        const a = document.createElement('a');
-                        a.href = URL.createObjectURL(blob);
-                        a.download = `glitch-lernweg-${this.words}-${new Date().toISOString().split('T')[0]}.md`;
-                        a.click();
-                        URL.revokeObjectURL(a.href);
-                        this.messages.push({ id: this.messageIdCounter++, role: 'glitch', content: 'Dein Lernfortschritt wurde als Markdown-Datei heruntergeladen.' });
-                        this.scrollToBottom();
-                    } catch (err) {
-                        console.error('Export error:', err);
-                        const errMsg = err.message || 'Unbekannter Fehler';
-                        this.messages.push({ id: this.messageIdCounter++, role: 'glitch', content: `Export fehlgeschlagen: ${errMsg}` });
-                    } finally {
-                        this.isExporting = false;
-                    }
-                },
-
-                async useJoker() {
-                    if (!this.words || !this.jokers || this.jokers <= 0 || this.isTyping) return;
-
-                    this.isTyping = true;
-                    this.messages.push({
-                        id: this.messageIdCounter++,
-                        role: 'user',
-                        content: 'Joker eingesetzt — direkte Antwort bitte.',
-                    });
-                    this.scrollToBottom();
-
-                    try {
-                        const res = await fetch(`${this.API_URL}/chat`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                message: 'Joker eingesetzt. Erkläre mir das aktuelle Thema direkt und vollständig.',
-                                words: this.words,
-                                joker: true,
-                            }),
-                        });
-                        const data = await res.json();
-                        if (!res.ok) throw new Error(data.error || 'Fehler');
-
-                        this.isTyping = false;
-                        this.messages.push({ id: this.messageIdCounter++, role: 'glitch', content: data.response });
-
-                        if (data.jokers_remaining !== null && data.jokers_remaining !== undefined) {
-                            this.jokers = data.jokers_remaining;
-                        }
-                        this.scrollToBottom();
-                    } catch (err) {
-                        console.error('Joker error:', err);
-                        this.isTyping = false;
-                        this.messages.push({ id: this.messageIdCounter++, role: 'glitch', content: 'Joker fehlgeschlagen.' });
-                        this.scrollToBottom();
-                    }
-                },
-
-                levelUpHint(level) {
-                    const hints = {
-                        commit: 'Grundlagen sitzen. Weiter.',
-                        merge:  'Du denkst wie ein Entwickler.',
-                        deploy: 'In Production. Prüfungsreif.',
-                    };
-                    return hints[level] || '';
-                },
-
-                scrollToBottom(toResponseStart = false) {
-                    this.$nextTick(() => {
-                        const el = this.$refs.messages;
-                        if (toResponseStart) {
-                            // Scroll to the top of the last glitch message so user reads from beginning
-                            const lastGlitch = el.querySelectorAll('.message.glitch');
-                            const target = lastGlitch[lastGlitch.length - 1];
-                            if (target) {
-                                el.scrollTop = target.offsetTop - el.offsetTop - 20;
-                            } else {
-                                el.scrollTop = el.scrollHeight;
-                            }
-                        } else {
-                            el.scrollTop = el.scrollHeight;
-                        }
-                        // Mobile fix: after iOS keyboard dismissal the window may scroll to footer.
-                        // Wait for keyboard animation, then scroll to show input (block: nearest
-                        // = no-op if already visible, minimal scroll if off-screen).
-                        setTimeout(() => {
-                            if (this.$refs.chatInput) {
-                                this.$refs.chatInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                            }
-                        }, 100);
-                    });
-                },
-
-                toggleFach(fach) {
-                    this.activeFach = this.activeFach === fach ? null : fach;
-                    if (this.openFach.includes(fach)) {
-                        this.openFach = this.openFach.filter(f => f !== fach);
-                    } else {
-                        this.openFach = [...this.openFach, fach];
-                    }
-                },
-
-                insertTopic(topic) {
-                    this.userInput = `Ich hätte gerne Hilfe zu: ${topic}`;
-                    this.$nextTick(() => {
-                        if (this.$refs.chatInput) {
-                            this.$refs.chatInput.focus();
-                            this.$refs.chatInput.style.height = 'auto';
-                            this.$refs.chatInput.style.height = this.$refs.chatInput.scrollHeight + 'px';
-                        }
-                    });
-                },
-            };
-        }
-    </script>
-
-    <!-- Achievements Panel - Collapsible Sidebar -->
-    <div id="achievementsPanel" style="
-        position: fixed;
-        right: 0px;
-        top: 80px;
-        width: 450px;
-        max-height: calc(100vh - 100px);
-        background: linear-gradient(135deg, #f4f5f5 0%, #ffffff 100%);
-        border-left: 2px solid #3987b8;
-        border-bottom: 2px solid #3987b8;
-        padding: 20px;
-        box-shadow: -4px 0 20px rgba(0,0,0,0.1);
-        z-index: 499;
-        overflow-y: auto;
-        transition: right 0.4s ease;
-        border-radius: 0 0 8px 0;
-    ">
-        <div style="height: 100%; display: flex; flex-direction: column;">
-            <!-- Header -->
-            <div style="
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                margin-bottom: 20px;
-                padding-bottom: 15px;
-                border-bottom: 2px solid #e0e0e0;
-            ">
-                <span style="font-size: 20px;">📚</span>
-                <span style="
-                    font-size: 16px;
-                    font-weight: 700;
-                    color: #3e4447;
-                    flex: 1;
-                ">Deine Fortschritte</span>
-                <!-- Close Button -->
-                <button onclick="closeAchievementsPanel()" style="
-                    background: none;
-                    border: none;
-                    font-size: 20px;
-                    cursor: pointer;
-                    padding: 0;
-                    color: #3987b8;
-                    transition: all 0.2s ease;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 30px;
-                    height: 30px;
-                " onmouseover="this.style.color='#2970a0'; this.style.transform='scale(1.1)'" onmouseout="this.style.color='#3987b8'; this.style.transform='scale(1)'" title="Schließen">
-                    ←
-                </button>
-            </div>
-
-            <!-- Progress Summary -->
-            <div style="
-                background: white;
-                padding: 15px;
-                border-radius: 8px;
-                margin-bottom: 20px;
-                border: 2px solid #e0e0e0;
-                display: block;
-            ">
-                <div style="font-size: 12px; color: #999; margin-bottom: 8px; text-transform: uppercase;">Gesamt-Fortschritt</div>
-                <div style="
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                ">
-                    <div style="flex: 1;">
-                        <div id="progressBar" style="
-                            height: 8px;
-                            background: #e0e0e0;
-                            border-radius: 4px;
-                            overflow: hidden;
-                            margin-bottom: 5px;
-                        ">
-                            <div id="progressFill" style="
-                                height: 100%;
-                                background: linear-gradient(90deg, #3987b8, #2ecc71);
-                                width: 0%;
-                                transition: width 0.3s ease;
-                            "></div>
-                        </div>
-                        <div style="font-size: 11px; color: #999;">
-                            <span id="learnedCount">0</span> / <span id="totalCount">0</span> Themen
-                        </div>
-                    </div>
-                    <div style="
-                        font-size: 24px;
-                        font-weight: 700;
-                        color: #3987b8;
-                        min-width: 50px;
-                        text-align: right;
-                    " id="progressPercent">0%</div>
-                </div>
-            </div>
-
-            <!-- Lernfelder mit Konzepten (scrollbar) -->
-            <div id="lfGridExpanded" style="
-                flex: 1;
-                overflow-y: auto;
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-                padding-right: 5px;
-            "></div>
+        <div class="footer">
+            <p>Glitch — Dein Begleiter für zwei Jahre IT-Ausbildung | Unwritten Studio 2026</p>
         </div>
     </div>
 
-    <!-- Open Button (wenn Panel zu) -->
-    <button id="openAchievementsBtn" style="
-        position: fixed;
-        right: 20px;
-        bottom: 30px;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #3987b8, #2970a0);
-        color: white;
-        border: none;
-        font-size: 28px;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(57, 135, 184, 0.3);
-        transition: all 0.3s ease;
-        z-index: 500;
-        display: none;
-        align-items: center;
-        justify-content: center;
-    " onclick="openAchievementsPanel()" title="Lernfortschritt anzeigen">
-        📚
-    </button>
-
     <script>
-        // Achievement Tracking System with Learning Steps
-        const achievements = {
-            LF1: {
-                name: 'IT-Systeme',
-                icon: '💻',
-                topics: [
-                    { id: 'cpu', name: 'CPU & Speicher', learned: false },
-                    { id: 'os', name: 'Betriebssysteme', learned: false },
-                    { id: 'network', name: 'Netzwerk', learned: false }
-                ]
-            },
-            LF2: {
-                name: 'Programmierung',
-                icon: '⚙️',
-                topics: [
-                    { id: 'vars', name: 'Variablen', learned: false },
-                    { id: 'loops', name: 'Schleifen', learned: false },
-                    { id: 'functions', name: 'Funktionen', learned: false },
-                    { id: 'oop', name: 'OOP', learned: false }
-                ]
-            },
-            LF3: {
-                name: 'Datenbanken',
-                icon: '📊',
-                topics: [
-                    { id: 'select', name: 'SELECT', learned: false },
-                    { id: 'joins', name: 'JOINs', learned: false },
-                    { id: 'normalisierung', name: 'Normalisierung', learned: false }
-                ]
-            },
-            LF4: {
-                name: 'Frontend',
-                icon: '🎨',
-                topics: [
-                    { id: 'html', name: 'HTML', learned: false },
-                    { id: 'css', name: 'CSS', learned: false },
-                    { id: 'javascript', name: 'JavaScript', learned: false }
-                ]
-            },
-            LF5: {
-                name: 'Backend',
-                icon: '🔌',
-                topics: [
-                    { id: 'api', name: 'APIs', learned: false },
-                    { id: 'auth', name: 'Auth', learned: false },
-                    { id: 'database', name: 'Datenbankanbindung', learned: false }
-                ]
-            },
-            LF6: { name: 'Web-Sicherheit', icon: '🔒', topics: [
-                { id: 'injection', name: 'SQL Injection', learned: false },
-                { id: 'xss', name: 'XSS', learned: false },
-                { id: 'encryption', name: 'Verschlüsselung', learned: false }
-            ]},
-            LF7: { name: 'Mobile iOS', icon: '🍎', topics: [
-                { id: 'swift', name: 'Swift', learned: false },
-                { id: 'ui', name: 'UI Grundlagen', learned: false }
-            ]},
-            LF8: { name: 'Mobile Android', icon: '🤖', topics: [
-                { id: 'kotlin', name: 'Kotlin', learned: false },
-                { id: 'ui', name: 'UI Grundlagen', learned: false }
-            ]},
-            LF9: { name: 'Cross-Platform', icon: '📱', topics: [
-                { id: 'framework', name: 'Framework', learned: false }
-            ]},
-            LF10: { name: 'Design Patterns', icon: '🏗️', topics: [
-                { id: 'patterns', name: 'Patterns', learned: false }
-            ]},
-            LF11: { name: 'Testing & QA', icon: '✅', topics: [
-                { id: 'testing', name: 'Testing', learned: false }
-            ]},
-            LF12: { name: 'Team-Entwicklung', icon: '👥', topics: [
-                { id: 'git', name: 'Git', learned: false }
-            ]},
-            LF13: { name: 'Enterprise', icon: '🏢', topics: [
-                { id: 'enterprise', name: 'Enterprise', learned: false }
-            ]},
-            LF14: { name: 'Cloud-Native', icon: '☁️', topics: [
-                { id: 'cloud', name: 'Cloud', learned: false }
-            ]},
-            LF15: { name: 'DevOps', icon: '⚡', topics: [
-                { id: 'devops', name: 'DevOps', learned: false }
-            ]},
-            LF16: { name: 'KI & ML', icon: '🧠', topics: [
-                { id: 'ml', name: 'Machine Learning', learned: false }
-            ]},
-            LF17: { name: 'Big Data', icon: '📈', topics: [
-                { id: 'bigdata', name: 'Big Data', learned: false }
-            ]},
-            LF18: { name: 'Embedded & IoT', icon: '🔧', topics: [
-                { id: 'embedded', name: 'Embedded', learned: false }
-            ]}
-        };
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
 
-        // Load achievements from localStorage
-        function loadAchievements() {
-            const saved = localStorage.getItem('glitch_achievements');
-            if (saved) {
-                const data = JSON.parse(saved);
-                Object.assign(achievements, data);
-            }
-            renderAchievements();
+        function selectTopic(topic, description) {
+            messageInput.value = `Ich möchte über "${topic}" lernen: ${description}`;
+            messageInput.focus();
         }
 
-        // Save achievements to localStorage
-        function saveAchievements() {
-            localStorage.setItem('glitch_achievements', JSON.stringify(achievements));
-        }
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
 
-        // Mark learning field or topic as learned (called by Glitch bot)
-        window.markLFAsLearned = function(lfId, topicId) {
-            if (achievements[lfId]) {
-                if (topicId && achievements[lfId].topics) {
-                    // Mark specific topic as learned
-                    const topic = achievements[lfId].topics.find(t => t.id === topicId);
-                    if (topic) {
-                        topic.learned = true;
-                        console.log(`✅ ${lfId}: ${topic.name} - VERSTANDEN!`);
-                    }
-                } else {
-                    // Mark entire learning field as learned
-                    if (achievements[lfId].topics) {
-                        achievements[lfId].topics.forEach(t => t.learned = true);
-                    }
-                    console.log(`✅ ${lfId}: ${achievements[lfId].name} - VOLLSTÄNDIG VERSTANDEN!`);
-                }
-                saveAchievements();
-                renderAchievements();
-            }
-        };
+            // Show user message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'message user';
+            userDiv.textContent = message;
+            chatMessages.appendChild(userDiv);
 
-        // Render achievements panel with topics
-        function renderAchievements() {
-            const gridExpanded = document.getElementById('lfGridExpanded');
-            gridExpanded.innerHTML = '';
+            messageInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            let totalLearned = 0;
-            let totalTopics = 0;
-
-            Object.entries(achievements).forEach(([lfId, data]) => {
-                const card = document.createElement('div');
-                card.style.cssText = `
-                    border-radius: 8px;
-                    background: white;
-                    border: 2px solid #e0e0e0;
-                    padding: 12px;
-                    transition: all 0.3s;
-                    flex-shrink: 0;
-                `;
-
-                const topics = data.topics || [];
-                const learnedTopics = topics.filter(t => t.learned).length;
-                const allLearned = topics.length > 0 && learnedTopics === topics.length;
-
-                totalTopics += topics.length;
-                totalLearned += learnedTopics;
-
-                // Border und Background basierend auf Progress
-                if (allLearned && topics.length > 0) {
-                    card.style.background = '#d4edda';
-                    card.style.borderColor = '#2ecc71';
-                } else if (learnedTopics > 0) {
-                    card.style.background = '#fff3cd';
-                    card.style.borderColor = '#f39c12';
-                }
-
-                let html = `
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-                        <span style="font-size: 18px;">${data.icon}</span>
-                        <span style="font-weight: 700; flex: 1; color: #3e4447; font-size: 13px;">${lfId}</span>
-                        <span style="font-size: 11px; color: #999; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 3px;">
-                            ${learnedTopics}/${topics.length}
-                        </span>
-                    </div>
-                `;
-
-                if (topics.length > 0) {
-                    html += `<div style="display: flex; flex-direction: column; gap: 4px;">`;
-                    topics.forEach(topic => {
-                        const bg = topic.learned ? '#d4edda' : '#f9f9f9';
-                        const color = topic.learned ? '#155724' : '#666';
-                        const checkmark = topic.learned ? '✅' : '○';
-                        html += `
-                            <div style="
-                                display: flex;
-                                align-items: center;
-                                gap: 6px;
-                                padding: 4px;
-                                background: ${bg};
-                                border-radius: 3px;
-                                font-size: 11px;
-                                color: ${color};
-                                cursor: pointer;
-                                transition: all 0.2s;
-                            " onmouseover="this.style.background='#e8f5e9'" onmouseout="this.style.background='${bg}'"
-                               onclick="window.markLFAsLearned('${lfId}', '${topic.id}')">
-                                <span style="min-width: 16px; text-align: center; font-size: 10px;">${checkmark}</span>
-                                <span style="font-weight: 500;">${topic.name}</span>
-                            </div>
-                        `;
-                    });
-                    html += `</div>`;
-                }
-
-                card.innerHTML = html;
-                gridExpanded.appendChild(card);
-            });
-
-            // Update progress bar mit mathematischer Berechnung
-            const percentage = totalTopics > 0 ? Math.round((totalLearned / totalTopics) * 100) : 0;
-            document.getElementById('progressFill').style.width = `${percentage}%`;
-            document.getElementById('progressPercent').textContent = `${percentage}%`;
-            document.getElementById('learnedCount').textContent = totalLearned;
-            document.getElementById('totalCount').textContent = totalTopics;
-        }
-
-        // Open achievements panel
-        function openAchievementsPanel() {
-            const panel = document.getElementById('achievementsPanel');
-            const openBtn = document.getElementById('openAchievementsBtn');
-
-            panel.style.right = '0px';
-            openBtn.style.display = 'none';
-        }
-
-        // Close achievements panel
-        function closeAchievementsPanel() {
-            const panel = document.getElementById('achievementsPanel');
-            const openBtn = document.getElementById('openAchievementsBtn');
-
-            panel.style.right = '-450px';
-            openBtn.style.display = 'flex';
-        }
-
-        // Initialize achievements with ALL TOPICS on page load
-        function initializeAllTopics() {
-            // Ensure ALL topics are in achievements
-            const fullAchievements = {
-                LF1: { name: 'IT-Systeme', icon: '💻', topics: [
-                    { id: 'hardware', name: 'CPU & Speicher', learned: false },
-                    { id: 'os', name: 'Betriebssysteme', learned: false },
-                    { id: 'network', name: 'Netzwerk', learned: false }
-                ]},
-                LF2: { name: 'Programmierung', icon: '⚙️', topics: [
-                    { id: 'variables', name: 'Variablen', learned: false },
-                    { id: 'loops', name: 'Schleifen', learned: false },
-                    { id: 'functions', name: 'Funktionen', learned: false },
-                    { id: 'oop', name: 'OOP', learned: false },
-                    { id: 'error_handling', name: 'Error Handling', learned: false }
-                ]},
-                LF3: { name: 'Datenbanken', icon: '📊', topics: [
-                    { id: 'select', name: 'SELECT', learned: false },
-                    { id: 'joins', name: 'JOINs', learned: false },
-                    { id: 'where', name: 'WHERE', learned: false },
-                    { id: 'insert', name: 'INSERT', learned: false }
-                ]},
-                LF4: { name: 'Frontend', icon: '🎨', topics: [
-                    { id: 'html', name: 'HTML', learned: false },
-                    { id: 'css', name: 'CSS', learned: false },
-                    { id: 'javascript', name: 'JavaScript', learned: false }
-                ]},
-                LF5: { name: 'Backend', icon: '🔌', topics: [
-                    { id: 'api', name: 'APIs', learned: false },
-                    { id: 'auth', name: 'Auth', learned: false },
-                    { id: 'database_connection', name: 'DB Integration', learned: false }
-                ]},
-                LF6: { name: 'Web-Sicherheit', icon: '🔒', topics: [
-                    { id: 'injection', name: 'SQL Injection', learned: false },
-                    { id: 'xss', name: 'XSS', learned: false },
-                    { id: 'encryption', name: 'Verschlüsselung', learned: false }
-                ]},
-                LF7: { name: 'Mobile iOS', icon: '🍎', topics: [
-                    { id: 'swift', name: 'Swift', learned: false },
-                    { id: 'ui_ios', name: 'iOS UI', learned: false }
-                ]},
-                LF8: { name: 'Mobile Android', icon: '🤖', topics: [
-                    { id: 'kotlin', name: 'Kotlin', learned: false },
-                    { id: 'ui_android', name: 'Android UI', learned: false }
-                ]},
-                LF9: { name: 'Cross-Platform', icon: '📱', topics: [
-                    { id: 'framework', name: 'Framework', learned: false }
-                ]},
-                LF10: { name: 'Design Patterns', icon: '🏗️', topics: [
-                    { id: 'patterns', name: 'Patterns', learned: false },
-                    { id: 'solid', name: 'SOLID', learned: false },
-                    { id: 'code_quality', name: 'Code Quality', learned: false }
-                ]},
-                LF11: { name: 'Testing & QA', icon: '✅', topics: [
-                    { id: 'unit_testing', name: 'Unit Tests', learned: false },
-                    { id: 'integration', name: 'Integration', learned: false },
-                    { id: 'tdd', name: 'TDD', learned: false }
-                ]},
-                LF12: { name: 'Team-Entwicklung', icon: '👥', topics: [
-                    { id: 'git', name: 'Git', learned: false },
-                    { id: 'workflows', name: 'Workflows', learned: false },
-                    { id: 'agile', name: 'Agile', learned: false }
-                ]},
-                LF13: { name: 'Enterprise', icon: '🏢', topics: [
-                    { id: 'microservices', name: 'Microservices', learned: false },
-                    { id: 'patterns_ent', name: 'Patterns', learned: false },
-                    { id: 'erp', name: 'ERP', learned: false }
-                ]},
-                LF14: { name: 'Cloud-Native', icon: '☁️', topics: [
-                    { id: 'kubernetes', name: 'Kubernetes', learned: false },
-                    { id: 'docker', name: 'Docker', learned: false },
-                    { id: 'cloud', name: 'Cloud', learned: false }
-                ]},
-                LF15: { name: 'DevOps', icon: '⚡', topics: [
-                    { id: 'cicd', name: 'CI/CD', learned: false },
-                    { id: 'monitoring', name: 'Monitoring', learned: false },
-                    { id: 'iac', name: 'IaC', learned: false }
-                ]},
-                LF16: { name: 'KI & ML', icon: '🧠', topics: [
-                    { id: 'ml', name: 'ML', learned: false },
-                    { id: 'deep_learning', name: 'Deep Learning', learned: false },
-                    { id: 'llms', name: 'LLMs', learned: false },
-                    { id: 'ai_safety', name: 'AI Safety', learned: false }
-                ]},
-                LF17: { name: 'Big Data', icon: '📈', topics: [
-                    { id: 'analysis', name: 'Analysis', learned: false },
-                    { id: 'visualization', name: 'Visualization', learned: false },
-                    { id: 'bigdata', name: 'Big Data', learned: false }
-                ]},
-                LF18: { name: 'Embedded & IoT', icon: '🔧', topics: [
-                    { id: 'arduino', name: 'Arduino', learned: false },
-                    { id: 'raspberry', name: 'Raspberry Pi', learned: false },
-                    { id: 'iot_protocols', name: 'IoT Protocols', learned: false }
-                ]}
-            };
-
-            // Merge with loaded data
-            Object.assign(achievements, fullAchievements);
-            renderAchievements();
-        }
-
-        // Initialize on page load
-        loadAchievements();
-        initializeAllTopics();
-
-        // Set session words in Power Python Module
-        document.addEventListener('DOMContentLoaded', () => {
-            const sessionWords = sessionStorage.getItem('glitch_session_words');
-            if (sessionWords) {
-                window.userSessionWords = sessionWords;
-            }
-        });
-    </script>
-
-    <!-- Power Python Learning Module -->
-    <div id="powerPythonModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000;">
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 95%; height: 95%; background: white; border-radius: 12px; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
-
-            <!-- Header -->
-            <div style="padding: 20px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #3987b8 0%, #2c6b94 100%); color: white; border-radius: 12px 12px 0 0;">
-                <h2 style="margin: 0; font-size: 24px; font-weight: 600;">⚡ Power Python Learning Module</h2>
-                <button onclick="closePowerPython()" style="background: rgba(255,255,255,0.2); border: none; color: white; font-size: 24px; cursor: pointer; padding: 0 10px; border-radius: 4px;">✕</button>
-            </div>
-
-            <!-- Main Content - 2 Columns -->
-            <div style="display: flex; flex: 1; overflow: hidden; gap: 20px; padding: 20px;">
-
-                <!-- LEFT: Code Editor + Terminal -->
-                <div style="flex: 1; display: flex; flex-direction: column; gap: 15px;">
-
-                    <!-- CODE EDITOR -->
-                    <div style="flex: 1; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: #1e1e1e;">
-                        <div style="padding: 10px 15px; background: #2d2d2d; border-bottom: 1px solid #444; color: #888; font-size: 12px; font-weight: 600;">📝 Python Code Editor</div>
-                        <textarea id="pythonCodeEditor" placeholder="Schreibe hier deinen Python Code..." style="flex: 1; padding: 15px; font-family: 'Courier New', monospace; font-size: 14px; background: #1e1e1e; color: #d4d4d4; border: none; resize: none; line-height: 1.6;">#!/usr/bin/env python3
-
-# Beispiel: Hallo Welt
-print("Hallo Python!")
-
-# Versuche deinen Code hier:
-</textarea>
-                    </div>
-
-                    <!-- BUTTON BAR -->
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <button onclick="executePythonCode()" style="flex: 1; padding: 12px 20px; background: #3987b8; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px;">▶ Code Ausführen</button>
-                        <button onclick="clearPythonOutput()" style="padding: 12px 20px; background: #888; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">Clear Output</button>
-                        <button onclick="copyPythonCode()" style="padding: 12px 20px; background: #666; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">📋 Copy</button>
-                    </div>
-
-                    <!-- TERMINAL OUTPUT -->
-                    <div style="flex: 0.7; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: #0d1117;">
-                        <div style="padding: 10px 15px; background: #161b22; border-bottom: 1px solid #30363d; color: #8b949e; font-size: 12px; font-weight: 600;">🖥️ Terminal Output</div>
-                        <pre id="pythonOutput" style="flex: 1; padding: 15px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 13px; color: #79c0ff; margin: 0; white-space: pre-wrap; word-wrap: break-word;">▸ Output wird hier angezeigt...</pre>
-                    </div>
-                </div>
-
-                <!-- RIGHT: Bot Chat Panel -->
-                <div style="flex: 0.6; display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: #f9f9f9;">
-                    <div style="padding: 10px 15px; background: #3987b8; color: white; border-bottom: 1px solid #ddd; font-size: 12px; font-weight: 600;">💬 Power Python Mentor</div>
-
-                    <!-- Chat Messages -->
-                    <div id="powerPythonChat" style="flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px;">
-                        <div style="background: rgba(57, 135, 184, 0.1); padding: 10px 12px; border-radius: 6px; font-size: 13px; color: #3987b8; border-left: 3px solid #3987b8;">
-                            <strong>Glitch Python:</strong> Willkommen im Power Python Modul! Schreib deinen Code links, führe ihn aus und ich helfe dir damit! 🚀
-                        </div>
-                    </div>
-
-                    <!-- Input -->
-                    <div style="padding: 12px; border-top: 1px solid #ddd; display: flex; gap: 8px;">
-                        <input id="powerPythonInput" type="text" placeholder="Frag mich etwas zu deinem Code..." style="flex: 1; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px;">
-                        <button onclick="askPythonMentor()" style="padding: 8px 16px; background: #3987b8; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Send</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <style>
-        /* Power Python Styles */
-        #pythonOutput::-webkit-scrollbar {
-            width: 8px;
-        }
-        #pythonOutput::-webkit-scrollbar-track {
-            background: #161b22;
-        }
-        #pythonOutput::-webkit-scrollbar-thumb {
-            background: #30363d;
-            border-radius: 4px;
-        }
-
-        #pythonCodeEditor::-webkit-scrollbar {
-            width: 8px;
-        }
-        #pythonCodeEditor::-webkit-scrollbar-track {
-            background: #2d2d2d;
-        }
-        #pythonCodeEditor::-webkit-scrollbar-thumb {
-            background: #444;
-            border-radius: 4px;
-        }
-
-        #powerPythonChat::-webkit-scrollbar {
-            width: 8px;
-        }
-        #powerPythonChat::-webkit-scrollbar-track {
-            background: #f9f9f9;
-        }
-        #powerPythonChat::-webkit-scrollbar-thumb {
-            background: #ddd;
-            border-radius: 4px;
-        }
-    </style>
-
-    <script>
-        let userSessionWords = null;
-
-        function glitchChat() {
-            return {
-                activeFach: 'lf1',
-                openFach: [],
-                learningProgress: {},
-                messages: [],
-                userInput: '',
-                words: { word1: '', word2: '', word3: '' },
-                jokers: 3,
-                conversationHistory: [],
-
-                toggleFach(fach) {
-                    if (this.openFach.includes(fach)) {
-                        this.openFach = this.openFach.filter(f => f !== fach);
-                    } else {
-                        this.openFach = [...this.openFach, fach];
-                    }
-                },
-
-                updateProgress(lf, increment) {
-                    const current = this.learningProgress[lf] || 0;
-                    this.learningProgress[lf] = Math.min(100, current + increment);
-                },
-
-                insertTopic(topic) {
-                    this.userInput = topic;
-                    this.sendMessage();
-                },
-
-                async sendMessage() {
-                    if (!this.userInput.trim()) return;
-
-                    this.messages.push({ role: 'user', text: this.userInput });
-                    const message = this.userInput;
-                    this.userInput = '';
-                    this.conversationHistory.push({ role: 'user', content: message });
-
-                    try {
-                        const hostname = window.location.hostname;
-                        const baseUrl = (hostname === 'localhost' || hostname === '127.0.0.1')
-                            ? 'http://localhost:3003'
-                            : '/api/glitch';
-
-                        const response = await fetch(`${baseUrl}/chat`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                message: message,
-                                words: userSessionWords
-                            })
-                        });
-
-                        if (!response.ok) throw new Error('API Error');
-                        const result = await response.json();
-
-                        this.messages.push({
-                            role: 'bot',
-                            text: result.response || 'Fehler bei der Antwort'
-                        });
-
-                        if (result.words_assigned) {
-                            userSessionWords = result.words_assigned;
-                        }
-                        if (result.jokers_remaining !== null) {
-                            this.jokers = result.jokers_remaining;
-                        }
-                    } catch (error) {
-                        this.messages.push({
-                            role: 'error',
-                            text: 'Fehler: ' + error.message
-                        });
-                    }
-                },
-
-                initProgress() {
-                    for (let i = 1; i <= 18; i++) {
-                        this.learningProgress[`lf${i}`] = Math.floor(Math.random() * 40);
-                    }
-                }
-            };
-        }
-
-        function openPowerPython() {
-            document.getElementById('powerPythonModal').style.display = 'flex';
-            document.getElementById('pythonCodeEditor').focus();
-        }
-
-        function closePowerPython() {
-            document.getElementById('powerPythonModal').style.display = 'none';
-        }
-
-        async function executePythonCode() {
-            const code = document.getElementById('pythonCodeEditor').value;
-            const outputDiv = document.getElementById('pythonOutput');
-
-            if (!code.trim()) {
-                outputDiv.textContent = '⚠️ Bitte schreib zuerst Code!';
-                return;
-            }
-
-            outputDiv.textContent = '⏳ Code wird ausgeführt...';
+            // Show loading
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message bot';
+            loadingDiv.textContent = '⏳ Glitch antwortet...';
+            chatMessages.appendChild(loadingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
 
             try {
                 const hostname = window.location.hostname;
                 const baseUrl = (hostname === 'localhost' || hostname === '127.0.0.1')
                     ? 'http://localhost:3003'
                     : '/api/glitch';
-                const response = await fetch(`${baseUrl}/execute-python`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        code: code,
-                        words: userSessionWords
-                    })
-                });
 
-                const result = await response.json();
-
-                if (result.executed) {
-                    outputDiv.textContent = result.output || '✅ Erfolgreich ausgeführt!';
-                    if (result.error) {
-                        outputDiv.style.color = '#ff6b6b';
-                    } else {
-                        outputDiv.style.color = '#79c0ff';
-                    }
-                } else {
-                    outputDiv.textContent = '❌ Fehler:\n' + result.output;
-                    outputDiv.style.color = '#ff6b6b';
-                }
-
-                // Automatisch Bot-Feedback holen
-                setTimeout(() => {
-                    askPythonMentor('Erkläre kurz was dieser Code macht und ob er richtig ist.');
-                }, 500);
-            } catch (err) {
-                outputDiv.textContent = '❌ Verbindungsfehler: ' + err.message;
-                outputDiv.style.color = '#ff6b6b';
-            }
-        }
-
-        function clearPythonOutput() {
-            document.getElementById('pythonOutput').textContent = '';
-        }
-
-        function copyPythonCode() {
-            const code = document.getElementById('pythonCodeEditor').value;
-            navigator.clipboard.writeText(code).then(() => {
-                alert('Code kopiert!');
-            });
-        }
-
-        async function askPythonMentor(question = null) {
-            const input = document.getElementById('powerPythonInput');
-            const chatDiv = document.getElementById('powerPythonChat');
-
-            let message = question || input.value;
-            if (!message.trim()) return;
-
-            // Zeige User-Nachricht
-            const userMsg = document.createElement('div');
-            userMsg.style.cssText = 'background: #3987b8; color: white; padding: 10px 12px; border-radius: 6px; font-size: 13px; margin-left: auto; max-width: 90%;';
-            userMsg.textContent = message;
-            chatDiv.appendChild(userMsg);
-            input.value = '';
-
-            // Zeige Loading
-            const loadingMsg = document.createElement('div');
-            loadingMsg.style.cssText = 'color: #888; font-size: 13px;';
-            loadingMsg.textContent = '⏳ Glitch antwortet...';
-            chatDiv.appendChild(loadingMsg);
-            chatDiv.scrollTop = chatDiv.scrollHeight;
-
-            try {
-                const hostname = window.location.hostname;
-                const baseUrl = (hostname === 'localhost' || hostname === '127.0.0.1')
-                    ? 'http://localhost:3003'
-                    : '/api/glitch';
                 const response = await fetch(`${baseUrl}/chat`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         message: message,
-                        words: userSessionWords
+                        words: sessionStorage.getItem('glitch_session_words') || 'user.session'
                     })
                 });
 
+                chatMessages.removeChild(loadingDiv);
+
+                if (!response.ok) throw new Error('API Fehler');
                 const result = await response.json();
 
-                // Entferne Loading
-                chatDiv.removeChild(loadingMsg);
+                const botDiv = document.createElement('div');
+                botDiv.className = 'message bot';
+                botDiv.innerHTML = '<strong>Glitch:</strong> ' + (result.response || 'Fehler bei der Verarbeitung');
+                chatMessages.appendChild(botDiv);
 
-                // Zeige Bot-Antwort
-                const botMsg = document.createElement('div');
-                botMsg.style.cssText = 'background: rgba(57, 135, 184, 0.1); padding: 10px 12px; border-radius: 6px; font-size: 13px; color: #3987b8; border-left: 3px solid #3987b8;';
-                botMsg.innerHTML = '<strong>Glitch:</strong> ' + (result.response || 'Fehler bei der Antwort');
-                chatDiv.appendChild(botMsg);
-                chatDiv.scrollTop = chatDiv.scrollHeight;
-            } catch (err) {
-                chatDiv.removeChild(loadingMsg);
-                const errMsg = document.createElement('div');
-                errMsg.style.cssText = 'color: #ff6b6b; font-size: 13px;';
-                errMsg.textContent = '❌ Fehler: ' + err.message;
-                chatDiv.appendChild(errMsg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            } catch (error) {
+                chatMessages.removeChild(loadingDiv);
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'message bot';
+                errorDiv.textContent = '❌ Fehler: ' + error.message;
+                chatMessages.appendChild(errorDiv);
             }
         }
-
-        // Set session words wenn verfügbar
-        document.addEventListener('DOMContentLoaded', () => {
-            userSessionWords = sessionStorage.getItem('glitch_session_words') || 'demo.user.session';
-        });
     </script>
-
 </body>
 </html>
