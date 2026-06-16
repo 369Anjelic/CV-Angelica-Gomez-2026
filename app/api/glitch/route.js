@@ -1,66 +1,135 @@
-// Glitch API Route - Learning Bot for IHK Exam
+// Glitch API - KI Learning Bot für IHK Prüfung
 export async function POST(request) {
   try {
     const body = await request.json();
-    const url = new URL(request.url);
-    const action = url.searchParams.get('action') || 'chat';
+    const pathname = new URL(request.url).pathname;
+    const endpoint = pathname.split('/').pop() || 'chat';
 
-    if (action === 'chat') {
-      const { message, words } = body;
-      const apiKey = process.env.ANTHROPIC_API_KEY;
+    console.log(`[Glitch API] ${endpoint}`, { body });
 
-      if (!apiKey) {
-        return Response.json({
-          response: 'Glitch: API-Schlüssel nicht konfiguriert!',
-          error: 'API key missing',
-        }, { status: 503 });
-      }
-
-      try {
-        const { default: Anthropic } = await import('@anthropic-ai/sdk');
-        const client = new Anthropic({ apiKey });
-
-        const completion = await client.messages.create({
-          model: 'claude-opus-4-7',
-          max_tokens: 300,
-          system: 'Du bist Glitch, ein KI-Lernbegleiter für Fachinformatiker-Prüfung (IHK). Stelle Fragen.',
-          messages: [{ role: 'user', content: message }],
-        });
-
-        const text = completion.content[0]?.text || 'Fehler';
-
-        return Response.json({
-          response: text,
-          words_assigned: words ? null : generateWords(),
-          status: 'ok',
-        });
-      } catch (error) {
-        return Response.json({
-          response: 'Glitch: KI-Verbindung fehlgeschlagen',
-          error: error.message,
-        }, { status: 500 });
-      }
+    // Route basierend auf Endpoint
+    switch (endpoint) {
+      case 'chat':
+        return handleChat(body);
+      case 'identify':
+        return handleIdentify(body);
+      case 'history':
+        return handleHistory(body);
+      case 'export':
+        return handleExport(body);
+      default:
+        return Response.json(
+          { error: `Unknown endpoint: ${endpoint}` },
+          { status: 404 }
+        );
     }
-
-    if (action === 'identify') {
-      return Response.json({ found: false });
-    }
-
-    if (action === 'history') {
-      return Response.json({ history: [] });
-    }
-
-    return Response.json({ error: 'Unknown action' }, { status: 400 });
   } catch (error) {
-    console.error('[Glitch API]', error);
-    return Response.json({ error: 'Internal error' }, { status: 500 });
+    console.error('[Glitch API Error]', error);
+    return Response.json(
+      { error: error.message || 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
 
+async function handleChat(body) {
+  const { message, words } = body;
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+
+  console.log('[Glitch Chat]', { message: message?.substring(0, 30), words, apiKey: !!apiKey });
+
+  if (!apiKey) {
+    return Response.json(
+      {
+        response: 'Glitch: Fehler - API-Schlüssel nicht konfiguriert! Starte den lokalen Server mit `npm run dev`.',
+        error: 'API_KEY_MISSING',
+      },
+      { status: 503 }
+    );
+  }
+
+  try {
+    // Import Anthropic SDK
+    const { default: Anthropic } = await import('@anthropic-ai/sdk');
+    const client = new Anthropic({ apiKey });
+
+    // Create message with Claude
+    const completion = await client.messages.create({
+      model: 'claude-opus-4-7',
+      max_tokens: 300,
+      system: `Du bist Glitch, ein KI-Lernbegleiter für Fachinformatiker-Azubis (Anwendungsentwicklung).
+Du hilfst bei der Vorbereitung auf die IHK-Prüfung.
+- Stelle Fragen statt Antworten zu geben
+- Leite zum eigenen Denken an
+- Sei unterstützend aber fordernd
+- Kurze, prägnante Antworten (max 3-4 Sätze)`,
+      messages: [
+        {
+          role: 'user',
+          content: message,
+        },
+      ],
+    });
+
+    // Extract response
+    const responseText =
+      completion.content[0]?.type === 'text'
+        ? completion.content[0].text
+        : 'Glitch: Fehler beim Verarbeiten';
+
+    console.log('[Glitch Chat] Success');
+
+    return Response.json(
+      {
+        response: responseText,
+        words_assigned: words ? null : generateWords(),
+        level_up: null,
+        jokers_remaining: 3,
+        learned_lf: null,
+        learned_topic: null,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('[Glitch Chat Error]', error.message);
+    return Response.json(
+      {
+        response: `Glitch: Fehler - ${error.message}`,
+        error: error.message,
+      },
+      { status: 500 }
+    );
+  }
+}
+
+function handleIdentify(body) {
+  const { words } = body;
+  console.log('[Glitch Identify]', words);
+  return Response.json({ found: false }, { status: 200 });
+}
+
+function handleHistory(body) {
+  const { words } = body;
+  console.log('[Glitch History]', words);
+  return Response.json({ history: [] }, { status: 200 });
+}
+
+function handleExport(body) {
+  const { words } = body;
+  console.log('[Glitch Export]', words);
+  return Response.json(
+    {
+      markdown: `# Glitch Lernfortschritt\n\nNutzer: ${words || 'unknown'}\n\nAuf Vercel keine lokalen Daten. Nutze http://localhost:3003 für vollständige Funktion.`,
+    },
+    { status: 200 }
+  );
+}
+
 function generateWords() {
-  const words = ['kernel', 'deploy', 'merge', 'commit', 'draft'];
-  return words
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 3)
-    .join('.');
+  const words = ['kernel', 'deploy', 'merge', 'commit', 'draft', 'cache', 'stack', 'queue', 'heap', 'node'];
+  return [
+    words[Math.floor(Math.random() * words.length)],
+    words[Math.floor(Math.random() * words.length)],
+    words[Math.floor(Math.random() * words.length)],
+  ].join('.');
 }
