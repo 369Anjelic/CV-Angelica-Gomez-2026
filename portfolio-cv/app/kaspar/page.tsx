@@ -1,1 +1,1 @@
-export { default } from '@/components/KasparGame';
+export { default } from '../components/KasparGame';
