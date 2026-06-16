@@ -4,7 +4,8 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const hostname = process.env.VERCEL ? 'vercel' : 'localhost';
+    const isVercel = process.env.VERCEL === '1';
+    const hostname = isVercel ? 'vercel' : 'localhost';
 
     // On localhost, proxy to the local server
     if (hostname === 'localhost' || process.env.NODE_ENV === 'development') {
