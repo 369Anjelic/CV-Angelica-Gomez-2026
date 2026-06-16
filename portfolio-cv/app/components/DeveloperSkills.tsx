@@ -224,7 +224,7 @@ accuracy = model.score(X_test, y_test)`,
   {
     name: 'Python Programming',
     category: 'Programmierung & Web',
-    level: 50,
+    level: 25,
     codeExample: `# Python für Machine Learning & Data Science
 import pandas as pd
 import numpy as np
@@ -237,19 +237,19 @@ X_scaled = scaler.fit_transform(X)`,
     description: 'Machine Learning, Data Science, Backend Development, Data Analysis',
   },
   {
-    name: 'Full-Stack Web Development',
+    name: 'Full-Stack Web Development with AI',
     category: 'Programmierung & Web',
     level: 48,
-    codeExample: `// Full-Stack API Integration
+    codeExample: `// Full-Stack API Integration with AI
 import axios from 'axios';
 
 export async function createBackendConnection() {
   const response = await axios.post('/api/data', {
-    payload: {userId: 123, data: 'value'}
+    payload: {userId: 123, data: 'value', aiModel: 'claude'}
   });
   return response.data;
 }`,
-    description: 'HTML, Next.js, Full-Stack API-Integration, Backend Development, Website-Erstellung mit KI',
+    description: 'HTML, Next.js, Full-Stack API-Integration with AI, Backend Development, Website-Erstellung mit KI',
   },
   {
     name: 'AI Agents & LLMs',

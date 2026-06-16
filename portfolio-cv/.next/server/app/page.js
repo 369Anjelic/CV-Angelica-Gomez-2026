@@ -110,7 +110,7 @@ from sklearn.ensemble import RandomForestClassifier
 X_train, X_test, y_train, y_test = train_test_split(X, y)
 model = RandomForestClassifier()
 model.fit(X_train, y_train)
-accuracy = model.score(X_test, y_test)`,description:"ML Models, Python Scikit-learn, Data Analysis, Predictions"},{name:"Python Programming",category:"Programmierung & Web",level:50,codeExample:`# Python f\xfcr Machine Learning & Data Science
+accuracy = model.score(X_test, y_test)`,description:"ML Models, Python Scikit-learn, Data Analysis, Predictions"},{name:"Python Programming",category:"Programmierung & Web",level:25,codeExample:`# Python f\xfcr Machine Learning & Data Science
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
@@ -118,15 +118,15 @@ from sklearn.preprocessing import StandardScaler
 df = pd.read_csv('data.csv')
 X = df.iloc[:, :-1].values
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)`,description:"Machine Learning, Data Science, Backend Development, Data Analysis"},{name:"Full-Stack Web Development",category:"Programmierung & Web",level:48,codeExample:`// Full-Stack API Integration
+X_scaled = scaler.fit_transform(X)`,description:"Machine Learning, Data Science, Backend Development, Data Analysis"},{name:"Full-Stack Web Development with AI",category:"Programmierung & Web",level:48,codeExample:`// Full-Stack API Integration with AI
 import axios from 'axios';
 
 export async function createBackendConnection() {
   const response = await axios.post('/api/data', {
-    payload: {userId: 123, data: 'value'}
+    payload: {userId: 123, data: 'value', aiModel: 'claude'}
   });
   return response.data;
-}`,description:"HTML, Next.js, Full-Stack API-Integration, Backend Development, Website-Erstellung mit KI"},{name:"AI Agents & LLMs",category:"KI-Integration",level:55,codeExample:`// Claude AI mit LangChain
+}`,description:"HTML, Next.js, Full-Stack API-Integration with AI, Backend Development, Website-Erstellung mit KI"},{name:"AI Agents & LLMs",category:"KI-Integration",level:55,codeExample:`// Claude AI mit LangChain
 from langchain.llms import Anthropic
 from langchain.chains import ConversationChain
 
