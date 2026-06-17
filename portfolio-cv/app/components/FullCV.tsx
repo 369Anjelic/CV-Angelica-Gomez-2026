@@ -268,36 +268,12 @@ export default function FullCV() {
             </h2>
 
             <div style={{ marginBottom: '20px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 'bold', margin: '0 0 8px 0', color: '#000' }}>Programmierung & Web Development</h3>
-              <p style={{ margin: '0 0 4px 0' }}>Python (Machine Learning, Data Science, Backend)</p>
-              <p style={{ margin: '0 0 4px 0' }}>HTML, Next.js</p>
-              <p style={{ margin: '0 0 4px 0' }}>Full-Stack API-Integration, Backend Development</p>
-              <p style={{ margin: '0' }}>Websitenerstellung mit KI</p>
-            </div>
-
-            <div style={{ marginBottom: '20px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 'bold', margin: '0 0 8px 0', color: '#000' }}>AI & Machine Learning</h3>
-              <p style={{ margin: '0 0 4px 0' }}>Claude AI, LangChain, Transformers</p>
-              <p style={{ margin: '0 0 4px 0' }}>Machine Learning, Deep Learning, NLP</p>
-              <p style={{ margin: '0 0 4px 0' }}>Hugging Face, OpenAI APIs, Large Language Models (LLMs)</p>
-              <p style={{ margin: '0 0 4px 0' }}>Regression, Klassifikation, Neuronale Netze</p>
-              <p style={{ margin: '0' }}>Data Science, Datenanalyse</p>
-            </div>
-
-            <div style={{ marginBottom: '20px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 'bold', margin: '0 0 8px 0', color: '#000' }}>AI Automation & Integration</h3>
-              <p style={{ margin: '0 0 4px 0' }}>n8n (Workflow Automation)</p>
-              <p style={{ margin: '0 0 4px 0' }}>Retell AI (Voice Agent)</p>
-              <p style={{ margin: '0 0 4px 0' }}>MCP (Model Context Protocol)</p>
-              <p style={{ margin: '0' }}>KI-Agentur-Entwicklung</p>
-            </div>
-
-            <div style={{ marginBottom: '20px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 'bold', margin: '0 0 8px 0', color: '#000' }}>Version Control & Developer Tools</h3>
-              <p style={{ margin: '0 0 4px 0' }}>GitHub, Git (Version Control)</p>
-              <p style={{ margin: '0 0 4px 0' }}>Visual Studio Code, Android Studio</p>
-              <p style={{ margin: '0 0 4px 0' }}>PyCharm IDE, Vercel Deployment</p>
-              <p style={{ margin: '0' }}>Obsidian (Knowledge Management)</p>
+              <h3 style={{ fontSize: '14px', fontWeight: 'bold', margin: '0 0 8px 0', color: '#000' }}>Software-Kenntnisse</h3>
+              <p style={{ margin: '0 0 4px 0' }}>Claude Code</p>
+              <p style={{ margin: '0 0 4px 0' }}>Windows + Microsoft</p>
+              <p style={{ margin: '0 0 4px 0' }}>Python</p>
+              <p style={{ margin: '0 0 4px 0' }}>Visual Studio</p>
+              <p style={{ margin: '0' }}>HTML, CSS, Java</p>
             </div>
           </div>
         )}
