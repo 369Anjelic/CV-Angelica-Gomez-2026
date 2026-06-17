@@ -3,9 +3,10 @@
 import { useState } from 'react';
 
 export default function FullCV() {
-  const [activeTab, setActiveTab] = useState('beruf');
+  const [activeTab, setActiveTab] = useState('anschreiben');
 
   const tabs = [
+    { id: 'anschreiben', label: 'Anschreiben' },
     { id: 'beruf', label: 'Berufserfahrung' },
     { id: 'ausbildung', label: 'Schulische Ausbildung' },
     { id: 'zusatz', label: 'Zusatzqualifikationen' },
@@ -16,18 +17,18 @@ export default function FullCV() {
     { id: 'hobbies', label: 'Hobbies' },
   ];
 
-  const tabStyle = {
+  const getTabStyle = (tabId) => ({
     padding: '12px 24px',
     border: 'none',
-    backgroundColor: activeTab === 'beruf' ? '#3987b8' : '#e0e0e0',
-    color: activeTab === 'beruf' ? '#fff' : '#333',
+    backgroundColor: activeTab === tabId ? '#3987b8' : '#f0f0f0',
+    color: activeTab === tabId ? '#fff' : '#333',
     cursor: 'pointer',
     fontSize: '14px',
     fontWeight: 'bold',
     borderRadius: '4px 4px 0 0',
     marginRight: '8px',
     transition: 'all 0.3s',
-  };
+  });
 
   return (
     <section style={{
@@ -104,6 +105,48 @@ export default function FullCV() {
 
       {/* Content */}
       <div style={{ minHeight: '300px', fontSize: '13px', lineHeight: '1.8' }}>
+
+        {/* ANSCHREIBEN */}
+        {activeTab === 'anschreiben' && (
+          <div>
+            <h2 style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 20px 0', color: '#3987b8' }}>
+              Bewerbung als Quereinsteigerin als Softwareentwicklerin
+            </h2>
+
+            <div style={{ marginBottom: '24px', backgroundColor: '#f9f9f9', padding: '16px', borderRadius: '4px', borderLeft: '4px solid #3987b8' }}>
+              <p style={{ margin: '0 0 12px 0', fontWeight: 'bold', fontSize: '14px' }}>Motivation & Leidenschaft</p>
+              <p style={{ margin: '0 0 12px 0' }}>
+                Ich möchte nicht isoliert Code schreiben, sondern eng mit echten Kunden zusammenarbeiten und ihre Probleme verstehen. Das "Teams as a Service"-Modell begeistert mich daher sehr. Besonders hat mich das KI-Projekt Vectorsphere darin bestärkt, dass meine Eigenschaften und Fähigkeiten hervorragend zu einem innovativen Team passen. Zu den beschriebenen Aha-Momenten möchte ich in zukünftigen Projekten aktiv beitragen – insbesondere durch meine Erfahrung mit KI, API-Integrationen und meine ausgeprägte Kommunikationsstärke.
+              </p>
+            </div>
+
+            <div style={{ marginBottom: '24px' }}>
+              <h3 style={{ fontSize: '14px', fontWeight: 'bold', margin: '0 0 12px 0', color: '#3987b8' }}>Meine Fachkompetenzen</h3>
+              <p style={{ margin: '0 0 12px 0' }}>
+                Mit meinem Wissen in Python und Machine Learning sowie meiner Erfahrung mit LLM-APIs kann ich in Projekten wie Vectorsphere schnell produktiv werden und KI-Integrationen entwickeln, die echten Mehrwert schaffen. Als Lern-Bot-Spezialistin bei Unwritten habe ich Projekte von der Konzeptionsphase bis zum produktionsreifen Launch begleitet – inklusive Feature-Architektur, Teamkoordination, Testing und Deployment. Diese Erfahrung stellt eine wertvolle Ergänzung für Ihr Team dar.
+              </p>
+              <p style={{ margin: '0 0 12px 0' }}>
+                Durch meine Selbstständigkeit als Goldschmiedin und Videografin habe ich ein hohes Maß an Präzision und Kreativität entwickelt, das ich gezielt in die IT-Welt einbringe. Mit meinem analytischen Denken erkenne ich Zusammenhänge, die andere oft übersehen. Dies habe ich unter anderem im Projekt Kaspar-Hauser-Chatbot bewiesen, bei dem ich nicht nur Features umgesetzt, sondern auch die gesamte Feature-Architektur neu konzipiert habe.
+              </p>
+            </div>
+
+            <div style={{ marginBottom: '24px' }}>
+              <h3 style={{ fontSize: '14px', fontWeight: 'bold', margin: '0 0 12px 0', color: '#3987b8' }}>Meine Charakterstärken</h3>
+              <p style={{ margin: '0 0 12px 0' }}>
+                Ich arbeite gerne mit Menschen zusammen, hole sie auf ihrem Standpunkt ab und entwickle gemeinsam mit ihnen sinnvolle Lösungen. Mit meinem Hyperfokus kann ich mich intensiv auf Aufgaben und Projekte konzentrieren. Dabei setze ich mir eigenständig SMART-Ziele und löse Probleme hartnäckig durch Trial-and-Error.
+              </p>
+              <p style={{ margin: '0 0 12px 0' }}>
+                Meine Begeisterungsfähigkeit sowie meine Sprachkenntnisse (Deutsch und Spanisch als Muttersprache, Englisch B2) machen mich zu einer starken Brückenbauerin zwischen verschiedenen Stakeholdern. Ich habe mich bewusst für Ihr Unternehmen entschieden, da Ihre Philosophie, Ihre Projekte und Ihre Unternehmenskultur hervorragend zu meinen Werten passen.
+              </p>
+            </div>
+
+            <div style={{ marginBottom: '24px', backgroundColor: '#e8f4f8', padding: '16px', borderRadius: '4px' }}>
+              <p style={{ margin: '0', fontStyle: 'italic', color: '#333' }}>
+                Ich freue mich auf ein persönliches Gespräch, in dem ich Ihnen zeigen kann, dass ich den richtigen Code mitbringe.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* BERUFSERFAHRUNG */}
         {activeTab === 'beruf' && (
