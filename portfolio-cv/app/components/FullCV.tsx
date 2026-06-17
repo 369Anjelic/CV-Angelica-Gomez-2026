@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import DeveloperSkills from './DeveloperSkills';
 
 export default function FullCV() {
   const [activeTab, setActiveTab] = useState('beruf');
@@ -219,20 +220,7 @@ export default function FullCV() {
 
         {/* SKILLS */}
         {activeTab === 'skills' && (
-          <div>
-            <h2 style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 20px 0', color: '#3987b8' }}>
-              Fachliche Skills
-            </h2>
-
-            <div style={{ marginBottom: '20px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 'bold', margin: '0 0 8px 0', color: '#000' }}>Software-Kenntnisse</h3>
-              <p style={{ margin: '0 0 4px 0' }}>Claude Code</p>
-              <p style={{ margin: '0 0 4px 0' }}>Windows + Microsoft</p>
-              <p style={{ margin: '0 0 4px 0' }}>Python</p>
-              <p style={{ margin: '0 0 4px 0' }}>Visual Studio</p>
-              <p style={{ margin: '0' }}>HTML, CSS, Java</p>
-            </div>
-          </div>
+          <DeveloperSkills />
         )}
 
         {/* KOMPETENZEN */}
