@@ -20,14 +20,7 @@
       "static/chunks/fd9d1056-3eee857bde8f3b06.js",
       "static/chunks/117-29466efefd806f9c.js",
       "static/chunks/main-app-a1988e63c2ab70d2.js",
-      "static/chunks/app/fly/page-230d7a22e4777d03.js"
-    ],
-    "/kaspar/page": [
-      "static/chunks/webpack-c81f7fd28659d64f.js",
-      "static/chunks/fd9d1056-3eee857bde8f3b06.js",
-      "static/chunks/117-29466efefd806f9c.js",
-      "static/chunks/main-app-a1988e63c2ab70d2.js",
-      "static/chunks/app/kaspar/page-f6ce0989f8263c85.js"
+      "static/chunks/app/fly/page-9b38b2a7a4a0916f.js"
     ],
     "/glitch/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",
@@ -43,19 +36,26 @@
       "static/chunks/main-app-a1988e63c2ab70d2.js",
       "static/chunks/app/moi/page-11b216bef65c4b04.js"
     ],
-    "/page": [
+    "/kaspar/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",
       "static/chunks/fd9d1056-3eee857bde8f3b06.js",
       "static/chunks/117-29466efefd806f9c.js",
       "static/chunks/main-app-a1988e63c2ab70d2.js",
-      "static/chunks/app/page-b6fed97b6e291609.js"
+      "static/chunks/app/kaspar/page-f6ce0989f8263c85.js"
     ],
     "/project/[...path]/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",
       "static/chunks/fd9d1056-3eee857bde8f3b06.js",
       "static/chunks/117-29466efefd806f9c.js",
       "static/chunks/main-app-a1988e63c2ab70d2.js",
-      "static/chunks/app/project/[...path]/page-de0f9f53ec5cec89.js"
+      "static/chunks/app/project/[...path]/page-82697757b5da0711.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-3eee857bde8f3b06.js",
+      "static/chunks/117-29466efefd806f9c.js",
+      "static/chunks/main-app-a1988e63c2ab70d2.js",
+      "static/chunks/app/page-b0736664d5739419.js"
     ],
     "/projects/[id]/page": [
       "static/chunks/webpack-c81f7fd28659d64f.js",

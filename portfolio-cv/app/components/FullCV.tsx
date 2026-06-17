@@ -17,18 +17,6 @@ export default function FullCV() {
     { id: 'hobbies', label: 'Hobbies' },
   ];
 
-  const getTabStyle = (tabId) => ({
-    padding: '12px 24px',
-    border: 'none',
-    backgroundColor: activeTab === tabId ? '#3987b8' : '#f0f0f0',
-    color: activeTab === tabId ? '#fff' : '#333',
-    cursor: 'pointer',
-    fontSize: '14px',
-    fontWeight: 'bold',
-    borderRadius: '4px 4px 0 0',
-    marginRight: '8px',
-    transition: 'all 0.3s',
-  });
 
   return (
     <section style={{
@@ -93,9 +81,16 @@ export default function FullCV() {
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             style={{
-              ...tabStyle,
+              padding: '12px 24px',
+              border: 'none',
               backgroundColor: activeTab === tab.id ? '#3987b8' : '#f0f0f0',
               color: activeTab === tab.id ? '#fff' : '#333',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: 'bold',
+              borderRadius: '4px 4px 0 0',
+              marginRight: '8px',
+              transition: 'all 0.3s',
             }}
           >
             {tab.label}
