@@ -356,12 +356,9 @@ export default function DeveloperSkills() {
 
   return (
     <section style={{ maxWidth: '1200px', margin: '60px auto', padding: '40px 20px' }}>
-      <h2 style={{ fontSize: '32px', marginBottom: '10px', color: '#3987b8' }}>
-        💻 Developer Skills & Code Knowledge
+      <h2 style={{ fontSize: '32px', marginBottom: '30px', color: '#3987b8' }}>
+        Fachlicheskills
       </h2>
-      <p style={{ color: '#666', marginBottom: '30px', fontSize: '16px' }}>
-        Praktische Skills für Anwendungsentwicklung mit Code-Beispielen
-      </p>
 
       {/* Category Filter */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '30px' }}>
