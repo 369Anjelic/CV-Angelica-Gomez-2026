@@ -11,7 +11,7 @@ export default function FullCV() {
     { id: 'ausbildung', label: 'Schulische Ausbildung' },
     { id: 'zusatz', label: 'Zusatzqualifikationen' },
     { id: 'skills', label: 'Fachliche Skills' },
-    { id: 'kompetenzen', label: 'Zusatz Kompetenzen' },
+    { id: 'kompetenzen', label: 'Zusatzkompetenzen' },
     { id: 'softskills', label: 'Softskills' },
     { id: 'sprachen', label: 'Sprachen' },
     { id: 'hobbies', label: 'Hobbies' },
@@ -227,7 +227,7 @@ export default function FullCV() {
         {activeTab === 'kompetenzen' && (
           <div>
             <h2 style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 20px 0', color: '#3987b8' }}>
-              Zusatz Kompetenzen
+              Zusatzkompetenzen
             </h2>
 
             <div style={{ marginBottom: '20px' }}>
